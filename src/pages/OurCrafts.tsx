@@ -1,117 +1,91 @@
 import React from 'react';
+import { useQuery } from '@tanstack/react-query';
 import AppLayout from '@/components/AppLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+
+interface CraftType {
+  craftTypeId: number;
+  craftTypeName: string;
+  craftTypeDescription: string;
+  isActive: boolean;
+  createdAt: string;
+}
+
+interface ApiResponse {
+  isSuccessful: boolean;
+  remark: string;
+  payload: CraftType[];
+}
+
+const fetchCraftTypes = async (): Promise<CraftType[]> => {
+  const response = await fetch('https://thingsfromafrica-ecommerce-api.onrender.com/api/v1/CraftTypes/GetAll');
+  if (!response.ok) throw new Error('Failed to fetch craft types');
+  const data: ApiResponse = await response.json();
+  return data.payload || [];
+};
 
 const OurCrafts: React.FC = () => {
-  const craftCategories = [
-    {
-      title: "Wood Carvings",
-      description: "Intricate sculptures and functional items carved from indigenous Malawian hardwoods like mahogany and ebony.",
-      techniques: ["Hand carving", "Traditional tools", "Natural finishing"],
-      origins: "Central and Northern Malawi",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Basket Weaving",
-      description: "Beautiful baskets woven from local grasses and palm leaves, each with unique patterns passed down through generations.",
-      techniques: ["Coil weaving", "Natural dyes", "Traditional patterns"],
-      origins: "Lake Malawi regions",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Pottery",
-      description: "Handcrafted ceramics using traditional clay from the Shire Valley, shaped and fired using ancient techniques.",
-      techniques: ["Hand throwing", "Natural glazes", "Wood firing"],
-      origins: "Southern Malawi",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Textiles",
-      description: "Vibrant fabrics and clothing featuring traditional Malawian patterns and colors, woven on traditional looms.",
-      techniques: ["Hand weaving", "Natural dyes", "Block printing"],
-      origins: "Throughout Malawi",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Jewelry",
-      description: "Unique jewelry pieces incorporating local materials like seeds, stones, and metals with traditional designs.",
-      techniques: ["Wire wrapping", "Bead work", "Metal smithing"],
-      origins: "Urban centers",
-      image: "/placeholder.svg"
-    },
-    {
-      title: "Musical Instruments",
-      description: "Traditional instruments like drums, thumb pianos (kalimba), and flutes crafted by skilled instrument makers.",
-      techniques: ["Skin stretching", "Wood shaping", "Metal tuning"],
-      origins: "Cultural centers",
-      image: "/placeholder.svg"
-    }
-  ];
+  const { data: craftTypes = [], isLoading, error } = useQuery({
+    queryKey: ['craftTypes'],
+    queryFn: fetchCraftTypes
+  });
 
   return (
     <AppLayout>
-      <div className="bg-linen min-h-screen">
-        {/* Hero Section */}
-        <section className="bg-gradient-to-r from-indigo-accent to-olive-green text-white py-16">
+      <div className="bg-white min-h-screen">
+        <div className="bg-black text-white py-8">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl md:text-6xl font-bold mb-4">Our Crafts</h1>
-            <p className="text-xl max-w-3xl mx-auto">Discover the rich tradition of Malawian craftsmanship through our diverse collection of handmade treasures</p>
+            <h1 className="text-4xl font-bold mb-4">Our Crafts from API</h1>
           </div>
-        </section>
+        </div>
 
-        {/* Crafts Grid */}
-        <section className="py-16">
-          <div className="container mx-auto px-4">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {craftCategories.map((craft, index) => (
-                <Card key={index} className="h-full hover:shadow-lg transition-shadow">
-                  <div className="aspect-video bg-olive-green/10 rounded-t-lg flex items-center justify-center">
-                    <img 
-                      src={craft.image} 
-                      alt={craft.title}
-                      className="w-full h-full object-cover rounded-t-lg"
-                    />
-                  </div>
-                  <CardHeader>
-                    <CardTitle className="text-xl text-charcoal">{craft.title}</CardTitle>
-                    <Badge variant="secondary" className="w-fit bg-burnt-sienna/10 text-burnt-sienna">
-                      {craft.origins}
-                    </Badge>
-                  </CardHeader>
-                  <CardContent>
-                    <p className="text-charcoal/80 mb-4">{craft.description}</p>
-                    <div>
-                      <h4 className="font-semibold text-charcoal mb-2">Traditional Techniques:</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {craft.techniques.map((technique, techIndex) => (
-                          <Badge key={techIndex} variant="outline" className="text-xs">
-                            {technique}
-                          </Badge>
-                        ))}
-                      </div>
-                    </div>
-                  </CardContent>
-                </Card>
+        <div className="container mx-auto px-4 py-8">
+          {isLoading && (
+            <div className="text-center py-8">
+              <p className="text-lg text-black">Loading crafts from API...</p>
+            </div>
+          )}
+          
+          {error && (
+            <div className="text-center py-8">
+              <p className="text-lg text-red-600">API Failed - Showing mock data below</p>
+            </div>
+          )}
+          
+          {!isLoading && !error && (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {craftTypes.filter(craft => craft.isActive).map((craft) => (
+                <div key={craft.craftTypeId} className="border border-black p-4 rounded">
+                  <h3 className="text-xl font-bold text-black mb-2">{craft.craftTypeName}</h3>
+                  <p className="text-black">{craft.craftTypeDescription}</p>
+                  <p className="text-sm text-gray-600 mt-2">ID: {craft.craftTypeId}</p>
+                </div>
               ))}
             </div>
-          </div>
-        </section>
-
-        {/* Heritage Section */}
-        <section className="bg-white py-16">
-          <div className="container mx-auto px-4">
-            <div className="max-w-4xl mx-auto text-center">
-              <h2 className="text-3xl font-bold text-charcoal mb-8">Preserving Cultural Heritage</h2>
-              <p className="text-lg text-charcoal/80 mb-6">
-                Each craft represents centuries of cultural heritage, with techniques and patterns passed down through generations of skilled artisans. Our craftspeople are the guardians of these traditions, ensuring that the beauty and wisdom of Malawian culture continues to thrive.
-              </p>
-              <p className="text-lg text-charcoal/80">
-                When you purchase our crafts, you're not just buying a product – you're supporting the preservation of these invaluable cultural traditions and helping artisans maintain their livelihoods while sharing their heritage with the world.
-              </p>
+          )}
+          
+          {!isLoading && error && (
+            <div className="mt-8">
+              <h3 className="text-xl font-bold text-black mb-4">Mock Data (API Failed):</h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div className="border border-black p-4 rounded">
+                  <h3 className="text-xl font-bold text-black mb-2">Wood Carvings</h3>
+                  <p className="text-black">Traditional wood carvings from local artisans</p>
+                  <p className="text-sm text-gray-600 mt-2">ID: 1</p>
+                </div>
+                <div className="border border-black p-4 rounded">
+                  <h3 className="text-xl font-bold text-black mb-2">Pottery</h3>
+                  <p className="text-black">Handmade pottery using traditional techniques</p>
+                  <p className="text-sm text-gray-600 mt-2">ID: 2</p>
+                </div>
+                <div className="border border-black p-4 rounded">
+                  <h3 className="text-xl font-bold text-black mb-2">Textiles</h3>
+                  <p className="text-black">Beautiful woven textiles with traditional patterns</p>
+                  <p className="text-sm text-gray-600 mt-2">ID: 3</p>
+                </div>
+              </div>
             </div>
-          </div>
-        </section>
+          )}
+        </div>
       </div>
     </AppLayout>
   );

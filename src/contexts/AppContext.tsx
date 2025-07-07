@@ -5,6 +5,8 @@ interface AppContextType {
   toggleSidebar: () => void;
   cartItems: number;
   addToCart: () => void;
+  menuOpen: boolean;
+  toggleMenu: () => void;
 }
 
 const defaultAppContext: AppContextType = {
@@ -12,6 +14,8 @@ const defaultAppContext: AppContextType = {
   toggleSidebar: () => {},
   cartItems: 0,
   addToCart: () => {},
+  menuOpen: false,
+  toggleMenu: () => {},
 };
 
 const AppContext = createContext<AppContextType>(defaultAppContext);
@@ -21,6 +25,7 @@ export const useAppContext = () => useContext(AppContext);
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [cartItems, setCartItems] = useState(0);
+  const [menuOpen, setMenuOpen] = useState(false);
 
   const toggleSidebar = () => {
     setSidebarOpen(prev => !prev);
@@ -30,6 +35,10 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCartItems(prev => prev + 1);
   };
 
+  const toggleMenu = () => {
+    setMenuOpen(prev => !prev);
+  };
+
   return (
     <AppContext.Provider
       value={{
@@ -37,6 +46,8 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         toggleSidebar,
         cartItems,
         addToCart,
+        menuOpen,
+        toggleMenu,
       }}
     >
       {children}

@@ -107,5 +107,6 @@ export default {
   plugins: [
     animate,
     typography,
+    require('daisyui'),
   ],
 } satisfies Config;

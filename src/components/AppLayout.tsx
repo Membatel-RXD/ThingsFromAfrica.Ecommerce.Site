@@ -4,13 +4,21 @@ import HeroSection from './HeroSection';
 import CraftShowcase from './CraftShowcase';
 import Footer from './Footer';
 
-const AppLayout: React.FC = () => {
+interface AppLayoutProps {
+  children?: React.ReactNode;
+}
+
+const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
   return (
-    <div className="min-h-screen bg-linen">
+    <div className="min-h-screen bg-white">
       <Header />
       <main>
-        <HeroSection />
-        <CraftShowcase />
+        {children ? children : (
+          <>
+            <HeroSection />
+            <CraftShowcase />
+          </>
+        )}
       </main>
       <Footer />
     </div>
