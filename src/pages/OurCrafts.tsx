@@ -34,14 +34,14 @@ const OurCrafts: React.FC = () => {
       <div className="bg-white min-h-screen">
         <div className="bg-black text-white py-8">
           <div className="container mx-auto px-4 text-center">
-            <h1 className="text-4xl font-bold mb-4">Our Crafts from API</h1>
+            <h1 className="text-4xl font-bold mb-4">Our Crafts</h1>
           </div>
         </div>
 
         <div className="container mx-auto px-4 py-8">
           {isLoading && (
             <div className="text-center py-8">
-              <p className="text-lg text-black">Loading crafts from API...</p>
+              <p className="text-lg text-black">Loading crafts...</p>
             </div>
           )}
           

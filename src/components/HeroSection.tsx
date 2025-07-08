@@ -6,15 +6,9 @@ const HeroSection: React.FC = () => {
     <div className="hero min-h-screen bg-white">
       <div className="hero-content text-center">
         <div className="max-w-6xl">
-          <div className="flex justify-center mb-4">
-            <div className="rating rating-lg">
-              {[...Array(5)].map((_, i) => (
-                <input key={i} type="radio" name="rating-8" className="mask mask-star-2 bg-black" defaultChecked={i === 4} />
-              ))}
-            </div>
-          </div>
+      
           
-          <h1 className="text-6xl lg:text-8xl font-bold mb-8 text-black">
+          <h1 className="text-6xl lg:text-8xl font-bold mb-5 text-black">
             Authentic
             <br />
             <span className="bg-gradient-to-r from-black to-gray-600 bg-clip-text text-transparent">
@@ -38,7 +32,7 @@ const HeroSection: React.FC = () => {
             </button>
           </div>
           
-          <div className="stats stats-vertical lg:stats-horizontal shadow-2xl bg-white border border-gray-200">
+          <div className="stats stats-horizontal shadow-2xl bg-white border border-gray-200">
             <div className="stat">
               <div className="stat-value text-black">500+</div>
               <div className="stat-title text-gray-600">Unique Crafts</div>

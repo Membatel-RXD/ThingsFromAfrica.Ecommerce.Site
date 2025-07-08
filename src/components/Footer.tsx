@@ -1,6 +1,7 @@
 import React from 'react';
 import { Facebook, Instagram, Twitter, Mail, Phone, MapPin } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { WEBSITE_DETAILS } from '@/constants/website_details';
 
 const Footer: React.FC = () => {
   return (
@@ -9,7 +10,7 @@ const Footer: React.FC = () => {
       <div className="bg-gray-100 py-12">
         <div className="container mx-auto px-4 text-center">
           <h3 className="text-3xl font-bold mb-4 text-black">Stay Connected</h3>
-          <p className="mb-6 text-gray-700">Get stories from our artisans and exclusive offers</p>
+          <p className="mb-6 text-gray-700">Get stories from our artisans and exclusive offers from {WEBSITE_DETAILS.name}</p>
           <div className="join max-w-md mx-auto">
             <input 
               className="input input-bordered join-item bg-white text-black placeholder:text-gray-500 flex-1" 
@@ -31,7 +32,7 @@ const Footer: React.FC = () => {
               <div className="w-8 h-8 rounded-full bg-black flex items-center justify-center">
                 <span className="text-white font-bold">A</span>
               </div>
-              <span className="text-lg font-bold">African Crafts</span>
+              <span className="text-lg font-bold">{WEBSITE_DETAILS.name}</span>
             </div>
             <p className="text-gray-600 text-sm mb-3">
               Authentic African craftsmanship. Supporting local artisans.
@@ -78,15 +79,15 @@ const Footer: React.FC = () => {
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-gray-600 text-sm">
                 <MapPin className="h-3 w-3" />
-                <span>Africa</span>
+                <span>{WEBSITE_DETAILS.address}</span>
               </div>
               <div className="flex items-center space-x-2 text-gray-600 text-sm">
                 <Phone className="h-3 w-3" />
-                <span>+123 456 789</span>
+                <span>{WEBSITE_DETAILS.phone}</span>
               </div>
               <div className="flex items-center space-x-2 text-gray-600 text-sm">
                 <Mail className="h-3 w-3" />
-                <span>hello@africancrafts.com</span>
+                <span>{WEBSITE_DETAILS.email}</span>
               </div>
             </div>
           </div>
@@ -97,7 +98,7 @@ const Footer: React.FC = () => {
       <div className="border-t border-gray-200 py-6">
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center text-sm text-gray-600">
-            <p>&copy; 2024 African Crafts. All rights reserved.</p>
+            <p>&copy; 2024 {WEBSITE_DETAILS.name}. All rights reserved.</p>
             <div className="flex space-x-6 mt-4 md:mt-0">
               <a href="/privacy" className="hover:text-black transition-colors">Privacy Policy</a>
               <a href="/terms" className="hover:text-black transition-colors">Terms of Service</a>
