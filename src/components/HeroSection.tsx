@@ -3,12 +3,10 @@ import { ArrowRight, Star } from 'lucide-react';
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="hero min-h-screen bg-white">
-      <div className="hero-content text-center">
+    <div className="min-h-[70vh] bg-white flex items-start justify-center pt-4">
+      <div className="text-center">
         <div className="max-w-6xl">
-      
-          
-          <h1 className="text-6xl lg:text-8xl font-bold mb-5 text-black">
+          <h1 className="text-6xl lg:text-8 font-bold mb-5 text-black">
             Authentic
             <br />
             <span className="bg-gradient-to-r from-black to-gray-600 bg-clip-text text-transparent">
@@ -21,7 +19,7 @@ const HeroSection: React.FC = () => {
             of tradition, skill, and cultural pride passed down through generations.
           </p>
           
-          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4 px-5">
             <button className="btn btn-lg bg-black text-white border-none hover:bg-gray-800">
               Explore Our Crafts
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -46,6 +44,9 @@ const HeroSection: React.FC = () => {
               <div className="stat-title text-gray-600">Years Heritage</div>
             </div>
           </div>
+          
+
+
         </div>
       </div>
     </div>

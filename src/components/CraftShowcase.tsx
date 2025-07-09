@@ -1,9 +1,33 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Heart, Eye, X } from 'lucide-react';
+import { authService } from '../services/authService';
+import { cartService } from '../services/cartService';
+import { useAppContext } from '../contexts/AppContext';
 
 const CraftShowcase: React.FC = () => {
   const [selectedCraft, setSelectedCraft] = useState<any>(null);
+  const navigate = useNavigate();
+  const { updateCartCount } = useAppContext();
+
+  const handleAddToCart = async (craftId: number) => {
+    const hasValidSession = await authService.checkSession();
+    
+    if (!hasValidSession) {
+      navigate('/login');
+      return;
+    }
+    
+    const craft = crafts.find(c => c.id === craftId);
+    if (!craft) return;
+    
+    const unitPrice = parseFloat(craft.price.replace('$', ''));
+    const success = await cartService.addToCart(craftId, 1, unitPrice);
+    
+    if (success) {
+      await updateCartCount();
+    }
+  };
   
   const crafts = [
     {
@@ -69,10 +93,10 @@ const CraftShowcase: React.FC = () => {
   ];
 
   return (
-    <section className="py-16 bg-gray-50">
-      <div className="container mx-auto px-10">
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold mb-4 text-black">
+    <section className=" bg-gray-50">
+      <div className="container mx-auto ">
+        <div className="text-center mb-4">
+          <h2 className="text-5xl font-bold mb-1 text-black">
             Featured Crafts
           </h2>
           <p className="text-xl text-gray-700 max-w-2xl mx-auto">
@@ -80,7 +104,7 @@ const CraftShowcase: React.FC = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-8">
+        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-8">
           {crafts.map((craft) => (
             <div key={craft.id} className="card bg-gradient-to-br from-white to-gray-50 shadow-2xl hover:shadow-3xl transition-all duration-300 border border-gray-200">
               <figure className="relative">
@@ -117,7 +141,10 @@ const CraftShowcase: React.FC = () => {
                 </div>
                 
                 <div className="card-actions flex-col">
-                  <button className="btn bg-black text-white hover:bg-gray-800 border-none w-full">
+                  <button 
+                    className="btn bg-black text-white hover:bg-gray-800 border-none w-full"
+                    onClick={() => handleAddToCart(craft.id)}
+                  >
                     Add to Cart
                   </button>
                   <button 
@@ -132,7 +159,7 @@ const CraftShowcase: React.FC = () => {
           ))}
         </div>
         
-        <div className="text-center mt-12">
+        <div className="text-center mt-10">
           <Link to="/crafts" className="btn btn-lg btn-outline border-black text-black hover:bg-black hover:text-white px-8">
             View All Crafts
           </Link>
@@ -182,7 +209,10 @@ const CraftShowcase: React.FC = () => {
                 </p>
                 
                 <div className="flex space-x-3">
-                  <button className="btn bg-black text-white hover:bg-gray-800 border-none flex-1">
+                  <button 
+                    className="btn bg-black text-white hover:bg-gray-800 border-none flex-1"
+                    onClick={() => handleAddToCart(selectedCraft.id)}
+                  >
                     Add to Cart
                   </button>
                   <button className="btn btn-ghost btn-circle">

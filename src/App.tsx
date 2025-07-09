@@ -11,6 +11,10 @@ import Contact from "./pages/Contact";
 import Stories from "./pages/Stories";
 import About from "./pages/About";
 import OurCrafts from "./pages/OurCrafts";
+import Login from "./pages/Login";
+import SignUp from "./pages/SignUp";
+import VerifyEmail from "./pages/VerifyEmail";
+import EmailVerificationInfo from "./pages/EmailVerificationInfo";
 
 const queryClient = new QueryClient();
 
@@ -28,6 +32,10 @@ const App = () => (
             <Route path="/contact" element={<Contact />} />
             <Route path="/stories" element={<Stories />} />
             <Route path="/about" element={<About />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<SignUp />} />
+            <Route path="/verify-email" element={<VerifyEmail />} />
+            <Route path="/email-verification" element={<EmailVerificationInfo />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

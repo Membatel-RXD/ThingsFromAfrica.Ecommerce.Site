@@ -1,4 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
+import { cartService } from '../services/cartService';
 
 interface AppContextType {
   sidebarOpen: boolean;
@@ -7,6 +8,7 @@ interface AppContextType {
   addToCart: () => void;
   menuOpen: boolean;
   toggleMenu: () => void;
+  updateCartCount: () => Promise<void>;
 }
 
 const defaultAppContext: AppContextType = {
@@ -16,6 +18,7 @@ const defaultAppContext: AppContextType = {
   addToCart: () => {},
   menuOpen: false,
   toggleMenu: () => {},
+  updateCartCount: async () => {},
 };
 
 const AppContext = createContext<AppContextType>(defaultAppContext);
@@ -35,6 +38,15 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setCartItems(prev => prev + 1);
   };
 
+  const updateCartCount = async () => {
+    const count = await cartService.getCartCount();
+    setCartItems(count);
+  };
+
+  useEffect(() => {
+    updateCartCount();
+  }, []);
+
   const toggleMenu = () => {
     setMenuOpen(prev => !prev);
   };
@@ -48,6 +60,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         addToCart,
         menuOpen,
         toggleMenu,
+        updateCartCount,
       }}
     >
       {children}
