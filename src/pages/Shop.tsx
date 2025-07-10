@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -7,11 +7,39 @@ import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Heart, ShoppingCart, Filter, Grid, List } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { authService } from '../services/authService';
+import { cartService } from '../services/cartService';
+import { useAppContext } from '../contexts/AppContext';
+import { Product, searchProducts, filterByCategory, sortProducts } from '../utils/shopUtils';
 
 const Shop: React.FC = () => {
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [searchTerm, setSearchTerm] = useState('');
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [sortBy, setSortBy] = useState('featured');
+  const navigate = useNavigate();
+  const { updateCartCount } = useAppContext();
+
+  const handleAddToCart = async (productId: number) => {
+    const hasValidSession = await authService.checkSession();
+    
+    if (!hasValidSession) {
+      navigate('/login');
+      return;
+    }
+    
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+    
+    const success = await cartService.addToCart(productId, 1, product.price);
+    
+    if (success) {
+      await updateCartCount();
+    }
+  };
   
-  const products = [
+  const products: Product[] = [
     {
       id: 1,
       name: 'Traditional Malawi Basket',
@@ -21,7 +49,8 @@ const Shop: React.FC = () => {
       region: 'Lilongwe',
       rating: 4.8,
       reviews: 124,
-      emoji: '🧺',
+      image: '/traditional-wicker-basket.webp',
+      badge: 'Bestseller',
       category: 'Baskets',
       inStock: true
     },
@@ -33,7 +62,8 @@ const Shop: React.FC = () => {
       region: 'Blantyre',
       rating: 4.9,
       reviews: 89,
-      emoji: '🎭',
+      image: '/mask.png',
+      badge: 'Heritage',
       category: 'Wood Carvings',
       inStock: true
     },
@@ -45,7 +75,8 @@ const Shop: React.FC = () => {
       region: 'Mzuzu',
       rating: 4.7,
       reviews: 156,
-      emoji: '🎨',
+      image: '/africafabricart.jpg',
+      badge: 'New',
       category: 'Textiles',
       inStock: false
     },
@@ -57,7 +88,8 @@ const Shop: React.FC = () => {
       region: 'Zomba',
       rating: 4.6,
       reviews: 78,
-      emoji: '🏺',
+      image: '/Ceramic Pottery.jpg',
+      badge: 'Popular',
       category: 'Pottery',
       inStock: true
     },
@@ -70,7 +102,8 @@ const Shop: React.FC = () => {
       region: 'Kasungu',
       rating: 4.8,
       reviews: 203,
-      emoji: '📿',
+      image: '/Beaded Jewelry.jpg',
+      badge: 'Trending',
       category: 'Jewelry',
       inStock: true
     },
@@ -82,11 +115,19 @@ const Shop: React.FC = () => {
       region: 'Mangochi',
       rating: 4.9,
       reviews: 45,
-      emoji: '🗿',
+      image: '/Wooden Sculpture.jpg',
+      badge: 'Premium',
       category: 'Wood Carvings',
       inStock: true
     }
   ];
+
+  const filteredProducts = useMemo(() => {
+    let filtered = searchProducts(products, searchTerm);
+    filtered = filterByCategory(filtered, selectedCategory);
+    filtered = sortProducts(filtered, sortBy);
+    return filtered;
+  }, [searchTerm, selectedCategory, sortBy]);
 
   return (
     <div className="min-h-screen bg-linen">
@@ -102,21 +143,26 @@ const Shop: React.FC = () => {
         {/* Filters and controls */}
         <div className="flex flex-col lg:flex-row gap-4 mb-8 p-4 bg-white rounded-lg border border-olive-green/20">
           <div className="flex-1 flex flex-col sm:flex-row gap-4">
-            <Input placeholder="Search products..." className="sm:max-w-xs" />
-            <Select>
+            <Input 
+              placeholder="Search products..." 
+              className="sm:max-w-xs" 
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+            />
+            <Select value={selectedCategory} onValueChange={setSelectedCategory}>
               <SelectTrigger className="sm:max-w-xs">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
               <SelectContent>
                 <SelectItem value="all">All Categories</SelectItem>
                 <SelectItem value="baskets">Baskets</SelectItem>
-                <SelectItem value="wood">Wood Carvings</SelectItem>
+                <SelectItem value="wood carvings">Wood Carvings</SelectItem>
                 <SelectItem value="textiles">Textiles</SelectItem>
                 <SelectItem value="pottery">Pottery</SelectItem>
                 <SelectItem value="jewelry">Jewelry</SelectItem>
               </SelectContent>
             </Select>
-            <Select>
+            <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="sm:max-w-xs">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
@@ -125,6 +171,7 @@ const Shop: React.FC = () => {
                 <SelectItem value="price-low">Price: Low to High</SelectItem>
                 <SelectItem value="price-high">Price: High to Low</SelectItem>
                 <SelectItem value="rating">Highest Rated</SelectItem>
+                <SelectItem value="name">Name A-Z</SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -156,18 +203,22 @@ const Shop: React.FC = () => {
         </div>
         
         {/* Products grid */}
-        <div className={`grid gap-6 ${viewMode === 'grid' ? 'md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-          {products.map((product) => (
+        <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'grid-cols-1'}`}>
+          {filteredProducts.map((product) => (
             <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 border-olive-green/20">
               <div className="relative">
-                <div className={`${viewMode === 'grid' ? 'aspect-square' : 'aspect-video lg:aspect-square'} bg-gradient-to-br from-linen to-olive-green/10 flex items-center justify-center`}>
-                  <span className="text-6xl">{product.emoji}</span>
+                <div className={`${viewMode === 'grid' ? 'aspect-square' : 'aspect-video lg:aspect-square'} bg-gradient-to-br from-gray-100 to-white flex items-center justify-center overflow-hidden`}>
+                  <img 
+                    src={product.image} 
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
                 </div>
                 
-                {product.originalPrice && (
-                  <Badge className="absolute top-4 left-4 bg-burnt-sienna text-white">
-                    Sale
-                  </Badge>
+                {product.badge && (
+                  <div className="absolute top-2 left-2 bg-black text-white px-3 py-1 rounded-full text-sm font-medium">
+                    {product.badge}
+                  </div>
                 )}
                 
                 {!product.inStock && (
@@ -205,8 +256,9 @@ const Shop: React.FC = () => {
                   </div>
                   
                   <Button 
-                    className="w-full bg-burnt-sienna hover:bg-burnt-sienna/90" 
+                    className="w-full bg-black text-white hover:bg-gray-800 rounded-md" 
                     disabled={!product.inStock}
+                    onClick={() => handleAddToCart(product.id)}
                   >
                     <ShoppingCart className="h-4 w-4 mr-2" />
                     {product.inStock ? 'Add to Cart' : 'Out of Stock'}

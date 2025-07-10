@@ -4,29 +4,29 @@ import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { Heart, Users, Award, Leaf } from 'lucide-react';
+import { Heart, Users, Award, Leaf, Home, Globe, Sprout } from 'lucide-react';
 
 const About: React.FC = () => {
   const values = [
     {
       icon: <Award className="h-5 w-5" />,
       label: 'Authenticity',
-      color: 'bg-olive-green/10 text-olive-green'
+      color: 'bg-gray-100 text-black'
     },
     {
       icon: <Heart className="h-5 w-5" />,
       label: 'Quality',
-      color: 'bg-burnt-sienna/10 text-burnt-sienna'
+      color: 'bg-gray-100 text-black'
     },
     {
       icon: <Users className="h-5 w-5" />,
       label: 'Community',
-      color: 'bg-olive-green/10 text-olive-green'
+      color: 'bg-gray-100 text-black'
     },
     {
       icon: <Leaf className="h-5 w-5" />,
       label: 'Sustainability',
-      color: 'bg-burnt-sienna/10 text-burnt-sienna'
+      color: 'bg-gray-100 text-black'
     }
   ];
 
@@ -38,23 +38,23 @@ const About: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-linen">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
         {/* Page header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-charcoal mb-2">About Malawi Crafts</h1>
-          <p className="text-charcoal/70">Preserving traditions, empowering artisans, and sharing the beauty of Malawi with the world</p>
+          <h1 className="text-4xl font-bold text-black mb-2">About Things From Africa</h1>
+          <p className="text-gray-700">Preserving traditions, empowering artisans, and sharing the beauty of Africa with the world</p>
         </div>
 
         {/* Stats Section */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
           {stats.map((stat, index) => (
-            <Card key={index} className="border-olive-green/20 text-center">
+            <Card key={index} className="border-gray-200 text-center">
               <CardContent className="p-6">
-                <div className="text-2xl font-bold text-burnt-sienna mb-1">{stat.number}</div>
-                <div className="text-sm text-charcoal/70">{stat.label}</div>
+                <div className="text-2xl font-bold text-black mb-1">{stat.number}</div>
+                <div className="text-sm text-gray-600">{stat.label}</div>
               </CardContent>
             </Card>
           ))}
@@ -63,21 +63,21 @@ const About: React.FC = () => {
         {/* Mission Section */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           <div>
-            <h2 className="text-3xl font-bold text-charcoal mb-6">Our Mission</h2>
-            <p className="text-charcoal/70 mb-4">
-              We are dedicated to preserving Malawi's rich cultural heritage through authentic handcrafted products. Our mission is to connect skilled artisans with global markets while maintaining the integrity of traditional craftsmanship.
+            <h2 className="text-3xl font-bold text-black mb-6">Our Mission</h2>
+            <p className="text-gray-700 mb-4">
+              We are dedicated to preserving Africa's rich cultural heritage through authentic handcrafted products. Our mission is to connect skilled artisans with global markets while maintaining the integrity of traditional craftsmanship.
             </p>
-            <p className="text-charcoal/70 mb-6">
+            <p className="text-gray-700 mb-6">
               Every purchase supports local communities and helps preserve centuries-old techniques passed down through generations.
             </p>
-            <Button className="bg-burnt-sienna hover:bg-burnt-sienna/90">
+            <Button className="bg-black hover:bg-gray-800">
               Meet Our Artisans
             </Button>
           </div>
           
-          <Card className="border-olive-green/20">
+          <Card className="border-gray-200">
             <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-charcoal mb-4">Our Values</h3>
+              <h3 className="text-xl font-bold text-black mb-4">Our Values</h3>
               <div className="grid grid-cols-2 gap-3">
                 {values.map((value, index) => (
                   <Badge 
@@ -96,10 +96,10 @@ const About: React.FC = () => {
 
         {/* Story Section */}
         <div className="mb-12">
-          <h2 className="text-3xl font-bold text-charcoal text-center mb-8">Our Story</h2>
-          <Card className="border-olive-green/20">
+          <h2 className="text-3xl font-bold text-black text-center mb-8">Our Story</h2>
+          <Card className="border-gray-200">
             <CardContent className="p-8">
-              <div className="space-y-6 text-charcoal/70">
+              <div className="space-y-6 text-gray-700">
                 <p>
                   Founded in 2015, Malawi Crafts began as a small initiative to help local artisans reach international markets. What started as a passion project has grown into a thriving platform that showcases the incredible talent and creativity of Malawian craftspeople.
                 </p>
@@ -116,43 +116,49 @@ const About: React.FC = () => {
 
         {/* Impact Section */}
         <div className="grid md:grid-cols-3 gap-6 mb-12">
-          <Card className="border-olive-green/20 bg-gradient-to-br from-olive-green/5 to-burnt-sienna/5">
+          <Card className="border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100">
             <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-4">🏠</div>
-              <h3 className="font-bold text-charcoal text-lg mb-2">Community Impact</h3>
-              <p className="text-charcoal/70 text-sm">Supporting families and preserving traditional skills in rural communities across Malawi.</p>
+              <div className="text-4xl mb-4 flex justify-center">
+                <Home className="h-12 w-12 text-black" />
+              </div>
+              <h3 className="font-bold text-black text-lg mb-2">Community Impact</h3>
+              <p className="text-gray-700 text-sm">Supporting families and preserving traditional skills in rural communities across Africa.</p>
             </CardContent>
           </Card>
 
-          <Card className="border-olive-green/20 bg-gradient-to-br from-olive-green/5 to-burnt-sienna/5">
+          <Card className="border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100">
             <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-4">🌍</div>
-              <h3 className="font-bold text-charcoal text-lg mb-2">Global Reach</h3>
-              <p className="text-charcoal/70 text-sm">Connecting Malawian artisans with customers worldwide, sharing our culture globally.</p>
+              <div className="text-4xl mb-4 flex justify-center">
+                <Globe className="h-12 w-12 text-black" />
+              </div>
+              <h3 className="font-bold text-black text-lg mb-2">Global Reach</h3>
+              <p className="text-gray-700 text-sm">Connecting African artisans with customers worldwide, sharing our culture globally.</p>
             </CardContent>
           </Card>
 
-          <Card className="border-olive-green/20 bg-gradient-to-br from-olive-green/5 to-burnt-sienna/5">
+          <Card className="border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100">
             <CardContent className="p-6 text-center">
-              <div className="text-4xl mb-4">💚</div>
-              <h3 className="font-bold text-charcoal text-lg mb-2">Sustainable Future</h3>
-              <p className="text-charcoal/70 text-sm">Creating lasting economic opportunities while respecting our environment and traditions.</p>
+              <div className="text-4xl mb-4 flex justify-center">
+                <Sprout className="h-12 w-12 text-black" />
+              </div>
+              <h3 className="font-bold text-black text-lg mb-2">Sustainable Future</h3>
+              <p className="text-gray-700 text-sm">Creating lasting economic opportunities while respecting our environment and traditions.</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Call to Action */}
-        <Card className="border-olive-green/20 bg-gradient-to-r from-olive-green/10 to-burnt-sienna/10">
+        <Card className="border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
           <CardContent className="p-8 text-center">
-            <h3 className="text-2xl font-bold text-charcoal mb-4">Join Our Journey</h3>
-            <p className="text-charcoal/70 mb-6 max-w-2xl mx-auto">
-              Become part of our story by supporting authentic Malawian craftsmanship. Every purchase makes a difference in preserving our cultural heritage and supporting artisan communities.
+            <h3 className="text-2xl font-bold text-black mb-4">Join Our Journey</h3>
+            <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
+              Become part of our story by supporting authentic African craftsmanship. Every purchase makes a difference in preserving our cultural heritage and supporting artisan communities.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button className="bg-burnt-sienna hover:bg-burnt-sienna/90">
+              <Button className="bg-black hover:bg-gray-800">
                 Shop Our Crafts
               </Button>
-              <Button variant="outline" className="border-burnt-sienna text-burnt-sienna hover:bg-burnt-sienna hover:text-white">
+              <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
                 Learn More
               </Button>
             </div>

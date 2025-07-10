@@ -15,6 +15,7 @@ import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import VerifyEmail from "./pages/VerifyEmail";
 import EmailVerificationInfo from "./pages/EmailVerificationInfo";
+import { AppProvider } from "./contexts/AppContext";
 
 const queryClient = new QueryClient();
 
@@ -24,8 +25,9 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <Routes>
+        <AppProvider>
+          <BrowserRouter>
+            <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/shop" element={<Shop />} />
             <Route path="/crafts" element={<OurCrafts />} />
@@ -37,8 +39,9 @@ const App = () => (
             <Route path="/verify-email" element={<VerifyEmail />} />
             <Route path="/email-verification" element={<EmailVerificationInfo />} />
             <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+            </Routes>
+          </BrowserRouter>
+        </AppProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </ThemeProvider>

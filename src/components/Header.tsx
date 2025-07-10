@@ -54,7 +54,9 @@ const Header: React.FC = () => {
                 </div>
               </div>
               <div>
-                <h1 className="font-bold text-black text-xs sm:text-sm md:text-lg lg:text-2xl">{WEBSITE_DETAILS.name}</h1>
+                <Link to="/" className="hover:opacity-80 transition-opacity">
+                  <h1 className="font-bold text-black text-xs sm:text-sm md:text-lg lg:text-2xl">{WEBSITE_DETAILS.name}</h1>
+                </Link>
                 <p className="text-gray-600 text-xs sm:text-xs md:text-sm">Authentic Handmade</p>
               </div>
             </div>
@@ -212,7 +214,7 @@ const Header: React.FC = () => {
       />
 
       {/* Mobile Navigation Menu - Slides from right to left */}
-      <div className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-40 lg:hidden transform transition-all duration-300 ease-in-out ${
+      <div className={`fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[45] lg:hidden transform transition-all duration-300 ease-in-out ${
         menuOpen ? 'translate-x-0' : 'translate-x-full'
       }`}>
         <div className="flex flex-col h-full">
@@ -222,7 +224,9 @@ const Header: React.FC = () => {
               <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center">
                 <span className="text-white font-bold text-lg">A</span>
               </div>
-              <span className="font-bold text-black text-lg">{WEBSITE_DETAILS.name}</span>
+              <Link to="/" onClick={handleMenuLinkClick}>
+                <span className="font-bold text-black text-lg hover:opacity-80 transition-opacity">{WEBSITE_DETAILS.name}</span>
+              </Link>
             </div>
             <button 
               onClick={toggleMenu}

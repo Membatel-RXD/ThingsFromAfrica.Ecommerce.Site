@@ -104,7 +104,7 @@ const CraftShowcase: React.FC = () => {
           </p>
         </div>
         
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-3 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-8">
           {crafts.map((craft) => (
             <div key={craft.id} className="card bg-gradient-to-br from-white to-gray-50 shadow-2xl hover:shadow-3xl transition-all duration-300 border border-gray-200">
               <figure className="relative">
@@ -130,7 +130,7 @@ const CraftShowcase: React.FC = () => {
                 </div>
               </figure>
               
-              <div className="card-body">
+              <div className="card-body flex flex-col flex-grow">
                 <h3 className="card-title text-black text-xl">{craft.name}</h3>
                 <div className="flex justify-between items-center mb-4">
                   <span className="text-3xl font-bold text-black">{craft.price}</span>
@@ -140,15 +140,15 @@ const CraftShowcase: React.FC = () => {
                   </div>
                 </div>
                 
-                <div className="card-actions flex-col">
+                <div className="card-actions flex-col mt-auto">
                   <button 
-                    className="btn bg-black text-white hover:bg-gray-800 border-none w-full"
+                    className="btn bg-black text-white hover:bg-gray-800 border-none w-full rounded-md"
                     onClick={() => handleAddToCart(craft.id)}
                   >
                     Add to Cart
                   </button>
                   <button 
-                    className="btn btn-outline border-black text-black hover:bg-black hover:text-white w-full"
+                    className="btn btn-outline border-gray-300 text-black hover:bg-black hover:text-white w-full rounded-md"
                     onClick={() => setSelectedCraft(craft)}
                   >
                     Learn More
@@ -160,7 +160,7 @@ const CraftShowcase: React.FC = () => {
         </div>
         
         <div className="text-center mt-10">
-          <Link to="/crafts" className="btn btn-lg btn-outline border-black text-black hover:bg-black hover:text-white px-8">
+          <Link to="/crafts" className="btn btn-lg btn-outline border-black text-black hover:bg-black hover:text-white mb-10 px-8">
             View All Crafts
           </Link>
         </div>
@@ -210,7 +210,7 @@ const CraftShowcase: React.FC = () => {
                 
                 <div className="flex space-x-3">
                   <button 
-                    className="btn bg-black text-white hover:bg-gray-800 border-none flex-1"
+                    className="btn bg-black text-white hover:bg-gray-800 border-none flex-1 rounded-md"
                     onClick={() => handleAddToCart(selectedCraft.id)}
                   >
                     Add to Cart
