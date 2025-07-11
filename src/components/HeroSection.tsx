@@ -1,5 +1,6 @@
 import React from 'react';
 import { ArrowRight, Star } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const HeroSection: React.FC = () => {
   return (
@@ -25,9 +26,12 @@ const HeroSection: React.FC = () => {
               <ArrowRight className="ml-2 h-5 w-5" />
             </button>
             
-            <button className="btn btn-lg btn-outline border-black text-black hover:bg-black hover:text-white">
+            <Link
+              to="/artisan-stories"
+              className="btn btn-lg btn-outline border-black text-black hover:bg-black hover:text-white"
+            >
               Read Their Stories
-            </button>
+            </Link>
           </div>
           
           <div className="stats stats-horizontal shadow-2xl bg-white border border-gray-200">

@@ -16,6 +16,8 @@ import SignUp from "./pages/SignUp";
 import VerifyEmail from "./pages/VerifyEmail";
 import EmailVerificationInfo from "./pages/EmailVerificationInfo";
 import { AppProvider } from "./contexts/AppContext";
+import Sustainability from "./pages/sustainability";
+import CSR from "./pages/csr";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +35,9 @@ const App = () => (
             <Route path="/crafts" element={<OurCrafts />} />
             <Route path="/contact" element={<Contact />} />
             <Route path="/stories" element={<Stories />} />
+            <Route path="/sustainability" element={<Sustainability />} />
+            <Route path="/corporate-social-responsibility" element={<CSR />} />
+            <Route path="/artisan-stories" element={<Stories />} />
             <Route path="/about" element={<About />} />
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<SignUp />} />

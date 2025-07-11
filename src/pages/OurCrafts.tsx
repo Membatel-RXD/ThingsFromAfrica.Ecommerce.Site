@@ -1,26 +1,16 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import AppLayout from '@/components/AppLayout';
-
-interface CraftType {
-  craftTypeId: number;
-  craftTypeName: string;
-  craftTypeDescription: string;
-  isActive: boolean;
-  createdAt: string;
-}
-
-interface ApiResponse {
-  isSuccessful: boolean;
-  remark: string;
-  payload: CraftType[];
-}
+import { CraftType } from '@/models/members';
+import { apiService, IAPIResponse } from '@/lib/api';
 
 const fetchCraftTypes = async (): Promise<CraftType[]> => {
-  const response = await fetch('https://thingsfromafrica-ecommerce-api.onrender.com/api/v1/CraftTypes/GetAll');
-  if (!response.ok) throw new Error('Failed to fetch craft types');
-  const data: ApiResponse = await response.json();
-  return data.payload || [];
+  try {
+      const response = await apiService.get<IAPIResponse<CraftType[]>>('CraftTypes/GetAll');
+      return response.payload || [];
+  } catch (error) {
+    throw new Error('Failed to fetch craft types');
+  }
 };
 
 const OurCrafts: React.FC = () => {

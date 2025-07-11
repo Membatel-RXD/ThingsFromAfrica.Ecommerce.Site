@@ -1,7 +1,7 @@
 export interface IAPIResponse<T> {
     isSuccessful: boolean;
     message?: string | null;
-    data?: T | null;
+    payload?: T | null;
   }
   import axios, {
     type AxiosInstance,

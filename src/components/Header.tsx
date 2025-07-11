@@ -180,7 +180,7 @@ const Header: React.FC = () => {
               </button>
               
               {categoryOpen && (
-                <div className="absolute top-full left-0 w-48 bg-white border border-gray-300 rounded-b-md shadow-lg z-10">
+                <div className="absolute top-full left-0 w-48 bg-white border border-gray-300 rounded-b-md shadow-lg z-100">
                   {categories.map((category) => (
                     <button
                       key={category}
