@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
               className="input input-bordered join-item bg-white text-black placeholder:text-gray-500 flex-1" 
               placeholder="Enter your email"
             />
-            <button className="btn join-item bg-black text-white hover:bg-gray-800 border-none">
+            <button className="bg-yellow-500 hover:bg-yellow-600 btn join-item bg-black text-black border-none">
               Subscribe
             </button>
           </div>
@@ -52,7 +52,7 @@ const Footer: React.FC = () => {
           
           {/* Quick links */}
           <div>
-            <h6 className="font-bold text-black mb-3">Quick Links</h6>
+            <h6 className="font-bold text-black uppercase mb-3">Quick Links</h6>
             <div className="space-y-1">
               <Link to="/" className="block text-gray-600 hover:text-black text-sm">Home</Link>
               <Link to="/shop" className="block text-gray-600 hover:text-black text-sm">Shop</Link>
@@ -64,7 +64,7 @@ const Footer: React.FC = () => {
           
           {/* Customer service */}
           <div>
-            <h6 className="font-bold text-black mb-3">Customer Care</h6>
+            <h6 className="font-bold text-black uppercase mb-3">Customer Care</h6>
             <div className="space-y-1">
               <a className="block text-gray-600 hover:text-black text-sm">Shipping Info</a>
               <a className="block text-gray-600 hover:text-black text-sm">Returns</a>
@@ -75,7 +75,7 @@ const Footer: React.FC = () => {
           
           {/* Contact info */}
           <div>
-            <h6 className="font-bold text-black mb-3">Contact Info</h6>
+            <h6 className="font-bold text-black uppercase mb-3">Contact Info</h6>
             <div className="space-y-2">
               <div className="flex items-center space-x-2 text-gray-600 text-sm">
                 <MapPin className="h-3 w-3" />

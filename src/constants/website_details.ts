@@ -1,5 +1,5 @@
 export const WEBSITE_DETAILS = {
-  name: "Things From Africa (TFA)",
+  name: "Things From Africa",
   address: [
     "Shop Number G831A, V&A Waterfront",
     "17 Dock Rd, Victoria & Alfred Waterfront",
