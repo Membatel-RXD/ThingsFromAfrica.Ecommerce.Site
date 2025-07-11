@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Search, X, Home, Store, Palette, BookOpen, Info, Phone } from 'lucide-react';
+import { ShoppingCart, Search, X, Home, Store, Palette, BookOpen, Info, Phone, User } from 'lucide-react';
 import { useAppContext } from '../contexts/AppContext';
 import { WEBSITE_DETAILS } from '../constants/website_details';
 
@@ -102,6 +102,13 @@ const Header: React.FC = () => {
                 Contact
               </Link>
               
+              <Link 
+                to="/profile" 
+                className="text-black hover:text-gray-500 font-medium transition-all duration-200 hover:underline underline-offset-4"
+              >
+                Profile
+              </Link>
+              
               {/* Desktop Search Button */}
               <button
                 onClick={toggleSearch}
@@ -125,13 +132,20 @@ const Header: React.FC = () => {
               </button>
             </div>
 
+            {/* Profile/Account */}
+            <div className="lg:hidden">
+              <Link to="/profile" className="btn btn-ghost btn-circle text-black hover:bg-gray-100">
+                <User className="h-6 w-6" />
+              </Link>
+            </div>
+
             {/* Cart */}
             <div className="indicator">
-              <button className="btn btn-ghost btn-circle text-black hover:bg-gray-100">
+              <Link to="/cart" className="btn btn-ghost btn-circle text-black hover:bg-gray-100">
                 <ShoppingCart className="h-6 w-6" />
-              </button>
+              </Link>
               {cartItems > 0 && (
-                <span className="badge badge-sm indicator-item bg-black text-white border-none">
+                <span className="badge px-1 badge-sm indicator-item bg-black text-white border-none">
                   {cartItems}
                 </span>
               )}
@@ -288,6 +302,14 @@ const Header: React.FC = () => {
                 >
                   <Phone className="h-5 w-5 text-gray-600 mr-4" />
                   <span>Contact</span>
+                </Link>
+                <Link 
+                  to="/profile" 
+                  className="flex items-center px-6 py-4 text-lg font-medium text-black border-b border-gray-100"
+                  onClick={handleMenuLinkClick}
+                >
+                  <User className="h-5 w-5 text-gray-600 mr-4" />
+                  <span>Profile</span>
                 </Link>
               </div>
             </nav>

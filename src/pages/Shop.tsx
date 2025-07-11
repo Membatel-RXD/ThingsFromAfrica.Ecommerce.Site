@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import { Heart, ShoppingCart, Filter, Grid, List } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
+import { productService } from '../services/productService';
 import { useAppContext } from '../contexts/AppContext';
 import { Product, searchProducts, filterByCategory, sortProducts } from '../utils/shopUtils';
 
@@ -18,8 +19,26 @@ const Shop: React.FC = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('featured');
+  const [products, setProducts] = useState<Product[]>([]);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
   const { updateCartCount } = useAppContext();
+
+  useEffect(() => {
+    const loadProducts = async () => {
+      try {
+        const apiProducts = await productService.getAllProducts();
+        const shopProducts = apiProducts.map(product => productService.convertToShopProduct(product));
+        setProducts(shopProducts);
+      } catch (error) {
+        console.error('Failed to load products:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadProducts();
+  }, []);
 
   const handleAddToCart = async (productId: number) => {
     const hasValidSession = await authService.checkSession();
@@ -38,110 +57,27 @@ const Shop: React.FC = () => {
       await updateCartCount();
     }
   };
-  
-  const products: Product[] = [
-    {
-      id: 1,
-      name: 'Traditional Malawi Basket',
-      price: 45,
-      originalPrice: 60,
-      artisan: 'Grace Mwale',
-      region: 'Lilongwe',
-      rating: 4.8,
-      reviews: 124,
-      image: '/traditional-wicker-basket.webp',
-      badge: 'Bestseller',
-      category: 'Baskets',
-      inStock: true
-    },
-    {
-      id: 2,
-      name: 'Hand-carved Wooden Mask',
-      price: 85,
-      artisan: 'Joseph Banda',
-      region: 'Blantyre',
-      rating: 4.9,
-      reviews: 89,
-      image: '/mask.png',
-      badge: 'Heritage',
-      category: 'Wood Carvings',
-      inStock: true
-    },
-    {
-      id: 3,
-      name: 'Chitenge Fabric Art',
-      price: 35,
-      artisan: 'Mary Phiri',
-      region: 'Mzuzu',
-      rating: 4.7,
-      reviews: 156,
-      image: '/africafabricart.jpg',
-      badge: 'New',
-      category: 'Textiles',
-      inStock: false
-    },
-    {
-      id: 4,
-      name: 'Clay Pottery Set',
-      price: 65,
-      artisan: 'Peter Mbewe',
-      region: 'Zomba',
-      rating: 4.6,
-      reviews: 78,
-      image: '/Ceramic Pottery.jpg',
-      badge: 'Popular',
-      category: 'Pottery',
-      inStock: true
-    },
-    {
-      id: 5,
-      name: 'Beaded Jewelry',
-      price: 25,
-      originalPrice: 35,
-      artisan: 'Sarah Chisale',
-      region: 'Kasungu',
-      rating: 4.8,
-      reviews: 203,
-      image: '/Beaded Jewelry.jpg',
-      badge: 'Trending',
-      category: 'Jewelry',
-      inStock: true
-    },
-    {
-      id: 6,
-      name: 'Wooden Sculpture',
-      price: 120,
-      artisan: 'Daniel Kachale',
-      region: 'Mangochi',
-      rating: 4.9,
-      reviews: 45,
-      image: '/Wooden Sculpture.jpg',
-      badge: 'Premium',
-      category: 'Wood Carvings',
-      inStock: true
-    }
-  ];
 
   const filteredProducts = useMemo(() => {
     let filtered = searchProducts(products, searchTerm);
     filtered = filterByCategory(filtered, selectedCategory);
     filtered = sortProducts(filtered, sortBy);
     return filtered;
-  }, [searchTerm, selectedCategory, sortBy]);
+  }, [products, searchTerm, selectedCategory, sortBy]);
 
   return (
-    <div className="min-h-screen bg-linen">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
         {/* Page header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-charcoal mb-2">Shop Authentic Malawi Crafts</h1>
-          <p className="text-charcoal/70">Discover unique handmade treasures from talented Malawian artisans</p>
+          <h1 className="text-4xl font-bold text-black mb-2">Shop Authentic African Crafts</h1>
+          <p className="text-gray-700">Discover unique handmade treasures from talented African artisans</p>
         </div>
         
         {/* Filters and controls */}
-        <div className="flex flex-col lg:flex-row gap-4 mb-8 p-4 bg-white rounded-lg border border-olive-green/20">
+        <div className="flex flex-col lg:flex-row gap-4 mb-8 p-4 bg-white rounded-lg border border-gray-200">
           <div className="flex-1 flex flex-col sm:flex-row gap-4">
             <Input 
               placeholder="Search products..." 
@@ -203,9 +139,18 @@ const Shop: React.FC = () => {
         </div>
         
         {/* Products grid */}
-        <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'grid-cols-1'}`}>
-          {filteredProducts.map((product) => (
-            <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 border-olive-green/20">
+        {loading ? (
+          <div className="flex justify-center items-center py-12">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-black"></div>
+          </div>
+        ) : filteredProducts.length === 0 ? (
+          <div className="text-center py-12">
+            <p className="text-gray-600">No products found matching your criteria.</p>
+          </div>
+        ) : (
+          <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'grid-cols-1'}`}>
+            {filteredProducts.map((product) => (
+            <Card key={product.id} className="group hover:shadow-xl transition-all duration-300 border-gray-200">
               <div className="relative">
                 <div className={`${viewMode === 'grid' ? 'aspect-square' : 'aspect-video lg:aspect-square'} bg-gradient-to-br from-gray-100 to-white flex items-center justify-center overflow-hidden`}>
                   <img 
@@ -239,18 +184,18 @@ const Shop: React.FC = () => {
               <CardContent className="p-6">
                 <div className="space-y-3">
                   <div>
-                    <h3 className="font-bold text-charcoal text-lg">{product.name}</h3>
-                    <p className="text-sm text-olive-green">by {product.artisan} • {product.region}</p>
+                    <h3 className="font-bold text-black text-lg">{product.name}</h3>
+                    <p className="text-sm text-gray-600">by {product.artisan} • {product.region}</p>
                   </div>
                   
                   <div className="flex items-center justify-between">
                     <div className="flex items-center space-x-2">
-                      <span className="text-2xl font-bold text-burnt-sienna">${product.price}</span>
+                      <span className="text-2xl font-bold text-black">${product.price}</span>
                       {product.originalPrice && (
-                        <span className="text-sm text-charcoal/50 line-through">${product.originalPrice}</span>
+                        <span className="text-sm text-gray-500 line-through">${product.originalPrice}</span>
                       )}
                     </div>
-                    <div className="text-sm text-charcoal/70">
+                    <div className="text-sm text-gray-600">
                       ⭐ {product.rating} ({product.reviews})
                     </div>
                   </div>
@@ -266,12 +211,13 @@ const Shop: React.FC = () => {
                 </div>
               </CardContent>
             </Card>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
         
         {/* Load more */}
         <div className="text-center mt-12">
-          <Button variant="outline" size="lg" className="border-burnt-sienna text-burnt-sienna hover:bg-burnt-sienna hover:text-white">
+          <Button variant="outline" size="lg" className="border-black text-black hover:bg-black hover:text-white">
             Load More Products
           </Button>
         </div>
