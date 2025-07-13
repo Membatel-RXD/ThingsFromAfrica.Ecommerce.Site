@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { ShoppingCart, Search, X, Home, Store, Palette, BookOpen, Info, Phone, MapPin, ChevronDown, Menu, Globe, User, HeartHandshake, Leaf, Gift } from 'lucide-react';
+import { ShoppingCart, Search, X, Home, Store, Palette, BookOpen, Info, Phone, MapPin, ChevronDown, Menu, Globe, User, HeartHandshake, Leaf, Gift, LogOut, Settings, MessageCircle, Coins, Heart, CreditCard, HelpCircle, Shield, AlertTriangle } from 'lucide-react';
 import { useAppContext } from '../contexts/AppContext';
 import { WEBSITE_DETAILS } from '../constants/website_details';
+import { authService } from '../services/authService';
 import LocationWidget from './Location';
 
 const Header: React.FC = () => {
@@ -12,6 +13,10 @@ const Header: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState('All Categories');
   const [languageOpen, setLanguageOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('EN');
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [userEmail, setUserEmail] = useState<string | null>(null);
+  const [userName, setUserName] = useState<string | null>(null);
 
   const categories = [
     'All Categories',
@@ -28,6 +33,26 @@ const Header: React.FC = () => {
     { code: 'SW', name: 'Swahili' },
     { code: 'FR', name: 'French' }
   ];
+
+  // Check authentication status on component mount
+  useEffect(() => {
+    const checkAuth = async () => {
+      const isAuth = await authService.checkSession();
+      setIsAuthenticated(isAuth);
+      
+      if (isAuth) {
+        const email = authService.getUserEmail();
+        setUserEmail(email);
+        // Extract first name from email or use a default
+        if (email) {
+          const firstName = email.split('@')[0];
+          setUserName(firstName.charAt(0).toUpperCase() + firstName.slice(1));
+        }
+      }
+    };
+    
+    checkAuth();
+  }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,6 +72,58 @@ const Header: React.FC = () => {
   const handleMenuLinkClick = () => {
     toggleMenu();
   };
+
+  const handleSignOut = () => {
+    authService.logout();
+    setIsAuthenticated(false);
+    setUserEmail(null);
+    setUserName(null);
+    setUserMenuOpen(false);
+    // Optionally redirect to home page
+    window.location.href = '/';
+  };
+
+  // Define the menu item type
+  type MenuItem = {
+    label: string;
+    href: string;
+    icon: React.ComponentType<any>;
+    onClick?: () => void;
+  };
+
+  const unauthenticatedMenuItems: MenuItem[] = [
+    { label: 'Sign in', href: '/login', icon: User },
+    { label: 'Register', href: '/register', icon: User },
+    { label: 'My Orders', href: '/orders', icon: ShoppingCart },
+    { label: 'My Coins', href: '/coins', icon: Coins },
+    { label: 'Message Center', href: '/messages', icon: MessageCircle },
+    { label: 'Payment', href: '/payment', icon: CreditCard },
+    { label: 'Wish List', href: '/wishlist', icon: Heart },
+    { label: 'My Coupons', href: '/coupons', icon: Gift },
+    { label: 'Settings', href: '/settings', icon: Settings },
+    { label: 'Seller Log In', href: '/seller-login', icon: User },
+    { label: 'Return & Refund Policy', href: '/return-policy', icon: Shield },
+    { label: 'Help Center', href: '/help', icon: HelpCircle },
+    { label: 'Disputes & Reports', href: '/disputes', icon: AlertTriangle },
+  ];
+
+  const authenticatedMenuItems: MenuItem[] = [
+    { label: 'Profile', href: '/profile', icon: User },
+    { label: 'Sign Out', href: '#', icon: LogOut, onClick: handleSignOut },
+    { label: 'My Orders', href: '/orders', icon: ShoppingCart },
+    { label: 'My Coins', href: '/coins', icon: Coins },
+    { label: 'Message Center', href: '/messages', icon: MessageCircle },
+    { label: 'Payment', href: '/payment', icon: CreditCard },
+    { label: 'Wish List', href: '/wishlist', icon: Heart },
+    { label: 'My Coupons', href: '/coupons', icon: Gift },
+    { label: 'Settings', href: '/settings', icon: Settings },
+    { label: 'Seller Log In', href: '/seller-login', icon: User },
+    { label: 'Return & Refund Policy', href: '/return-policy', icon: Shield },
+    { label: 'Help Center', href: '/help', icon: HelpCircle },
+    { label: 'Disputes & Reports', href: '/disputes', icon: AlertTriangle },
+  ];
+
+  const menuItems = isAuthenticated ? authenticatedMenuItems : unauthenticatedMenuItems;
 
   return (
     <>
@@ -68,7 +145,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Deliver To - Hidden on mobile */}
-           <LocationWidget/>
+            <LocationWidget/>
 
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl mx-4">
@@ -120,24 +197,66 @@ const Header: React.FC = () => {
               )}
             </div>
 
-            {/* Hello Sign In */}
-            <div className="hidden md:flex items-center space-x-1 hover:bg-gray-800 px-2 py-1 rounded cursor-pointer">
-              <User className="h-4 w-4" />
-              <div className="text-xs">
-                <div className="text-gray-300">Hello, Sign in</div>
-                <div className="font-medium flex items-center">
-                  Account & Lists
-                  <ChevronDown className="h-3 w-3 ml-1" />
+            {/* Welcome / Sign In - AliExpress Style */}
+            <div className="hidden md:block relative">
+              <div 
+                className="flex items-center space-x-1 hover:bg-gray-800 px-2 py-1 rounded cursor-pointer"
+                onMouseEnter={() => setUserMenuOpen(true)}
+                onMouseLeave={() => setUserMenuOpen(false)}
+              >
+                <User className="h-4 w-4" />
+                <div className="text-xs">
+                  <div className="text-gray-300">
+                    {isAuthenticated ? `Hi, ${userName || 'User'}` : 'Welcome'}
+                  </div>
+                  <div className="font-medium flex items-center">
+                    {isAuthenticated ? 'Account' : 'Sign in / Register'}
+                    <ChevronDown className="h-3 w-3 ml-1" />
+                  </div>
                 </div>
               </div>
+
+              {/* User Menu Dropdown */}
+              {userMenuOpen && (
+                <div 
+                  className="absolute top-full right-0 w-60 bg-white border border-gray-300 rounded-b-md shadow-lg z-20"
+                  onMouseEnter={() => setUserMenuOpen(true)}
+                  onMouseLeave={() => setUserMenuOpen(false)}
+                >
+                  <div className="py-2">
+                    {menuItems.map((item, index) => {
+                      const Icon = item.icon;
+                      
+                      if (item.onClick) {
+                        return (
+                          <button
+                            key={index}
+                            onClick={item.onClick}
+                            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                          >
+                            <Icon className="h-4 w-4 mr-3" />
+                            {item.label}
+                          </button>
+                        );
+                      }
+                      
+                      return (
+                        <Link
+                          key={index}
+                          to={item.href}
+                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                        >
+                          <Icon className="h-4 w-4 mr-3" />
+                          {item.label}
+                        </Link>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
             </div>
 
-            {/* Profile/Account */}
-            <div className="lg:hidden">
-              <Link to="/profile" className="btn btn-ghost btn-circle text-black hover:bg-gray-100">
-                <User className="h-6 w-6" />
-              </Link>
-            </div>
+       
 
             {/* Cart */}
             <div className="flex items-center space-x-4">
@@ -172,7 +291,7 @@ const Header: React.FC = () => {
       </header>
 
       {/* Navigation Bar - Below Top Bar */}
-      <nav className="bg-gray-800 text-white sticky border-t border-gray-700">
+      <nav className="bg-gray-800 text-white border-t border-gray-700 z-[99999]">
         <div className="container mx-auto px-4">
           <div className="flex items-center space-x-8 h-12 overflow-x-auto">
             {/* Category Dropdown */}
@@ -265,11 +384,6 @@ const Header: React.FC = () => {
               <Phone className="h-4 w-4" />
               <span>Contact</span>
             </Link>
-         
-
-            <div className="text-sm text-gray-300 hidden lg:block">
-              Free shipping on orders over $50
-            </div>
           </div>
         </div>
       </nav>
@@ -291,7 +405,9 @@ const Header: React.FC = () => {
           <div className="flex justify-between items-center p-6 border-b border-gray-200 bg-gray-900 text-white">
             <div className="flex items-center space-x-3">
               <User className="h-8 w-8" />
-              <span className="text-lg font-medium">Hello, Sign in</span>
+              <span className="text-lg font-medium">
+                {isAuthenticated ? `Hi, ${userName || 'User'}` : 'Hello, Sign in'}
+              </span>
             </div>
             <button 
               onClick={toggleMenu}
@@ -355,10 +471,18 @@ const Header: React.FC = () => {
                   <span>Contact</span>
                 </Link>
                 <Link 
+                  to="/profile" 
+                  className="flex items-center px-6 py-4 text-lg font-medium text-black border-b border-gray-100"
+                  onClick={handleMenuLinkClick}
+                >
+                  <User className="h-5 w-5 text-gray-600 mr-4" />
+                  <span>Profile</span>
+                </Link>
+                <Link 
                   to="/corporate-social-responsibility" 
                   className="flex items-center px-4 py-4 text-lg font-medium text-gray-900 hover:bg-gray-50 transition-colors duration-200"
                   onClick={handleMenuLinkClick}
-               >
+                >
                   <HeartHandshake className="h-4 w-4" />
                   <span>CSR</span>
                 </Link>
