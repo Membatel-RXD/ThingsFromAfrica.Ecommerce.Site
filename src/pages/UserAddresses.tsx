@@ -195,17 +195,6 @@ const Addresses: React.FC = () => {
     }
   };
 
-  const getAddressTypeIcon = (type: string) => {
-    switch (type.toLowerCase()) {
-      case 'home':
-        return <Home className="h-4 w-4" />;
-      case 'work':
-        return <Building className="h-4 w-4" />;
-      default:
-        return <MapPinned className="h-4 w-4" />;
-    }
-  };
-
   const NavigationLink = ({ path, label, icon: Icon, isActive = false }) => (
     <button
       onClick={() => navigate(path)}
