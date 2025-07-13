@@ -132,6 +132,13 @@ const Header: React.FC = () => {
               </div>
             </div>
 
+            {/* Profile/Account */}
+            <div className="lg:hidden">
+              <Link to="/profile" className="btn btn-ghost btn-circle text-black hover:bg-gray-100">
+                <User className="h-6 w-6" />
+              </Link>
+            </div>
+
             {/* Cart */}
             <div className="flex items-center space-x-4">
               <div className="indicator">

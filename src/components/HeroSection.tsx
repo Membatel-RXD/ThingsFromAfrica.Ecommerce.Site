@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 
 const HeroSection: React.FC = () => {
   return (
-    <div className="min-h-[70vh] bg-white flex items-start justify-center pt-4">
+    <div className="min-h-[40em] bg-white flex items-start justify-center pt-4">
       <div className="text-center">
         <div className="max-w-6xl">
           <h1 className="text-6xl lg:text-8 font-bold mb-5 text-black">

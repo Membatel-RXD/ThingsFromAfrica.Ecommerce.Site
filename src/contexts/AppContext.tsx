@@ -9,6 +9,7 @@ interface AppContextType {
   menuOpen: boolean;
   toggleMenu: () => void;
   updateCartCount: () => Promise<void>;
+  clearCart: () => void;
 }
 
 const defaultAppContext: AppContextType = {
@@ -19,6 +20,7 @@ const defaultAppContext: AppContextType = {
   menuOpen: false,
   toggleMenu: () => {},
   updateCartCount: async () => {},
+  clearCart: () => {},
 };
 
 const AppContext = createContext<AppContextType>(defaultAppContext);
@@ -39,8 +41,18 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const updateCartCount = async () => {
-    const count = await cartService.getCartCount();
-    setCartItems(count);
+    try {
+      const count = await cartService.getCartCount();
+      setCartItems(count);
+    } catch (error) {
+      console.error('Failed to update cart count:', error);
+      setCartItems(0);
+    }
+  };
+
+  const clearCart = () => {
+    setCartItems(0);
+    cartService.clearCartCache();
   };
 
   useEffect(() => {
@@ -61,6 +73,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         menuOpen,
         toggleMenu,
         updateCartCount,
+        clearCart,
       }}
     >
       {children}

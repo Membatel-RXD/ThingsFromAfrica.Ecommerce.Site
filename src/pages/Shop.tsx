@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -10,6 +10,7 @@ import { Heart, ShoppingCart, Filter, Grid, List, X, ChevronDown, ChevronUp } fr
 import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
+import { productService } from '../services/productService';
 import { useAppContext } from '../contexts/AppContext';
 import { Product, searchProducts, filterByCategory, sortProducts } from '../utils/shopUtils';
 
