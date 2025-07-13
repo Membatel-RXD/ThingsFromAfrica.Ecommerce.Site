@@ -170,7 +170,7 @@ const Profile: React.FC = () => {
               <CardContent className="space-y-2">
                 <NavigationLink path="/profile" label="Profile" icon={User} isActive={true} />
                 <NavigationLink path="/profile/payments" label="Payments" icon={CreditCard} />
-                <NavigationLink path="/profile/addresses" label="Addresses" icon={MapPinned} />
+                <NavigationLink path="/user/addresses" label="Addresses" icon={MapPinned} />
                 <NavigationLink path="/profile/promotions" label="Promotions" icon={Gift} />
                 <NavigationLink path="/profile/shipments" label="Shipments" icon={Truck} />
                 <NavigationLink path="/profile/wishlist" label="Wishlist" icon={Heart} />

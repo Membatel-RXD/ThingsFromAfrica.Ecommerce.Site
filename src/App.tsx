@@ -20,6 +20,7 @@ import Cart from "./pages/Cart";
 import { AppProvider } from "./contexts/AppContext";
 import Sustainability from "./pages/sustainability";
 import CSR from "./pages/csr";
+import Addresses from "./pages/UserAddresses";
 
 const queryClient = new QueryClient();
 
@@ -47,6 +48,7 @@ const App = () => (
             <Route path="/email-verification" element={<EmailVerificationInfo />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/user/addresses" element={<Addresses />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

@@ -127,6 +127,11 @@ export interface Artisan {
     modifiedAt: string // ISO 8601 date string
   }
   
+  export interface CreateUserAddressRequest extends Omit<AddressDTO,'addressId'|
+   'modifiedAt'|
+   'createdAt'>{};
+  
+
   export interface Customer{
     userId: number
     customerType: string
