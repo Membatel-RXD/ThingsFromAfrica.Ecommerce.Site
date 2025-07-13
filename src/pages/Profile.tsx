@@ -8,7 +8,6 @@ import { authService } from '../services/authService';
 import { useAppContext } from '../contexts/AppContext';
 import { 
   User, 
-  LogOut, 
   CreditCard, 
   Gift, 
   MapPinned, 
@@ -23,21 +22,12 @@ import {
   Shield,
   Activity
 } from 'lucide-react';
+import { apiService, IAPIResponse } from '@/lib/api';
+import {  CustomerProfileContainerDTO } from '@/models/members';
 
 const Profile: React.FC = () => {
-  const [sessions, setSessions] = useState<any[]>([]);
-  const [loginHistory, setLoginHistory] = useState<any[]>([]);
-  const [customerProfile, setCustomerProfile] = useState<any>(null);
+  const [customerProfile, setCustomerProfile] = useState<CustomerProfileContainerDTO>(null);
   const [payments, setPayments] = useState<any[]>([]);
-  const [promotionUsage, setPromotionUsage] = useState<any[]>([]);
-  const [addresses, setAddresses] = useState<any[]>([]);
-  const [wishList, setWishList] = useState<any[]>([]);
-  const [shipments, setShipments] = useState<any[]>([]);
-  const [notifications, setNotifications] = useState({
-    email: true,
-    sms: false,
-    promotions: true
-  });
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
@@ -49,27 +39,11 @@ const Profile: React.FC = () => {
         return;
       }
 
+      const email = authService.getUserEmail();
       try {
-        // Simulate API calls - replace with actual service calls
-        const mockCustomerProfile = {
-          userId: 12345,
-          customerType: "Premium",
-          companyName: "Tech Solutions Inc.",
-          taxId: "TAX123456789",
-          marketingOptIn: true,
-          newsletterOptIn: true,
-          smsOptIn: false,
-          totalOrders: 24,
-          totalSpent: 2450.75,
-          averageOrderValue: 102.11,
-          lastOrderDate: "2025-07-10T10:30:00.000Z",
-          customerLifetimeValue: 3200.50,
-          loyaltyPoints: 1250,
-          loyaltyTier: "Gold",
-          createdAt: "2024-01-15T08:00:00.000Z",
-          modifiedAt: "2025-07-13T13:35:10.205Z"
-        };
+        const response = await apiService.get<IAPIResponse<CustomerProfileContainerDTO[]>>(`CustomerProfiles/GetCustomerProfiles?email=${email}`)
 
+        const customerProfileData = response.payload || []
         const mockPayments = [
           {
             paymentId: 1,
@@ -104,82 +78,12 @@ const Profile: React.FC = () => {
             createdBy: 12345
           }
         ];
-
-        const mockPromotionUsage = [
-          {
-            usageId: 1,
-            promotionId: 501,
-            orderId: 101,
-            discountAmount: 15.00,
-            usedAt: "2025-07-12T14:30:00.000Z",
-            customerId: 12345
-          },
-          {
-            usageId: 2,
-            promotionId: 502,
-            orderId: 100,
-            discountAmount: 25.00,
-            usedAt: "2025-07-10T10:30:00.000Z",
-            customerId: 12345
-          }
-        ];
-
-        const mockAddresses = [
-          {
-            id: 1,
-            type: "Home",
-            street: "123 Main Street",
-            city: "New York",
-            state: "NY",
-            zipCode: "10001",
-            country: "USA",
-            isDefault: true
-          },
-          {
-            id: 2,
-            type: "Work",
-            street: "456 Business Ave",
-            city: "New York",
-            state: "NY",
-            zipCode: "10002",
-            country: "USA",
-            isDefault: false
-          }
-        ];
-
-        const mockShipments = [
-          {
-            id: 1,
-            orderId: 101,
-            trackingNumber: "TRK123456789",
-            status: "In Transit",
-            estimatedDelivery: "2025-07-15T18:00:00.000Z",
-            carrier: "FedEx"
-          },
-          {
-            id: 2,
-            orderId: 100,
-            trackingNumber: "TRK123456788",
-            status: "Delivered",
-            estimatedDelivery: "2025-07-11T16:00:00.000Z",
-            carrier: "UPS"
-          }
-        ];
-
-        const [historyResponse] = await Promise.all([
-          authService.getLoginHistory()
-        ]);
-
-        if (historyResponse.isSuccessful) {
-          setLoginHistory(historyResponse.payload);
-        }
+       
 
         // Set mock data
-        setCustomerProfile(mockCustomerProfile);
+        setCustomerProfile(customerProfileData[0]);
         setPayments(mockPayments);
-        setPromotionUsage(mockPromotionUsage);
-        setAddresses(mockAddresses);
-        setShipments(mockShipments);
+      
         
       } catch (error) {
         console.error('Failed to load user data:', error);
@@ -293,7 +197,7 @@ const Profile: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm text-gray-600">Total Orders</p>
-                          <p className="text-2xl font-bold text-black">{customerProfile.totalOrders}</p>
+                          <p className="text-2xl font-bold text-black">{customerProfile.customerProfile.totalOrders}</p>
                         </div>
                         <Package className="h-8 w-8 text-gray-400" />
                       </div>
@@ -305,7 +209,7 @@ const Profile: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm text-gray-600">Total Spent</p>
-                          <p className="text-2xl font-bold text-black">{formatCurrency(customerProfile.totalSpent)}</p>
+                          <p className="text-2xl font-bold text-black">{formatCurrency(customerProfile.customerProfile.totalSpent)}</p>
                         </div>
                         <DollarSign className="h-8 w-8 text-gray-400" />
                       </div>
@@ -317,7 +221,7 @@ const Profile: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm text-gray-600">Loyalty Points</p>
-                          <p className="text-2xl font-bold text-black">{customerProfile.loyaltyPoints}</p>
+                          <p className="text-2xl font-bold text-black">{customerProfile.customerProfile.loyaltyPoints}</p>
                         </div>
                         <Award className="h-8 w-8 text-gray-400" />
                       </div>
@@ -329,7 +233,7 @@ const Profile: React.FC = () => {
                       <div className="flex items-center justify-between">
                         <div>
                           <p className="text-sm text-gray-600">Loyalty Tier</p>
-                          <p className="text-2xl font-bold text-black">{customerProfile.loyaltyTier}</p>
+                          <p className="text-2xl font-bold text-black">{customerProfile.customerProfile.loyaltyTier}</p>
                         </div>
                         <Star className="h-8 w-8 text-gray-400" />
                       </div>
@@ -364,21 +268,21 @@ const Profile: React.FC = () => {
                         <>
                           <div>
                             <p className="text-sm text-gray-600">Customer Type</p>
-                            <Badge variant="secondary">{customerProfile.customerType}</Badge>
+                            <Badge variant="secondary">{customerProfile.customerProfile.customerType}</Badge>
                           </div>
                           <div>
                             <p className="text-sm text-gray-600">Member Since</p>
-                            <p className="font-medium">{formatDate(customerProfile.createdAt)}</p>
+                            <p className="font-medium">{formatDate(customerProfile.userDetails.createdAt)}</p>
                           </div>
-                          {customerProfile.companyName && (
+                          {customerProfile.customerProfile.companyName && (
                             <div>
                               <p className="text-sm text-gray-600">Company</p>
-                              <p className="font-medium">{customerProfile.companyName}</p>
+                              <p className="font-medium">{customerProfile.customerProfile.companyName}</p>
                             </div>
                           )}
                           <div>
                             <p className="text-sm text-gray-600">Average Order Value</p>
-                            <p className="font-medium">{formatCurrency(customerProfile.averageOrderValue)}</p>
+                            <p className="font-medium">{formatCurrency(customerProfile.customerProfile.averageOrderValue)}</p>
                           </div>
                         </>
                       )}
@@ -402,7 +306,7 @@ const Profile: React.FC = () => {
                             <Package className="h-4 w-4 text-gray-400 mr-3" />
                             <span className="text-sm">Last Order</span>
                           </div>
-                          <span className="text-sm text-gray-600">{formatDate(customerProfile.lastOrderDate)}</span>
+                          <span className="text-sm text-gray-600">{formatDate(customerProfile.customerProfile.lastOrderDate)}</span>
                         </div>
                       )}
                       {payments.slice(0, 3).map((payment) => (
@@ -434,15 +338,15 @@ const Profile: React.FC = () => {
                   {customerProfile && (
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <p className="text-2xl font-bold text-black">{formatCurrency(customerProfile.customerLifetimeValue)}</p>
+                        <p className="text-2xl font-bold text-black">{formatCurrency(customerProfile.customerProfile.customerLifetimeValue)}</p>
                         <p className="text-sm text-gray-600">Lifetime Value</p>
                       </div>
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <p className="text-2xl font-bold text-black">{formatCurrency(customerProfile.averageOrderValue)}</p>
+                        <p className="text-2xl font-bold text-black">{formatCurrency(customerProfile.customerProfile.averageOrderValue)}</p>
                         <p className="text-sm text-gray-600">Average Order Value</p>
                       </div>
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
-                        <p className="text-2xl font-bold text-black">{customerProfile.totalOrders}</p>
+                        <p className="text-2xl font-bold text-black">{customerProfile.customerProfile.totalOrders}</p>
                         <p className="text-sm text-gray-600">Total Orders</p>
                       </div>
                     </div>

@@ -109,4 +109,86 @@ export interface Artisan {
     deletedAt: string // ISO 8601 date string
     deletedBy: number
   }
+  export interface AddressDTO {
+    addressId: number
+    userId: number
+    addressLine1: string
+    addressLine2: string
+    city: string
+    stateProvince: string
+    postalCode: string
+    country: string
+    contactName: string
+    contactPhone: string
+    addressType: string
+    isActive: boolean
+    isDefault: boolean
+    createdAt: string // ISO 8601 date string
+    modifiedAt: string // ISO 8601 date string
+  }
   
+  export interface Customer{
+    userId: number
+    customerType: string
+    companyName: string
+    taxId: string
+    marketingOptIn: boolean
+    newsletterOptIn: boolean
+    smsOptIn: boolean
+    totalOrders: number
+    totalSpent: number
+    averageOrderValue: number
+    lastOrderDate: string // ISO 8601 date string
+    customerLifetimeValue: number
+    loyaltyPoints: number
+    loyaltyTier: string
+    createdAt: string // ISO 8601 date string
+    modifiedAt: string // ISO 8601 date string
+  }
+  
+  export interface User {
+    roleId: number
+    passwordHash: string
+    username: string
+    userId:number;
+    email: string
+    emailVerified: boolean
+    emailVerificationToken: string
+    emailVerificationExpiry: string // ISO date string
+    passwordSalt: string
+    passwordResetToken: string
+    passwordResetExpiry: string // ISO date string
+    lastPasswordChange: string // ISO date string
+    isLocked: boolean
+    lockoutEndDate: string // ISO date string
+    failedLoginAttempts: number
+    lastLoginAt: string // ISO date string
+    lastLoginIP: string
+    twoFactorEnabled: boolean
+    twoFactorSecret: string
+    twoFactorBackupCodes: string
+    userStatus: string // or UserStatus enum
+    firstName: string
+    lastName: string
+    displayName: string
+    dateOfBirth: string // YYYY-MM-DD
+    gender: string // or Gender enum
+    profileImageUrl: string
+    phoneNumber: string
+    phoneVerified: boolean
+    phoneVerificationCode: string
+    phoneVerificationExpiry: string // ISO date string
+    preferredLanguage: string
+    preferredCurrency: string
+    timeZone: string
+    notificationPreferences: string
+    createdAt: string // ISO date string
+    modifiedAt: string // ISO date string
+    lastActiveAt: string // ISO date string
+  }
+  
+  export interface CustomerProfileContainerDTO {
+    customerProfile: Customer
+    userDetails: User
+    userAddresses: AddressDTO[]
+  }
