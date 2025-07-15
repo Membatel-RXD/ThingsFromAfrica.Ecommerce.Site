@@ -1,24 +1,10 @@
+import { CartItem } from "@/models/members";
+import { authService } from "./authService";
+import { apiService, IAPIResponse } from "@/lib/api";
+
 const API_BASE_URL = 'https://thingsfromafrica-ecommerce-api.onrender.com/api/v1';
 
-export interface CartItem {
-  productId: number;
-  quantity: number;
-  unitPrice: number;
-  cartId: number;
-  customerId: number;
-  sessionId: string;
-  currency: string;
-  specialInstructions: string;
-  addedAt: string;
-  modifiedAt: string;
-  expiresAt: string;
-}
 
-export interface CartResponse {
-  isSuccessful: boolean;
-  remark: string;
-  payload: CartItem[];
-}
 
 class CartService {
   private getAuthToken(): string | null {
@@ -33,21 +19,10 @@ class CartService {
       return [];
     }
 
+    const userId = authService.getUserId();
     try {
-      const response = await fetch(`${API_BASE_URL}/ShoppingCart/GetAll`, {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'accept': 'text/plain'
-        }
-      });
-
-      const data: CartResponse = await response.json();
-      
-      if (data.isSuccessful) {
-        return data.payload;
-      }
-      
-      return [];
+      const response = await apiService.get<IAPIResponse<CartItem[]>>(`/ShoppingCart/GetByCustomerId/${userId}`);
+     return response.payload || [];
     } catch (error) {
       console.error('Failed to fetch cart items:', error);
       return [];

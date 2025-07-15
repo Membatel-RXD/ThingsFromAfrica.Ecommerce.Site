@@ -197,3 +197,64 @@ export interface Artisan {
     userDetails: User
     userAddresses: AddressDTO[]
   }
+
+  export interface PayPalOrderResponse {
+    orderId: string;
+    status: string;
+    approvalUrl: string;
+    links: PayPalLink[];
+  }
+  
+  export interface PayPalLink {
+    href: string;
+    rel: string;
+    method: string;
+  }
+  
+
+  export interface PayPalOrder {
+    intent: string;
+    purchase_units: PurchaseUnit[];
+    orderNumber: string;
+  }
+  
+  interface PurchaseUnit {
+    amount: Amount;
+    items: Item[];
+    reference_id: string;
+    description: string;
+    custom_id: string;
+    soft_descriptor: string;
+  }
+  
+  interface Amount {
+    currency_code: string;
+    value: string;
+  }
+  
+  interface Item {
+    name: string;
+    quantity: string;
+    unit_amount: Amount;
+    description: string;
+    sku: string;
+    category: string;
+  }
+  export interface CartItem {
+    productName: string;
+    sku: string;
+    productDescription: string;
+    shortDescription: string;
+    productId: number;
+    quantity: number;
+    unitPrice: number;
+    cartId: number;
+    customerId: number;
+    sessionId: string;
+    currency: string;
+    specialInstructions: string;
+    addedAt: string;    // ISO 8601 date-time string
+    modifiedAt: string; // ISO 8601 date-time string
+    expiresAt: string;  // ISO 8601 date-time string
+  }
+  

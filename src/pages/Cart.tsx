@@ -4,14 +4,18 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { cartService } from '../services/cartService';
+import {  cartService } from '../services/cartService';
 import { authService } from '../services/authService';
 import { useAppContext } from '../contexts/AppContext';
-import { Trash2, Plus, Minus, ShoppingBag } from 'lucide-react';
+import { Trash2, Plus, Minus, ShoppingBag, CreditCard, Wallet } from 'lucide-react';
+import { CartItem, PayPalOrder, PayPalOrderResponse } from '@/models/members';
+import { apiService, IAPIResponse } from '@/lib/api';
 
 const Cart: React.FC = () => {
-  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [loading, setLoading] = useState(true);
+  const [paymentMethod, setPaymentMethod] = useState<'traditional' | 'paypal'>('traditional');
+  const [processingPayment, setProcessingPayment] = useState(false);
   const navigate = useNavigate();
   const { updateCartCount } = useAppContext();
 
@@ -43,7 +47,6 @@ const Cart: React.FC = () => {
     }
 
     try {
-      // Find the existing cart item to pass its data
       const existingItem = cartItems.find(item => item.cartId === cartId);
       const success = await cartService.updateCartItem(cartId, newQuantity, existingItem);
       if (success) {
@@ -75,6 +78,63 @@ const Cart: React.FC = () => {
 
   const getTotalItems = () => {
     return cartItems.reduce((total, item) => total + item.quantity, 0);
+  };
+
+  const handleTraditionalCheckout = () => {
+    // Navigate to traditional checkout flow
+    navigate('/checkout', { 
+      state: { 
+        cartItems, 
+        total: getTotalPrice(),
+        totalItems: getTotalItems()
+      }
+    });
+  };
+
+  const handlePayPalCheckout = async () => {
+    setProcessingPayment(true);
+    
+    try {
+      const userEmail = authService.getUserEmail();
+      const orderData: PayPalOrder = {
+        intent: 'CAPTURE',
+        orderNumber: `ORDER-${Date.now()}`, 
+        purchase_units: [{
+          reference_id: `PU-${Date.now()}`,
+          description: 'Purchase from My eCommerce Store',
+          custom_id: `CUSTOM-${userEmail}`, 
+          soft_descriptor: 'ThingsFromAfricaStore', // 22-character max for card statements
+          amount: {
+            currency_code: 'USD',
+            value: getTotalPrice().toFixed(2)
+          },
+          items: cartItems.map(item => ({
+            name: item.productName, 
+            quantity: item.quantity.toString(),
+            unit_amount: {
+              currency_code: 'USD',
+              value: item.unitPrice.toFixed(2)
+            },
+            description: item.productDescription || item.productName, // fallback
+            sku: item.sku || `SKU-${item.productId}`,
+            category: 'PHYSICAL_GOODS'
+          }))
+        }]
+      };
+      
+      // Call your backend to create PayPal order
+      const response = await apiService.post<IAPIResponse<PayPalOrderResponse>>('PayPal/create-order',orderData);      
+      if (response && response.isSuccessful && response.payload) {
+        window.location.href = response.payload.approvalUrl;
+      } else {
+        throw new Error('Failed to create PayPal order');
+      }
+    } catch (error) {
+      console.error('PayPal checkout failed:', error);
+      alert('Payment failed. Please try again.');
+    } finally {
+      setProcessingPayment(false);
+    }
   };
 
   if (loading) {
@@ -187,18 +247,83 @@ const Cart: React.FC = () => {
                     <span>Total</span>
                     <span>${getTotalPrice().toFixed(2)}</span>
                   </div>
-                  
-                  <Button className="w-full bg-black hover:bg-gray-800 mt-6">
-                    Proceed to Checkout
-                  </Button>
-                  
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-black text-black hover:bg-black hover:text-white"
-                    onClick={() => navigate('/shop')}
-                  >
-                    Continue Shopping
-                  </Button>
+
+                  {/* Payment Method Selection */}
+                  <div className="mt-6">
+                    <h4 className="font-semibold mb-3">Choose Payment Method</h4>
+                    <div className="space-y-2">
+                      <div 
+                        className={`p-3 border rounded-lg cursor-pointer transition-colors ${
+                          paymentMethod === 'traditional' 
+                            ? 'border-black bg-gray-50' 
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                        onClick={() => setPaymentMethod('traditional')}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <CreditCard className="h-5 w-5" />
+                          <span>Traditional Checkout</span>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1">Enter shipping & payment details</p>
+                      </div>
+                      
+                      <div 
+                        className={`p-3 border rounded-lg cursor-pointer transition-colors ${
+                          paymentMethod === 'paypal' 
+                            ? 'border-black bg-gray-50' 
+                            : 'border-gray-200 hover:border-gray-300'
+                        }`}
+                        onClick={() => setPaymentMethod('paypal')}
+                      >
+                        <div className="flex items-center space-x-3">
+                          <Wallet className="h-5 w-5" />
+                          <span>PayPal Express</span>
+                        </div>
+                        <p className="text-sm text-gray-600 mt-1">Pay with your PayPal account</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Checkout Buttons */}
+                  <div className="mt-6 space-y-3">
+                    {paymentMethod === 'traditional' ? (
+                      <Button 
+                        className="w-full bg-black hover:bg-gray-800"
+                        onClick={handleTraditionalCheckout}
+                      >
+                        <CreditCard className="h-4 w-4 mr-2" />
+                        Proceed to Checkout
+                      </Button>
+                    ) : (
+                      <Button 
+                        className="w-full bg-blue-600 hover:bg-blue-700"
+                        onClick={handlePayPalCheckout}
+                        disabled={processingPayment}
+                      >
+                        {processingPayment ? (
+                          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
+                        ) : (
+                          <Wallet className="h-4 w-4 mr-2" />
+                        )}
+                        {processingPayment ? 'Processing...' : 'Pay with PayPal'}
+                      </Button>
+                    )}
+                    
+                    <Button 
+                      variant="outline" 
+                      className="w-full border-black text-black hover:bg-black hover:text-white"
+                      onClick={() => navigate('/shop')}
+                    >
+                      Continue Shopping
+                    </Button>
+                  </div>
+
+                  {/* Security Note */}
+                  <div className="mt-4 p-3 bg-green-50 border border-green-200 rounded-lg">
+                    <p className="text-sm text-green-800">
+                      🔒 Your payment information is secure and encrypted
+                    </p>
+                  </div>
                 </CardContent>
               </Card>
             </div>

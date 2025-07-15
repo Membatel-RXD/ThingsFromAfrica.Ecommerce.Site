@@ -21,6 +21,8 @@ import { AppProvider } from "./contexts/AppContext";
 import Sustainability from "./pages/sustainability";
 import CSR from "./pages/csr";
 import Addresses from "./pages/UserAddresses";
+import PaymentSuccess from "./pages/PaymentSuccess";
+import PaymentCancel from "./pages/PaymentCancel";
 
 const queryClient = new QueryClient();
 
@@ -49,6 +51,9 @@ const App = () => (
             <Route path="/profile" element={<Profile />} />
             <Route path="/cart" element={<Cart />} />
             <Route path="/user/addresses" element={<Addresses />} />
+            <Route path="/payment/success" element={<PaymentSuccess />} />
+            <Route path="/payment/cancel" element={<PaymentCancel />} />
+        
             <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
