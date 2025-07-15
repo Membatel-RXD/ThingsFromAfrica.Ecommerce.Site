@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Artisan Woods - Handcrafted Wooden Treasures</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Georgia', serif;
+            line-height: 1.6;
+            color: #2c2c2c;
+        }
+
+        .hero-section {
+            min-height: 100vh;
+            background: linear-gradient(135deg, #8B4513 0%, #D2691E 30%, #F4A460 70%, #DEB887 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .wood-texture {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxnIG9wYWNpdHk9IjAuMSI+CjxwYXRoIGQ9Ik0wIDUwQzUwIDUwIDEwMCA0MCAyMDAgNTBWMjAwSDBWNTBaIiBmaWxsPSIjNjY0MjI4Ii8+CjxwYXRoIGQ9Ik0wIDEwMEM1MCA5MCA5MCA5NSAxNTAgOTBDMTcwIDg4IDIwMCA5MiAyMDAgMTAwVjIwMEgwVjEwMFoiIGZpbGw9IiM1OTMzMTgiLz4KPHN2ZyB4PSIwIiB5PSIwIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+CjxsaW5lIHgxPSIwIiB5MT0iMTAiIHgyPSIyMDAiIHkyPSIxNSIgc3Ryb2tlPSIjNDQyODEzIiBzdHJva2Utd2lkdGg9IjAuNSIgb3BhY2l0eT0iMC4zIi8+CjxsaW5lIHgxPSIwIiB5MT0iMzAiIHgyPSIyMDAiIHkyPSIzMiIgc3Ryb2tlPSIjNDQyODEzIiBzdHJva2Utd2lkdGg9IjAuNSIgb3BhY2l0eT0iMC4zIi8+CjxsaW5lIHgxPSIwIiB5MT0iNzAiIHgyPSIyMDAiIHkyPSI3NSIgc3Ryb2tlPSIjNDQyODEzIiBzdHJva2Utd2lkdGg9IjAuNSIgb3BhY2l0eT0iMC4zIi8+CjwvbGluZT4KPC9zdmc+CjwvZz4KPC9zdmc+') repeat;
+            opacity: 0.1;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            z-index: 2;
+        }
+
+        .hero-left {
+            color: white;
+            z-index: 3;
+        }
+
+        .hero-badge {
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            line-height: 1.2;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            font-family: 'Georgia', serif;
+        }
+
+        .hero-subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            font-weight: 300;
+            line-height: 1.5;
+        }
+
+        .hero-features {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .hero-features li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .hero-features li::before {
+            content: "🪵";
+            margin-right: 10px;
+            font-size: 1.2rem;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 35px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, #CD853F, #DEB887);
+            color: #2c2c2c;
+            box-shadow: 0 8px 25px rgba(205, 133, 63, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(205, 133, 63, 0.6);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .hero-right {
+            position: relative;
+        }
+
+        .product-showcase {
+            position: relative;
+            height: 500px;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            background: linear-gradient(145deg, #f5f5f5, #e8e8e8);
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: 100%;
+            gap: 2px;
+        }
+
+        .product-item {
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            display: flex;
+            align-items: end;
+            padding: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .product-item:hover {
+            transform: scale(1.05);
+            z-index: 5;
+        }
+
+        .product-1 {
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRDI2OTFFIi8+CjxyZWN0IHg9IjQwIiB5PSI2MCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI4MCIgcng9IjEwIiBmaWxsPSIjOEI0NTEzIi8+CjxyZWN0IHg9IjUwIiB5PSI3MCIgd2lkdGg9IjEwMCIgaGVpZ2h0PSI2MCIgcng9IjUiIGZpbGw9IiNBMDUyMkQiLz4KPHN2ZyB4PSI5MCIgeT0iOTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iI0NENjgzOSI+CjxjaXJjbGUgY3g9IjEwIiBjeT0iMTAiIHI9IjgiIGZpbGw9IiNGRkY4RjgiLz4KPC9zdmc+CjxwYXRoIGQ9Ik04MCA1MEwyMCA1MFYxNTBMMTYwIDE1MFYxMDBMMTIwIDEwMFYxMDBMMTIwIDEwMFYxMDBMMTIwIDEwMFYxMDBMMTIwIDEwMFYxMDBMMTIwIDEwMCIgZmlsbD0iIzZGNDEyOCIvPgo8L3N2Zz4=');
+        }
+
+        .product-2 {
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjRBNDYwIi8+CjxlbGxpcHNlIGN4PSIxMDAiIGN5PSIxMDAiIHJ4PSI4MCIgcnk9IjQwIiBmaWxsPSIjOEI0NTEzIi8+CjxlbGxpcHNlIGN4PSIxMDAiIGN5PSIxMDAiIHJ4PSI2MCIgcnk9IjMwIiBmaWxsPSIjQTA1MjJEIi8+CjxlbGxpcHNlIGN4PSIxMDAiIGN5PSIxMDAiIHJ4PSI0MCIgcnk9IjIwIiBmaWxsPSIjQ0Q2ODM5Ii8+CjxlbGxpcHNlIGN4PSIxMDAiIGN5PSIxMDAiIHJ4PSIyMCIgcnk9IjEwIiBmaWxsPSIjRjVGNUY1Ii8+Cjwvc3ZnPgo=');
+        }
+
+        .product-3 {
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjREVCODg3Ii8+CjxwYXRoIGQ9Ik0xMDAgMjBMMTgwIDEwMEwxMDAgMTgwTDIwIDEwMEwxMDAgMjBaIiBmaWxsPSIjOEI0NTEzIi8+CjxwYXRoIGQ9Ik0xMDAgNDBMMTYwIDEwMEwxMDAgMTYwTDQwIDEwMEwxMDAgNDBaIiBmaWxsPSIjQTA1MjJEIi8+CjxwYXRoIGQ9Ik0xMDAgNjBMMTQwIDEwMEwxMDAgMTQwTDYwIDEwMEwxMDAgNjBaIiBmaWxsPSIjQ0Q2ODM5Ii8+CjxjaXJjbGUgY3g9IjEwMCIgY3k9IjEwMCIgcj0iMTAiIGZpbGw9IiNGNUY1RjUiLz4KPC9zdmc+');
+        }
+
+        .product-4 {
+            background: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.2)), url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgdmlld0JveD0iMCAwIDIwMCAyMDAiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+CjxyZWN0IHdpZHRoPSIyMDAiIGhlaWdodD0iMjAwIiBmaWxsPSIjRjRBNDYwIi8+CjxyZWN0IHg9IjIwIiB5PSI0MCIgd2lkdGg9IjE2MCIgaGVpZ2h0PSIxMjAiIHJ4PSI1IiBmaWxsPSIjOEI0NTEzIi8+CjxyZWN0IHg9IjMwIiB5PSI1MCIgd2lkdGg9IjE0MCIgaGVpZ2h0PSIxMDAiIHJ4PSI1IiBmaWxsPSIjQTA1MjJEIi8+CjxyZWN0IHg9IjQwIiB5PSI2MCIgd2lkdGg9IjEyMCIgaGVpZ2h0PSI4MCIgcng9IjUiIGZpbGw9IiNDRDY4MzkiLz4KPHN2ZyB4PSI5MCIgeT0iOTAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iIzZGNDEyOCI+CjxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIyMCIgaGVpZ2h0PSIyMCIgZmlsbD0iI0Y1RjVGNSIvPgo8L3N2Zz4KPC9zdmc+');
+        }
+
+        .product-label {
+            background: rgba(255, 255, 255, 0.9);
+            color: #2c2c2c;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            backdrop-filter: blur(5px);
+        }
+
+        .craft-process {
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(10px);
+        }
+
+        .process-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+            color: #2c2c2c;
+        }
+
+        .process-step::before {
+            content: "→";
+            margin-right: 8px;
+            color: #8B4513;
+            font-weight: bold;
+        }
+
+        .stats-bar {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(139, 69, 19, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            display: flex;
+            justify-content: space-around;
+            color: white;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .floating-wood {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .wood-chip {
+            position: absolute;
+            font-size: 1.5rem;
+            opacity: 0.1;
+            animation: float 8s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-30px) rotate(180deg); }
+        }
+
+        @media (max-width: 768px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                text-align: center;
+            }
+            
+            .hero-title {
+                font-size: 2.5rem;
+            }
+            
+            .product-showcase {
+                height: 300px;
+            }
+            
+            .cta-buttons {
+                justify-content: center;
+            }
+            
+            .craft-process {
+                position: relative;
+                top: 0;
+                right: 0;
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="hero-section">
+        <div class="wood-texture"></div>
+        <div class="floating-wood">
+            <div class="wood-chip" style="top: 15%; left: 8%;">🪵</div>
+            <div class="wood-chip" style="top: 65%; left: 12%; animation-delay: -2s;">🪚</div>
+            <div class="wood-chip" style="top: 25%; right: 15%; animation-delay: -4s;">🔨</div>
+            <div class="wood-chip" style="top: 75%; right: 8%; animation-delay: -1s;">✂️</div>
+        </div>
+
+        <div class="hero-content">
+            <div class="hero-left">
+                <div class="hero-badge">🏆 Master Craftsmanship</div>
+                <h1 class="hero-title">Handcrafted Wooden Treasures</h1>
+                <p class="hero-subtitle">Our skilled artisans transform raw wood into beautiful, functional pieces that bring warmth and character to your home</p>
+                
+                <ul class="hero-features">
+                    <li>Each piece is uniquely handcrafted by our skilled team</li>
+                    <li>Sustainable wood sourced from certified forests</li>
+                    <li>Custom designs and personalization available</li>
+                    <li>Lifetime craftsmanship guarantee</li>
+                </ul>
+                
+                <div class="cta-buttons">
+                    <a href="#" class="btn btn-primary">Shop Collection 🛍️</a>
+                    <a href="#" class="btn btn-secondary">Meet Our Artisans 👥</a>
+                </div>
+            </div>
+            
+            <div class="hero-right">
+                <div class="product-showcase">
+                    <div class="product-grid">
+                        <div class="product-item product-1">
+                            <div class="product-label">Jewelry Boxes</div>
+                        </div>
+                        <div class="product-item product-2">
+                            <div class="product-label">Decorative Bowls</div>
+                        </div>
+                        <div class="product-item product-3">
+                            <div class="product-label">Wall Art</div>
+                        </div>
+                        <div class="product-item product-4">
+                            <div class="product-label">Custom Furniture</div>
+                        </div>
+                    </div>
+                    
+                    <div class="craft-process">
+                        <div class="process-step">Select Premium Wood</div>
+                        <div class="process-step">Hand Design & Cut</div>
+                        <div class="process-step">Sand & Finish</div>
+                        <div class="process-step">Quality Check</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stats-bar">
+            <div class="stat">
+                <div class="stat-number">15+</div>
+                <div class="stat-label">Years Experience</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Happy Customers</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">50+</div>
+                <div class="stat-label">Unique Designs</div>
+            </div>
+            <div class="stat">
+                <div class="stat-number">100%</div>
+                <div class="stat-label">Handmade</div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

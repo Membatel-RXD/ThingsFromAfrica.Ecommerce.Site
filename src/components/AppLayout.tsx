@@ -3,6 +3,7 @@ import Header from './Header';
 import HeroSection from './HeroSection';
 import CraftShowcase from './CraftShowcase';
 import Footer from './Footer';
+import ShopByCategory from './ShopByCategory';
 
 interface AppLayoutProps {
   children?: React.ReactNode;
@@ -17,6 +18,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           <>
             <HeroSection />
             <CraftShowcase />
+            <ShopByCategory/>
           </>
         )}
       </main>
