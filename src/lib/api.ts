@@ -9,6 +9,7 @@ export interface IAPIResponse<T> {
     AxiosError,
   } from "axios";
   import { API_CONFIG } from "../config/api-config";
+import { authService } from "@/services/authService";
   
   class ApiService {
     private api: AxiosInstance;
@@ -21,8 +22,12 @@ export interface IAPIResponse<T> {
       });
       // Request interceptor
       this.api.interceptors.request.use(
-        (config: any) => {         
-          return config;
+        (config: any) => {   
+        const token = authService.getAuthToken();
+        if (token) {
+          config.headers.Authorization = `Bearer ${token}`;
+        }
+        return config;      
         },
         (error: any) => {
           return Promise.reject(error);

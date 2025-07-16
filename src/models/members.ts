@@ -214,7 +214,7 @@ export interface Artisan {
 
   export interface PayPalOrder {
     intent: string;
-    purchase_units: PurchaseUnit[];
+    purchaseUnits: PurchaseUnit[];
     orderNumber: string;
   }
   
@@ -352,4 +352,99 @@ export interface Product {
   isDeleted: boolean;
   deletedAt: string;
   deletedBy: number;
+}
+export interface CustomerOrderRequest {
+  useSystemAddress: boolean;
+  orderNumber: string;
+  customerId: string;
+  customerEmail: string;
+  customerPhone: string;
+  billingFirstName: string;
+  billingLastName: string;
+  billingCompany: string;
+  billingAddressLine1: string;
+  billingAddressLine2: string;
+  billingCity: string;
+  billingStateProvince: string;
+  billingPostalCode: string;
+  billingCountryCode: string;
+  shippingFirstName: string;
+  shippingLastName: string;
+  shippingCompany: string;
+  shippingAddressLine1: string;
+  shippingAddressLine2: string;
+  shippingCity: string;
+  shippingStateProvince: string;
+  shippingPostalCode: string;
+  shippingCountryCode: string;
+  subTotal: number;
+  taxAmount: number;
+  shippingAmount: number;
+  discountAmount: number;
+  totalAmount: number;
+  currency: string;
+  isTouristOrder: boolean;
+  touristCountry: string;
+  requiresPhytosanitaryCertificate: boolean;
+  customerNotes: string;
+  adminNotes: string;
+  requiredDate: string; // or Date if parsed
+  orderItems: OrderItem[];
+}
+
+export interface OrderItem {
+  productId: number;
+  quantity: number;
+  unitPrice: number;
+  specialInstructions: string;
+  giftMessage: string;
+  giftWrapRequired: boolean;
+}
+export interface OrderDetails {
+  statusId: number;
+  orderStatus: string;
+  customerEmail: string;
+  orderId: number;
+  orderNumber: string;
+  billingFirstName: string;
+  billingLastName: string;
+  billingAddressLine1: string;
+  billingAddressLine2: string;
+  billingCity: string;
+  billingStateProvince: string;
+  billingPostalCode: string;
+  billingCountryCode: string;
+  billingCountryName: string;
+  billingCompany: string;
+  shippingFirstName: string;
+  shippingLastName: string;
+  shippingAddressLine1: string;
+  shippingAddressLine2: string;
+  shippingCity: string;
+  shippingStateProvince: string;
+  shippingPostalCode: string;
+  shippingCountryCode: string;
+  shippingCountryName: string;
+  shippingCompany: string;
+  subTotal: number;
+  taxAmount: number;
+  shippingAmount: number;
+  discountAmount: number;
+  totalAmount: number;
+  currency: string;
+  isTouristOrder: boolean;
+  touristCountry: string;
+  requiresPhytosanitaryCertificate: boolean;
+  customerNotes: string;
+  adminNotes: string;
+  orderDate: string;     // ISO date string
+  requiredDate: string;  // ISO date string
+  shippedDate: string;   // ISO date string
+  deliveredDate: string; // ISO date string
+  createdAt: string;     // ISO date string
+  modifiedAt: string;    // ISO date string
+  createdBy: number;
+  modifiedBy: number;
+  customerId: number;
+  customerPhone: string;
 }

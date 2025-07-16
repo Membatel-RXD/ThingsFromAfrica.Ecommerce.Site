@@ -8,7 +8,7 @@ import {  cartService } from '../services/cartService';
 import { authService } from '../services/authService';
 import { useAppContext } from '../contexts/AppContext';
 import { Trash2, Plus, Minus, ShoppingBag, CreditCard, Wallet } from 'lucide-react';
-import { CartItem, PayPalOrder, PayPalOrderResponse } from '@/models/members';
+import { CartItem, CustomerOrderRequest, OrderDetails, PayPalOrder, PayPalOrderResponse } from '@/models/members';
 import { apiService, IAPIResponse } from '@/lib/api';
 
 const Cart: React.FC = () => {
@@ -26,7 +26,6 @@ const Cart: React.FC = () => {
         navigate('/login');
         return;
       }
-
       try {
         const items = await cartService.getCartItems();
         setCartItems(items);
@@ -95,14 +94,66 @@ const Cart: React.FC = () => {
     setProcessingPayment(true);
     
     try {
-      const userEmail = authService.getUserEmail();
+
+    const orderCreation:CustomerOrderRequest = {
+      orderItems: cartItems.map(item => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice,
+        specialInstructions: '',
+        giftMessage: '',
+        giftWrapRequired: true
+      })),
+      totalAmount: getTotalPrice(),
+      customerEmail: authService.getUserEmail(),
+      useSystemAddress: false,
+      orderNumber: '',
+      customerId: '',
+      customerPhone: '',
+      billingFirstName: '',
+      billingLastName: '',
+      billingCompany: '',
+      billingAddressLine1: '',
+      billingAddressLine2: '',
+      billingCity: '',
+      billingStateProvince: '',
+      billingPostalCode: '',
+      billingCountryCode: '',
+      shippingFirstName: '',
+      shippingLastName: '',
+      shippingCompany: '',
+      shippingAddressLine1: '',
+      shippingAddressLine2: '',
+      shippingCity: '',
+      shippingStateProvince: '',
+      shippingPostalCode: '',
+      shippingCountryCode: '',
+      subTotal: 0,
+      taxAmount: 0,
+      shippingAmount: 0,
+      discountAmount: 0,
+      currency: '',
+      isTouristOrder: false,
+      touristCountry: '',
+      requiresPhytosanitaryCertificate: false,
+      customerNotes: '',
+      adminNotes: '',
+      requiredDate: ''
+    };
+    
+    const orderResponse = await apiService.post<IAPIResponse<OrderDetails>>('Orders/CustomerCreatesOrder', orderCreation);
+    
+    if ( !orderResponse && !orderResponse.payload && !orderResponse.isSuccessful) {
+      throw new Error('Failed to create order');
+    }
+
       const orderData: PayPalOrder = {
         intent: 'CAPTURE',
-        orderNumber: `ORDER-${Date.now()}`, 
-        purchase_units: [{
+        orderNumber: orderResponse.payload.orderNumber, 
+        purchaseUnits: [{
           reference_id: `PU-${Date.now()}`,
           description: 'Purchase from My eCommerce Store',
-          custom_id: `CUSTOM-${userEmail}`, 
+          custom_id: orderResponse.payload.orderNumber, 
           soft_descriptor: 'ThingsFromAfricaStore', // 22-character max for card statements
           amount: {
             currency_code: 'USD',

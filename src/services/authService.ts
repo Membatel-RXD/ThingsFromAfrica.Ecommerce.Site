@@ -73,7 +73,7 @@ export interface LoginHistoryResponse {
 }
 
 class AuthService {
-  private getAuthToken(): string | null {
+  public getAuthToken(): string | null {
     return localStorage.getItem('authToken');
   }
 
