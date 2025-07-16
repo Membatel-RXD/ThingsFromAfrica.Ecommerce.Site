@@ -11,6 +11,7 @@ import { useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
 import { productService } from '../services/productService';
+import { wishlistService } from '../services/wishlistService';
 import { useAppContext } from '../contexts/AppContext';
 import { Product, searchProducts, filterByCategory, sortProducts } from '../utils/shopUtils';
 import { AddCartItem } from '@/models/members';
@@ -62,6 +63,7 @@ const Shop = () => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterLoading, setFilterLoading] = useState(false);
+  const [wishlistItems, setWishlistItems] = useState<number[]>([]);
   const [showFilters, setShowFilters] = useState(false);
   const navigate = useNavigate();
   const { updateCartCount } = useAppContext();
@@ -146,6 +148,10 @@ const Shop = () => {
         const apiProducts = await productService.getAllProducts();
         const shopProducts = apiProducts.map(product => productService.convertToShopProduct(product));
         setProducts(shopProducts);
+        
+        // Load wishlist items
+        const wishlist = await wishlistService.getWishlistItems();
+        setWishlistItems(wishlist.map(item => item.productId));
       } catch (error) {
         console.error('Failed to load products:', error);
       } finally {
@@ -180,6 +186,29 @@ const Shop = () => {
       await updateCartCount();
     }else{
       showSnackbar(response.message || "Failed to add an item to cart",'error');
+    }
+  };
+
+  const handleWishlistToggle = async (productId) => {
+    const hasValidSession = await authService.checkSession();
+    
+    if (!hasValidSession) {
+      navigate('/login');
+      return;
+    }
+
+    const isInWishlist = wishlistItems.includes(productId);
+    
+    if (isInWishlist) {
+      const success = await wishlistService.removeFromWishlistByProductId(productId);
+      if (success) {
+        setWishlistItems(prev => prev.filter(id => id !== productId));
+      }
+    } else {
+      const success = await wishlistService.addToWishlist(productId);
+      if (success) {
+        setWishlistItems(prev => [...prev, productId]);
+      }
     }
   };
 
@@ -571,8 +600,9 @@ const Shop = () => {
                         size="sm" 
                         variant="secondary" 
                         className="absolute top-4 right-4 p-2 opacity-0 group-hover:opacity-100 transition-opacity"
+                        onClick={() => handleWishlistToggle(product.id)}
                       >
-                        <Heart className="h-4 w-4" />
+                        <Heart className={`h-4 w-4 ${wishlistItems.includes(product.id) ? 'fill-red-500 text-red-500' : ''}`} />
                       </Button>
                     </div>
                     

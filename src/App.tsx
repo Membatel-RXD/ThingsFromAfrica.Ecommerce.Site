@@ -17,6 +17,8 @@ import VerifyEmail from "./pages/VerifyEmail";
 import EmailVerificationInfo from "./pages/EmailVerificationInfo";
 import Profile from "./pages/Profile";
 import Cart from "./pages/Cart";
+import Wishlist from "./pages/Wishlist";
+import ProfileSettings from "./pages/ProfileSettings";
 import { AppProvider } from "./contexts/AppContext";
 import Sustainability from "./pages/sustainability";
 import CSR from "./pages/csr";
@@ -50,6 +52,8 @@ const App = () => (
             <Route path="/email-verification" element={<EmailVerificationInfo />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/profile/settings" element={<ProfileSettings />} />
             <Route path="/user/addresses" element={<Addresses />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
             <Route path="/payment/cancel" element={<PaymentCancel />} />
