@@ -93,7 +93,7 @@ class CartService {
     const token = this.getAuthToken();
     if (!token) return false;
     try {
-      const response = await apiService.delete<IAPIResponse<object>>(`$/ShoppingCart/Delete?cartid=${cartId}`);
+      const response = await apiService.delete<IAPIResponse<object>>(`/ShoppingCart/Delete?cartid=${cartId}`);
       return response.isSuccessful;
     } catch (error) {
       console.error('Failed to remove from cart:', error);
