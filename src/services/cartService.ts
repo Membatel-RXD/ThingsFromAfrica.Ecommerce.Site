@@ -1,8 +1,6 @@
-import { CartItem } from "@/models/members";
+import { AddCartItem, CartItem } from "@/models/members";
 import { authService } from "./authService";
 import { apiService, IAPIResponse } from "@/lib/api";
-
-const API_BASE_URL = 'https://thingsfromafrica-ecommerce-api.onrender.com/api/v1';
 
 
 
@@ -34,31 +32,15 @@ class CartService {
     localStorage.removeItem('cartCache');
   }
 
-  async addToCart(productId: number, quantity: number = 1, unitPrice: number): Promise<boolean> {
+  async addToCart(cart:AddCartItem): Promise<IAPIResponse<CartItem>> {
     const token = this.getAuthToken();
-    if (!token) return false;
-
+    if (!token) throw new Error("User not authenticated") ;
     try {
-      const response = await fetch(`${API_BASE_URL}/ShoppingCart/Add`, {
-        method: 'POST',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'accept': 'text/plain',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          productId,
-          quantity,
-          unitPrice,
-          currency: 'USD'
-        })
-      });
+      return await apiService.post<IAPIResponse<CartItem>>(`/ShoppingCart/Add`,cart);
 
-      const data = await response.json();
-      return data.isSuccessful;
     } catch (error) {
       console.error('Failed to add to cart:', error);
-      return false;
+       throw new Error("User not authenticated") ;
     }
   }
 
@@ -87,31 +69,20 @@ class CartService {
           return false;
         }
       }
-
-      const response = await fetch(`${API_BASE_URL}/ShoppingCart/Update?cartid=${cartId}`, {
-        method: 'PUT',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'accept': 'text/plain',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-          productId: itemData.productId,
-          quantity: quantity,
-          unitPrice: itemData.unitPrice,
-          customerId: itemData.customerId,
-          sessionId: itemData.sessionId,
-          currency: itemData.currency || 'USD',
-          specialInstructions: itemData.specialInstructions || '',
-          addedAt: itemData.addedAt,
-          modifiedAt: new Date().toISOString(),
-          expiresAt: itemData.expiresAt,
-          cartId: cartId
-        })
+      const response = await apiService.put<IAPIResponse<object>>(`/ShoppingCart/Update?cartid=${cartId}`, {
+        productId: itemData.productId,
+        quantity: quantity,
+        unitPrice: itemData.unitPrice,
+        customerId: itemData.customerId,
+        sessionId: itemData.sessionId,
+        currency: itemData.currency || 'USD',
+        specialInstructions: itemData.specialInstructions || '',
+        addedAt: itemData.addedAt,
+        modifiedAt: new Date().toISOString(),
+        expiresAt: itemData.expiresAt,
+        cartId: cartId
       });
-
-      const data = await response.json();
-      return data.isSuccessful;
+      return response.isSuccessful;
     } catch (error) {
       console.error('Failed to update cart item:', error);
       return false;
@@ -121,18 +92,9 @@ class CartService {
   async removeFromCart(cartId: number): Promise<boolean> {
     const token = this.getAuthToken();
     if (!token) return false;
-
     try {
-      const response = await fetch(`${API_BASE_URL}/ShoppingCart/Delete?cartid=${cartId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'accept': 'text/plain'
-        }
-      });
-
-      const data = await response.json();
-      return data.isSuccessful;
+      const response = await apiService.delete<IAPIResponse<object>>(`$/ShoppingCart/Delete?cartid=${cartId}`);
+      return response.isSuccessful;
     } catch (error) {
       console.error('Failed to remove from cart:', error);
       return false;
@@ -144,16 +106,8 @@ class CartService {
     if (!token) return false;
 
     try {
-      const response = await fetch(`${API_BASE_URL}/Products/Delete?productid=${productId}`, {
-        method: 'DELETE',
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'accept': 'text/plain'
-        }
-      });
-
-      const data = await response.json();
-      return data.isSuccessful;
+      const response = await apiService.delete<IAPIResponse<object>>(`/Products/Delete?productid=${productId}`);
+      return response.isSuccessful;
     } catch (error) {
       console.error('Failed to delete product:', error);
       return false;

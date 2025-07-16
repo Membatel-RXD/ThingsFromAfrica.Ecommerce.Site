@@ -13,6 +13,8 @@ import { cartService } from '../services/cartService';
 import { productService } from '../services/productService';
 import { useAppContext } from '../contexts/AppContext';
 import { Product, searchProducts, filterByCategory, sortProducts } from '../utils/shopUtils';
+import { AddCartItem } from '@/models/members';
+import { useSnackbar } from '@/components/SnackBar';
 
 const Checkbox = ({ id, checked, onCheckedChange, children, ...props }) => (
   <div className="flex items-center space-x-2">
@@ -63,6 +65,7 @@ const Shop = () => {
   const [showFilters, setShowFilters] = useState(false);
   const navigate = useNavigate();
   const { updateCartCount } = useAppContext();
+  const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
 
   // Filter states
   const [priceRange, setPriceRange] = useState([0, 200]);
@@ -153,9 +156,9 @@ const Shop = () => {
     loadProducts();
   }, []);
 
-  const handleAddToCart = async (productId) => {
+  const handleAddToCart = async (productId:number) => {
     const hasValidSession = await authService.checkSession();
-    
+    const userId =  authService.getUserId();
     if (!hasValidSession) {
       navigate('/login');
       return;
@@ -164,10 +167,19 @@ const Shop = () => {
     const product = products.find(p => p.id === productId);
     if (!product) return;
     
-    const success = await cartService.addToCart(productId, 1, product.price);
-    
-    if (success) {
+    const addToCartItem : AddCartItem = {
+      productId: productId,
+      quantity: 1,
+      unitPrice: product.price,
+      customerId: userId,
+      currency: 'USD'
+    }
+    const response = await cartService.addToCart(addToCartItem);
+    if (response && response.isSuccessful) {
+      showSnackbar(response.message || `Added ${product.name} to cart`,'success')
       await updateCartCount();
+    }else{
+      showSnackbar(response.message || "Failed to add an item to cart",'error');
     }
   };
 
@@ -611,6 +623,7 @@ const Shop = () => {
       </main>
       
       <Footer />
+      
     </div>
   );
 };

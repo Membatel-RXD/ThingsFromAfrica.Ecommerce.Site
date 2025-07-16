@@ -257,4 +257,99 @@ export interface Artisan {
     modifiedAt: string; // ISO 8601 date-time string
     expiresAt: string;  // ISO 8601 date-time string
   }
+  export interface AddCartItem {
+    productId: number;
+    quantity: number;
+    unitPrice: number;
+    customerId: number;
+    sessionId?: string;
+    currency: string;
+    specialInstructions?: string;
+    addedAt?: string;     // or Date if you parse it
+    modifiedAt?: string;  // or Date
+    expiresAt?: string;   // or Date
+  }
   
+export interface Product {
+  productId: number;
+  productName: string;
+  productSlug: string;
+  sku: string;
+  itemCode: string;
+  categoryId: number;
+  craftTypeId: number;
+  woodTypeId: number;
+  productDescription: string;
+  shortDescription: string;
+  touristPrice: number;
+  localPrice: number;
+  costPrice: number;
+  currency: string;
+  usdPrice: number;
+  woodType: string;
+  woodOrigin: string;
+  craftingTechnique: string;
+  craftingTime: string;
+  difficultyLevel: string;
+  artisanId: number;
+  artisanName: string;
+  artisanVillage: string;
+  artisanStory: string;
+  culturalSignificance: string;
+  tribalOrigin: string;
+  culturalStory: string;
+  traditionalUse: string;
+  woodGrain: string;
+  woodColor: string;
+  woodHardness: string;
+  woodFinish: string;
+  condition: string;
+  qualityGrade: string;
+  handmadeLevel: string;
+  stockQuantity: number;
+  isUnique: boolean;
+  lowStockThreshold: number;
+  stockStatus: string;
+  productStatus: string;
+  isVisible: boolean;
+  isFeatured: boolean;
+  isAuthentic: boolean;
+  isCertified: boolean;
+  mainImageUrl: string;
+  galleryImages: string;
+  processImages: string;
+  artisanImage: string;
+  videoUrl: string;
+  isPopularWithTourists: boolean;
+  touristFriendlySize: boolean;
+  packingFriendly: boolean;
+  shippingFragile: boolean;
+  isSouvenir: boolean;
+  souvenirType: string;
+  giftWrappingAvailable: boolean;
+  personalizationAvailable: boolean;
+  careInstructions: string;
+  cleaningInstructions: string;
+  storageInstructions: string;
+  shippingWeight: number;
+  packagingRequired: string;
+  shippingRestrictions: string;
+  customsCode: string;
+  requiresPhytosanitaryCertificate: boolean;
+  averageRating: number;
+  reviewCount: number;
+  metaTitle: string;
+  metaDescription: string;
+  metaKeywords: string;
+  yearMade: number;
+  isAntique: boolean;
+  ageCategory: string;
+  customAttributes: string;
+  createdAt: string;
+  modifiedAt: string;
+  createdBy: number;
+  modifiedBy: number;
+  isDeleted: boolean;
+  deletedAt: string;
+  deletedBy: number;
+}
