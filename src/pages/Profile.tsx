@@ -20,7 +20,8 @@ import {
   Truck,
   Star,
   Shield,
-  Activity
+  Activity,
+  Settings
 } from 'lucide-react';
 import { apiService, IAPIResponse } from '@/lib/api';
 import {  CustomerProfileContainerDTO } from '@/models/members';
@@ -176,6 +177,7 @@ const Profile: React.FC = () => {
                 <NavigationLink path="/profile/wishlist" label="Wishlist" icon={Heart} />
                 <NavigationLink path="/profile/notifications" label="Notifications" icon={Bell} />
                 <NavigationLink path="/profile/security" label="Security" icon={Shield} />
+                <NavigationLink path="/profile/settings" label="Settings" icon={Settings} />
               </CardContent>
             </Card>
           </div>
