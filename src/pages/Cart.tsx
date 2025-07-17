@@ -173,34 +173,39 @@ const Cart: React.FC = () => {
         throw new Error(orderResponse?.remark || 'Failed to create order');
       }
 
-      const orderData: PayPalOrder = {
-        intent: 'AUTHORIZE',
-        orderNumber: orderResponse.payload.orderNumber, 
+      const paypalOrderData: PayPalOrder = {
+        intent: 'AUTHORIZE', 
+        orderNumber: orderResponse.payload.orderNumber,
         purchaseUnits: [{
-          reference_id: `PU-${Date.now()}`,
-          description: 'Purchase from My eCommerce Store',
-          custom_id: orderResponse.payload.orderNumber, 
-          soft_descriptor: 'ThingsFromAfricaStore',
-          amount: {
-            currency_code: 'USD',
-            value: getTotalPrice().toFixed(2)
-          },
-          items: cartItems.map(item => ({
-            name: item.productName, 
-            quantity: item.quantity.toString(),
-            unit_amount: {
-              currency_code: 'USD',
-              value: item.unitPrice.toFixed(2)
+            reference_id: `PU-${Date.now()}`,
+            description: 'Purchase from Things From Africa Store',
+            custom_id: orderResponse.payload.orderNumber,
+            soft_descriptor: 'ThingsFromAfricaStore',
+            amount: {
+                currency_code: 'USD',
+                value: getTotalPrice().toFixed(2)
             },
-            description: item.productDescription || item.productName,
-            sku: item.sku || `SKU-${item.productId}`,
-            category: 'PHYSICAL_GOODS'
-          }))
+            items: cartItems.map(item => ({
+                name: item.productName,
+                quantity: item.quantity.toString(),
+                unit_amount: {
+                    currency_code: 'USD',
+                    value: item.unitPrice.toFixed(2)
+                },
+                description: item.productDescription || item.productName,
+                sku: item.sku || `SKU-${item.productId}`,
+                category: 'PHYSICAL_GOODS'
+            }))
         }]
-      };
+    };
+    
       
-      const response = await apiService.post<IAPIResponse<PayPalOrderResponse>>('PayPal/create-order', orderData);      
+      const response = await apiService.post<IAPIResponse<PayPalOrderResponse>>('PayPal/create-order', paypalOrderData);      
       if (response && response.isSuccessful && response.payload) {
+        // Store the PayPal order ID for later use
+        sessionStorage.setItem('paypalOrderId', response.payload.orderId);
+        sessionStorage.setItem('orderNumber', orderResponse.payload.orderNumber);
+        
         window.location.href = response.payload.approvalUrl;
       } else {
         throw new Error('Failed to create PayPal order');

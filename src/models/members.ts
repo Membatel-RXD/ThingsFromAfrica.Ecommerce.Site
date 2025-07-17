@@ -231,6 +231,17 @@ export interface Artisan {
     currency_code: string;
     value: string;
   }
+  export interface CaptureOrderResponse {
+    transactionId: string;
+    orderNumber: string;
+    paymentStatus: string;   // e.g., COMPLETED, APPROVED
+    paymentMethod: string;   // e.g., PayPal, Credit Card
+    payerName: string;       // Full name
+    payerEmail: string;      // Email address
+    currency: string;        // e.g., USD
+    amountPaid: string;      // e.g., "20.00"
+    paymentDate: string;     // ISO date string (you can parse it with new Date())
+  }
   
   interface Item {
     name: string;
