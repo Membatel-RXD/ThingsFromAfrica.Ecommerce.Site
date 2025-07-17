@@ -459,3 +459,11 @@ export interface OrderDetails {
   customerId: number;
   customerPhone: string;
 }
+export interface WishlistItem {
+  wishlistId: number;
+  customerId: number;
+  productId: number;
+  notes: string;
+  priority: number;
+  createdAt: string;
+}

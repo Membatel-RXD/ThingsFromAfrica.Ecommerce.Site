@@ -1,47 +1,20 @@
-import axios from 'axios';
+import { apiService, IAPIResponse } from "@/lib/api";
+import { authService } from "./authService";
+import { WishlistItem } from "@/models/members";
 
-const API_BASE_URL = 'https://thingsfromafrica-ecommerce-api.onrender.com/api/v1';
-
-export interface WishlistItem {
-  wishlistId: number;
-  customerId: number;
-  productId: number;
-  notes: string;
-  priority: number;
-  createdAt: string;
-}
-
-export interface WishlistResponse {
-  isSuccessful: boolean;
-  remark: string;
-  payload: WishlistItem[];
-}
 
 class WishlistService {
   private getAuthToken(): string | null {
     return localStorage.getItem('authToken');
   }
 
-  private getAuthHeaders() {
-    const token = this.getAuthToken();
-    return {
-      'Authorization': `Bearer ${token}`,
-      'accept': 'text/plain',
-      'Content-Type': 'application/json'
-    };
-  }
-
   async getWishlistItems(): Promise<WishlistItem[]> {
-    const token = this.getAuthToken();
-    if (!token) return [];
-
+  
     try {
-      const response = await axios.get(`${API_BASE_URL}/Wishlist/GetAll`, {
-        headers: this.getAuthHeaders()
-      });
+      const response = await apiService.get<IAPIResponse<WishlistItem[]>>(`Wishlist/GetWishlistByCustomerEmail?email=${authService.getUserEmail()}`);
 
-      if (response.data.isSuccessful) {
-        return response.data.payload;
+      if (response && response.isSuccessful && response.payload) {
+        return response.payload || [];
       }
       
       return [];
@@ -57,17 +30,15 @@ class WishlistService {
 
     try {
       const userId = localStorage.getItem('userId');
-      const response = await axios.post(`${API_BASE_URL}/Wishlist/Add`, {
+      const response = await apiService.post<IAPIResponse<WishlistItem>>(`Wishlist/Add`, {
         customerId: userId ? parseInt(userId) : 0,
         productId: productId,
         notes: 'string',
         priority: 0,
         createdAt: new Date().toISOString()
-      }, {
-        headers: this.getAuthHeaders()
       });
 
-      return response.data.isSuccessful;
+      return response.isSuccessful;
     } catch (error) {
       console.error('Failed to add to wishlist:', error);
       return false;
@@ -79,11 +50,8 @@ class WishlistService {
     if (!token) return false;
 
     try {
-      const response = await axios.delete(`${API_BASE_URL}/Wishlist/Delete?wishlistid=${wishlistId}`, {
-        headers: this.getAuthHeaders()
-      });
-
-      return response.data.isSuccessful;
+      const response = await apiService.delete<IAPIResponse<object>>(`Wishlist/Delete?wishlistid=${wishlistId}`);
+      return response.isSuccessful;
     } catch (error) {
       console.error('Failed to remove from wishlist:', error);
       return false;

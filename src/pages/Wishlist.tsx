@@ -4,13 +4,14 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { wishlistService, WishlistItem } from '../services/wishlistService';
+import { wishlistService } from '../services/wishlistService';
 import { productService } from '../services/productService';
 import { cartService } from '../services/cartService';
 import { authService } from '../services/authService';
 import { useAppContext } from '../contexts/AppContext';
 import { Product } from '../utils/shopUtils';
 import { Heart, ShoppingCart, Trash2 } from 'lucide-react';
+import { AddCartItem, WishlistItem } from '@/models/members';
 
 const Wishlist: React.FC = () => {
   const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
@@ -70,8 +71,14 @@ const Wishlist: React.FC = () => {
   const handleAddToCart = async (productId: number) => {
     const product = products.find(p => p.id === productId);
     if (!product) return;
-    
-    const success = await cartService.addToCart(productId, 1, product.price);
+    const payload: AddCartItem ={
+      productId: productId,
+      quantity: 1,
+      unitPrice: product.price,
+      customerId: authService.getUserId(),
+      currency: 'USD'
+    }
+    const success = await cartService.addToCart(payload);
     
     if (success) {
       await updateCartCount();
