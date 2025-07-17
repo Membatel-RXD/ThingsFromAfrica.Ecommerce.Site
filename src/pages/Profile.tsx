@@ -174,7 +174,7 @@ const Profile: React.FC = () => {
                 <NavigationLink path="/user/addresses" label="Addresses" icon={MapPinned} />
                 <NavigationLink path="/profile/promotions" label="Promotions" icon={Gift} />
                 <NavigationLink path="/profile/shipments" label="Shipments" icon={Truck} />
-                <NavigationLink path="/profile/wishlist" label="Wishlist" icon={Heart} />
+                <NavigationLink path="/wishlist" label="Wishlist" icon={Heart} />
                 <NavigationLink path="/profile/notifications" label="Notifications" icon={Bell} />
                 <NavigationLink path="/profile/security" label="Security" icon={Shield} />
                 <NavigationLink path="/profile/settings" label="Settings" icon={Settings} />
