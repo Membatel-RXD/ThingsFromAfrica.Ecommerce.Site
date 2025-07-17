@@ -1,6 +1,6 @@
 export interface IAPIResponse<T> {
     isSuccessful: boolean;
-    message?: string | null;
+    remark?: string | null;
     payload?: T | null;
   }
   import axios, {

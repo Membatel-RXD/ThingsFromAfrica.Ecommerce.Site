@@ -23,8 +23,6 @@ import {
   Plus,
   Edit,
   Trash2,
-  Home,
-  Building,
   Star
 } from 'lucide-react';
 import { apiService, IAPIResponse } from '@/lib/api';

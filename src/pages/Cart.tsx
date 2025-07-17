@@ -4,11 +4,14 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import { Alert, AlertDescription } from '@/components/ui/alert';
 import {  cartService } from '../services/cartService';
 import { authService } from '../services/authService';
 import { useAppContext } from '../contexts/AppContext';
-import { Trash2, Plus, Minus, ShoppingBag, CreditCard, Wallet } from 'lucide-react';
-import { CartItem, CustomerOrderRequest, OrderDetails, PayPalOrder, PayPalOrderResponse } from '@/models/members';
+import { Trash2, Plus, Minus, ShoppingBag, CreditCard, Wallet, MapPin, AlertCircle } from 'lucide-react';
+import { AddressDTO, CartItem, CustomerOrderRequest, OrderDetails, PayPalOrder, PayPalOrderResponse } from '@/models/members';
 import { apiService, IAPIResponse } from '@/lib/api';
 
 const Cart: React.FC = () => {
@@ -16,6 +19,9 @@ const Cart: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [paymentMethod, setPaymentMethod] = useState<'traditional' | 'paypal'>('traditional');
   const [processingPayment, setProcessingPayment] = useState(false);
+  const [useSystemAddress, setUseSystemAddress] = useState(false);
+  const [hasSystemAddresses, setHasSystemAddresses] = useState(false);
+  const [checkingAddresses, setCheckingAddresses] = useState(false);
   const navigate = useNavigate();
   const { updateCartCount } = useAppContext();
 
@@ -29,6 +35,9 @@ const Cart: React.FC = () => {
       try {
         const items = await cartService.getCartItems();
         setCartItems(items);
+        
+        // Check if user has saved addresses
+        await checkUserAddresses();
       } catch (error) {
         console.error('Failed to load cart:', error);
       } finally {
@@ -38,6 +47,22 @@ const Cart: React.FC = () => {
 
     loadCart();
   }, [navigate]);
+
+  const checkUserAddresses = async () => {
+    const userId = authService.getUserId();
+    setCheckingAddresses(true);
+    try {
+      const response = await apiService.get<IAPIResponse<AddressDTO[]>>(`UserAddresses/GetByCustomerId/${userId}`);
+      if (response && response.isSuccessful) {
+        setHasSystemAddresses(response.payload?.length > 0);
+      }
+    } catch (error) {
+      console.error('Failed to check user addresses:', error);
+      setHasSystemAddresses(false);
+    } finally {
+      setCheckingAddresses(false);
+    }
+  };
 
   const updateQuantity = async (cartId: number, newQuantity: number) => {
     if (newQuantity <= 0) {
@@ -85,76 +110,77 @@ const Cart: React.FC = () => {
       state: { 
         cartItems, 
         total: getTotalPrice(),
-        totalItems: getTotalItems()
+        totalItems: getTotalItems(),
+        useSystemAddress
       }
     });
   };
 
   const handlePayPalCheckout = async () => {
+    const userId = authService.getUserId();
     setProcessingPayment(true);
     
     try {
-
-    const orderCreation:CustomerOrderRequest = {
-      orderItems: cartItems.map(item => ({
-        productId: item.productId,
-        quantity: item.quantity,
-        unitPrice: item.unitPrice,
-        specialInstructions: '',
-        giftMessage: '',
-        giftWrapRequired: true
-      })),
-      totalAmount: getTotalPrice(),
-      customerEmail: authService.getUserEmail(),
-      useSystemAddress: false,
-      orderNumber: '',
-      customerId: '',
-      customerPhone: '',
-      billingFirstName: '',
-      billingLastName: '',
-      billingCompany: '',
-      billingAddressLine1: '',
-      billingAddressLine2: '',
-      billingCity: '',
-      billingStateProvince: '',
-      billingPostalCode: '',
-      billingCountryCode: '',
-      shippingFirstName: '',
-      shippingLastName: '',
-      shippingCompany: '',
-      shippingAddressLine1: '',
-      shippingAddressLine2: '',
-      shippingCity: '',
-      shippingStateProvince: '',
-      shippingPostalCode: '',
-      shippingCountryCode: '',
-      subTotal: 0,
-      taxAmount: 0,
-      shippingAmount: 0,
-      discountAmount: 0,
-      currency: '',
-      isTouristOrder: false,
-      touristCountry: '',
-      requiresPhytosanitaryCertificate: false,
-      customerNotes: '',
-      adminNotes: '',
-      requiredDate: ''
-    };
-    
-    const orderResponse = await apiService.post<IAPIResponse<OrderDetails>>('Orders/CustomerCreatesOrder', orderCreation);
-    
-    if ( !orderResponse && !orderResponse.payload && !orderResponse.isSuccessful) {
-      throw new Error('Failed to create order');
-    }
+      const orderCreation: CustomerOrderRequest = {
+        orderItems: cartItems.map(item => ({
+          productId: item.productId,
+          quantity: item.quantity,
+          unitPrice: item.unitPrice,
+          specialInstructions: '',
+          giftMessage: '',
+          giftWrapRequired: true
+        })),
+        totalAmount: getTotalPrice(),
+        customerEmail: authService.getUserEmail(),
+        useSystemAddress: useSystemAddress,
+        orderNumber: '',
+        customerId: userId,
+        customerPhone: useSystemAddress ? '' : '',
+        billingFirstName: useSystemAddress ? '' : '',
+        billingLastName: useSystemAddress ? '' : '',
+        billingCompany: useSystemAddress ? '' : '',
+        billingAddressLine1: useSystemAddress ? '' : '',
+        billingAddressLine2: useSystemAddress ? '' : '',
+        billingCity: useSystemAddress ? '' : '',
+        billingStateProvince: useSystemAddress ? '' : '',
+        billingPostalCode: useSystemAddress ? '' : '',
+        billingCountryCode: useSystemAddress ? '' : '',
+        shippingFirstName: useSystemAddress ? '' : '',
+        shippingLastName: useSystemAddress ? '' : '',
+        shippingCompany: useSystemAddress ? '' : '',
+        shippingAddressLine1: useSystemAddress ? '' : '',
+        shippingAddressLine2: useSystemAddress ? '' : '',
+        shippingCity: useSystemAddress ? '' : '',
+        shippingStateProvince: useSystemAddress ? '' : '',
+        shippingPostalCode: useSystemAddress ? '' : '',
+        shippingCountryCode: useSystemAddress ? '' : '',
+        subTotal: 0,
+        taxAmount: 0,
+        shippingAmount: 0,
+        discountAmount: 0,
+        currency: 'USD',
+        isTouristOrder: false,
+        touristCountry: '',
+        requiresPhytosanitaryCertificate: false,
+        customerNotes: '',
+        adminNotes: '',
+        requiredDate: null
+      };
+      
+      const orderResponse = await apiService.post<IAPIResponse<OrderDetails>>('Orders/CustomerCreatesOrder', orderCreation);
+      
+      if (!orderResponse || !orderResponse.payload || !orderResponse.isSuccessful) {
+        throw new Error(orderResponse?.remark || 'Failed to create order');
+      }
 
       const orderData: PayPalOrder = {
-        intent: 'CAPTURE',
+        intent: 'AUTHORIZE',
         orderNumber: orderResponse.payload.orderNumber, 
         purchaseUnits: [{
           reference_id: `PU-${Date.now()}`,
           description: 'Purchase from My eCommerce Store',
           custom_id: orderResponse.payload.orderNumber, 
-          soft_descriptor: 'ThingsFromAfricaStore', // 22-character max for card statements
+          soft_descriptor: 'ThingsFromAfricaStore',
           amount: {
             currency_code: 'USD',
             value: getTotalPrice().toFixed(2)
@@ -166,15 +192,14 @@ const Cart: React.FC = () => {
               currency_code: 'USD',
               value: item.unitPrice.toFixed(2)
             },
-            description: item.productDescription || item.productName, // fallback
+            description: item.productDescription || item.productName,
             sku: item.sku || `SKU-${item.productId}`,
             category: 'PHYSICAL_GOODS'
           }))
         }]
       };
       
-      // Call your backend to create PayPal order
-      const response = await apiService.post<IAPIResponse<PayPalOrderResponse>>('PayPal/create-order',orderData);      
+      const response = await apiService.post<IAPIResponse<PayPalOrderResponse>>('PayPal/create-order', orderData);      
       if (response && response.isSuccessful && response.payload) {
         window.location.href = response.payload.approvalUrl;
       } else {
@@ -182,10 +207,14 @@ const Cart: React.FC = () => {
       }
     } catch (error) {
       console.error('PayPal checkout failed:', error);
-      alert('Payment failed. Please try again.');
+      alert(`Payment failed: ${error.message || 'Please try again.'}`);
     } finally {
       setProcessingPayment(false);
     }
+  };
+
+  const canProceedWithSystemAddress = () => {
+    return !useSystemAddress || hasSystemAddresses;
   };
 
   if (loading) {
@@ -299,6 +328,55 @@ const Cart: React.FC = () => {
                     <span>${getTotalPrice().toFixed(2)}</span>
                   </div>
 
+                  {/* Address Options */}
+                  <div className="mt-6">
+                    <h4 className="font-semibold mb-3">Shipping & Billing</h4>
+                    <div className="space-y-3">
+                      <div className="flex items-start space-x-3">
+                        <Checkbox 
+                          id="useSystemAddress"
+                          checked={useSystemAddress}
+                          onCheckedChange={setUseSystemAddress}
+                          disabled={checkingAddresses}
+                        />
+                        <div className="flex-1">
+                          <Label htmlFor="useSystemAddress" className="text-sm font-medium">
+                            Use saved addresses from my profile
+                          </Label>
+                          <p className="text-xs text-gray-600 mt-1">
+                            Use your default billing and shipping addresses
+                          </p>
+                        </div>
+                        <MapPin className="h-4 w-4 text-gray-400 mt-1" />
+                      </div>
+
+                      {useSystemAddress && !hasSystemAddresses && (
+                        <Alert className="border-orange-200 bg-orange-50">
+                          <AlertCircle className="h-4 w-4 text-orange-600" />
+                          <AlertDescription className="text-orange-800">
+                            You don't have any saved addresses. Please{' '}
+                            <button 
+                              onClick={() => navigate('/profile/settings')}
+                              className="underline hover:no-underline"
+                            >
+                              update your profile
+                            </button>{' '}
+                            or uncheck this option to enter addresses during checkout.
+                          </AlertDescription>
+                        </Alert>
+                      )}
+
+                      {!useSystemAddress && (
+                        <Alert className="border-blue-200 bg-blue-50">
+                          <AlertCircle className="h-4 w-4 text-blue-600" />
+                          <AlertDescription className="text-blue-800">
+                            You'll be asked to enter shipping and billing addresses during checkout.
+                          </AlertDescription>
+                        </Alert>
+                      )}
+                    </div>
+                  </div>
+
                   {/* Payment Method Selection */}
                   <div className="mt-6">
                     <h4 className="font-semibold mb-3">Choose Payment Method</h4>
@@ -315,7 +393,9 @@ const Cart: React.FC = () => {
                           <CreditCard className="h-5 w-5" />
                           <span>Traditional Checkout</span>
                         </div>
-                        <p className="text-sm text-gray-600 mt-1">Enter shipping & payment details</p>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {useSystemAddress ? 'Use saved addresses' : 'Enter shipping & payment details'}
+                        </p>
                       </div>
                       
                       <div 
@@ -330,7 +410,9 @@ const Cart: React.FC = () => {
                           <Wallet className="h-5 w-5" />
                           <span>PayPal Express</span>
                         </div>
-                        <p className="text-sm text-gray-600 mt-1">Pay with your PayPal account</p>
+                        <p className="text-sm text-gray-600 mt-1">
+                          {useSystemAddress ? 'Use saved addresses & PayPal' : 'Pay with your PayPal account'}
+                        </p>
                       </div>
                     </div>
                   </div>
@@ -341,6 +423,7 @@ const Cart: React.FC = () => {
                       <Button 
                         className="w-full bg-black hover:bg-gray-800"
                         onClick={handleTraditionalCheckout}
+                        disabled={!canProceedWithSystemAddress()}
                       >
                         <CreditCard className="h-4 w-4 mr-2" />
                         Proceed to Checkout
@@ -349,7 +432,7 @@ const Cart: React.FC = () => {
                       <Button 
                         className="w-full bg-blue-600 hover:bg-blue-700"
                         onClick={handlePayPalCheckout}
-                        disabled={processingPayment}
+                        disabled={processingPayment || !canProceedWithSystemAddress()}
                       >
                         {processingPayment ? (
                           <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>

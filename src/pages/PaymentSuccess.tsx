@@ -8,16 +8,70 @@ import { CheckCircle, Package, CreditCard, Clock, AlertCircle } from 'lucide-rea
 import { apiService, IAPIResponse } from '@/lib/api';
 import { useAppContext } from '../contexts/AppContext';
 
-interface PaymentCaptureResponse {
-  paypalOrderId: string;
+
+interface Link {
+  href: string;
+  rel: string;
+  method: string;
+}
+
+interface Amount {
+  currencyCode: string;
+  value: string;
+}
+
+interface SellerProtection {
   status: string;
-  captureId: string;
-  amount: number;
-  currency: string;
-  orderNumber: string;
-  payerEmail: string;
-  payerName: string;
-  createdAt: string;
+  disputeCategories: string[];
+}
+
+interface Authorization {
+  status: string;
+  id: string;
+  amount: Amount;
+  sellerProtection: SellerProtection;
+  expirationTime: string;
+  links: Link[];
+  createTime: string;
+  updateTime: string;
+}
+
+interface Payments {
+  authorizations: Authorization[];
+}
+
+interface PurchaseUnit {
+  referenceId: string;
+  shipping: string;
+  payments: Payments;
+}
+
+interface Name {
+  givenName: string;
+  surname: string;
+}
+
+interface Address {
+  countryCode: string;
+}
+
+interface PaymentSource {
+  emailAddress: string;
+  accountId: string;
+  accountStatus: string;
+  name: Name;
+  businessName: string;
+  address: Address;
+}
+
+interface PayPalOrderResponse {
+  id: string;
+  status: string;
+  purchase_units: PurchaseUnit[];
+  payment_source: PaymentSource;
+  create_time: string;
+  update_time: string;
+  links: Link[];
 }
 
 const PaymentSuccess: React.FC = () => {
@@ -25,7 +79,7 @@ const PaymentSuccess: React.FC = () => {
   const navigate = useNavigate();
   const { updateCartCount } = useAppContext();
   const [loading, setLoading] = useState(true);
-  const [captureResult, setCaptureResult] = useState<PaymentCaptureResponse | null>(null);
+  const [captureResult, setCaptureResult] = useState<PayPalOrderResponse | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -40,7 +94,7 @@ const PaymentSuccess: React.FC = () => {
       }
 
       try {
-        const response = await apiService.post<IAPIResponse<PaymentCaptureResponse>>(
+        const response = await apiService.post<IAPIResponse<PayPalOrderResponse>>(
           'PayPal/capture-order',
           { 
             paypalOrderId: token,
@@ -49,11 +103,14 @@ const PaymentSuccess: React.FC = () => {
         );
 
         if (response && response.isSuccessful && response.payload) {
+
+          console.log(JSON.stringify(response.payload));
+
           setCaptureResult(response.payload);
           // Update cart count as items are now purchased
           await updateCartCount();
         } else {
-          setError(response?.message || 'Failed to capture payment');
+          setError(response?.remark || 'Failed to capture payment');
         }
       } catch (error) {
         console.error('Payment capture failed:', error);
@@ -168,11 +225,11 @@ const PaymentSuccess: React.FC = () => {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <p className="text-sm text-gray-600">Order Number</p>
-                  <p className="font-semibold">{captureResult.orderNumber}</p>
+                  {/* <p className="font-semibold">{captureResult.orderNumber}</p> */}
                 </div>
                 <div>
                   <p className="text-sm text-gray-600">PayPal Transaction ID</p>
-                  <p className="font-semibold text-sm">{captureResult.captureId}</p>
+                  {/* <p className="font-semibold text-sm">{captureResult.captureId}</p> */}
                 </div>
               </div>
               
@@ -186,7 +243,7 @@ const PaymentSuccess: React.FC = () => {
                 <div>
                   <p className="text-sm text-gray-600">Date</p>
                   <p className="font-semibold">
-                    {new Date(captureResult.createdAt).toLocaleDateString()}
+                    {new Date(captureResult.purchase_units[0].payments.authorizations[0].createTime).toLocaleDateString()}
                   </p>
                 </div>
               </div>
@@ -196,7 +253,7 @@ const PaymentSuccess: React.FC = () => {
               <div className="flex justify-between items-center">
                 <span className="text-lg font-semibold">Total Paid</span>
                 <span className="text-2xl font-bold text-green-600">
-                  ${captureResult.amount.toFixed(2)} {captureResult.currency}
+                  ${captureResult.purchase_units[0].payments.authorizations[0].amount.value} {captureResult.purchase_units[0].payments.authorizations[0].amount.currencyCode}
                 </span>
               </div>
             </CardContent>
@@ -218,12 +275,12 @@ const PaymentSuccess: React.FC = () => {
               
               <div>
                 <p className="text-sm text-gray-600">Payer Name</p>
-                <p className="font-semibold">{captureResult.payerName}</p>
+                <p className="font-semibold">{captureResult.payment_source.name.givenName} {captureResult.payment_source.name.surname}</p>
               </div>
               
               <div>
                 <p className="text-sm text-gray-600">Payer Email</p>
-                <p className="font-semibold">{captureResult.payerEmail}</p>
+                <p className="font-semibold">{captureResult.payment_source.emailAddress}</p>
               </div>
             </CardContent>
           </Card>

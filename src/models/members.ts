@@ -356,7 +356,7 @@ export interface Product {
 export interface CustomerOrderRequest {
   useSystemAddress: boolean;
   orderNumber: string;
-  customerId: string;
+  customerId: number;
   customerEmail: string;
   customerPhone: string;
   billingFirstName: string;
