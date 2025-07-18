@@ -56,6 +56,7 @@ const App = () => (
             <Route path="/email-verification" element={<EmailVerificationInfo />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/cart" element={<Cart />} />
+            <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/profile/wishlist" element={<Wishlist />} />
             <Route path="/profile/settings" element={<ProfileSettings />} />
             <Route path="/profile/user/addresses" element={<Addresses />} />

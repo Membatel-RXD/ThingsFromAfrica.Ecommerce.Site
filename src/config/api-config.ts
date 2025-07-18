@@ -7,3 +7,4 @@ export const API_CONFIG = {
     Accept: "text/plain",
   },
 };
+
