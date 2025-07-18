@@ -516,3 +516,30 @@ export interface OrderDTO {
   customerId: number;
   customerPhone: string;
 }
+export interface Promotion {
+  discountTypeId: number;
+  discountValue: number;
+  promotionId: number;
+  promotionName: string;
+  startDate: string; // ISO date string (e.g., "2025-07-18T07:12:47.747Z")
+  endDate: string;   // same as above
+  isActive: boolean;
+  createdAt: string; // ISO date string
+  createdBy: number;
+  promotionCode: string;
+  description: string;
+  isPercentage: boolean;
+  minimumOrderAmount: number;
+  maximumDiscountAmount: number;
+  maxUsageCount: number;
+  currentUsageCount: number;
+  maxUsagePerCustomer: number;
+  isTouristOnly: boolean;
+  applicableCountries: string[]; // if this is a CSV list of countries, keep as string; otherwise can be string[]
+}
+export interface DiscountType {
+  discountTypeId: number;
+  typeName: string;
+  typeCode: string;
+  isActive: boolean;
+}
