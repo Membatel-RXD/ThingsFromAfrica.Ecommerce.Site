@@ -7,6 +7,7 @@ export interface IAPIResponse<T> {
     type AxiosInstance,
     type AxiosResponse,
     AxiosError,
+    InternalAxiosRequestConfig
   } from "axios";
   import { API_CONFIG } from "../config/api-config";
 import { authService } from "@/services/authService";
@@ -22,14 +23,14 @@ import { authService } from "@/services/authService";
       });
       // Request interceptor
       this.api.interceptors.request.use(
-        (config: any) => {   
+        (config: InternalAxiosRequestConfig) => {   
         const token = authService.getAuthToken();
         if (token) {
           config.headers.Authorization = `Bearer ${token}`;
         }
         return config;      
         },
-        (error: any) => {
+        (error: unknown) => {
           return Promise.reject(error);
         }
       );
