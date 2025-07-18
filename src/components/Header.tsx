@@ -111,7 +111,7 @@ const Header: React.FC = () => {
     { label: 'Profile', href: '/profile', icon: User },
     { label: 'Sign Out', href: '#', icon: LogOut, onClick: handleSignOut },
     { label: 'My Orders', href: '/profile/user/my-orders', icon: ShoppingCart },
-    { label: 'My Coins', href: '/coins', icon: Coins },
+    { label: 'My Coins', href: '/profile/user/my-coins', icon: Coins },
     { label: 'Message Center', href: '/messages', icon: MessageCircle },
     { label: 'Payment', href: '/payment', icon: CreditCard },
     { label: 'Wish List', href: '/wishlist', icon: Heart },

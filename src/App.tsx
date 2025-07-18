@@ -26,6 +26,8 @@ import Addresses from "./pages/UserAddresses";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
 import Orders from "./pages/Orders";
+import MessageCenter from "./pages/MessageCenter";
+import { Coins } from "lucide-react";
 
 const queryClient = new QueryClient();
 
@@ -53,12 +55,14 @@ const App = () => (
             <Route path="/email-verification" element={<EmailVerificationInfo />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/cart" element={<Cart />} />
-            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/profile/wishlist" element={<Wishlist />} />
             <Route path="/profile/settings" element={<ProfileSettings />} />
             <Route path="/profile/user/addresses" element={<Addresses />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
             <Route path="/payment/cancel" element={<PaymentCancel />} />
             <Route path="/profile/user/my-orders" element={<Orders />} />
+            <Route path="/messages" element={<MessageCenter />} />
+            <Route path="/profile/user/my-coins" element={<Coins />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
