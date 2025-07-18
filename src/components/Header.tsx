@@ -132,17 +132,24 @@ const Header: React.FC = () => {
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             
-            {/* Logo */}
-            <div className="flex items-center space-x-3">
-              <div className="avatar">
-                <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                  <span className="text-gray-900 font-bold text-lg">A</span>
-                </div>
+           {/* Logo */}
+          <div className="flex items-center space-x-3">
+            <div className="avatar">
+              <div className="w-20 h-20 rounded-full flex items-center justify-center">
+              <img 
+                width={32} 
+                height={32} 
+                src="/TFTLogo.png" 
+                alt="TFT Logo" 
+              />
               </div>
-              <Link to="/" className="hover:opacity-80 transition-opacity">
-                <h1 className="font-bold text-white text-lg hidden sm:block">{WEBSITE_DETAILS.name}</h1>
-              </Link>
             </div>
+            <Link to="/" className="hover:opacity-80 transition-opacity">
+              <h1 className="font-bold text-white text-lg hidden sm:block">
+                {WEBSITE_DETAILS.name}
+              </h1>
+            </Link>
+          </div>
 
             {/* Deliver To - Hidden on mobile */}
             <LocationWidget/>
