@@ -25,6 +25,7 @@ import CSR from "./pages/csr";
 import Addresses from "./pages/UserAddresses";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
+import Orders from "./pages/Orders";
 
 const queryClient = new QueryClient();
 
@@ -54,10 +55,10 @@ const App = () => (
             <Route path="/cart" element={<Cart />} />
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/profile/settings" element={<ProfileSettings />} />
-            <Route path="/user/addresses" element={<Addresses />} />
+            <Route path="/profile/user/addresses" element={<Addresses />} />
             <Route path="/payment/success" element={<PaymentSuccess />} />
             <Route path="/payment/cancel" element={<PaymentCancel />} />
-        
+            <Route path="/profile/user/my-orders" element={<Orders />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>

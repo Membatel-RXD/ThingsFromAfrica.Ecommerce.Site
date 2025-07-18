@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { apiService, IAPIResponse } from '@/lib/api';
 import { AddressDTO, CreateUserAddressRequest, CustomerProfileContainerDTO } from '@/models/members';
+import AccountSidebar from '@/components/LeftSidebarNav';
 
 
 const Addresses: React.FC = () => {
@@ -351,23 +352,8 @@ const Addresses: React.FC = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="flex gap-6">
           {/* Left Sidebar Navigation */}
-          <div className="w-64 flex-shrink-0">
-            <Card className="border-gray-200">
-              <CardHeader>
-                <CardTitle className="text-black">Account Menu</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <NavigationLink path="/profile" label="Profile" icon={User} />
-                <NavigationLink path="/profile/payments" label="Payments" icon={CreditCard} />
-                <NavigationLink path="/profile/addresses" label="Addresses" icon={MapPinned} isActive={true} />
-                <NavigationLink path="/profile/promotions" label="Promotions" icon={Gift} />
-                <NavigationLink path="/profile/shipments" label="Shipments" icon={Truck} />
-                <NavigationLink path="/profile/wishlist" label="Wishlist" icon={Heart} />
-                <NavigationLink path="/profile/notifications" label="Notifications" icon={Bell} />
-                <NavigationLink path="/profile/security" label="Security" icon={Shield} />
-              </CardContent>
-            </Card>
-          </div>
+          
+          <AccountSidebar activePath="/profile/user/addresses" />
 
           {/* Main Content Area */}
           <div className="flex-1">

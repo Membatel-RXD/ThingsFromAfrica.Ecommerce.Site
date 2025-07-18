@@ -25,6 +25,7 @@ import {
 } from 'lucide-react';
 import { apiService, IAPIResponse } from '@/lib/api';
 import {  CustomerProfileContainerDTO } from '@/models/members';
+import AccountSidebar from '@/components/LeftSidebarNav';
 
 const Profile: React.FC = () => {
   const [customerProfile, setCustomerProfile] = useState<CustomerProfileContainerDTO>(null);
@@ -95,8 +96,6 @@ const Profile: React.FC = () => {
 
     loadUserData();
   }, [navigate]);
-
-  const { clearCart } = useAppContext();
   
 
 
@@ -163,24 +162,7 @@ const Profile: React.FC = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="flex gap-6">
           {/* Left Sidebar Navigation */}
-          <div className="w-64 flex-shrink-0">
-            <Card className="border-gray-200">
-              <CardHeader>
-                <CardTitle className="text-black">Account Menu</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-2">
-                <NavigationLink path="/profile" label="Profile" icon={User} isActive={true} />
-                <NavigationLink path="/profile/payments" label="Payments" icon={CreditCard} />
-                <NavigationLink path="/user/addresses" label="Addresses" icon={MapPinned} />
-                <NavigationLink path="/profile/promotions" label="Promotions" icon={Gift} />
-                <NavigationLink path="/profile/shipments" label="Shipments" icon={Truck} />
-                <NavigationLink path="/wishlist" label="Wishlist" icon={Heart} />
-                <NavigationLink path="/profile/notifications" label="Notifications" icon={Bell} />
-                <NavigationLink path="/profile/security" label="Security" icon={Shield} />
-                <NavigationLink path="/profile/settings" label="Settings" icon={Settings} />
-              </CardContent>
-            </Card>
-          </div>
+          <AccountSidebar activePath="/profile" />
 
           {/* Main Content Area */}
           <div className="flex-1">

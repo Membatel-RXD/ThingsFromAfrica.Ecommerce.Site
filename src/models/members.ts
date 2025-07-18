@@ -467,3 +467,52 @@ export interface WishlistItem {
   priority: number;
   createdAt: string;
 }
+
+export interface OrderDTO {
+  statusId: number;
+  orderStatus: string;
+  customerEmail: string;
+  orderId: number;
+  orderNumber: string;
+  billingFirstName: string;
+  billingLastName: string;
+  billingAddressLine1: string;
+  billingCity: string;
+  billingCountryCode: string;
+  billingCountryName: string;
+  shippingFirstName: string;
+  shippingLastName: string;
+  shippingAddressLine1: string;
+  shippingCity: string;
+  shippingCountryCode: string;
+  shippingCountryName: string;
+  subTotal: number;
+  totalAmount: number;
+  currency: string;
+  isTouristOrder: boolean;
+  touristCountry: string;
+  requiresPhytosanitaryCertificate: boolean;
+  customerNotes: string;
+  adminNotes: string;
+  orderDate: string;
+  requiredDate: string;
+  shippedDate: string;
+  deliveredDate: string;
+  createdAt: string;
+  modifiedAt: string;
+  createdBy: number;
+  modifiedBy: number;
+  taxAmount: number;
+  shippingAmount: number;
+  discountAmount: number;
+  shippingStateProvince: string;
+  shippingPostalCode: string;
+  shippingAddressLine2: string;
+  shippingCompany: string;
+  billingStateProvince: string;
+  billingPostalCode: string;
+  billingAddressLine2: string;
+  billingCompany: string;
+  customerId: number;
+  customerPhone: string;
+}

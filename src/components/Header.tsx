@@ -94,7 +94,7 @@ const Header: React.FC = () => {
   const unauthenticatedMenuItems: MenuItem[] = [
     { label: 'Sign in', href: '/login', icon: User },
     { label: 'Register', href: '/register', icon: User },
-    { label: 'My Orders', href: '/orders', icon: ShoppingCart },
+    { label: 'My Orders', href: '/profile/user/my-orders', icon: ShoppingCart },
     { label: 'My Coins', href: '/coins', icon: Coins },
     { label: 'Message Center', href: '/messages', icon: MessageCircle },
     { label: 'Payment', href: '/payment', icon: CreditCard },
@@ -110,7 +110,7 @@ const Header: React.FC = () => {
   const authenticatedMenuItems: MenuItem[] = [
     { label: 'Profile', href: '/profile', icon: User },
     { label: 'Sign Out', href: '#', icon: LogOut, onClick: handleSignOut },
-    { label: 'My Orders', href: '/orders', icon: ShoppingCart },
+    { label: 'My Orders', href: '/profile/user/my-orders', icon: ShoppingCart },
     { label: 'My Coins', href: '/coins', icon: Coins },
     { label: 'Message Center', href: '/messages', icon: MessageCircle },
     { label: 'Payment', href: '/payment', icon: CreditCard },
