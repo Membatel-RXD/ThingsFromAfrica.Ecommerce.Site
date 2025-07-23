@@ -67,6 +67,7 @@ const Footer: React.FC = () => {
             <h6 className="font-bold text-black uppercase mb-3">Customer Care</h6>
             <div className="space-y-1">
               <a className="block text-gray-600 hover:text-black text-sm">Shipping Info</a>
+              <Link to="/track-order" className="block text-gray-600 hover:text-black text-sm">Track Order</Link>
               <a className="block text-gray-600 hover:text-black text-sm">Returns</a>
               <a className="block text-gray-600 hover:text-black text-sm">FAQ</a>
               <Link to="/contact" className="block text-gray-600 hover:text-black text-sm">Contact Us</Link>

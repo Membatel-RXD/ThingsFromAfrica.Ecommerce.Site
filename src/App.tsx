@@ -26,6 +26,7 @@ import Addresses from "./pages/UserAddresses";
 import PaymentSuccess from "./pages/PaymentSuccess";
 import PaymentCancel from "./pages/PaymentCancel";
 import Orders from "./pages/Orders";
+import TrackOrder from "./pages/TrackOrder";
 import MessageCenter from "./pages/MessageCenter";
 import { Coins } from "lucide-react";
 import MyCoupons from "./pages/MyCoupons";
@@ -63,6 +64,7 @@ const App = () => (
             <Route path="/payment/success" element={<PaymentSuccess />} />
             <Route path="/payment/cancel" element={<PaymentCancel />} />
             <Route path="/profile/user/my-orders" element={<Orders />} />
+            <Route path="/track-order" element={<TrackOrder />} />
             <Route path="/messages" element={<MessageCenter />} />
             <Route path="/profile/user/my-coins" element={<Coins />} />
             <Route path="/coupons" element={<MyCoupons />} />

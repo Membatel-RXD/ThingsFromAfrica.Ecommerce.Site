@@ -298,7 +298,7 @@ const Header: React.FC = () => {
       </header>
 
       {/* Navigation Bar - Below Top Bar */}
-      <nav className="bg-gray-800 text-white border-t border-gray-700 z-[99999]">
+      <nav className="bg-gray-800 text-white border-t border-gray-700 z-40 relative">
         <div className="container mx-auto px-4">
           <div className="flex items-center space-x-8 h-12 overflow-x-auto">
             {/* Category Dropdown */}
@@ -313,16 +313,21 @@ const Header: React.FC = () => {
               </button>
               
               {categoryOpen && (
-                <div className="absolute top-full left-0 w-48 bg-white border border-gray-300 rounded-b-md shadow-lg z-100">
-                  {categories.map((category) => (
-                    <button
-                      key={category}
-                      onClick={() => handleCategorySelect(category)}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
-                    >
-                      {category}
-                    </button>
-                  ))}
+                <div className="fixed z-[99999]" style={{
+                  top: '120px', // Position below header
+                  left: '20px', // Align with the category button
+                }}>
+                  <div className="w-48 bg-white border border-gray-300 rounded-md shadow-lg">
+                    {categories.map((category) => (
+                      <button
+                        key={category}
+                        onClick={() => handleCategorySelect(category)}
+                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                      >
+                        {category}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
             </div>
@@ -528,13 +533,20 @@ const Header: React.FC = () => {
       </div>
 
       {/* Click outside handlers for dropdowns */}
-      {(categoryOpen || languageOpen) && (
+      {(languageOpen) && (
         <div 
           className="fixed inset-0 z-30" 
           onClick={() => {
-            setCategoryOpen(false);
             setLanguageOpen(false);
           }}
+        />
+      )}
+      
+      {/* Category dropdown overlay */}
+      {categoryOpen && (
+        <div 
+          className="fixed inset-0 z-[99998]" 
+          onClick={() => setCategoryOpen(false)}
         />
       )}
     </>

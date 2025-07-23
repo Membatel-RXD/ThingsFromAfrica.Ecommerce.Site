@@ -4,6 +4,7 @@ import HeroSection from './HeroSection';
 import CraftShowcase from './CraftShowcase';
 import Footer from './Footer';
 import ShopByCategory from './ShopByCategory';
+import FloatingButtons from './FloatingButtons';
 
 interface AppLayoutProps {
   children?: React.ReactNode;
@@ -22,6 +23,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
           </>
         )}
       </main>
+      <FloatingButtons />
       <Footer />
     </div>
   );

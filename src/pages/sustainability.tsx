@@ -4,6 +4,8 @@ import Footer from '@/components/Footer';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import DonateButton from '@/components/DonateButton';
+import FloatingButtons from '@/components/FloatingButtons';
 import { 
   TreePine, 
   Recycle, 
@@ -276,6 +278,7 @@ const Sustainability: React.FC = () => {
               <Button className="bg-white text-green-600 hover:bg-gray-100">
                 Shop Sustainable Crafts
               </Button>
+              <DonateButton />
               <Button variant="outline" className="border-white text-white hover:bg-white hover:text-green-600">
                 Download Our Impact Report
               </Button>
@@ -284,6 +287,7 @@ const Sustainability: React.FC = () => {
         </Card>
       </main>
       
+      <FloatingButtons />
       <Footer />
     </div>
   );
