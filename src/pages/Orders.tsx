@@ -581,6 +581,16 @@ const Orders: React.FC = () => {
                             <Download className="h-4 w-4 mr-2" />
                             Download Receipt
                           </Button>
+                          
+                          {order.orderStatus.toLowerCase() === 'delivered' && (
+                            <Button
+                              size="sm"
+                              onClick={() => navigate(`/review-product/${order.orderId}`)}
+                              className="bg-green-600 hover:bg-green-700 text-white flex items-center"
+                            >
+                              Write Review
+                            </Button>
+                          )}
                         </div>
                       </div>
                     </CardContent>

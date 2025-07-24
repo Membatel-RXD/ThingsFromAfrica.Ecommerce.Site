@@ -164,7 +164,7 @@ const Header: React.FC = () => {
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search for crafts, artisans..."
-                    className="w-full px-4 py-2 text-white-900 focus:outline-none rounded-l-md"
+                    className="w-full px-4 py-2 text-black focus:outline-none rounded-l-md"
                   />
                 </div>
 
@@ -173,7 +173,7 @@ const Header: React.FC = () => {
                   type="submit"
                   className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded-r-md transition-colors duration-200"
                 >
-                  <Search className="h-5 w-5 text-gray-900" />
+                  <Search className="h-5 w-5 text-black-900" />
                 </button>
               </form>
             </div>
@@ -275,11 +275,7 @@ const Header: React.FC = () => {
                     <div className="font-medium">{cartItems}</div>
                   </div>
                 </Link>
-                {cartItems > 0 && (
-                  <span className="badge badge-sm indicator-item bg-yellow-500 text-gray-900 border-none font-bold">
-                    {cartItems}
-                  </span>
-                )}
+            
               </div>
 
               {/* Mobile Menu Button */}
