@@ -1,16 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, Star, Heart, ShoppingBag, Users, TrendingUp, Award, ArrowRight } from 'lucide-react';
+import { apiService, IAPIResponse } from '@/lib/api';
 
 interface ProductCategory {
-  CategoryId: number;
-  CategoryName: string;
-  CategorySlug: string;
-  CategoryDescription: string;
-  CategoryImageUrl: string;
-  IsTouristFavorite: boolean;
-  IsActive: boolean;
-  SortOrder: number;
-  CreatedAt: string;
+  categoryId: number;
+  categoryName: string;
+  categorySlug: string;
+  categoryDescription: string;
+  categoryImageUrl: string;
+  isTouristFavorite: boolean;
+  isActive: boolean;
+  sortOrder: number;
+  createdAt: string;
 }
 
 interface ShopByCategoryProps {
@@ -24,88 +25,33 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
 }) => {
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
-  // Mock data for demonstration - replace with actual API call
-  const mockCategories: ProductCategory[] = [
-    {
-      CategoryId: 1,
-      CategoryName: "Traditional Baskets",
-      CategorySlug: "traditional-baskets",
-      CategoryDescription: "Handwoven baskets crafted from natural materials, perfect for home decor and storage",
-      CategoryImageUrl: "/traditional-wicker-basket.webp",
-      IsTouristFavorite: true,
-      IsActive: true,
-      SortOrder: 1,
-      CreatedAt: "2024-01-15T10:30:00Z"
-    },
-    {
-      CategoryId: 2,
-      CategoryName: "Wood Sculptures",
-      CategorySlug: "wood-sculptures",
-      CategoryDescription: "Intricate wooden sculptures representing African culture and heritage",
-      CategoryImageUrl: "/Wooden Sculpture.jpg",
-      IsTouristFavorite: true,
-      IsActive: true,
-      SortOrder: 2,
-      CreatedAt: "2024-01-16T11:45:00Z"
-    },
-    {
-      CategoryId: 3,
-      CategoryName: "Ceremonial Masks",
-      CategorySlug: "ceremonial-masks",
-      CategoryDescription: "Authentic ceremonial masks used in traditional African rituals and celebrations",
-      CategoryImageUrl: "/mask.png",
-      IsTouristFavorite: false,
-      IsActive: true,
-      SortOrder: 3,
-      CreatedAt: "2024-01-17T09:20:00Z"
-    },
-    {
-      CategoryId: 4,
-      CategoryName: "Textile Arts",
-      CategorySlug: "textile-arts",
-      CategoryDescription: "Vibrant fabrics and textile arts showcasing traditional African patterns",
-      CategoryImageUrl: "/africafabricart.jpg",
-      IsTouristFavorite: true,
-      IsActive: true,
-      SortOrder: 4,
-      CreatedAt: "2024-01-18T14:15:00Z"
-    },
-    {
-      CategoryId: 5,
-      CategoryName: "Ceramic Pottery",
-      CategorySlug: "ceramic-pottery",
-      CategoryDescription: "Handcrafted ceramic pieces using traditional firing techniques",
-      CategoryImageUrl: "/Ceramic Pottery.jpg",
-      IsTouristFavorite: false,
-      IsActive: true,
-      SortOrder: 5,
-      CreatedAt: "2024-01-19T16:30:00Z"
-    },
-    {
-      CategoryId: 6,
-      CategoryName: "Jewelry & Accessories",
-      CategorySlug: "jewelry-accessories",
-      CategoryDescription: "Traditional beaded jewelry and accessories with cultural significance",
-      CategoryImageUrl: "/Beaded Jewelry.jpg",
-      IsTouristFavorite: true,
-      IsActive: true,
-      SortOrder: 6,
-      CreatedAt: "2024-01-20T12:00:00Z"
-    }
-  ];
-
-  const displayCategories = categories.length > 0 ? categories : mockCategories;
+  const [fetchedCategories, setFetchedCategories] = useState<ProductCategory[]>([]);
 
   useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
+    const fetchCategories = async () => {
+      try {
+        const response = await apiService.get<IAPIResponse<ProductCategory[]>>('ProductCategories/GetAll');
+        if (!response.isSuccessful) throw new Error('Failed to fetch');
+        const data = response.payload || [];
+        setFetchedCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCategories();
   }, []);
+
+  const displayCategories =
+  categories.length > 0 ? categories :
+  fetchedCategories.length > 0 ? fetchedCategories :
+  [];
 
   const handleCategoryClick = (category: ProductCategory) => {
     if (onCategoryClick) {
-      onCategoryClick(category.CategoryId, category.CategorySlug);
+      onCategoryClick(category.categoryId, category.categorySlug);
     }
   };
 
@@ -161,23 +107,23 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayCategories.map((category) => (
             <div
-              key={category.CategoryId}
+              key={category.categoryId}
               className="group relative bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer transform hover:-translate-y-2"
-              onMouseEnter={() => setHoveredCategory(category.CategoryId)}
+              onMouseEnter={() => setHoveredCategory(category.categoryId)}
               onMouseLeave={() => setHoveredCategory(null)}
               onClick={() => handleCategoryClick(category)}
             >
               {/* Category Image */}
               <div className="relative h-48 overflow-hidden">
                 <img
-                  src={category.CategoryImageUrl}
-                  alt={category.CategoryName}
+                  src={category.categoryImageUrl}
+                  alt={category.categoryName}
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent"></div>
                 
                 {/* Tourist Favorite Badge */}
-                {category.IsTouristFavorite && (
+                {category.isTouristFavorite && (
                   <div className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black px-3 py-1 rounded-full text-sm font-bold flex items-center space-x-1">
                     <Star className="h-4 w-4 fill-current" />
                     <span>Tourist Favorite</span>
@@ -186,7 +132,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
 
                 {/* Hover Actions */}
                 <div className={`absolute top-4 left-4 flex space-x-2 transition-all duration-300 ${
-                  hoveredCategory === category.CategoryId 
+                  hoveredCategory === category.categoryId 
                     ? 'opacity-100 translate-y-0' 
                     : 'opacity-0 -translate-y-2'
                 }`}>
@@ -201,7 +147,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
                 {/* Category Title Overlay */}
                 <div className="absolute bottom-4 left-4 right-4">
                   <h3 className="text-white text-xl font-bold mb-1 group-hover:text-yellow-300 transition-colors">
-                    {category.CategoryName}
+                    {category.categoryName}
                   </h3>
                   <div className="flex items-center space-x-2 text-white/80">
                     <TrendingUp className="h-4 w-4" />
@@ -213,7 +159,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
               {/* Category Content */}
               <div className="p-6">
                 <p className="text-gray-600 mb-4 line-clamp-2">
-                  {category.CategoryDescription}
+                  {category.categoryDescription}
                 </p>
 
                 {/* Category Stats */}
@@ -229,7 +175,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
                     </div>
                   </div>
                   <div className="text-sm text-gray-400">
-                    #{category.SortOrder}
+                    #{category.sortOrder}
                   </div>
                 </div>
 
@@ -237,14 +183,14 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
                 <button className="w-full bg-gradient-to-r from-gray-900 to-black text-white py-3 px-6 rounded-xl font-medium hover:from-black hover:to-gray-900 transition-all duration-300 flex items-center justify-center space-x-2 group">
                   <span>Explore Category</span>
                   <ArrowRight className={`h-4 w-4 transition-transform duration-300 ${
-                    hoveredCategory === category.CategoryId ? 'translate-x-1' : ''
+                    hoveredCategory === category.categoryId ? 'translate-x-1' : ''
                   }`} />
                 </button>
               </div>
 
               {/* Animated Border */}
               <div className={`absolute inset-0 rounded-2xl border-2 border-transparent transition-all duration-300 ${
-                hoveredCategory === category.CategoryId 
+                hoveredCategory === category.categoryId 
                   ? 'border-black/20 shadow-lg' 
                   : ''
               }`}></div>
