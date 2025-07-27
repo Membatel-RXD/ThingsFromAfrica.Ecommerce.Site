@@ -1,18 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronRight, Star, Heart, ShoppingBag, Users, TrendingUp, Award, ArrowRight } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { apiService, IAPIResponse } from '@/lib/api';
+import { ProductCategory } from '@/models/members';
 
-interface ProductCategory {
-  categoryId: number;
-  categoryName: string;
-  categorySlug: string;
-  categoryDescription: string;
-  categoryImageUrl: string;
-  isTouristFavorite: boolean;
-  isActive: boolean;
-  sortOrder: number;
-  createdAt: string;
-}
+
 
 interface ShopByCategoryProps {
   categories?: ProductCategory[];
@@ -26,6 +18,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchedCategories, setFetchedCategories] = useState<ProductCategory[]>([]);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchCategories = async () => {
@@ -50,9 +43,17 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
   [];
 
   const handleCategoryClick = (category: ProductCategory) => {
+    // If parent component provided a click handler, use it
     if (onCategoryClick) {
       onCategoryClick(category.categoryId, category.categorySlug);
+    } else {
+      // Default behavior: navigate to shop page with category filter
+      navigate(`/shop?category=${encodeURIComponent(category.categorySlug.toLowerCase())}&categoryId=${category.categoryId}&categoryName=${encodeURIComponent(category.categoryName)}`);
     }
+  };
+
+  const handleViewAllCategories = () => {
+    navigate('/shop');
   };
 
   if (isLoading) {
@@ -136,10 +137,22 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
                     ? 'opacity-100 translate-y-0' 
                     : 'opacity-0 -translate-y-2'
                 }`}>
-                  <button className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors">
+                  <button 
+                    className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // Handle wishlist functionality if needed
+                    }}
+                  >
                     <Heart className="h-4 w-4 text-black" />
                   </button>
-                  <button className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors">
+                  <button 
+                    className="bg-white/90 backdrop-blur-sm p-2 rounded-full hover:bg-white transition-colors"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      // Handle follow/subscribe functionality if needed
+                    }}
+                  >
                     <Users className="h-4 w-4 text-black" />
                   </button>
                 </div>
@@ -180,7 +193,13 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
                 </div>
 
                 {/* CTA Button */}
-                <button className="w-full bg-gradient-to-r from-gray-900 to-black text-white py-3 px-6 rounded-xl font-medium hover:from-black hover:to-gray-900 transition-all duration-300 flex items-center justify-center space-x-2 group">
+                <button 
+                  className="w-full bg-gradient-to-r from-gray-900 to-black text-white py-3 px-6 rounded-xl font-medium hover:from-black hover:to-gray-900 transition-all duration-300 flex items-center justify-center space-x-2 group"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleCategoryClick(category);
+                  }}
+                >
                   <span>Explore Category</span>
                   <ArrowRight className={`h-4 w-4 transition-transform duration-300 ${
                     hoveredCategory === category.categoryId ? 'translate-x-1' : ''
@@ -200,7 +219,10 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
 
         {/* View All Categories Button */}
         <div className="text-center mt-12">
-          <button className="bg-white border-2 border-black text-black px-8 py-4 rounded-xl font-medium hover:bg-black hover:text-white transition-all duration-300 flex items-center space-x-2 mx-auto group">
+          <button 
+            className="bg-white border-2 border-black text-black px-8 py-4 rounded-xl font-medium hover:bg-black hover:text-white transition-all duration-300 flex items-center space-x-2 mx-auto group"
+            onClick={handleViewAllCategories}
+          >
             <span>View All Categories</span>
             <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </button>

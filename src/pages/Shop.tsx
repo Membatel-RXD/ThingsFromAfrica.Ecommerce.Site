@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -6,8 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Heart, ShoppingCart, Filter, Grid, List, X, ChevronDown, ChevronUp } from 'lucide-react';
-import { useNavigate } from 'react-router-dom';
+import { Heart, ShoppingCart, Filter, Grid, List, X, ChevronDown, ChevronUp, ArrowLeft } from 'lucide-react';
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
 import { productService } from '../services/productService';
@@ -56,6 +56,8 @@ const Slider = ({ value, onValueChange, min, max, step, className }) => (
 );
 
 const Shop = () => {
+  const location = useLocation();
+  const navigate = useNavigate();
   const [viewMode, setViewMode] = useState('grid');
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
@@ -65,7 +67,8 @@ const Shop = () => {
   const [filterLoading, setFilterLoading] = useState(false);
   const [wishlistItems, setWishlistItems] = useState<number[]>([]);
   const [showFilters, setShowFilters] = useState(false);
-  const navigate = useNavigate();
+  const [activeCategoryName, setActiveCategoryName] = useState('');
+  
   const { updateCartCount } = useAppContext();
   const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
 
@@ -102,6 +105,20 @@ const Shop = () => {
     cultural: false
   });
 
+  // Handle URL parameters for category filtering
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search);
+    const categoryParam = urlParams.get('category');
+    const categoryNameParam = urlParams.get('categoryName');
+    
+    if (categoryParam && categoryParam !== 'all') {
+      setSelectedCategory(categoryParam);
+      if (categoryNameParam) {
+        setActiveCategoryName(decodeURIComponent(categoryNameParam));
+      }
+    }
+  }, [location.search]);
+
   const toggleSection = (section) => {
     setExpandedSections(prev => ({
       ...prev,
@@ -131,6 +148,45 @@ const Shop = () => {
     setPersonalizationAvailable(false);
     setSelectedAgeCategories([]);
     setSelectedTribalOrigins([]);
+    setActiveCategoryName('');
+    
+    // Update URL to remove category parameters
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.delete('category');
+    urlParams.delete('categoryId');
+    urlParams.delete('categoryName');
+    const newSearch = urlParams.toString();
+    navigate(`/shop${newSearch ? `?${newSearch}` : ''}`, { replace: true });
+  };
+
+  const handleCategoryChange = (category) => {
+    setSelectedCategory(category);
+    setActiveCategoryName('');
+    
+    // Update URL parameters
+    const urlParams = new URLSearchParams(location.search);
+    if (category === 'all') {
+      urlParams.delete('category');
+      urlParams.delete('categoryId');
+      urlParams.delete('categoryName');
+    } else {
+      urlParams.set('category', category);
+    }
+    const newSearch = urlParams.toString();
+    navigate(`/shop${newSearch ? `?${newSearch}` : ''}`, { replace: true });
+  };
+
+  const handleBackToAllCategories = () => {
+    setSelectedCategory('all');
+    setActiveCategoryName('');
+    
+    // Clear category-related URL parameters
+    const urlParams = new URLSearchParams(location.search);
+    urlParams.delete('category');
+    urlParams.delete('categoryId'); 
+    urlParams.delete('categoryName');
+    const newSearch = urlParams.toString();
+    navigate(`/shop${newSearch ? `?${newSearch}` : ''}`, { replace: true });
   };
 
   const handleCheckboxChange = (value, currentValues, setter) => {
@@ -182,10 +238,10 @@ const Shop = () => {
     }
     const response = await cartService.addToCart(addToCartItem);
     if (response && response.isSuccessful) {
-      showSnackbar(response.message || `Added ${product.name} to cart`,'success')
+      showSnackbar(response.remark || `Added ${product.name} to cart`,'success')
       await updateCartCount();
     }else{
-      showSnackbar(response.message || "Failed to add an item to cart",'error');
+      showSnackbar(response.remark || "Failed to add an item to cart",'error');
     }
   };
 
@@ -225,54 +281,150 @@ const Shop = () => {
     tribalOrigins: ['Chewa', 'Tumbuka', 'Yao', 'Lomwe', 'Sena', 'Tonga', 'Ngoni']
   };
 
-  const filteredProducts = useMemo(() => {
-    // Show filter loading when applying filters
-    if (!loading && products.length > 0) {
-      setFilterLoading(true);
-      
-      // Simulate brief delay for filter processing
-      setTimeout(() => {
-        setFilterLoading(false);
-      }, 300);
+ // Inside your Shop component - Updated filteredProducts useMemo
+
+const filteredProducts = useMemo(() => {
+  // Show filter loading when applying filters
+  if (!loading && products.length > 0) {
+    setFilterLoading(true);
+    
+    // Simulate brief delay for filter processing
+    setTimeout(() => {
+      setFilterLoading(false);
+    }, 300);
+  }
+
+  console.log('🔍 Starting filter process...');
+  console.log('📦 Total products:', products.length);
+  console.log('🏷️ Selected category:', selectedCategory);
+  console.log('🔤 Search term:', searchTerm);
+
+  // Step 1: Start with all products
+  let filtered = [...products];
+  console.log('Step 1 - Initial products:', filtered.length);
+
+  // Step 2: Apply search filter
+  if (searchTerm.trim()) {
+    filtered = searchProducts(filtered, searchTerm);
+    console.log('Step 2 - After search filter:', filtered.length);
+  }
+
+  // Step 3: Apply category filter - THIS IS WHERE CATEGORY FILTERING HAPPENS
+  if (selectedCategory !== 'all') {
+    filtered = filterByCategory(filtered, selectedCategory);
+    console.log('Step 3 - After category filter:', filtered.length);
+    console.log('🎯 Filtered products in category:', filtered.map(p => ({ name: p.name, category: p.category })));
+  }
+
+  // Step 4: Apply price range filter
+  if (priceRange[0] > 0 || priceRange[1] < 200) {
+    filtered = filterByPriceRange(filtered, priceRange[0], priceRange[1]);
+    console.log('Step 4 - After price filter:', filtered.length);
+  }
+
+  // Step 5: Apply rating filter
+  if (ratingFilter > 0) {
+    filtered = filterByRating(filtered, ratingFilter);
+    console.log('Step 5 - After rating filter:', filtered.length);
+  }
+
+  // Step 6: Apply stock filter
+  if (inStockOnly) {
+    filtered = filterByStock(filtered, inStockOnly);
+    console.log('Step 6 - After stock filter:', filtered.length);
+  }
+
+  // Step 7: Apply featured filter
+  if (featuredOnly) {
+    filtered = filterByFeatured(filtered, featuredOnly);
+    console.log('Step 7 - After featured filter:', filtered.length);
+  }
+
+  // Step 8: Apply additional custom filters
+  filtered = filtered.filter(product => {
+    // Wood type filter
+    if (selectedWoodTypes.length > 0) {
+      // Assuming you have a woodType property on your product or can derive it
+      const productWoodType = product.woodType || 'Unknown';
+      if (!selectedWoodTypes.includes(productWoodType)) return false;
     }
 
-    let filtered = searchProducts(products, searchTerm);
-    filtered = filterByCategory(filtered, selectedCategory);
-    
-    // Apply additional filters
-    filtered = filtered.filter(product => {
-      // Price filter
-      if (product.price < priceRange[0] || product.price > priceRange[1]) return false;
-      
-      // Rating filter
-      if (ratingFilter > 0 && product.rating < ratingFilter) return false;
-      
-      // Stock filter
-      if (inStockOnly && !product.inStock) return false;
-      
-      // Featured filter
-      if (featuredOnly && !product.badge) return false;
-      
-      return true;
-    });
-    
-    filtered = sortProducts(filtered, sortBy);
-    return filtered;
-  }, [searchTerm, selectedCategory, sortBy, priceRange, ratingFilter, inStockOnly, featuredOnly, 
-      selectedWoodTypes, selectedCraftingTechniques, selectedDifficultyLevels, selectedArtisanRegions,
-      selectedWoodColors, selectedConditions, selectedQualityGrades, authenticOnly, certifiedOnly,
-      touristFriendlyOnly, packingFriendlyOnly, giftWrappingAvailable, personalizationAvailable,
-      selectedAgeCategories, selectedTribalOrigins, products, loading]);
+    // Crafting technique filter
+    if (selectedCraftingTechniques.length > 0) {
+      const productTechnique = product.craftingTechnique || 'Unknown';
+      if (!selectedCraftingTechniques.includes(productTechnique)) return false;
+    }
 
+    // Artisan region filter
+    if (selectedArtisanRegions.length > 0) {
+      if (!selectedArtisanRegions.includes(product.region)) return false;
+    }
+
+    // Add more custom filters as needed...
+    return true;
+  });
+
+  console.log('Step 8 - After custom filters:', filtered.length);
+
+  // Step 9: Apply sorting
+  filtered = sortProducts(filtered, sortBy);
+  console.log('Step 9 - Final sorted products:', filtered.length);
+
+  return filtered;
+}, [
+  products,
+  searchTerm,
+  selectedCategory,
+  priceRange,
+  ratingFilter,
+  inStockOnly,
+  featuredOnly,
+  selectedWoodTypes,
+  selectedCraftingTechniques,
+  selectedArtisanRegions,
+  selectedWoodColors,
+  selectedConditions,
+  selectedQualityGrades,
+  authenticOnly,
+  certifiedOnly,
+  touristFriendlyOnly,
+  packingFriendlyOnly,
+  giftWrappingAvailable,
+  personalizationAvailable,
+  selectedAgeCategories,
+  selectedTribalOrigins,
+  sortBy,
+  loading
+]);
   return (
     <div className="min-h-screen bg-gray-50">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
-        {/* Page header */}
+        {/* Page header with category breadcrumb */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-800 mb-2">Shop Authentic Malawi Crafts</h1>
-          <p className="text-gray-600">Discover unique handmade treasures from talented Malawian artisans</p>
+          {activeCategoryName ? (
+            <div className="mb-4">
+              <button 
+                onClick={handleBackToAllCategories}
+                className="flex items-center text-orange-600 hover:text-orange-700 transition-colors mb-2"
+              >
+                <ArrowLeft className="h-4 w-4 mr-1" />
+                Back to All Categories
+              </button>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2">
+                {activeCategoryName} Collection
+              </h1>
+              <p className="text-gray-600">
+                Discover authentic {activeCategoryName.toLowerCase()} crafted by talented Malawian artisans
+              </p>
+            </div>
+          ) : (
+            <>
+              <h1 className="text-4xl font-bold text-gray-800 mb-2">Shop Authentic Malawi Crafts</h1>
+              <p className="text-gray-600">Discover unique handmade treasures from talented Malawian artisans</p>
+            </>
+          )}
         </div>
         
         <div className="flex gap-8">
@@ -323,7 +475,7 @@ const Shop = () => {
                     {expandedSections.category ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
                   </div>
                   {expandedSections.category && (
-                    <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                    <Select value={selectedCategory} onValueChange={handleCategoryChange}>
                       <SelectTrigger>
                         <SelectValue placeholder="All Categories" />
                       </SelectTrigger>
@@ -546,11 +698,35 @@ const Shop = () => {
               </div>
             </div>
 
+            {/* Active filter indicator */}
+            {(selectedCategory !== 'all' || activeCategoryName) && (
+              <div className="mb-6 p-4 bg-orange-50 border border-orange-200 rounded-lg">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm font-medium text-orange-800">Active Filter:</span>
+                    <Badge variant="secondary" className="bg-orange-100 text-orange-800">
+                      {activeCategoryName || selectedCategory}
+                    </Badge>
+                  </div>
+                  <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    onClick={handleBackToAllCategories}
+                    className="text-orange-600 hover:text-orange-700"
+                  >
+                    <X className="h-4 w-4 mr-1" />
+                    Clear
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {/* Results count */}
             {!loading && (
               <div className="mb-6">
                 <p className="text-gray-600">
                   Showing {filteredProducts.length} of {products.length} products
+                  {activeCategoryName && ` in ${activeCategoryName}`}
                 </p>
               </div>
             )}
@@ -566,20 +742,22 @@ const Shop = () => {
               </div>
             ) : filteredProducts.length === 0 ? (
               <div className="text-center py-12">
-                <p className="text-gray-600 text-lg mb-4">No products found matching your criteria.</p>
+                <p className="text-gray-600 text-lg mb-4">
+                  No products found {activeCategoryName ? `in ${activeCategoryName}` : 'matching your criteria'}.
+                </p>
                 <Button variant="outline" onClick={clearAllFilters}>
                   Clear All Filters
                 </Button>
               </div>
             ) : (
               <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
-                {filteredProducts.map((product) => (
+                {filteredProducts.map((product:Product) => (
                   <Card key={product.id} className="group hover:shadow-xl transition-all duration-300">
                     <div className="relative">
                       <div className={`${viewMode === 'grid' ? 'aspect-square' : 'aspect-video lg:aspect-square'} bg-gradient-to-br from-gray-100 to-white flex items-center justify-center overflow-hidden`}>
                         <img 
-                          src={product.image} 
-                          alt={product.name}
+                          src={product.mainImageUrl} 
+                          alt={product.productName}
                           className="w-full h-full object-cover"
                         />
                       </div>
@@ -590,7 +768,7 @@ const Shop = () => {
                         </div>
                       )}
                       
-                      {!product.inStock && (
+                      {product.stockQuantity < 1  && (
                         <Badge variant="secondary" className="absolute top-4 left-4">
                           Out of Stock
                         </Badge>
@@ -609,8 +787,8 @@ const Shop = () => {
                     <CardContent className="p-6">
                       <div className="space-y-3">
                         <div>
-                          <h3 className="font-bold text-gray-800 text-lg">{product.name}</h3>
-                          <p className="text-sm text-gray-600">by {product.artisan} • {product.region}</p>
+                          <h3 className="font-bold text-gray-800 text-lg">{product.productName}</h3>
+                          <p className="text-sm text-gray-600">by {product.artisanName} • {product.artisanVillage}</p>
                         </div>
                         
                         <div className="flex items-center justify-between">

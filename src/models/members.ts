@@ -21,6 +21,17 @@ export interface Artisan {
     isActive: boolean;
     createdAt: string;
   }
+  export interface ProductCategory {
+    categoryId: number;
+    categoryName: string;
+    categorySlug: string;
+    categoryDescription: string;
+    categoryImageUrl: string;
+    isTouristFavorite: boolean;
+    isActive: boolean;
+    sortOrder: number;
+    createdAt: string;
+  }
   export interface Product {
     weight: number
     length: number
@@ -30,6 +41,7 @@ export interface Artisan {
     productId: number
     productName: string
     productSlug: string
+    category?:ProductCategory
     sku: string
     itemCode: string
     categoryId: number
