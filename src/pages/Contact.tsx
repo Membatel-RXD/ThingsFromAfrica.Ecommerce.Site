@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import AppLayout from '@/components/AppLayout';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
 
 const Contact: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -31,151 +30,178 @@ const Contact: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-linen">
-      <Header />
-      
-      <main className="container mx-auto px-4 py-8">
-        {/* Page header */}
-        <div className="mb-8">
-          <h1 className="text-4xl font-bold text-charcoal mb-2">Contact Us</h1>
-          <p className="text-charcoal/70">Get in touch with us for any questions about our crafts or custom orders</p>
-        </div>
+    <AppLayout>
+      <div className="bg-gray-50 min-h-screen">
+        {/* Hero Section */}
+        <section className="bg-gradient-to-r from-gray-900 to-black text-white py-20 relative overflow-hidden">
+          <div className="absolute inset-0 bg-black/20"></div>
+          <div className="container mx-auto px-4 text-center relative z-10">
+            <div className="max-w-4xl mx-auto">
+              <div className="flex items-center justify-center mb-6">
+                <MessageCircle className="h-12 w-12 text-white mr-4" />
+                <h1 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                  Contact Us
+                </h1>
+              </div>
+              <p className="text-xl md:text-2xl text-gray-300 leading-relaxed">
+                Get in touch with us for questions about our crafts, custom orders, or artisan collaborations
+              </p>
+            </div>
+          </div>
+        </section>
 
-        {/* Contact Content */}
-        <div className="grid md:grid-cols-2 gap-8">
-          {/* Contact Form */}
-          <Card className="border-olive-green/20">
-            <CardHeader>
-              <CardTitle className="text-2xl text-charcoal">Send us a Message</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-6">
-                <div>
-                  <Label htmlFor="name" className="text-charcoal">Name</Label>
-                  <Input
-                    id="name"
-                    name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                    className="mt-1"
-                  />
+        <main className="container mx-auto px-4 py-16">
+
+          <div className="grid lg:grid-cols-2 gap-12">
+            {/* Contact Form */}
+            <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-3">Send us a Message</h2>
+                <p className="text-gray-600">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+              </div>
+              
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div>
+                    <Label htmlFor="name" className="text-gray-900 font-medium mb-2 block">Full Name</Label>
+                    <Input
+                      id="name"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
+                      className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                      placeholder="Your full name"
+                    />
+                  </div>
+                  <div>
+                    <Label htmlFor="email" className="text-gray-900 font-medium mb-2 block">Email Address</Label>
+                    <Input
+                      id="email"
+                      name="email"
+                      type="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
+                      className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                      placeholder="your.email@example.com"
+                    />
+                  </div>
                 </div>
+                
                 <div>
-                  <Label htmlFor="email" className="text-charcoal">Email</Label>
-                  <Input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="mt-1"
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="subject" className="text-charcoal">Subject</Label>
+                  <Label htmlFor="subject" className="text-gray-900 font-medium mb-2 block">Subject</Label>
                   <Input
                     id="subject"
                     name="subject"
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="mt-1"
+                    className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                    placeholder="What is this regarding?"
                   />
                 </div>
+                
                 <div>
-                  <Label htmlFor="message" className="text-charcoal">Message</Label>
+                  <Label htmlFor="message" className="text-gray-900 font-medium mb-2 block">Message</Label>
                   <Textarea
                     id="message"
                     name="message"
                     value={formData.message}
                     onChange={handleChange}
                     required
-                    rows={5}
-                    className="mt-1"
+                    rows={6}
+                    className="border-gray-300 focus:border-gray-900 focus:ring-gray-900 resize-none"
+                    placeholder="Tell us more about your inquiry..."
                   />
                 </div>
-                <Button onClick={handleSubmit} className="w-full bg-burnt-sienna hover:bg-burnt-sienna/90">
+                
+                <Button 
+                  type="submit" 
+                  className="w-full bg-black hover:bg-gray-800 text-white py-3 px-6 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center"
+                >
+                  <Send className="h-5 w-5 mr-2" />
                   Send Message
                 </Button>
+              </form>
+            </div>
+
+            {/* Contact Information */}
+            <div className="space-y-6">
+              <div className="mb-8">
+                <h2 className="text-3xl font-bold text-gray-900 mb-3">Get in Touch</h2>
+                <p className="text-gray-600">Find us through any of these channels. We're here to help with all your inquiries.</p>
               </div>
-            </CardContent>
-          </Card>
+              
+              <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-200">
+                <div className="space-y-8">
+                  <div className="flex items-start space-x-4">
+                    <div className="bg-gray-100 p-3 rounded-full">
+                      <MapPin className="h-6 w-6 text-gray-900" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-lg mb-2">Our Location</h3>
+                      <p className="text-gray-600 leading-relaxed">
+                        123 Craft Street<br />
+                        Lilongwe, Malawi<br />
+                        Central Region
+                      </p>
+                    </div>
+                  </div>
 
-          {/* Contact Information */}
-          <div className="space-y-6">
-            <Card className="border-olive-green/20">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <MapPin className="h-6 w-6 text-burnt-sienna mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-bold text-charcoal text-lg mb-1">Address</h3>
-                    <p className="text-charcoal/70">123 Craft Street<br />Lilongwe, Malawi</p>
+                  <div className="flex items-start space-x-4">
+                    <div className="bg-gray-100 p-3 rounded-full">
+                      <Phone className="h-6 w-6 text-gray-900" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-lg mb-2">Phone Number</h3>
+                      <p className="text-gray-600">+265 1 234 567</p>
+                      <p className="text-gray-500 text-sm mt-1">Available during business hours</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="bg-gray-100 p-3 rounded-full">
+                      <Mail className="h-6 w-6 text-gray-900" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-lg mb-2">Email Address</h3>
+                      <p className="text-gray-600">info@thingsfromafrica.com</p>
+                      <p className="text-gray-500 text-sm mt-1">We'll respond within 24 hours</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-start space-x-4">
+                    <div className="bg-gray-100 p-3 rounded-full">
+                      <Clock className="h-6 w-6 text-gray-900" />
+                    </div>
+                    <div>
+                      <h3 className="font-bold text-gray-900 text-lg mb-2">Business Hours</h3>
+                      <div className="text-gray-600 space-y-1">
+                        <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
+                        <p>Saturday: 9:00 AM - 4:00 PM</p>
+                        <p>Sunday: Closed</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
 
-            <Card className="border-olive-green/20">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <Phone className="h-6 w-6 text-burnt-sienna mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-bold text-charcoal text-lg mb-1">Phone</h3>
-                    <p className="text-charcoal/70">+265 1 234 567</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-olive-green/20">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <Mail className="h-6 w-6 text-burnt-sienna mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-bold text-charcoal text-lg mb-1">Email</h3>
-                    <p className="text-charcoal/70">info@malawicrafts.com</p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            <Card className="border-olive-green/20">
-              <CardContent className="p-6">
-                <div className="flex items-start space-x-4">
-                  <Clock className="h-6 w-6 text-burnt-sienna mt-1 flex-shrink-0" />
-                  <div>
-                    <h3 className="font-bold text-charcoal text-lg mb-1">Business Hours</h3>
-                    <p className="text-charcoal/70">
-                      Mon - Fri: 8:00 AM - 6:00 PM<br />
-                      Sat: 9:00 AM - 4:00 PM<br />
-                      Sun: Closed
-                    </p>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-
-            {/* Additional Info Card */}
-            <Card className="border-olive-green/20 bg-gradient-to-br from-olive-green/5 to-burnt-sienna/5">
-              <CardContent className="p-6">
-                <h3 className="font-bold text-charcoal text-lg mb-3">Visit Our Workshop</h3>
-                <p className="text-charcoal/70 mb-4">
-                  Come see our artisans at work and discover the stories behind each handcrafted piece. 
-                  Workshop visits are available by appointment.
+              {/* Workshop Visit Card */}
+              <div className="bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl p-8 border border-gray-200">
+                <h3 className="font-bold text-gray-900 text-xl mb-4">Visit Our Workshop</h3>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Experience the artistry firsthand. Come see our skilled craftspeople at work and discover the stories behind each handcrafted piece. Workshop visits are available by appointment.
                 </p>
-                <Button variant="outline" className="border-burnt-sienna text-burnt-sienna hover:bg-burnt-sienna hover:text-white">
+                <Button className="bg-gray-900 hover:bg-black text-white px-6 py-3 rounded-lg font-medium transition-colors duration-300">
                   Schedule a Visit
                 </Button>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </div>
-        </div>
-      </main>
-      
-      <Footer />
-    </div>
+        </main>
+      </div>
+    </AppLayout>
   );
 };
 
