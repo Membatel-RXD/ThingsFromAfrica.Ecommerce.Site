@@ -31,6 +31,8 @@ import {
 import { apiService, IAPIResponse } from '@/lib/api';
 import { OrderDTO } from '@/models/members';
 import AccountSidebar from '@/components/LeftSidebarNav';
+import OrderHistory from '@/components/OrderHistory';
+
 
 
 const Orders: React.FC = () => {
@@ -41,6 +43,7 @@ const Orders: React.FC = () => {
   const [statusFilter, setStatusFilter] = useState('all');
   const [selectedOrder, setSelectedOrder] = useState<OrderDTO | null>(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'current' | 'history'>('current');
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -137,6 +140,107 @@ const Orders: React.FC = () => {
   const handleViewDetails = (order: OrderDTO) => {
     setSelectedOrder(order);
     setIsDetailModalOpen(true);
+  };
+
+  const downloadInvoice = (order: OrderDTO) => {
+    try {
+      // Create HTML content for invoice
+      const invoiceHTML = `
+        <!DOCTYPE html>
+        <html>
+        <head>
+          <title>Invoice ${order.orderNumber}</title>
+          <style>
+            body { font-family: Arial, sans-serif; margin: 20px; }
+            .header { text-align: center; margin-bottom: 30px; }
+            .company-info { margin-bottom: 30px; }
+            .invoice-details { margin-bottom: 30px; }
+            .customer-info { margin-bottom: 30px; }
+            .order-summary { margin-bottom: 30px; }
+            table { width: 100%; border-collapse: collapse; }
+            th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+            th { background-color: #f2f2f2; }
+            .total { font-weight: bold; }
+            .footer { text-align: center; margin-top: 30px; font-size: 12px; }
+          </style>
+        </head>
+        <body>
+          <div class="header">
+            <h1>INVOICE</h1>
+          </div>
+          
+          <div class="company-info">
+            <h3>Things From Africa</h3>
+            <p>Authentic African Crafts</p>
+            <p>Blantyre, Malawi</p>
+            <p>Email: info@thingsfromafrica.com</p>
+          </div>
+          
+          <div class="invoice-details">
+            <h3>Invoice Details:</h3>
+            <p><strong>Invoice Number:</strong> INV-${order.orderNumber}</p>
+            <p><strong>Order Number:</strong> ${order.orderNumber}</p>
+            <p><strong>Invoice Date:</strong> ${formatDate(new Date().toISOString())}</p>
+            <p><strong>Order Date:</strong> ${formatDate(order.orderDate)}</p>
+          </div>
+          
+          <div class="customer-info">
+            <h3>Bill To:</h3>
+            <p><strong>${order.billingFirstName} ${order.billingLastName}</strong></p>
+            <p>${order.shippingCity}, ${order.shippingCountryName}</p>
+            <p>Email: ${order.customerEmail}</p>
+          </div>
+          
+          <div class="order-summary">
+            <h3>Order Summary:</h3>
+            <table>
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Amount</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Handcrafted African Items</td>
+                  <td>${formatCurrency(order.totalAmount, order.currency)}</td>
+                </tr>
+                <tr class="total">
+                  <td><strong>Total Amount:</strong></td>
+                  <td><strong>${formatCurrency(order.totalAmount, order.currency)}</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          
+          <p><strong>Order Status:</strong> ${order.orderStatus}</p>
+          
+          <div class="footer">
+            <p>Thank you for supporting African artisans!</p>
+            <p>For questions, contact us at support@thingsfromafrica.com</p>
+          </div>
+        </body>
+        </html>
+      `;
+
+      // Create a new window and print
+      const printWindow = window.open('', '_blank');
+      if (printWindow) {
+        printWindow.document.write(invoiceHTML);
+        printWindow.document.close();
+        printWindow.focus();
+        
+        // Wait for content to load then print
+        setTimeout(() => {
+          printWindow.print();
+          printWindow.close();
+        }, 500);
+      }
+      
+    } catch (error) {
+      console.error('Failed to generate invoice:', error);
+      alert('Failed to download invoice. Please try again.');
+    }
   };
 
   const NavigationLink = ({ path, label, icon: Icon, isActive = false }) => (
@@ -361,9 +465,12 @@ const Orders: React.FC = () => {
             <Button variant="outline" onClick={() => setIsDetailModalOpen(false)}>
               Close
             </Button>
-            <Button className="bg-black text-white hover:bg-gray-800">
+            <Button 
+              onClick={() => selectedOrder && downloadInvoice(selectedOrder)}
+              className="bg-black text-white hover:bg-gray-800"
+            >
               <Download className="h-4 w-4 mr-2" />
-              Download Receipt
+              Download Invoice
             </Button>
           </div>
         </DialogContent>
@@ -460,144 +567,181 @@ const Orders: React.FC = () => {
                 </Card>
               </div>
 
-              {/* Search and Filter */}
-              <div className="flex flex-col md:flex-row gap-4 mb-6">
-                <div className="flex-1 relative">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
-                  <Input
-                    placeholder="Search orders by number or name..."
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    className="pl-10"
-                  />
-                </div>
-                <div className="flex items-center space-x-2">
-                  <Filter className="h-4 w-4 text-gray-400" />
-                  <Select value={statusFilter} onValueChange={setStatusFilter}>
-                    <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Filter by status" />
-                    </SelectTrigger>
-                    <SelectContent>
-                      <SelectItem value="all">All Orders</SelectItem>
-                      <SelectItem value="pending">Pending</SelectItem>
-                      <SelectItem value="processing">Processing</SelectItem>
-                      <SelectItem value="shipped">Shipped</SelectItem>
-                      <SelectItem value="delivered">Delivered</SelectItem>
-                      <SelectItem value="cancelled">Cancelled</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </div>
+              {/* Tab Navigation */}
+              <div className="flex space-x-1 mb-6 bg-gray-100 p-1 rounded-lg w-fit">
+                <button
+                  onClick={() => setActiveTab('current')}
+                  className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
+                    activeTab === 'current'
+                      ? 'bg-white text-black shadow-sm'
+                      : 'text-gray-600 hover:text-black'
+                  }`}
+                >
+                  Current Orders
+                </button>
+                <button
+                  onClick={() => setActiveTab('history')}
+                  className={`px-6 py-2 rounded-md text-sm font-medium transition-colors ${
+                    activeTab === 'history'
+                      ? 'bg-white text-black shadow-sm'
+                      : 'text-gray-600 hover:text-black'
+                  }`}
+                >
+                  Order History
+                </button>
               </div>
-            </div>
 
-            {/* Orders List */}
-            <div className="space-y-4">
-              {filteredOrders.length === 0 ? (
-                <Card className="border-gray-200">
-                  <CardContent className="p-8 text-center">
-                    <Package className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">No orders found</h3>
-                    <p className="text-gray-600 mb-4">
-                      {searchTerm || statusFilter !== 'all' 
-                        ? 'Try adjusting your search or filter criteria'
-                        : 'You haven\'t placed any orders yet'
-                      }
-                    </p>
-                    <Button 
-                      onClick={() => navigate('/shop')}
-                      className="bg-black text-white hover:bg-gray-800"
-                    >
-                      <ShoppingBag className="h-4 w-4 mr-2" />
-                      Start Shopping
-                    </Button>
-                  </CardContent>
-                </Card>
-              ) : (
-                filteredOrders.map((order) => (
-                  <Card key={order.orderId} className="border-gray-200">
-                    <CardContent className="p-6">
-                      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                        <div className="flex-1">
-                          <div className="flex items-center mb-3">
-                            <h3 className="text-lg font-semibold text-black mr-3">
-                              Order #{order.orderNumber}
-                            </h3>
-                            <Badge className={getStatusColor(order.orderStatus)}>
-                              {getStatusIcon(order.orderStatus)}
-                              <span className="ml-1">{order.orderStatus}</span>
-                            </Badge>
-                            {order.isTouristOrder && (
-                              <Badge variant="outline" className="ml-2">
-                                Tourist Order
-                              </Badge>
-                            )}
-                          </div>
-                          
-                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
-                            <div>
-                              <p className="text-gray-600">Order Date:</p>
-                              <p className="font-medium">{formatDate(order.orderDate)}</p>
-                            </div>
-                            <div>
-                              <p className="text-gray-600">Total Amount:</p>
-                              <p className="font-medium text-lg">
-                                {formatCurrency(order.totalAmount, order.currency)}
-                              </p>
-                            </div>
-                            <div>
-                              <p className="text-gray-600">Shipping To:</p>
-                              <p className="font-medium">
-                                {order.shippingFirstName} {order.shippingLastName}
-                              </p>
-                              <p className="text-gray-500">
-                                {order.shippingCity}, {order.shippingCountryName}
-                              </p>
-                            </div>
-                            {order.shippedDate && (
-                              <div>
-                                <p className="text-gray-600">Shipped Date:</p>
-                                <p className="font-medium">{formatDate(order.shippedDate)}</p>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        
-                        <div className="flex flex-col space-y-2">
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => handleViewDetails(order)}
-                            className="flex items-center"
-                          >
-                            <Eye className="h-4 w-4 mr-2" />
-                            View Details
-                          </Button>
-                          
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="flex items-center"
-                          >
-                            <Download className="h-4 w-4 mr-2" />
-                            Download Receipt
-                          </Button>
-                          
-                          {order.orderStatus.toLowerCase() === 'delivered' && (
-                            <Button
-                              size="sm"
-                              onClick={() => navigate(`/review-product/${order.orderId}`)}
-                              className="bg-green-600 hover:bg-green-700 text-white flex items-center"
-                            >
-                              Write Review
-                            </Button>
-                          )}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))
+              {/* Current Orders Tab */}
+              {activeTab === 'current' && (
+                <>
+                  {/* Search and Filter */}
+                  <div className="flex flex-col md:flex-row gap-4 mb-6">
+                    <div className="flex-1 relative">
+                      <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
+                      <Input
+                        placeholder="Search orders by number or name..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        className="pl-10"
+                      />
+                    </div>
+                    <div className="flex items-center space-x-2">
+                      <Filter className="h-4 w-4 text-gray-400" />
+                      <Select value={statusFilter} onValueChange={setStatusFilter}>
+                        <SelectTrigger className="w-48">
+                          <SelectValue placeholder="Filter by status" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="all">All Orders</SelectItem>
+                          <SelectItem value="pending">Pending</SelectItem>
+                          <SelectItem value="processing">Processing</SelectItem>
+                          <SelectItem value="shipped">Shipped</SelectItem>
+                          <SelectItem value="delivered">Delivered</SelectItem>
+                          <SelectItem value="cancelled">Cancelled</SelectItem>
+                        </SelectContent>
+                      </Select>
+                    </div>
+                  </div>
+                </>
               )}
             </div>
+
+            {/* Current Orders Tab Content */}
+            {activeTab === 'current' && (
+              <div className="space-y-4">
+                {filteredOrders.length === 0 ? (
+                  <Card className="border-gray-200">
+                    <CardContent className="p-8 text-center">
+                      <Package className="h-12 w-12 text-gray-400 mx-auto mb-4" />
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No orders found</h3>
+                      <p className="text-gray-600 mb-4">
+                        {searchTerm || statusFilter !== 'all' 
+                          ? 'Try adjusting your search or filter criteria'
+                          : 'You haven\'t placed any orders yet'
+                        }
+                      </p>
+                      <Button 
+                        onClick={() => navigate('/shop')}
+                        className="bg-black text-white hover:bg-gray-800"
+                      >
+                        <ShoppingBag className="h-4 w-4 mr-2" />
+                        Start Shopping
+                      </Button>
+                    </CardContent>
+                  </Card>
+                ) : (
+                  filteredOrders.map((order) => (
+                    <Card key={order.orderId} className="border-gray-200">
+                      <CardContent className="p-6">
+                        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+                          <div className="flex-1">
+                            <div className="flex items-center mb-3">
+                              <h3 className="text-lg font-semibold text-black mr-3">
+                                Order #{order.orderNumber}
+                              </h3>
+                              <Badge className={getStatusColor(order.orderStatus)}>
+                                {getStatusIcon(order.orderStatus)}
+                                <span className="ml-1">{order.orderStatus}</span>
+                              </Badge>
+                              {order.isTouristOrder && (
+                                <Badge variant="outline" className="ml-2">
+                                  Tourist Order
+                                </Badge>
+                              )}
+                            </div>
+                            
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                              <div>
+                                <p className="text-gray-600">Order Date:</p>
+                                <p className="font-medium">{formatDate(order.orderDate)}</p>
+                              </div>
+                              <div>
+                                <p className="text-gray-600">Total Amount:</p>
+                                <p className="font-medium text-lg">
+                                  {formatCurrency(order.totalAmount, order.currency)}
+                                </p>
+                              </div>
+                              <div>
+                                <p className="text-gray-600">Shipping To:</p>
+                                <p className="font-medium">
+                                  {order.shippingFirstName} {order.shippingLastName}
+                                </p>
+                                <p className="text-gray-500">
+                                  {order.shippingCity}, {order.shippingCountryName}
+                                </p>
+                              </div>
+                              {order.shippedDate && (
+                                <div>
+                                  <p className="text-gray-600">Shipped Date:</p>
+                                  <p className="font-medium">{formatDate(order.shippedDate)}</p>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          
+                          <div className="flex flex-col space-y-2">
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => handleViewDetails(order)}
+                              className="flex items-center"
+                            >
+                              <Eye className="h-4 w-4 mr-2" />
+                              View Details
+                            </Button>
+                            
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => downloadInvoice(order)}
+                              className="flex items-center"
+                            >
+                              <Download className="h-4 w-4 mr-2" />
+                              Download Invoice
+                            </Button>
+                            
+                            {order.orderStatus.toLowerCase() === 'delivered' && (
+                              <Button
+                                size="sm"
+                                onClick={() => navigate(`/review-product/${order.orderId}`)}
+                                className="bg-green-600 hover:bg-green-700 text-white flex items-center"
+                              >
+                                Write Review
+                              </Button>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  ))
+                )}
+              </div>
+            )}
+
+            {/* Order History Tab Content */}
+            {activeTab === 'history' && (
+              <OrderHistory />
+            )}
           </div>
         </div>
       </main>
