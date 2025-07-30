@@ -59,8 +59,7 @@ const PaymentSuccess: React.FC = () => {
         );
   
         if (response && response.isSuccessful && response.payload) {
-          console.log('✅ Payment capture successful');
-          console.log(JSON.stringify(response.payload));
+         
   
           setCaptureResult(response.payload);
           await updateCartCount();

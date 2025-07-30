@@ -28,6 +28,7 @@ export const filterByCategory = (products: Partial<Product[]>, selectedCategory:
     
     // Direct match
     if (productCategory === filterCategory) {
+
       return true;
     }
     
@@ -47,7 +48,7 @@ export const filterByCategory = (products: Partial<Product[]>, selectedCategory:
     
     // Check if the selected category has alternative names
     const alternatives = categoryMappings[filterCategory] || [];
-    return alternatives.some(alt => productCategory.includes(alt));
+    return alternatives.some((alt: string) => productCategory.includes(alt));
   });
 };
 

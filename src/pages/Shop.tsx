@@ -113,7 +113,7 @@ const Shop = () => {
     const urlParams = new URLSearchParams(location.search);
     const categoryParam = urlParams.get('category');
     const categoryNameParam = urlParams.get('categoryName');
-    
+    console.log("url parameter: "+categoryParam);
     if (categoryParam && categoryParam !== 'all') {
       setSelectedCategory(categoryParam);
       if (categoryNameParam) {
@@ -280,7 +280,7 @@ const Shop = () => {
     }
   };
 
-  const handleWishlistToggle = async (productId) => {
+  const handleWishlistToggle = async (productId: number) => {
     const hasValidSession = await authService.checkSession();
     
     if (!hasValidSession) {
@@ -329,50 +329,37 @@ const filteredProducts = useMemo(() => {
     }, 300);
   }
 
-  console.log('🔍 Starting filter process...');
-  console.log('📦 Total products:', products.length);
-  console.log('🏷️ Selected category:', selectedCategory);
-  console.log('🔤 Search term:', searchTerm);
-
   // Step 1: Start with all products
   let filtered = [...products];
-  console.log('Step 1 - Initial products:', filtered.length);
   
   // Step 2: Apply search filter
   if (searchTerm.trim()) {
     filtered = searchProducts(filtered, searchTerm);
-    console.log('Step 2 - After search filter:', filtered.length);
   }
 
   // Step 3: Apply category filter - THIS IS WHERE CATEGORY FILTERING HAPPENS
   if (selectedCategory !== 'all') {
-    filtered = filterByCategory(filtered, selectedCategory,productCategories);
-    console.log('Step 3 - After category filter:', filtered.length);
-    console.log('🎯 Filtered products in category:', filtered.map(p => ({ name: p.productName, category: p.category })));
-  }
+    filtered = filterByCategory(filtered, activeCategoryName,productCategories);
+   }
 
   // Step 4: Apply price range filter
   if (priceRange[0] > 0 || priceRange[1] < 200) {
     filtered = filterByPriceRange(filtered, priceRange[0], priceRange[1]);
-    console.log('Step 4 - After price filter:', filtered.length);
   }
 
   // Step 5: Apply rating filter
   if (ratingFilter > 0) {
     filtered = filterByRating(filtered, ratingFilter);
-    console.log('Step 5 - After rating filter:', filtered.length);
   }
 
   // Step 6: Apply stock filter
   if (inStockOnly) {
     filtered = filterByStock(filtered, inStockOnly);
-    console.log('Step 6 - After stock filter:', filtered.length);
   }
 
   // Step 7: Apply featured filter
   if (featuredOnly) {
     filtered = filterByFeatured(filtered, featuredOnly);
-    console.log('Step 7 - After featured filter:', filtered.length);
   }
 
   // Step 8: Apply additional custom filters
@@ -399,13 +386,10 @@ const filteredProducts = useMemo(() => {
     return true;
   });
 
-  console.log('Step 8 - After custom filters:', filtered.length);
 
   // Step 9: Apply sorting
   filtered = sortProducts(filtered, sortBy);
-  console.log('Step 9 - Final sorted products:', filtered.length);
 
-  console.log(JSON.stringify(filtered));
   return filtered;
 }, [
   products,

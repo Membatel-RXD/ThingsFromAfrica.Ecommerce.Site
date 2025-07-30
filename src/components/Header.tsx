@@ -1,32 +1,39 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ShoppingCart, Search, X, Home, Store, Palette, BookOpen, Info, Phone, MapPin, ChevronDown, Menu, Globe, User, HeartHandshake, Leaf, Gift, LogOut, Settings, MessageCircle, Coins, Heart, CreditCard, HelpCircle, Shield, AlertTriangle } from 'lucide-react';
 import { useAppContext } from '../contexts/AppContext';
 import { WEBSITE_DETAILS } from '../constants/website_details';
 import { authService } from '../services/authService';
 import LocationWidget from './Location';
+import { ProductCategory } from '@/models/members';
+import { apiService, IAPIResponse } from '@/lib/api';
 
 const Header: React.FC = () => {
   const { cartItems, menuOpen, toggleMenu } = useAppContext();
   const [searchQuery, setSearchQuery] = useState('');
   const [categoryOpen, setCategoryOpen] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState('All Categories');
+  const [selectedCategory, setSelectedCategory] = useState<ProductCategory>({
+    categoryId: 0,
+    categoryName: "All Categories",
+    categorySlug: "",
+    categoryDescription: "",
+    categoryImageUrl: "",
+    isTouristFavorite: false,
+    isActive: true,
+    sortOrder: 0,
+    createdAt: new Date().toISOString()
+  });
+  const navigate = useNavigate();
+
   const [languageOpen, setLanguageOpen] = useState(false);
   const [selectedLanguage, setSelectedLanguage] = useState('EN');
   const [userMenuOpen, setUserMenuOpen] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
+  const [categories, setCategories] = useState<ProductCategory[] | null>([]);
 
-  const categories = [
-    'All Categories',
-    'Pottery & Ceramics',
-    'Textiles & Fabrics',
-    'Wood Crafts',
-    'Jewelry & Accessories',
-    'Home Decor',
-    'Art & Paintings'
-  ];
+
 
   const languages = [
     { code: 'EN', name: 'English' },
@@ -50,8 +57,21 @@ const Header: React.FC = () => {
         }
       }
     };
+
+    const fetchCategories = async () => {
+      try {
+        const response = await apiService.get<IAPIResponse<ProductCategory[]>>('ProductCategories/GetAll');
+        if (!response.isSuccessful) throw new Error('Failed to fetch');
+        const data = response.payload || [];
+        setCategories(data);
+      } catch (error) {
+        console.error('Error fetching categories:', error);
+      } finally {
+      }
+    };
     
     checkAuth();
+    fetchCategories()
   }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -59,7 +79,7 @@ const Header: React.FC = () => {
     console.log('Search query:', searchQuery);
   };
 
-  const handleCategorySelect = (category: string) => {
+  const handleCategorySelect = (category: ProductCategory) => {
     setSelectedCategory(category);
     setCategoryOpen(false);
   };
@@ -71,6 +91,16 @@ const Header: React.FC = () => {
 
   const handleMenuLinkClick = () => {
     toggleMenu();
+  };
+
+  const handleCategoryClick = (category: ProductCategory) => {
+    // If parent component provided a click handler, use it
+    // if (onCategoryClick) {
+    //   onCategoryClick(category.categoryId, category.categorySlug);
+    // } else {
+      // Default behavior: navigate to shop page with category filter
+      navigate(`/shop?category=${encodeURIComponent(category.categorySlug.toLowerCase())}&categoryId=${category.categoryId}&categoryName=${encodeURIComponent(category.categoryName)}`);
+   // }
   };
 
   const handleSignOut = () => {
@@ -361,7 +391,7 @@ const Header: React.FC = () => {
                 onClick={() => setCategoryOpen(!categoryOpen)}
                 className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-colors duration-300 flex items-center space-x-1 px-3 py-2 rounded-md hover:bg-craft-tan/10"
               >
-                <span>{selectedCategory}</span>
+                <span>{selectedCategory?.categoryName}</span>
                 <ChevronDown className="h-4 w-4" />
               </button>
               
@@ -372,13 +402,13 @@ const Header: React.FC = () => {
                 }}>
                   <div className="absolute top-full left-0 mt-1 w-48 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-[999]">
                   {categories.map((category) => (
-                      <button
-                        key={category}
+                      <a
+                        key={category.categoryId}
                         onClick={() => handleCategorySelect(category)}
                         className="block w-full text-left px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg"
                       >
-                        {category}
-                      </button>
+                        {category.categoryName}
+                      </a>
                     ))}
                   </div>
                 </div>
