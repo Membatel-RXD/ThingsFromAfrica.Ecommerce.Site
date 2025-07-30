@@ -403,12 +403,17 @@ const Header: React.FC = () => {
                   <div className="absolute top-full left-0 mt-1 w-48 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-[999]">
                   {categories.map((category) => (
                       <a
-                        key={category.categoryId}
-                        onClick={() => handleCategorySelect(category)}
-                        className="block w-full text-left px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg"
-                      >
-                        {category.categoryName}
-                      </a>
+                      href="#"
+                      key={category.categoryId}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        handleCategoryClick(category);
+                      }}
+                      className="block w-full text-left px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg"
+                    >
+                      {category.categoryName}
+                    </a>
+                    
                     ))}
                   </div>
                 </div>
