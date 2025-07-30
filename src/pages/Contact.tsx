@@ -31,7 +31,7 @@ const Contact: React.FC = () => {
 
   return (
     <AppLayout>
-      <div className="bg-gray-50 min-h-screen">
+      <div className="bg-[#F8F4EF] min-h-screen">
         {/* Hero Section */}
         <section className="bg-gradient-to-r from-gray-900 to-black text-white py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-black/20"></div>

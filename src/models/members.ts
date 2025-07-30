@@ -33,6 +33,7 @@ export interface Artisan {
     createdAt: string;
   }
   export interface Product {
+    badge: any
     weight: number
     length: number
     width: number
@@ -293,7 +294,7 @@ export interface Artisan {
     expiresAt?: string;   // or Date
   }
   
-export interface Product {
+export interface ProductOld {
   productId: number;
   productName: string;
   productSlug: string;

@@ -1,4 +1,4 @@
-import { Product } from "@/models/members";
+import { Product, ProductCategory } from "@/models/members";
 
 
 // Search products by name, description, artisan, etc.
@@ -15,14 +15,15 @@ export const searchProducts = (products: Product[], searchTerm: string): Product
 };
 
 // Filter products by category - THIS IS THE KEY FILTERING FUNCTION
-export const filterByCategory = (products: Product[], selectedCategory: string): Product[] => {
+export const filterByCategory = (products: Partial<Product[]>, selectedCategory: string, categories:ProductCategory[]): Product[] => {
   if (selectedCategory === 'all') {
     return products;
   }
   
   return products.filter(product => {
     // Case-insensitive matching with the product's category
-    const productCategory = product.ca.toLowerCase();
+    const productCategoryFromAPI = categories.find(a=>a.categoryId==product.categoryId);
+    const productCategory = productCategoryFromAPI.categoryName.toLowerCase();
     const filterCategory = selectedCategory.toLowerCase();
     
     // Direct match
@@ -93,3 +94,4 @@ export const filterByFeatured = (products: Product[], featuredOnly: boolean): Pr
   if (!featuredOnly) return products;
   return products.filter(product => product.isFeatured);
 };
+

@@ -45,7 +45,7 @@ const OurCrafts: React.FC = () => {
 
   return (
     <AppLayout>
-      <div className="bg-gradient-to-br from-gray-50 to-white">
+      <div className="bg-[#F8F4EF]">
         {/* Hero Section */}
         <div className="relative bg-gradient-to-r from-gray-900 via-black to-gray-900 text-white py-12 overflow-hidden">
           <div className="absolute inset-0 bg-black/20"></div>
@@ -176,7 +176,7 @@ const OurCrafts: React.FC = () => {
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <div className="bg-white rounded-lg px-6 py-3 border border-gray-200 shadow-sm">
-                  <span className="text-2xl font-bold text-gray-900">500+</span>
+                  <span className="text-2xl font-bold text-gray-900">10+</span>
                   <p className="text-sm text-gray-600">Skilled Artisans</p>
                 </div>
                 <div className="bg-white rounded-lg px-6 py-3 border border-gray-200 shadow-sm">

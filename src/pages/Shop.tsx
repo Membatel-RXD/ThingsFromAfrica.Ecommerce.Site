@@ -13,9 +13,10 @@ import { cartService } from '../services/cartService';
 import { productService } from '../services/productService';
 import { wishlistService } from '../services/wishlistService';
 import { useAppContext } from '../contexts/AppContext';
-import { Product, searchProducts, filterByCategory, sortProducts } from '../utils/shopUtils';
-import { AddCartItem } from '@/models/members';
+import { searchProducts, filterByCategory, sortProducts } from '../utils/shopUtils';
+import { AddCartItem, Artisan, Product, ProductCategory } from '@/models/members';
 import { useSnackbar } from '@/components/SnackBar';
+import { apiService, IAPIResponse } from '@/lib/api';
 
 const Checkbox = ({ id, checked, onCheckedChange, children, ...props }) => (
   <div className="flex items-center space-x-2">
@@ -62,7 +63,9 @@ const Shop = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('featured');
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<Partial<Product>[]>([]);
+  const [artisans, setArtisans] = useState<Artisan[]>([]);
+  const [productCategories, setProductCategories] = useState<ProductCategory[]>([]);
   const [loading, setLoading] = useState(true);
   const [filterLoading, setFilterLoading] = useState(false);
   const [wishlistItems, setWishlistItems] = useState<number[]>([]);
@@ -215,7 +218,39 @@ const Shop = () => {
       }
     };
 
+    const loadProductCategories = async () => {
+      try {
+        setLoading(true);
+        const apiCategories = await apiService.get<IAPIResponse<ProductCategory[]>>('ProductCategories/GetAll');
+       if(apiCategories.isSuccessful && apiCategories.payload){
+         setProductCategories(apiCategories.payload);
+       }
+        
+      } catch (error) {
+        console.error('Failed to load product categories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const loadArtisans = async () => {
+      try {
+        setLoading(true);
+        const apiCategories = await apiService.get<IAPIResponse<Artisan[]>>('Artisans/GetAll');
+       if(apiCategories.isSuccessful && apiCategories.payload){
+         setArtisans(apiCategories.payload);
+       }
+        
+      } catch (error) {
+        console.error('Failed to load product categories:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     loadProducts();
+    loadProductCategories();
+    loadArtisans();
   }, []);
 
   const handleAddToCart = async (productId:number) => {
@@ -226,19 +261,19 @@ const Shop = () => {
       return;
     }
     
-    const product = products.find(p => p.id === productId);
+    const product = products.find(p => p.productId === productId);
     if (!product) return;
     
     const addToCartItem : AddCartItem = {
       productId: productId,
       quantity: 1,
-      unitPrice: product.price,
+      unitPrice: product.usdPrice,
       customerId: userId,
       currency: 'USD'
     }
     const response = await cartService.addToCart(addToCartItem);
     if (response && response.isSuccessful) {
-      showSnackbar(response.remark || `Added ${product.name} to cart`,'success')
+      showSnackbar(response.remark || `Added ${product.productName} to cart`,'success')
       await updateCartCount();
     }else{
       showSnackbar(response.remark || "Failed to add an item to cart",'error');
@@ -302,7 +337,7 @@ const filteredProducts = useMemo(() => {
   // Step 1: Start with all products
   let filtered = [...products];
   console.log('Step 1 - Initial products:', filtered.length);
-
+  
   // Step 2: Apply search filter
   if (searchTerm.trim()) {
     filtered = searchProducts(filtered, searchTerm);
@@ -311,9 +346,9 @@ const filteredProducts = useMemo(() => {
 
   // Step 3: Apply category filter - THIS IS WHERE CATEGORY FILTERING HAPPENS
   if (selectedCategory !== 'all') {
-    filtered = filterByCategory(filtered, selectedCategory);
+    filtered = filterByCategory(filtered, selectedCategory,productCategories);
     console.log('Step 3 - After category filter:', filtered.length);
-    console.log('🎯 Filtered products in category:', filtered.map(p => ({ name: p.name, category: p.category })));
+    console.log('🎯 Filtered products in category:', filtered.map(p => ({ name: p.productName, category: p.category })));
   }
 
   // Step 4: Apply price range filter
@@ -357,7 +392,7 @@ const filteredProducts = useMemo(() => {
 
     // Artisan region filter
     if (selectedArtisanRegions.length > 0) {
-      if (!selectedArtisanRegions.includes(product.region)) return false;
+      if (!selectedArtisanRegions.includes(product.artisanVillage)) return false;
     }
 
     // Add more custom filters as needed...
@@ -370,6 +405,7 @@ const filteredProducts = useMemo(() => {
   filtered = sortProducts(filtered, sortBy);
   console.log('Step 9 - Final sorted products:', filtered.length);
 
+  console.log(JSON.stringify(filtered));
   return filtered;
 }, [
   products,
@@ -396,8 +432,16 @@ const filteredProducts = useMemo(() => {
   sortBy,
   loading
 ]);
+  function getArtisanName(artisanId: number): React.ReactNode {
+    return artisans.find(a=>a.artisanId==artisanId).artisanName
+  }
+
+  function getArtisanVillage(artisanVillage: number): React.ReactNode {
+    return artisans.find(a=>a.artisanId==artisanVillage).village
+  }
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-[#F8F4EF]">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
@@ -752,7 +796,7 @@ const filteredProducts = useMemo(() => {
             ) : (
               <div className={`grid gap-6 ${viewMode === 'grid' ? 'grid-cols-1 md:grid-cols-2 lg:grid-cols-3' : 'grid-cols-1'}`}>
                 {filteredProducts.map((product:Product) => (
-                  <Card key={product.id} className="group hover:shadow-xl transition-all duration-300">
+                  <Card key={product.productId} className="group hover:shadow-xl transition-all duration-300">
                     <div className="relative">
                       <div className={`${viewMode === 'grid' ? 'aspect-square' : 'aspect-video lg:aspect-square'} bg-gradient-to-br from-gray-100 to-white flex items-center justify-center overflow-hidden`}>
                         <img 
@@ -778,9 +822,9 @@ const filteredProducts = useMemo(() => {
                         size="sm" 
                         variant="secondary" 
                         className="absolute top-4 right-4 p-2 opacity-0 group-hover:opacity-100 transition-opacity"
-                        onClick={() => handleWishlistToggle(product.id)}
+                        onClick={() => handleWishlistToggle(product.productId)}
                       >
-                        <Heart className={`h-4 w-4 ${wishlistItems.includes(product.id) ? 'fill-red-500 text-red-500' : ''}`} />
+                        <Heart className={`h-4 w-4 ${wishlistItems.includes(product.productId) ? 'fill-red-500 text-red-500' : ''}`} />
                       </Button>
                     </div>
                     
@@ -788,28 +832,28 @@ const filteredProducts = useMemo(() => {
                       <div className="space-y-3">
                         <div>
                           <h3 className="font-bold text-gray-800 text-lg">{product.productName}</h3>
-                          <p className="text-sm text-gray-600">by {product.artisanName} • {product.artisanVillage}</p>
+                          <p className="text-sm text-gray-600">by {getArtisanName(product.artisanId)} • {getArtisanVillage(product.artisanId)}</p>
                         </div>
                         
                         <div className="flex items-center justify-between">
                           <div className="flex items-center space-x-2">
-                            <span className="text-2xl font-bold text-orange-600">${product.price}</span>
-                            {product.originalPrice && (
-                              <span className="text-sm text-gray-500 line-through">${product.originalPrice}</span>
+                            <span className="text-2xl font-bold text-orange-600">${product.usdPrice}</span>
+                            {product.basePrice && (
+                              <span className="text-sm text-gray-500 line-through">${product.basePrice}</span>
                             )}
                           </div>
                           <div className="text-sm text-gray-600">
-                            ⭐ {product.rating} ({product.reviews})
+                            ⭐ {product.averageRating} ({product.reviewCount})
                           </div>
                         </div>
                         
                         <Button 
                           className="w-full bg-black text-white hover:bg-gray-800 rounded-md" 
-                          disabled={!product.inStock}
-                          onClick={() => handleAddToCart(product.id)}
+                          disabled={product.stockQuantity < 1}
+                          onClick={() => handleAddToCart(product.productId)}
                         >
                           <ShoppingCart className="h-4 w-4 mr-2" />
-                          {product.inStock ? 'Add to Cart' : 'Out of Stock'}
+                          {product.stockQuantity > 0 ? 'Add to Cart' : 'Out of Stock'}
                         </Button>
                       </div>
                     </CardContent>
@@ -837,3 +881,21 @@ const filteredProducts = useMemo(() => {
 };
 
 export default Shop;
+
+
+function filterByPriceRange(filtered: Partial<Product>[], arg1: number, arg2: number): Partial<Product>[] {
+  throw new Error('Function not implemented.');
+}
+
+function filterByRating(filtered: Partial<Product>[], ratingFilter: number): Partial<Product>[] {
+  throw new Error('Function not implemented.');
+}
+
+function filterByStock(filtered: Partial<Product>[], inStockOnly: boolean): Partial<Product>[] {
+  throw new Error('Function not implemented.');
+}
+
+function filterByFeatured(filtered: Partial<Product>[], featuredOnly: boolean): Partial<Product>[] {
+  throw new Error('Function not implemented.');
+}
+

@@ -91,6 +91,8 @@ const Header: React.FC = () => {
     onClick?: () => void;
   };
 
+
+
   const unauthenticatedMenuItems: MenuItem[] = [
     { label: 'Sign in', href: '/login', icon: User },
     { label: 'Register', href: '/register', icon: User },
@@ -127,62 +129,113 @@ const Header: React.FC = () => {
 
   return (
     <>
+
+         {/* Custom Tailwind Styles */}
+         <style jsx>{`
+        .bg-craft-charcoal { background-color: #1A1612; }
+        .bg-craft-brown { background-color: #2C1810; }
+        .bg-craft-tan { background-color: #C19A6B; }
+        .bg-craft-caramel { background-color: #E5C29F; }
+        .bg-craft-cream { background-color: #F8F4EF; }
+        .bg-craft-beige { background-color: #D4C4B0; }
+        .bg-craft-bronze { background-color: #A08B73; }
+        .bg-craft-dusty { background-color: #8B7355; }
+        
+        .text-craft-charcoal { color: #1A1612; }
+        .text-craft-brown { color: #2C1810; }
+        .text-craft-tan { color: #C19A6B; }
+        .text-craft-caramel { color: #E5C29F; }
+        .text-craft-cream { color: #F8F4EF; }
+        .text-craft-beige { color: #D4C4B0; }
+        .text-craft-bronze { color: #A08B73; }
+        .text-craft-dusty { color: #8B7355; }
+        
+        .border-craft-tan { border-color: #C19A6B; }
+        .border-craft-bronze { border-color: #A08B73; }
+        
+        .hover\\:bg-craft-tan:hover { background-color: #C19A6B; }
+        .hover\\:bg-craft-caramel:hover { background-color: #E5C29F; }
+        .hover\\:text-craft-caramel:hover { color: #E5C29F; }
+        .hover\\:text-craft-cream:hover { color: #F8F4EF; }
+        .hover\\:border-craft-tan:hover { border-color: #C19A6B; }
+        
+        .bg-gradient-craft { background: linear-gradient(135deg, #1A1612 0%, #2C2419 50%, #1A1612 100%); }
+        .bg-gradient-nav { background: linear-gradient(135deg, #2C1810 0%, #3D2418 100%); }
+        .bg-gradient-gold { background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%); }
+        .bg-gradient-golden-hover { background: linear-gradient(135deg, #E6C34A 0%, #C4A429 100%); }
+        
+        .shadow-craft { box-shadow: 0 8px 32px rgba(193, 154, 107, 0.15); }
+        .shadow-craft-hover { box-shadow: 0 6px 30px rgba(193, 154, 107, 0.3); }
+        .shadow-craft-logo { box-shadow: 0 4px 12px rgba(193, 154, 107, 0.3); }
+        .shadow-craft-logo-hover { box-shadow: 0 6px 20px rgba(193, 154, 107, 0.4); }
+        
+        .header-glow::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          height: 2px;
+          background: linear-gradient(90deg, transparent 0%, #C19A6B 50%, transparent 100%);
+        }
+      `}</style>
+
       {/* Top Bar - Amazon Style */}
-      <header className="bg-gray-900 text-white sticky top-0 z-50 shadow-lg">
+      <header className="bg-gradient-craft text-craft-cream sticky top-0 z-50 shadow-craft relative header-glow">
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between h-16">
             
            {/* Logo */}
-          <div className="flex items-center space-x-3">
-            <div className="avatar">
-              <div className="w-20 h-20 rounded-full flex items-center justify-center">
-              <img 
-                width={32} 
-                height={32} 
-                src="/TFTLogo.png" 
-                alt="TFT Logo" 
-              />
+           <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 bg-gradient-to-br from-craft-caramel to-craft-tan rounded-full flex items-center justify-center shadow-craft-logo hover:shadow-craft-logo-hover transition-all duration-300 hover:scale-105">
+                <div className="avatar">
+                  <div className="w-20 h-20 rounded-full flex items-center justify-center">
+                  <img 
+                    width={32} 
+                    height={32} 
+                    src="/TFTLogo.png" 
+                    alt="TFT Logo" 
+                  />
+                  </div>
+                </div>     
+              </div>
+              <div className="hover:opacity-80 transition-opacity cursor-pointer">
+                <h1 className="font-bold text-craft-cream text-lg hidden sm:block tracking-tight">
+                  {WEBSITE_DETAILS.name}
+                </h1>
               </div>
             </div>
-            <Link to="/" className="hover:opacity-80 transition-opacity">
-              <h1 className="font-bold text-white text-lg hidden sm:block">
-                {WEBSITE_DETAILS.name}
-              </h1>
-            </Link>
-          </div>
 
             {/* Deliver To - Hidden on mobile */}
             <LocationWidget/>
 
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl mx-4">
-              <form onSubmit={handleSearchSubmit} className="flex">
-                {/* Search Input */}
+              <div className="flex rounded-lg overflow-hidden shadow-lg hover:shadow-craft-hover transition-all duration-300 hover:-translate-y-0.5">
                 <div className="flex-1 relative">
                   <input
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     placeholder="Search for crafts, artisans..."
-                    className="w-full px-4 py-2 text-black focus:outline-none rounded-l-md"
+                    className="w-full px-4 py-3 text-craft-brown bg-craft-cream focus:outline-none placeholder-craft-dusty text-sm"
+                    onKeyPress={(e) => e.key === 'Enter' && handleSearchSubmit(e)}
                   />
                 </div>
-
-                {/* Search Button */}
                 <button
-                  type="submit"
-                  className="bg-yellow-500 hover:bg-yellow-600 px-4 py-2 rounded-r-md transition-colors duration-200"
+                  onClick={handleSearchSubmit}
+                  className="bg-gradient-gold hover:bg-gradient-golden-hover px-4 py-3 transition-all duration-300 hover:scale-105 flex items-center justify-center"
                 >
-                  <Search className="h-5 w-5 text-black-900" />
+                  <Search className="h-5 w-5 text-craft-charcoal" />
                 </button>
-              </form>
+              </div>
             </div>
 
             {/* Language Selector */}
             <div className="hidden md:block relative">
               <button
                 onClick={() => setLanguageOpen(!languageOpen)}
-                className="flex items-center space-x-1 hover:bg-gray-800 px-2 py-1 rounded transition-colors duration-200"
+                className="flex items-center space-x-2 hover:bg-craft-brown/10 px-3 py-2 rounded-md transition-all duration-300 border border-craft-bronze/30 hover:border-craft-tan text-craft-beige hover:text-craft-caramel"
               >
                 <Globe className="h-4 w-4" />
                 <span className="text-sm font-medium">{selectedLanguage}</span>
@@ -190,33 +243,33 @@ const Header: React.FC = () => {
               </button>
               
               {languageOpen && (
-                <div className="absolute top-full right-0 w-32 bg-white border border-gray-300 rounded-b-md shadow-lg z-10">
-                  {languages.map((language) => (
-                    <button
-                      key={language.code}
-                      onClick={() => handleLanguageSelect(language)}
-                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
-                    >
-                      {language.name}
-                    </button>
-                  ))}
-                </div>
+                <div className="absolute top-full right-0 mt-1 w-32 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-10">
+                {languages.map((language) => (
+                  <button
+                    key={language.code}
+                    onClick={() => handleLanguageSelect(language)}
+                    className="block w-full text-left px-4 py-2 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg"
+                  >
+                    {language.name}
+                  </button>
+                ))}
+              </div>
               )}
             </div>
 
             {/* Welcome / Sign In - AliExpress Style */}
             <div className="hidden md:block relative">
               <div 
-                className="flex items-center space-x-1 hover:bg-gray-800 px-2 py-1 rounded cursor-pointer"
+                className="flex items-center space-x-2 hover:bg-craft-brown/10 px-3 py-2 rounded-md cursor-pointer transition-all duration-300"
                 onMouseEnter={() => setUserMenuOpen(true)}
                 onMouseLeave={() => setUserMenuOpen(false)}
               >
-                <User className="h-4 w-4" />
+                 <User className="h-4 w-4 text-craft-beige" />
                 <div className="text-xs">
-                  <div className="text-gray-300">
+                  <div className="text-craft-bronze">
                     {isAuthenticated ? `Hi, ${userName || 'User'}` : 'Welcome'}
                   </div>
-                  <div className="font-medium flex items-center">
+                  <div className="font-medium flex items-center text-craft-cream">
                     {isAuthenticated ? 'Account' : 'Sign in / Register'}
                     <ChevronDown className="h-3 w-3 ml-1" />
                   </div>
@@ -226,7 +279,7 @@ const Header: React.FC = () => {
               {/* User Menu Dropdown */}
               {userMenuOpen && (
                 <div 
-                  className="absolute top-full right-0 w-60 bg-white border border-gray-300 rounded-b-md shadow-lg z-20"
+                  className="absolute top-full right-0 mt-1 w-60 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-20"
                   onMouseEnter={() => setUserMenuOpen(true)}
                   onMouseLeave={() => setUserMenuOpen(false)}
                 >
@@ -239,7 +292,7 @@ const Header: React.FC = () => {
                           <button
                             key={index}
                             onClick={item.onClick}
-                            className="flex items-center w-full px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                            className="flex items-center w-full px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200"
                           >
                             <Icon className="h-4 w-4 mr-3" />
                             {item.label}
@@ -251,9 +304,9 @@ const Header: React.FC = () => {
                         <Link
                           key={index}
                           to={item.href}
-                          className="flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
-                        >
-                          <Icon className="h-4 w-4 mr-3" />
+                          className="flex items-center px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200"
+                          >
+                            <Icon className="h-4 w-4 mr-3 text-craft-bronze" />
                           {item.label}
                         </Link>
                       );
@@ -267,34 +320,38 @@ const Header: React.FC = () => {
 
             {/* Cart */}
             <div className="flex items-center space-x-4">
-              <div className="indicator">
-                <Link to="/cart" className="flex items-center space-x-1 hover:bg-gray-800 px-2 py-1 rounded transition-colors duration-200">
-                  <ShoppingCart className="h-6 w-6" />
-                  <div className="text-xs hidden sm:block">
-                    <div className="text-gray-300">Cart</div>
-                    <div className="font-medium">{cartItems}</div>
+              <div className="relative">
+                <a href="/cart" className="flex items-center space-x-2 hover:bg-craft-brown/10 px-3 py-2 rounded-md transition-all duration-300">
+                  <div className="relative">
+                    <ShoppingCart className="h-6 w-6 text-craft-cream" />
+                    <div className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-semibold">
+                      {cartItems}
+                    </div>
                   </div>
-                </Link>
-            
+                  <div className="text-xs hidden sm:block">
+                    <div className="text-craft-bronze">Cart</div>
+                    <div className="font-semibold text-craft-cream">{cartItems}</div>
+                  </div>
+                </a>
               </div>
 
               {/* Mobile Menu Button */}
               <div className="md:hidden">
                 <button
-                  onClick={toggleMenu}
-                  className="p-2 hover:bg-gray-800 rounded transition-colors duration-200"
+                  onClick={handleMenuLinkClick}
+                  className="p-2 hover:bg-craft-brown/10 rounded-md transition-colors duration-300 text-craft-beige hover:text-craft-caramel"
                   aria-label="Toggle menu"
                 >
                   <Menu className="h-6 w-6" />
                 </button>
               </div>
             </div>
-          </div>
+        </div>
         </div>
       </header>
 
       {/* Navigation Bar - Below Top Bar */}
-      <nav className="bg-gray-800 text-white border-t border-gray-700 z-40 relative">
+      <nav className="bg-gradient-nav text-craft-cream border-t border-craft-bronze/20 z-40 relative">
         <div className="container mx-auto px-4">
           <div className="flex items-center space-x-8 h-12 overflow-x-auto">
             {/* Category Dropdown */}
@@ -302,7 +359,7 @@ const Header: React.FC = () => {
               <button
                 type="button"
                 onClick={() => setCategoryOpen(!categoryOpen)}
-                className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
+                className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-colors duration-300 flex items-center space-x-1 px-3 py-2 rounded-md hover:bg-craft-tan/10"
               >
                 <span>{selectedCategory}</span>
                 <ChevronDown className="h-4 w-4" />
@@ -313,12 +370,12 @@ const Header: React.FC = () => {
                   top: '120px', // Position below header
                   left: '20px', // Align with the category button
                 }}>
-                  <div className="w-48 bg-white border border-gray-300 rounded-md shadow-lg">
-                    {categories.map((category) => (
+                  <div className="absolute top-full left-0 mt-1 w-48 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-[999]">
+                  {categories.map((category) => (
                       <button
                         key={category}
                         onClick={() => handleCategorySelect(category)}
-                        className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors duration-200"
+                        className="block w-full text-left px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg"
                       >
                         {category}
                       </button>
@@ -328,70 +385,42 @@ const Header: React.FC = () => {
               )}
             </div>
 
-            <Link 
-              to="/" 
-              className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
-            >
+            <a href="/" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Home className="h-4 w-4" />
               <span>Home</span>
-            </Link>
-            <Link 
-              to="/shop" 
-              className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
-            >
+            </a>
+            <a href="/shop" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Store className="h-4 w-4" />
               <span>Shop</span>
-            </Link>
-            <Link 
-              to="/crafts" 
-              className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
-            >
+            </a>
+            <a href="/crafts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Palette className="h-4 w-4" />
               <span>Our Crafts</span>
-            </Link>
-            <Link 
-              to="/stories" 
-              className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
-            >
+            </a>
+            <a href="/stories" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <BookOpen className="h-4 w-4" />
               <span>Stories</span>
-            </Link>
-            <Link 
-              to="/gifts"
-              className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
-            >
+            </a>
+            <a href="/gifts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Gift className="h-4 w-4" />
               <span>Gift Ideas</span>
-            </Link>
-
-            <Link 
-              to="/sustainability"
-              className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
-            >
+            </a>
+            <a href="/sustainability" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Leaf className="h-4 w-4" />
               <span>Sustainability</span>
-            </Link>
-            <Link 
-              to="/corporate-social-responsibility" 
-              className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
-            >
+            </a>
+            <a href="/corporate-social-responsibility" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <HeartHandshake className="h-4 w-4" />
               <span>CSR</span>
-            </Link>
-            <Link 
-              to="/about" 
-              className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
-            >
+            </a>
+            <a href="/about" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Info className="h-4 w-4" />
               <span>About</span>
-            </Link>
-            <Link 
-              to="/contact" 
-              className="whitespace-nowrap text-sm font-medium hover:text-yellow-500 transition-colors duration-200 flex items-center space-x-1"
-            >
+            </a>
+            <a href="/contact" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Phone className="h-4 w-4" />
               <span>Contact</span>
-            </Link>
+            </a>
           </div>
         </div>
       </nav>
@@ -403,14 +432,13 @@ const Header: React.FC = () => {
         }`}
         onClick={toggleMenu}
       />
-
       {/* Mobile Navigation Menu */}
       <div className={`fixed top-0 left-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-[45] md:hidden transform transition-all duration-300 ease-in-out ${
         menuOpen ? 'translate-x-0' : '-translate-x-full'
       }`}>
         <div className="flex flex-col h-full">
           {/* Menu Header */}
-          <div className="flex justify-between items-center p-6 border-b border-gray-200 bg-gray-900 text-white">
+          <div className="flex justify-between items-center p-6 border-b border-craft-bronze/20 bg-gradient-craft text-craft-cream">
             <div className="flex items-center space-x-3">
               <User className="h-8 w-8" />
               <span className="text-lg font-medium">
@@ -419,7 +447,7 @@ const Header: React.FC = () => {
             </div>
             <button 
               onClick={toggleMenu}
-              className="p-2 rounded-full hover:bg-gray-800 transition-colors duration-200"
+              className="p-2 rounded-full hover:bg-craft-brown/10 transition-colors duration-300"
               aria-label="Close menu"
             >
               <X className="h-6 w-6" />
@@ -428,83 +456,43 @@ const Header: React.FC = () => {
           
           {/* Menu Content */}
           <div className="flex-1 overflow-y-auto py-4">
-            <nav className="px-4">
+          <nav className="px-4">
               <div className="space-y-2">
-                <Link 
-                  to="/" 
-                  className="flex items-center px-4 py-4 text-lg font-medium text-gray-900 hover:bg-gray-50 transition-colors duration-200"
-                  onClick={handleMenuLinkClick}
-                >
-                  <Home className="h-5 w-5 text-gray-600 mr-4" />
+                <a href="/" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                  <Home className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>Home</span>
-                </Link>
-                <Link 
-                  to="/shop" 
-                  className="flex items-center px-4 py-4 text-lg font-medium text-gray-900 hover:bg-gray-50 transition-colors duration-200"
-                  onClick={handleMenuLinkClick}
-                >
-                  <Store className="h-5 w-5 text-gray-600 mr-4" />
+                </a>
+                <a href="/shop" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                  <Store className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>Shop</span>
-                </Link>
-                <Link 
-                  to="/crafts" 
-                  className="flex items-center px-4 py-4 text-lg font-medium text-gray-900 hover:bg-gray-50 transition-colors duration-200"
-                  onClick={handleMenuLinkClick}
-                >
-                  <Palette className="h-5 w-5 text-gray-600 mr-4" />
+                </a>
+                <a href="/crafts" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                  <Palette className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>Our Crafts</span>
-                </Link>
-                <Link 
-                  to="/stories" 
-                  className="flex items-center px-4 py-4 text-lg font-medium text-gray-900 hover:bg-gray-50 transition-colors duration-200"
-                  onClick={handleMenuLinkClick}
-                >
-                  <BookOpen className="h-5 w-5 text-gray-600 mr-4" />
+                </a>
+                <a href="/stories" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                  <BookOpen className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>Stories</span>
-                </Link>
-                <Link 
-                  to="/about" 
-                  className="flex items-center px-4 py-4 text-lg font-medium text-gray-900 hover:bg-gray-50 transition-colors duration-200"
-                  onClick={handleMenuLinkClick}
-                >
-                  <Info className="h-5 w-5 text-gray-600 mr-4" />
+                </a>
+                <a href="/about" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                  <Info className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>About</span>
-                </Link>
-                <Link 
-                  to="/contact" 
-                  className="flex items-center px-4 py-4 text-lg font-medium text-gray-900 hover:bg-gray-50 transition-colors duration-200"
-                  onClick={handleMenuLinkClick}
-                >
-                  <Phone className="h-5 w-5 text-gray-600 mr-4" />
+                </a>
+                <a href="/contact" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                  <Phone className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>Contact</span>
-                </Link>
-                <Link 
-                  to="/profile" 
-                  className="flex items-center px-6 py-4 text-lg font-medium text-black border-b border-gray-100"
-                  onClick={handleMenuLinkClick}
-                >
-                  <User className="h-5 w-5 text-gray-600 mr-4" />
-                  <span>Profile</span>
-                </Link>
-                <Link 
-                  to="/corporate-social-responsibility" 
-                  className="flex items-center px-4 py-4 text-lg font-medium text-gray-900 hover:bg-gray-50 transition-colors duration-200"
-                  onClick={handleMenuLinkClick}
-                >
-                  <HeartHandshake className="h-4 w-4" />
-                  <span>CSR</span>
-                </Link>
+                </a>
 
                 {/* Mobile-only sections */}
-                <div className="border-t border-gray-200 pt-4 mt-4">
-                  <div className="px-4 py-3 bg-gray-50 rounded-lg">
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium text-gray-700">Language</span>
-                      <span className="text-sm text-gray-500">{selectedLanguage}</span>
+                <div className="border-t border-craft-bronze/20 pt-4 mt-4">
+                  <div className="px-4 py-4 bg-craft-beige/20 rounded-lg">
+                    <div className="flex items-center justify-between mb-3">
+                      <span className="text-sm font-medium text-craft-brown">Language</span>
+                      <span className="text-sm text-craft-bronze">{selectedLanguage}</span>
                     </div>
                     <div className="flex items-center justify-between">
-                      <span className="text-sm font-medium text-gray-700">Deliver to</span>
-                      <span className="text-sm text-gray-500">Blantyre</span>
+                      <span className="text-sm font-medium text-craft-brown">Deliver to</span>
+                      <span className="text-sm text-craft-bronze">Blantyre</span>
                     </div>
                   </div>
                 </div>
@@ -513,16 +501,16 @@ const Header: React.FC = () => {
           </div>
 
           {/* Menu Footer */}
-          <div className="p-6 border-t border-gray-200 bg-gray-50">
+          <div className="p-6 border-t border-craft-bronze/20 bg-craft-beige/10">
             <div className="text-center">
               <div className="flex items-center justify-center space-x-2 mb-2">
-                <div className="w-6 h-6 rounded-full bg-gray-900 flex items-center justify-center">
-                  <span className="text-white font-bold text-xs">A</span>
+                <div className="w-6 h-6 rounded-full bg-gradient-to-br from-craft-caramel to-craft-tan flex items-center justify-center">
+                  <span className="text-craft-charcoal font-bold text-xs">TFA</span>
                 </div>
-                <span className="font-bold text-gray-900 text-sm">{WEBSITE_DETAILS.name}</span>
+                <span className="font-bold text-craft-brown text-sm">{WEBSITE_DETAILS.name}</span>
               </div>
-              <p className="text-xs text-gray-500">Authentic Handmade Crafts</p>
-              <p className="text-xs text-gray-400 mt-1">Free shipping on orders over $50</p>
+              <p className="text-xs text-craft-bronze">Authentic Handmade Crafts</p>
+              <p className="text-xs text-craft-dusty mt-1">Free shipping on orders over $50</p>
             </div>
           </div>
         </div>

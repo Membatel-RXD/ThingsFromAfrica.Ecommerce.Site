@@ -4,7 +4,7 @@ import { Heart, Eye, X, Star, Package, Truck, Award, Users, MapPin, Ruler, Weigh
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
 import { useAppContext } from '../contexts/AppContext';
-import { AddCartItem, Product } from '@/models/members';
+import { AddCartItem, Artisan, Product } from '@/models/members';
 import { apiService, IAPIResponse } from '@/lib/api';
 
 
@@ -14,6 +14,7 @@ const CraftShowcase: React.FC = () => {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const [fetchedProducts, setFetchedProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [artisans, setArtisans] = useState<Artisan[]>([]);
 
   const navigate = useNavigate();
   const { updateCartCount } = useAppContext();
@@ -61,7 +62,23 @@ const CraftShowcase: React.FC = () => {
         setIsLoading(false);
       }
     };
+    const loadArtisans = async () => {
+      try {
+        setIsLoading(true);
+        const apiCategories = await apiService.get<IAPIResponse<Artisan[]>>('Artisans/GetAll');
+       if(apiCategories.isSuccessful && apiCategories.payload){
+         setArtisans(apiCategories.payload);
+       }
+        
+      } catch (error) {
+        console.error('Failed to load product categories:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
 
+
+    loadArtisans();
     fetchCategories();
   }, []);
 
@@ -85,7 +102,13 @@ const CraftShowcase: React.FC = () => {
     
     return stars;
   };
+  function getArtisanName(artisanId: number): React.ReactNode {
+    return artisans.find(a=>a.artisanId==artisanId).artisanName
+  }
 
+  function getArtisanVillage(artisanVillage: number): React.ReactNode {
+    return artisans.find(a=>a.artisanId==artisanVillage).village
+  }
   return (
     <section className="bg-gray-50">
       <div className="container mx-auto">
@@ -150,10 +173,10 @@ const CraftShowcase: React.FC = () => {
               <div className="card-body flex flex-col flex-grow">
                 <h3 className="card-title text-black text-xl">{craft.productName}</h3>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-3xl font-bold text-black">{craft.basePrice}</span>
+                  <span className="text-3xl font-bold text-black">{craft.usdPrice}</span>
                   <div className="text-right text-sm text-gray-600">
-                    <div>by {craft.artisanName}</div>
-                    <div>{craft.artisanVillage}</div>
+                    <div>by {getArtisanName(craft.artisanId)}</div>
+                    <div>{getArtisanVillage(craft.artisanId)}</div>
                   </div>
                 </div>
                 
@@ -215,8 +238,8 @@ const CraftShowcase: React.FC = () => {
                   <div className="flex justify-between items-center mb-4">
                     <span className="text-3xl font-bold text-black">{selectedCraft.basePrice}</span>
                     <div className="text-right text-sm text-gray-600">
-                      <div>by {selectedCraft.artisanName}</div>
-                      <div>{selectedCraft.artisanVillage}</div>
+                      <div>by {getArtisanName(selectedCraft.artisanId)}</div>
+                      <div>{getArtisanVillage(selectedCraft.artisanId)}</div>
                     </div>
                   </div>
                 </div>

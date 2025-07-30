@@ -31,14 +31,14 @@ const About: React.FC = () => {
   ];
 
   const stats = [
-    { number: '200+', label: 'Artisans' },
+    { number: '10+', label: 'Artisans' },
     { number: '15', label: 'Regions' },
     { number: '2015', label: 'Founded' },
-    { number: '10K+', label: 'Happy Customers' }
+    { number: '20+', label: 'Happy Customers' }
   ];
 
   return (
-    <div className="min-h-screen bg-linen">
+    <div className="min-h-screen bg-[#F8F4EF]">
       <Header />
       
       <main className="container mx-auto px-4 py-8">
