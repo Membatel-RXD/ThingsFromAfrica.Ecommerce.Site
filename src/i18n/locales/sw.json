@@ -1,0 +1,78 @@
+{
+  "nav": {
+    "home": "Nyumbani",
+    "shop": "Duka",
+    "crafts": "Sanaa Zetu",
+    "stories": "Hadithi",
+    "gifts": "Mawazo ya Zawadi",
+    "sustainability": "Uendelevu",
+    "csr": "CSR",
+    "about": "Kuhusu",
+    "contact": "Mawasiliano",
+    "cart": "Kikapu",
+    "signin": "Ingia / Jisajili",
+    "account": "Akaunti",
+    "welcome": "Karibu",
+    "deliverTo": "Peleka kwa",
+    "searchPlaceholder": "Tafuta sanaa, mafundi..."
+  },
+  "common": {
+    "loading": "Inapakia...",
+    "error": "Hitilafu",
+    "tryAgain": "Jaribu tena",
+    "readMore": "Soma zaidi",
+    "learnMore": "Jifunze zaidi",
+    "viewAll": "Ona yote",
+    "shopNow": "Nunua sasa",
+    "addToCart": "Ongeza kwenye kikapu",
+    "buyNow": "Nunua sasa",
+    "contactUs": "Wasiliana nasi",
+    "language": "Lugha",
+    "allCategories": "Makundi Yote"
+  },
+  "user": {
+    "profile": "Wasifu",
+    "signOut": "Toka",
+    "myOrders": "Maagizo Yangu",
+    "myCoins": "Sarafu Zangu",
+    "messageCenter": "Kituo cha Ujumbe",
+    "payment": "Malipo",
+    "wishList": "Orodha ya Matakwa",
+    "myCoupons": "Kuponi Zangu",
+    "settings": "Mipangilio",
+    "sellerLogin": "Kuingia kwa Muuzaji",
+    "returnPolicy": "Sera ya Kurejesha",
+    "disputes": "Migogoro na Ripoti",
+    "signIn": "Ingia",
+    "register": "Jisajili"
+  },
+  "pages": {
+    "stories": {
+      "title": "Hadithi za Mafundi",
+      "subtitle": "Kutana na mafundi wenye talanta wanaohifadhi mila za Kiafrika kupitia sanaa zao",
+      "noStories": "Hakuna hadithi zinazopatikana",
+      "checkBack": "Rudi baadaye kwa hadithi za kuvutia za mafundi.",
+      "shareStory": "Shiriki hadithi yako",
+      "shareDescription": "Je, wewe ni fundi mwenye ujuzi na hadithi ya kusimulia? Tungependa kuonyesha sanaa yako na kushiriki safari yako na jumuiya yetu ya wapenda sanaa.",
+      "browseCrafts": "Vinjari sanaa",
+      "readFullStory": "Soma hadithi kamili"
+    },
+    "contact": {
+      "title": "Wasiliana nasi",
+      "subtitle": "Wasiliana nasi kwa maswali kuhusu sanaa zetu, maagizo maalum au ushirikiano wa mafundi",
+      "sendMessage": "Tutumie ujumbe",
+      "getInTouch": "Wasiliana",
+      "fullName": "Jina kamili",
+      "emailAddress": "Anwani ya barua pepe",
+      "subject": "Mada",
+      "message": "Ujumbe",
+      "sendButton": "Tuma ujumbe",
+      "location": "Mahali tulipo",
+      "phone": "Nambari ya simu",
+      "email": "Anwani ya barua pepe",
+      "hours": "Masaa ya biashara",
+      "visitWorkshop": "Tembelea warsha yetu",
+      "scheduleVisit": "Panga ziara"
+    }
+  }
+}

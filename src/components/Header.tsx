@@ -8,7 +8,7 @@ import { authService } from '../services/authService';
 import LocationWidget from './Location';
 import { ProductCategory } from '@/models/members';
 import { apiService, IAPIResponse } from '@/lib/api';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 
 const Header: React.FC = () => {
   const { cartItems, menuOpen, toggleMenu } = useAppContext();
@@ -29,7 +29,7 @@ const Header: React.FC = () => {
 
   const [languageOpen, setLanguageOpen] = useState(false);
   const [userMenuOpen, setUserMenuOpen] = useState(false);
-  const { currentLanguage, setLanguage, t } = useLanguage();
+  const { t, i18n } = useTranslation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
@@ -100,7 +100,7 @@ const Header: React.FC = () => {
   };
 
   const handleLanguageSelect = (language: { code: string; name: string }) => {
-    setLanguage(language.code as any);
+    i18n.changeLanguage(language.code);
     setLanguageOpen(false);
   };
 
@@ -139,35 +139,35 @@ const Header: React.FC = () => {
 
 
   const unauthenticatedMenuItems: MenuItem[] = [
-    { label: 'Sign in', href: '/login', icon: User },
-    { label: 'Register', href: '/register', icon: User },
-    { label: 'My Orders', href: '/profile/user/my-orders', icon: ShoppingCart },
-    { label: 'My Coins', href: '/coins', icon: Coins },
-    { label: 'Message Center', href: '/messages', icon: MessageCircle },
-    { label: 'Payment', href: '/payment', icon: CreditCard },
-    { label: 'Wish List', href: '/profile/wishlist', icon: Heart },
-    { label: 'My Coupons', href: '/coupons', icon: Gift },
-    { label: 'Settings', href: '/settings', icon: Settings },
-    { label: 'Seller Log In', href: '/seller-login', icon: User },
-    { label: 'Return & Refund Policy', href: '/return-policy', icon: Shield },
+    { label: t('user.signIn'), href: '/login', icon: User },
+    { label: t('user.register'), href: '/register', icon: User },
+    { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
+    { label: t('user.myCoins'), href: '/coins', icon: Coins },
+    { label: t('user.messageCenter'), href: '/messages', icon: MessageCircle },
+    { label: t('user.payment'), href: '/payment', icon: CreditCard },
+    { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
+    { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
+    { label: t('user.settings'), href: '/settings', icon: Settings },
+    { label: t('user.sellerLogin'), href: '/seller-login', icon: User },
+    { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
    // { label: 'Help Center', href: '/help', icon: HelpCircle },
-    { label: 'Disputes & Reports', href: '/disputes', icon: AlertTriangle },
+    { label: t('user.disputes'), href: '/disputes', icon: AlertTriangle },
   ];
 
   const authenticatedMenuItems: MenuItem[] = [
-    { label: 'Profile', href: '/profile', icon: User },
-    { label: 'Sign Out', href: '#', icon: LogOut, onClick: handleSignOut },
-    { label: 'My Orders', href: '/profile/user/my-orders', icon: ShoppingCart },
-    { label: 'My Coins', href: '/profile/user/my-coins', icon: Coins },
-    { label: 'Message Center', href: '/messages', icon: MessageCircle },
-    { label: 'Payment', href: '/payment', icon: CreditCard },
-    { label: 'Wish List', href: '/profile/wishlist', icon: Heart },
-    { label: 'My Coupons', href: '/coupons', icon: Gift },
-    { label: 'Settings', href: '/settings', icon: Settings },
-    { label: 'Seller Log In', href: '/seller-login', icon: User },
-    { label: 'Return & Refund Policy', href: '/return-policy', icon: Shield },
+    { label: t('user.profile'), href: '/profile', icon: User },
+    { label: t('user.signOut'), href: '#', icon: LogOut, onClick: handleSignOut },
+    { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
+    { label: t('user.myCoins'), href: '/profile/user/my-coins', icon: Coins },
+    { label: t('user.messageCenter'), href: '/messages', icon: MessageCircle },
+    { label: t('user.payment'), href: '/payment', icon: CreditCard },
+    { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
+    { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
+    { label: t('user.settings'), href: '/settings', icon: Settings },
+    { label: t('user.sellerLogin'), href: '/seller-login', icon: User },
+    { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
     //{ label: 'Help Center', href: '/help', icon: HelpCircle },
-    { label: 'Disputes & Reports', href: '/disputes', icon: AlertTriangle },
+    { label: t('user.disputes'), href: '/disputes', icon: AlertTriangle },
   ];
 
   const menuItems = isAuthenticated ? authenticatedMenuItems : unauthenticatedMenuItems;
@@ -265,7 +265,7 @@ const Header: React.FC = () => {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search for crafts, artisans..."
+                    placeholder={t('nav.searchPlaceholder')}
                     className="w-full px-4 py-3 text-craft-brown bg-craft-cream focus:outline-none placeholder-craft-dusty text-sm"
                     onKeyPress={(e) => e.key === 'Enter' && handleSearchSubmit(e)}
                   />
@@ -288,7 +288,7 @@ const Header: React.FC = () => {
                 className="flex items-center space-x-2 hover:bg-craft-brown/10 px-3 py-2 rounded-md transition-all duration-300 border border-craft-bronze/30 hover:border-craft-tan text-craft-beige hover:text-craft-caramel"
               >
                 <Globe className="h-4 w-4" />
-                <span className="text-sm font-medium">{languages.find(l => l.code === currentLanguage)?.name || 'English'}</span>
+                <span className="text-sm font-medium">{languages.find(l => l.code === i18n.language)?.name || 'English'}</span>
                 <ChevronDown className="h-3 w-3" />
               </button>
               
@@ -543,7 +543,7 @@ const Header: React.FC = () => {
                   <div className="px-4 py-4 bg-craft-beige/20 rounded-lg">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-medium text-craft-brown">Language</span>
-                      <span className="text-sm text-craft-bronze">{languages.find(l => l.code === currentLanguage)?.name || 'English'}</span>
+                      <span className="text-sm text-craft-bronze">{languages.find(l => l.code === i18n.language)?.name || 'English'}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium text-craft-brown">Deliver to</span>

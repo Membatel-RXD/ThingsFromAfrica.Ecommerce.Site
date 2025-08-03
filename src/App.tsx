@@ -20,7 +20,7 @@ import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import ProfileSettings from "./pages/ProfileSettings";
 import { AppProvider } from "./contexts/AppContext";
-import { LanguageProvider } from "./contexts/LanguageContext";
+
 import Sustainability from "./pages/sustainability";
 import CSR from "./pages/csr";
 import Addresses from "./pages/UserAddresses";
@@ -41,7 +41,6 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <LanguageProvider>
           <AppProvider>
             <BrowserRouter>
             <Routes>
@@ -76,7 +75,6 @@ const App = () => (
             </Routes>
             </BrowserRouter>
           </AppProvider>
-        </LanguageProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </ThemeProvider>

@@ -1,0 +1,78 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "shop": "Boutique",
+    "crafts": "Nos Artisanats",
+    "stories": "Histoires",
+    "gifts": "Idées Cadeaux",
+    "sustainability": "Durabilité",
+    "csr": "RSE",
+    "about": "À propos",
+    "contact": "Contact",
+    "cart": "Panier",
+    "signin": "Se connecter / S'inscrire",
+    "account": "Compte",
+    "welcome": "Bienvenue",
+    "deliverTo": "Livrer à",
+    "searchPlaceholder": "Rechercher des artisanats, artisans..."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "tryAgain": "Réessayer",
+    "readMore": "Lire plus",
+    "learnMore": "En savoir plus",
+    "viewAll": "Voir tout",
+    "shopNow": "Acheter maintenant",
+    "addToCart": "Ajouter au panier",
+    "buyNow": "Acheter maintenant",
+    "contactUs": "Nous contacter",
+    "language": "Langue",
+    "allCategories": "Toutes les Catégories"
+  },
+  "user": {
+    "profile": "Profil",
+    "signOut": "Se déconnecter",
+    "myOrders": "Mes Commandes",
+    "myCoins": "Mes Pièces",
+    "messageCenter": "Centre de Messages",
+    "payment": "Paiement",
+    "wishList": "Liste de Souhaits",
+    "myCoupons": "Mes Coupons",
+    "settings": "Paramètres",
+    "sellerLogin": "Connexion Vendeur",
+    "returnPolicy": "Politique de Retour",
+    "disputes": "Litiges et Rapports",
+    "signIn": "Se connecter",
+    "register": "S'inscrire"
+  },
+  "pages": {
+    "stories": {
+      "title": "Histoires d'Artisans",
+      "subtitle": "Rencontrez les artisans talentueux qui préservent les traditions africaines à travers leur art",
+      "noStories": "Aucune histoire disponible",
+      "checkBack": "Revenez plus tard pour des histoires inspirantes d'artisans.",
+      "shareStory": "Partagez votre histoire",
+      "shareDescription": "Êtes-vous un artisan qualifié avec une histoire à raconter? Nous aimerions présenter votre art et partager votre parcours avec notre communauté d'amateurs d'art.",
+      "browseCrafts": "Parcourir les artisanats",
+      "readFullStory": "Lire l'histoire complète"
+    },
+    "contact": {
+      "title": "Nous contacter",
+      "subtitle": "Contactez-nous pour des questions sur nos artisanats, commandes personnalisées ou collaborations avec des artisans",
+      "sendMessage": "Envoyez-nous un message",
+      "getInTouch": "Entrer en contact",
+      "fullName": "Nom complet",
+      "emailAddress": "Adresse e-mail",
+      "subject": "Sujet",
+      "message": "Message",
+      "sendButton": "Envoyer le message",
+      "location": "Notre emplacement",
+      "phone": "Numéro de téléphone",
+      "email": "Adresse e-mail",
+      "hours": "Heures d'ouverture",
+      "visitWorkshop": "Visitez notre atelier",
+      "scheduleVisit": "Planifier une visite"
+    }
+  }
+}
