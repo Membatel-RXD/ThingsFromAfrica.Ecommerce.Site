@@ -1,4 +1,4 @@
-const API_BASE_URL = 'https://thingsfromafrica-ecommerce-api.onrender.com/api/v1';
+const API_BASE_URL = 'https://localhost:7271/api/v1';
 
 export interface AuthResponse {
   isSuccessful: boolean;
@@ -97,7 +97,6 @@ class AuthService {
         }
       });
 
-      // If the request is successful (not 401/403), token is valid
       if (response.ok) {
         return true;
       }
@@ -184,6 +183,9 @@ class AuthService {
         // Store user info for session tracking
         localStorage.setItem('userId', data.payload.userId.toString());
         localStorage.setItem('userEmail', data.payload.email);
+
+        console.log("User ID is:" +data.payload.userId);
+
       } else if (!data.isSuccessful && data.remark?.includes('verify')) {
         // For now, bypass email verification requirement
         return {
@@ -255,11 +257,16 @@ class AuthService {
     // Clear cart cache to prevent cart data from persisting across users
     localStorage.removeItem('cartCache');
   }
+  
 
   getUserId(): number | null {
     const userId = localStorage.getItem('userId');
-    return userId ? parseInt(userId) : null;
+    console.log("The value of User is: " + userId);
+    
+    const parsed = Number(userId);
+    return isNaN(parsed) ? null : parsed;
   }
+  
 
   getUserEmail(): string | null {
     return localStorage.getItem('userEmail');
