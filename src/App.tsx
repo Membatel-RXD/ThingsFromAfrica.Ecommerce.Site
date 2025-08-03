@@ -20,6 +20,7 @@ import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import ProfileSettings from "./pages/ProfileSettings";
 import { AppProvider } from "./contexts/AppContext";
+import { LanguageProvider } from "./contexts/LanguageContext";
 import Sustainability from "./pages/sustainability";
 import CSR from "./pages/csr";
 import Addresses from "./pages/UserAddresses";
@@ -40,8 +41,9 @@ const App = () => (
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <AppProvider>
-          <BrowserRouter>
+        <LanguageProvider>
+          <AppProvider>
+            <BrowserRouter>
             <Routes>
             <Route path="/" element={<Index />} />
             <Route path="/shop" element={<Shop />} />
@@ -72,8 +74,9 @@ const App = () => (
             <Route path="/coupons" element={<MyCoupons />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
-          </BrowserRouter>
-        </AppProvider>
+            </BrowserRouter>
+          </AppProvider>
+        </LanguageProvider>
       </TooltipProvider>
     </QueryClientProvider>
   </ThemeProvider>
