@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import { ShoppingCart, Search, X, Home, Store, Palette, BookOpen, Info, Phone, MapPin, ChevronDown, Menu, Globe, User, HeartHandshake, Leaf, Gift, LogOut, Settings, MessageCircle, Coins, Heart, CreditCard, HelpCircle, Shield, AlertTriangle } from 'lucide-react';
 import { useAppContext } from '../contexts/AppContext';
 import { WEBSITE_DETAILS } from '../constants/website_details';
@@ -161,7 +162,7 @@ const Header: React.FC = () => {
     <>
 
          {/* Custom Tailwind Styles */}
-         <style jsx>{`
+         <style>{`
         .bg-craft-charcoal { background-color: #1A1612; }
         .bg-craft-brown { background-color: #2C1810; }
         .bg-craft-tan { background-color: #C19A6B; }
@@ -217,6 +218,8 @@ const Header: React.FC = () => {
             
            {/* Logo */}
            <div className="flex items-center space-x-3">
+           <Link to="/" className="flex items-center space-x-3 group">
+
               <div className="w-10 h-10 bg-gradient-to-br from-craft-caramel to-craft-tan rounded-full flex items-center justify-center shadow-craft-logo hover:shadow-craft-logo-hover transition-all duration-300 hover:scale-105">
                 <div className="avatar">
                   <div className="w-20 h-20 rounded-full flex items-center justify-center">
@@ -234,6 +237,7 @@ const Header: React.FC = () => {
                   {WEBSITE_DETAILS.name}
                 </h1>
               </div>
+            </Link>
             </div>
 
             {/* Deliver To - Hidden on mobile */}

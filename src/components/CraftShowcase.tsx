@@ -35,7 +35,7 @@ const CraftShowcase: React.FC = () => {
       productId: craftId,
       quantity: 1,
       unitPrice: unitPrice,
-      customerId: 0,
+      customerId: authService.getUserId(),
       currency: 'USD'
     }
     const success = await cartService.addToCart(cart);

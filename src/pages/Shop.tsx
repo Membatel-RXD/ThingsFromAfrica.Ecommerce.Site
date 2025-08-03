@@ -295,11 +295,13 @@ const Shop = () => {
   const handleAddToCart = async (productId:number) => {
     const hasValidSession = await authService.checkSession();
     const userId =  authService.getUserId();
-    if (!hasValidSession) {
+    if (!hasValidSession || !userId) {
       navigate('/login');
       return;
     }
     
+    console.log("User ID from auth is:"+userId);
+
     const product = products.find(p => p.productId === productId);
     if (!product) return;
     

@@ -1,7 +1,6 @@
 import { AddCartItem, CartItem } from "@/models/members";
 import { authService } from "./authService";
 import { apiService, IAPIResponse } from "@/lib/api";
-import axios from "axios";
 
 
 
@@ -20,16 +19,8 @@ class CartService {
     const userId = authService.getUserId();
     try {
       // Use direct axios call to the correct API endpoint
-      const response = await axios.get(
-        `https://thingsfromafrica-ecommerce-api.onrender.com/api/v1/ShoppingCart/GetByCustomerId/${userId}`,
-        {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-            'accept': 'text/plain'
-          }
-        }
-      );
-      return response.data.payload || [];
+      const response = await apiService.get<IAPIResponse<CartItem[]>>(`ShoppingCart/GetByCustomerId/${userId}`)
+      return response.payload || [];
     } catch (error) {
       console.error('Failed to fetch cart items:', error);
       return [];
