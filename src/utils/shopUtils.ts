@@ -23,6 +23,7 @@ export const filterByCategory = (products: Partial<Product[]>, selectedCategory:
   return products.filter(product => {
     // Case-insensitive matching with the product's category
     const productCategoryFromAPI = categories.find(a=>a.categoryId==product.categoryId);
+
     const productCategory = productCategoryFromAPI.categoryName.toLowerCase();
     const filterCategory = selectedCategory.toLowerCase();
     

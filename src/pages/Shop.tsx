@@ -67,6 +67,7 @@ const Shop = () => {
   const [artisans, setArtisans] = useState<Artisan[]>([]);
   const [productCategories, setProductCategories] = useState<ProductCategory[]>([]);
   const [loading, setLoading] = useState(true);
+  const [categoriesLoading, setCategoriesLoading] = useState(true); // Separate loading state
   const [filterLoading, setFilterLoading] = useState(false);
   const [wishlistItems, setWishlistItems] = useState<number[]>([]);
   const [showFilters, setShowFilters] = useState(false);
@@ -108,19 +109,33 @@ const Shop = () => {
     cultural: false
   });
 
-  // Handle URL parameters for category filtering
+  // Handle URL parameters for category filtering - wait for categories to load
   useEffect(() => {
+    if (categoriesLoading || productCategories.length === 0) return;
+    
     const urlParams = new URLSearchParams(location.search);
     const categoryParam = urlParams.get('category');
     const categoryNameParam = urlParams.get('categoryName');
-    console.log("url parameter: "+categoryParam);
+    
+    console.log("url parameter: " + categoryParam);
+    console.log("available categories:", productCategories);
+    
     if (categoryParam && categoryParam !== 'all') {
       setSelectedCategory(categoryParam);
       if (categoryNameParam) {
         setActiveCategoryName(decodeURIComponent(categoryNameParam));
+      } else {
+        // Try to find category name from productCategories
+        const foundCategory = productCategories.find(cat => 
+          cat.categoryId.toString() === categoryParam || 
+          cat.categoryName.toLowerCase() === categoryParam.toLowerCase()
+        );
+        if (foundCategory) {
+          setActiveCategoryName(foundCategory.categoryName);
+        }
       }
     }
-  }, [location.search]);
+  }, [location.search, productCategories, categoriesLoading]);
 
   const toggleSection = (section) => {
     setExpandedSections(prev => ({
@@ -164,7 +179,19 @@ const Shop = () => {
 
   const handleCategoryChange = (category) => {
     setSelectedCategory(category);
-    setActiveCategoryName('');
+    
+    if (category === 'all') {
+      setActiveCategoryName('');
+    } else {
+      // Find the category name from productCategories
+      const foundCategory = productCategories.find(cat => 
+        cat.categoryId.toString() === category || 
+        cat.categoryName.toLowerCase() === category.toLowerCase()
+      );
+      if (foundCategory) {
+        setActiveCategoryName(foundCategory.categoryName);
+      }
+    }
     
     // Update URL parameters
     const urlParams = new URLSearchParams(location.search);
@@ -174,6 +201,9 @@ const Shop = () => {
       urlParams.delete('categoryName');
     } else {
       urlParams.set('category', category);
+      if (activeCategoryName) {
+        urlParams.set('categoryName', encodeURIComponent(activeCategoryName));
+      }
     }
     const newSearch = urlParams.toString();
     navigate(`/shop${newSearch ? `?${newSearch}` : ''}`, { replace: true });
@@ -192,7 +222,7 @@ const Shop = () => {
     navigate(`/shop${newSearch ? `?${newSearch}` : ''}`, { replace: true });
   };
 
-  const handleCheckboxChange = (value, currentValues, setter) => {
+  const handleCheckboxChange = (value: string, currentValues: any[], setter: { (value: React.SetStateAction<any[]>): void; (value: React.SetStateAction<any[]>): void; (value: React.SetStateAction<any[]>): void; (arg0: any[]): void; }) => {
     if (currentValues.includes(value)) {
       setter(currentValues.filter(item => item !== value));
     } else {
@@ -200,57 +230,66 @@ const Shop = () => {
     }
   };
 
+  // Load data in parallel but track completion separately
   useEffect(() => {
-    const loadProducts = async () => {
+    const loadAllData = async () => {
       try {
         setLoading(true);
-        const apiProducts = await productService.getAllProducts();
-        const shopProducts = apiProducts.map(product => productService.convertToShopProduct(product));
-        setProducts(shopProducts);
+        setCategoriesLoading(true);
         
-        // Load wishlist items
-        const wishlist = await wishlistService.getWishlistItems();
-        setWishlistItems(wishlist.map(item => item.productId));
+        // Load all data in parallel
+        const [productsResult, categoriesResult, artisansResult] = await Promise.allSettled([
+          productService.getAllProducts(),
+          apiService.get<IAPIResponse<ProductCategory[]>>('ProductCategories/GetAll'),
+          apiService.get<IAPIResponse<Artisan[]>>('Artisans/GetAll')
+        ]);
+
+        // Handle products
+        if (productsResult.status === 'fulfilled') {
+          const shopProducts = productsResult.value.map(product => 
+            productService.convertToShopProduct(product)
+          );
+          setProducts(shopProducts);
+          
+          // Load wishlist items
+          try {
+            const wishlist = await wishlistService.getWishlistItems();
+            setWishlistItems(wishlist.map(item => item.productId));
+          } catch (error) {
+            console.error('Failed to load wishlist:', error);
+          }
+        } else {
+          console.error('Failed to load products:', productsResult.reason);
+        }
+
+        // Handle categories
+        if (categoriesResult.status === 'fulfilled' && 
+            categoriesResult.value.isSuccessful && 
+            categoriesResult.value.payload) {
+          console.log('Loaded categories:', categoriesResult.value.payload);
+          setProductCategories(categoriesResult.value.payload);
+        } else {
+          console.error('Failed to load product categories:', categoriesResult);
+        }
+
+        // Handle artisans
+        if (artisansResult.status === 'fulfilled' && 
+            artisansResult.value.isSuccessful && 
+            artisansResult.value.payload) {
+          setArtisans(artisansResult.value.payload);
+        } else {
+          console.error('Failed to load artisans:', artisansResult);
+        }
+        
       } catch (error) {
-        console.error('Failed to load products:', error);
+        console.error('Failed to load data:', error);
       } finally {
         setLoading(false);
+        setCategoriesLoading(false);
       }
     };
 
-    const loadProductCategories = async () => {
-      try {
-        setLoading(true);
-        const apiCategories = await apiService.get<IAPIResponse<ProductCategory[]>>('ProductCategories/GetAll');
-       if(apiCategories.isSuccessful && apiCategories.payload){
-         setProductCategories(apiCategories.payload);
-       }
-        
-      } catch (error) {
-        console.error('Failed to load product categories:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    const loadArtisans = async () => {
-      try {
-        setLoading(true);
-        const apiCategories = await apiService.get<IAPIResponse<Artisan[]>>('Artisans/GetAll');
-       if(apiCategories.isSuccessful && apiCategories.payload){
-         setArtisans(apiCategories.payload);
-       }
-        
-      } catch (error) {
-        console.error('Failed to load product categories:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProducts();
-    loadProductCategories();
-    loadArtisans();
+    loadAllData();
   }, []);
 
   const handleAddToCart = async (productId:number) => {
@@ -316,112 +355,179 @@ const Shop = () => {
     tribalOrigins: ['Chewa', 'Tumbuka', 'Yao', 'Lomwe', 'Sena', 'Tonga', 'Ngoni']
   };
 
- // Inside your Shop component - Updated filteredProducts useMemo
+  // Helper functions for filtering (you might need to implement these)
+  const filterByPriceRange = (products, minPrice, maxPrice) => {
+    return products.filter(product => {
+      const price = product.usdPrice || 0;
+      return price >= minPrice && price <= maxPrice;
+    });
+  };
 
-const filteredProducts = useMemo(() => {
-  // Show filter loading when applying filters
-  if (!loading && products.length > 0) {
-    setFilterLoading(true);
-    
-    // Simulate brief delay for filter processing
-    setTimeout(() => {
-      setFilterLoading(false);
-    }, 300);
-  }
+  const filterByRating = (products, minRating) => {
+    return products.filter(product => {
+      const rating = product.averageRating || 0;
+      return rating >= minRating;
+    });
+  };
 
-  // Step 1: Start with all products
-  let filtered = [...products];
+  const filterByStock = (products, inStockOnly) => {
+    if (!inStockOnly) return products;
+    return products.filter(product => product.stockQuantity > 0);
+  };
+
+  const filterByFeatured = (products, featuredOnly) => {
+    if (!featuredOnly) return products;
+    return products.filter(product => product.isFeatured);
+  };
+
+  useEffect(() => {
+    if (!loading && !categoriesLoading && products.length > 0) {
+      setFilterLoading(true);
+      const timeout = setTimeout(() => {
+        setFilterLoading(false);
+      }, 300);
   
-  // Step 2: Apply search filter
-  if (searchTerm.trim()) {
-    filtered = searchProducts(filtered, searchTerm);
-  }
-
-  // Step 3: Apply category filter - THIS IS WHERE CATEGORY FILTERING HAPPENS
-  if (selectedCategory !== 'all') {
-    filtered = filterByCategory(filtered, activeCategoryName,productCategories);
-   }
-
-  // Step 4: Apply price range filter
-  if (priceRange[0] > 0 || priceRange[1] < 200) {
-    filtered = filterByPriceRange(filtered, priceRange[0], priceRange[1]);
-  }
-
-  // Step 5: Apply rating filter
-  if (ratingFilter > 0) {
-    filtered = filterByRating(filtered, ratingFilter);
-  }
-
-  // Step 6: Apply stock filter
-  if (inStockOnly) {
-    filtered = filterByStock(filtered, inStockOnly);
-  }
-
-  // Step 7: Apply featured filter
-  if (featuredOnly) {
-    filtered = filterByFeatured(filtered, featuredOnly);
-  }
-
-  // Step 8: Apply additional custom filters
-  filtered = filtered.filter(product => {
-    // Wood type filter
-    if (selectedWoodTypes.length > 0) {
-      // Assuming you have a woodType property on your product or can derive it
-      const productWoodType = product.woodType || 'Unknown';
-      if (!selectedWoodTypes.includes(productWoodType)) return false;
+      return () => clearTimeout(timeout);
+    }
+  }, [
+    products,
+    searchTerm,
+    selectedCategory,
+    priceRange,
+    ratingFilter,
+    inStockOnly,
+    featuredOnly,
+    selectedWoodTypes,
+    selectedCraftingTechniques,
+    selectedArtisanRegions,
+    selectedWoodColors,
+    selectedConditions,
+    selectedQualityGrades,
+    authenticOnly,
+    certifiedOnly,
+    touristFriendlyOnly,
+    packingFriendlyOnly,
+    giftWrappingAvailable,
+    personalizationAvailable,
+    selectedAgeCategories,
+    selectedTribalOrigins,
+    sortBy,
+    loading,
+    categoriesLoading,
+    productCategories
+  ]);
+  
+  // Updated filteredProducts useMemo - only run when categories are loaded
+  const filteredProducts = useMemo(() => {
+    // Don't filter if still loading categories or products
+    if (loading || categoriesLoading || products.length === 0) {
+      return [];
     }
 
-    // Crafting technique filter
-    if (selectedCraftingTechniques.length > 0) {
-      const productTechnique = product.craftingTechnique || 'Unknown';
-      if (!selectedCraftingTechniques.includes(productTechnique)) return false;
+    console.log('Filtering with categories:', productCategories);
+    console.log('Selected category:', selectedCategory);
+    console.log('Active category name:', activeCategoryName);
+
+    // Step 1: Start with all products
+    let filtered = [...products];
+
+    // Step 2: Apply search filter
+    if (searchTerm.trim()) {
+      filtered = searchProducts(filtered, searchTerm);
     }
 
-    // Artisan region filter
-    if (selectedArtisanRegions.length > 0) {
-      if (!selectedArtisanRegions.includes(product.artisanVillage)) return false;
+    // Step 3: Apply category filter
+    if (selectedCategory !== 'all' && productCategories.length > 0) {
+      console.log('Applying category filter...');
+      filtered = filterByCategory(filtered, activeCategoryName, productCategories);
+      console.log('Filtered products after category filter:', filtered.length);
     }
 
-    // Add more custom filters as needed...
-    return true;
-  });
+    // Step 4: Apply price range filter
+    if (priceRange[0] > 0 || priceRange[1] < 200) {
+      filtered = filterByPriceRange(filtered, priceRange[0], priceRange[1]);
+    }
 
+    // Step 5: Apply rating filter
+    if (ratingFilter > 0) {
+      filtered = filterByRating(filtered, ratingFilter);
+    }
 
-  // Step 9: Apply sorting
-  filtered = sortProducts(filtered, sortBy);
+    // Step 6: Apply stock filter
+    if (inStockOnly) {
+      filtered = filterByStock(filtered, inStockOnly);
+    }
 
-  return filtered;
-}, [
-  products,
-  searchTerm,
-  selectedCategory,
-  priceRange,
-  ratingFilter,
-  inStockOnly,
-  featuredOnly,
-  selectedWoodTypes,
-  selectedCraftingTechniques,
-  selectedArtisanRegions,
-  selectedWoodColors,
-  selectedConditions,
-  selectedQualityGrades,
-  authenticOnly,
-  certifiedOnly,
-  touristFriendlyOnly,
-  packingFriendlyOnly,
-  giftWrappingAvailable,
-  personalizationAvailable,
-  selectedAgeCategories,
-  selectedTribalOrigins,
-  sortBy,
-  loading
-]);
+    // Step 7: Apply featured filter
+    if (featuredOnly) {
+      filtered = filterByFeatured(filtered, featuredOnly);
+    }
+
+    // Step 8: Apply additional custom filters
+    filtered = filtered.filter(product => {
+      if (selectedWoodTypes.length > 0 && !selectedWoodTypes.includes(product.woodType || 'Unknown')) {
+        return false;
+      }
+      if (selectedCraftingTechniques.length > 0 && !selectedCraftingTechniques.includes(product.craftingTechnique || 'Unknown')) {
+        return false;
+      }
+      if (selectedArtisanRegions.length > 0 && !selectedArtisanRegions.includes(product.artisanVillage)) {
+        return false;
+      }
+      return true;
+    });
+
+    // Step 9: Apply sorting
+    return sortProducts(filtered, sortBy);
+  }, [
+    products,
+    searchTerm,
+    selectedCategory,
+    activeCategoryName,
+    priceRange,
+    ratingFilter,
+    inStockOnly,
+    featuredOnly,
+    selectedWoodTypes,
+    selectedCraftingTechniques,
+    selectedArtisanRegions,
+    selectedWoodColors,
+    selectedConditions,
+    selectedQualityGrades,
+    authenticOnly,
+    certifiedOnly,
+    touristFriendlyOnly,
+    packingFriendlyOnly,
+    giftWrappingAvailable,
+    personalizationAvailable,
+    selectedAgeCategories,
+    selectedTribalOrigins,
+    sortBy,
+    loading,
+    categoriesLoading, // Added this dependency
+    productCategories
+  ]);
+
   function getArtisanName(artisanId: number): React.ReactNode {
-    return artisans.find(a=>a.artisanId==artisanId).artisanName
+    const artisan = artisans.find(a => a.artisanId === artisanId);
+    return artisan ? artisan.artisanName : 'Unknown Artisan';
   }
 
-  function getArtisanVillage(artisanVillage: number): React.ReactNode {
-    return artisans.find(a=>a.artisanId==artisanVillage).village
+  function getArtisanVillage(artisanId: number): React.ReactNode {
+    const artisan = artisans.find(a => a.artisanId === artisanId);
+    return artisan ? artisan.village : 'Unknown Village';
+  }
+
+  // Show loading state while categories are loading
+  if (loading || categoriesLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-burnt-sienna"></div>
+          <p className="mt-4 text-gray-600">Loading products and categories...</p>
+        </div>
+      </div>
+    );
   }
 
   return (
