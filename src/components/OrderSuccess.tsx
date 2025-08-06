@@ -1,5 +1,3 @@
-
-// components/OrderSuccess.tsx - Create this new component
 import React, { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
@@ -147,7 +145,7 @@ const OrderSuccess: React.FC = () => {
           {/* Action Buttons */}
           <div className="flex flex-col sm:flex-row gap-4">
             <Button 
-              onClick={() => navigate('/orders')}
+              onClick={() => navigate('/profile/user/my-orders')}
               className="flex-1 bg-black hover:bg-gray-800"
             >
               View Order Details
