@@ -31,6 +31,7 @@ import ReviewProduct from "./pages/ReviewProduct";
 import MessageCenter from "./pages/MessageCenter";
 import { Coins } from "lucide-react";
 import MyCoupons from "./pages/MyCoupons";
+import Checkout from "./components/CheckoutPage";
 
 const queryClient = new QueryClient();
 
@@ -70,6 +71,8 @@ const App = () => (
             <Route path="/messages" element={<MessageCenter />} />
             <Route path="/profile/user/my-coins" element={<Coins />} />
             <Route path="/coupons" element={<MyCoupons />} />
+            <Route path="/checkout" element={<Checkout />} />
+            <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
