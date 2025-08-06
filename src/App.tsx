@@ -33,6 +33,8 @@ import MessageCenter from "./pages/MessageCenter";
 import { Coins } from "lucide-react";
 import MyCoupons from "./pages/MyCoupons";
 import Checkout from "./components/CheckoutPage";
+import OrderSuccess from "./components/OrderSuccess";
+import { LanguageProvider } from '@/contexts/LanguageContext';
 
 const queryClient = new QueryClient();
 
@@ -40,6 +42,8 @@ const App = () => (
   <ThemeProvider defaultTheme="light">
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
+      <LanguageProvider> {/* Add this */}
+
         <Toaster />
         <Sonner />
           <AppProvider>
@@ -78,6 +82,8 @@ const App = () => (
             </Routes>
             </BrowserRouter>
           </AppProvider>
+          </LanguageProvider> {/* Add this */}
+
       </TooltipProvider>
     </QueryClientProvider>
   </ThemeProvider>
