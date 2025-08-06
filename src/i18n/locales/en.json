@@ -1,0 +1,78 @@
+{
+  "nav": {
+    "home": "Home",
+    "shop": "Shop",
+    "crafts": "Our Crafts",
+    "stories": "Stories",
+    "gifts": "Gift Ideas",
+    "sustainability": "Sustainability",
+    "csr": "CSR",
+    "about": "About",
+    "contact": "Contact",
+    "cart": "Cart",
+    "signin": "Sign in / Register",
+    "account": "Account",
+    "welcome": "Welcome",
+    "deliverTo": "Deliver to",
+    "searchPlaceholder": "Search for crafts, artisans..."
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "tryAgain": "Try Again",
+    "readMore": "Read More",
+    "learnMore": "Learn More",
+    "viewAll": "View All",
+    "shopNow": "Shop Now",
+    "addToCart": "Add to Cart",
+    "buyNow": "Buy Now",
+    "contactUs": "Contact Us",
+    "language": "Language",
+    "allCategories": "All Categories"
+  },
+  "user": {
+    "profile": "Profile",
+    "signOut": "Sign Out",
+    "myOrders": "My Orders",
+    "myCoins": "My Coins",
+    "messageCenter": "Message Center",
+    "payment": "Payment",
+    "wishList": "Wish List",
+    "myCoupons": "My Coupons",
+    "settings": "Settings",
+    "sellerLogin": "Seller Log In",
+    "returnPolicy": "Return & Refund Policy",
+    "disputes": "Disputes & Reports",
+    "signIn": "Sign in",
+    "register": "Register"
+  },
+  "pages": {
+    "stories": {
+      "title": "Artisan Stories",
+      "subtitle": "Meet the talented craftspeople preserving African traditions through their art",
+      "noStories": "No Stories Available",
+      "checkBack": "Check back later for inspiring artisan stories.",
+      "shareStory": "Share Your Story",
+      "shareDescription": "Are you a skilled artisan with a story to tell? We'd love to feature your craft and share your journey with our community of art enthusiasts.",
+      "browseCrafts": "Browse Crafts",
+      "readFullStory": "Read Full Story"
+    },
+    "contact": {
+      "title": "Contact Us",
+      "subtitle": "Get in touch with us for questions about our crafts, custom orders, or artisan collaborations",
+      "sendMessage": "Send us a Message",
+      "getInTouch": "Get in Touch",
+      "fullName": "Full Name",
+      "emailAddress": "Email Address",
+      "subject": "Subject",
+      "message": "Message",
+      "sendButton": "Send Message",
+      "location": "Our Location",
+      "phone": "Phone Number",
+      "email": "Email Address",
+      "hours": "Business Hours",
+      "visitWorkshop": "Visit Our Workshop",
+      "scheduleVisit": "Schedule a Visit"
+    }
+  }
+}

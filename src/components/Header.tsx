@@ -8,6 +8,7 @@ import { authService } from '../services/authService';
 import LocationWidget from './Location';
 import { ProductCategory } from '@/models/members';
 import { apiService, IAPIResponse } from '@/lib/api';
+import { useTranslation } from 'react-i18next';
 
 const Header: React.FC = () => {
   const { cartItems, menuOpen, toggleMenu } = useAppContext();
@@ -27,8 +28,8 @@ const Header: React.FC = () => {
   const navigate = useNavigate();
 
   const [languageOpen, setLanguageOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState('EN');
   const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const { t, i18n } = useTranslation();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [userEmail, setUserEmail] = useState<string | null>(null);
   const [userName, setUserName] = useState<string | null>(null);
@@ -37,9 +38,11 @@ const Header: React.FC = () => {
 
 
   const languages = [
-    { code: 'EN', name: 'English' },
-    { code: 'SW', name: 'Swahili' },
-    { code: 'FR', name: 'French' }
+    { code: 'en', name: 'English' },
+    { code: 'es', name: 'Español' },
+    { code: 'fr', name: 'Français' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'sw', name: 'Kiswahili' }
   ];
 
   // Check authentication status on component mount
@@ -68,6 +71,17 @@ const Header: React.FC = () => {
       } catch (error) {
         console.error('Error fetching categories:', error);
       } finally {
+        setSelectedCategory(categories.length > 0 ? categories[0] : {
+          categoryId: 0,
+          categoryName: "All Categories",
+          categorySlug: "",
+          categoryDescription: "",
+          categoryImageUrl: "",
+          isTouristFavorite: false,
+          isActive: true,
+          sortOrder: 0,
+          createdAt: new Date().toISOString()
+        });
       }
     };
     
@@ -86,7 +100,7 @@ const Header: React.FC = () => {
   };
 
   const handleLanguageSelect = (language: { code: string; name: string }) => {
-    setSelectedLanguage(language.code);
+    i18n.changeLanguage(language.code);
     setLanguageOpen(false);
   };
 
@@ -118,42 +132,42 @@ const Header: React.FC = () => {
   type MenuItem = {
     label: string;
     href: string;
-    icon: React.ComponentType<any>;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>> | React.ReactElement<React.SVGProps<SVGSVGElement>>;
     onClick?: () => void;
   };
 
 
 
   const unauthenticatedMenuItems: MenuItem[] = [
-    { label: 'Sign in', href: '/login', icon: User },
-    { label: 'Register', href: '/register', icon: User },
-    { label: 'My Orders', href: '/profile/user/my-orders', icon: ShoppingCart },
-    { label: 'My Coins', href: '/coins', icon: Coins },
-    { label: 'Message Center', href: '/messages', icon: MessageCircle },
-    { label: 'Payment', href: '/payment', icon: CreditCard },
-    { label: 'Wish List', href: '/profile/wishlist', icon: Heart },
-    { label: 'My Coupons', href: '/coupons', icon: Gift },
-    { label: 'Settings', href: '/settings', icon: Settings },
-    { label: 'Seller Log In', href: '/seller-login', icon: User },
-    { label: 'Return & Refund Policy', href: '/return-policy', icon: Shield },
-    { label: 'Help Center', href: '/help', icon: HelpCircle },
-    { label: 'Disputes & Reports', href: '/disputes', icon: AlertTriangle },
+    { label: t('user.signIn'), href: '/login', icon: User },
+    { label: t('user.register'), href: '/register', icon: User },
+    { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
+    { label: t('user.myCoins'), href: '/coins', icon: Coins },
+    { label: t('user.messageCenter'), href: '/messages', icon: MessageCircle },
+    { label: t('user.payment'), href: '/payment', icon: CreditCard },
+    { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
+    { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
+    { label: t('user.settings'), href: '/settings', icon: Settings },
+    { label: t('user.sellerLogin'), href: '/seller-login', icon: User },
+    { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
+   // { label: 'Help Center', href: '/help', icon: HelpCircle },
+    { label: t('user.disputes'), href: '/disputes', icon: AlertTriangle },
   ];
 
   const authenticatedMenuItems: MenuItem[] = [
-    { label: 'Profile', href: '/profile', icon: User },
-    { label: 'Sign Out', href: '#', icon: LogOut, onClick: handleSignOut },
-    { label: 'My Orders', href: '/profile/user/my-orders', icon: ShoppingCart },
-    { label: 'My Coins', href: '/profile/user/my-coins', icon: Coins },
-    { label: 'Message Center', href: '/messages', icon: MessageCircle },
-    { label: 'Payment', href: '/payment', icon: CreditCard },
-    { label: 'Wish List', href: '/profile/wishlist', icon: Heart },
-    { label: 'My Coupons', href: '/coupons', icon: Gift },
-    { label: 'Settings', href: '/settings', icon: Settings },
-    { label: 'Seller Log In', href: '/seller-login', icon: User },
-    { label: 'Return & Refund Policy', href: '/return-policy', icon: Shield },
-    { label: 'Help Center', href: '/help', icon: HelpCircle },
-    { label: 'Disputes & Reports', href: '/disputes', icon: AlertTriangle },
+    { label: t('user.profile'), href: '/profile', icon: User },
+    { label: t('user.signOut'), href: '#', icon: LogOut, onClick: handleSignOut },
+    { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
+    { label: t('user.myCoins'), href: '/profile/user/my-coins', icon: Coins },
+    { label: t('user.messageCenter'), href: '/messages', icon: MessageCircle },
+    { label: t('user.payment'), href: '/payment', icon: CreditCard },
+    { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
+    { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
+    { label: t('user.settings'), href: '/settings', icon: Settings },
+    { label: t('user.sellerLogin'), href: '/seller-login', icon: User },
+    { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
+    //{ label: 'Help Center', href: '/help', icon: HelpCircle },
+    { label: t('user.disputes'), href: '/disputes', icon: AlertTriangle },
   ];
 
   const menuItems = isAuthenticated ? authenticatedMenuItems : unauthenticatedMenuItems;
@@ -251,12 +265,14 @@ const Header: React.FC = () => {
                     type="text"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search for crafts, artisans..."
+                    placeholder={t('nav.searchPlaceholder')}
                     className="w-full px-4 py-3 text-craft-brown bg-craft-cream focus:outline-none placeholder-craft-dusty text-sm"
                     onKeyPress={(e) => e.key === 'Enter' && handleSearchSubmit(e)}
                   />
                 </div>
                 <button
+                  type="submit"
+                  aria-label="Search"
                   onClick={handleSearchSubmit}
                   className="bg-gradient-gold hover:bg-gradient-golden-hover px-4 py-3 transition-all duration-300 hover:scale-105 flex items-center justify-center"
                 >
@@ -272,7 +288,7 @@ const Header: React.FC = () => {
                 className="flex items-center space-x-2 hover:bg-craft-brown/10 px-3 py-2 rounded-md transition-all duration-300 border border-craft-bronze/30 hover:border-craft-tan text-craft-beige hover:text-craft-caramel"
               >
                 <Globe className="h-4 w-4" />
-                <span className="text-sm font-medium">{selectedLanguage}</span>
+                <span className="text-sm font-medium">{languages.find(l => l.code === i18n.language)?.name || 'English'}</span>
                 <ChevronDown className="h-3 w-3" />
               </button>
               
@@ -301,10 +317,10 @@ const Header: React.FC = () => {
                  <User className="h-4 w-4 text-craft-beige" />
                 <div className="text-xs">
                   <div className="text-craft-bronze">
-                    {isAuthenticated ? `Hi, ${userName || 'User'}` : 'Welcome'}
+                    {isAuthenticated ? `Hi, ${userName || 'User'}` : t('nav.welcome')}
                   </div>
                   <div className="font-medium flex items-center text-craft-cream">
-                    {isAuthenticated ? 'Account' : 'Sign in / Register'}
+                    {isAuthenticated ? t('nav.account') : t('nav.signin')}
                     <ChevronDown className="h-3 w-3 ml-1" />
                   </div>
                 </div>
@@ -363,7 +379,7 @@ const Header: React.FC = () => {
                     </div>
                   </div>
                   <div className="text-xs hidden sm:block">
-                    <div className="text-craft-bronze">Cart</div>
+                    <div className="text-craft-bronze">{t('nav.cart')}</div>
                     <div className="font-semibold text-craft-cream">{cartItems}</div>
                   </div>
                 </a>
@@ -426,39 +442,39 @@ const Header: React.FC = () => {
 
             <a href="/" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Home className="h-4 w-4" />
-              <span>Home</span>
+              <span>{t('nav.home')}</span>
             </a>
             <a href="/shop" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Store className="h-4 w-4" />
-              <span>Shop</span>
+              <span>{t('nav.shop')}</span>
             </a>
             <a href="/crafts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Palette className="h-4 w-4" />
-              <span>Our Crafts</span>
+              <span>{t('nav.crafts')}</span>
             </a>
             <a href="/stories" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <BookOpen className="h-4 w-4" />
-              <span>Stories</span>
+              <span>{t('nav.stories')}</span>
             </a>
             <a href="/gifts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Gift className="h-4 w-4" />
-              <span>Gift Ideas</span>
+              <span>{t('nav.gifts')}</span>
             </a>
             <a href="/sustainability" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Leaf className="h-4 w-4" />
-              <span>Sustainability</span>
+              <span>{t('nav.sustainability')}</span>
             </a>
             <a href="/corporate-social-responsibility" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <HeartHandshake className="h-4 w-4" />
-              <span>CSR</span>
+              <span>{t('nav.csr')}</span>
             </a>
             <a href="/about" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Info className="h-4 w-4" />
-              <span>About</span>
+              <span>{t('nav.about')}</span>
             </a>
             <a href="/contact" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Phone className="h-4 w-4" />
-              <span>Contact</span>
+              <span>{t('nav.contact')}</span>
             </a>
           </div>
         </div>
@@ -481,7 +497,7 @@ const Header: React.FC = () => {
             <div className="flex items-center space-x-3">
               <User className="h-8 w-8" />
               <span className="text-lg font-medium">
-                {isAuthenticated ? `Hi, ${userName || 'User'}` : 'Hello, Sign in'}
+                {isAuthenticated ? `Hi, ${userName || 'User'}` : t('nav.welcome')}
               </span>
             </div>
             <button 
@@ -499,27 +515,27 @@ const Header: React.FC = () => {
               <div className="space-y-2">
                 <a href="/" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Home className="h-5 w-5 text-craft-bronze mr-4" />
-                  <span>Home</span>
+                  <span>{t('nav.home')}</span>
                 </a>
                 <a href="/shop" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Store className="h-5 w-5 text-craft-bronze mr-4" />
-                  <span>Shop</span>
+                  <span>{t('nav.shop')}</span>
                 </a>
                 <a href="/crafts" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Palette className="h-5 w-5 text-craft-bronze mr-4" />
-                  <span>Our Crafts</span>
+                  <span>{t('nav.crafts')}</span>
                 </a>
                 <a href="/stories" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <BookOpen className="h-5 w-5 text-craft-bronze mr-4" />
-                  <span>Stories</span>
+                  <span>{t('nav.stories')}</span>
                 </a>
                 <a href="/about" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Info className="h-5 w-5 text-craft-bronze mr-4" />
-                  <span>About</span>
+                  <span>{t('nav.about')}</span>
                 </a>
                 <a href="/contact" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Phone className="h-5 w-5 text-craft-bronze mr-4" />
-                  <span>Contact</span>
+                  <span>{t('nav.contact')}</span>
                 </a>
 
                 {/* Mobile-only sections */}
@@ -527,7 +543,7 @@ const Header: React.FC = () => {
                   <div className="px-4 py-4 bg-craft-beige/20 rounded-lg">
                     <div className="flex items-center justify-between mb-3">
                       <span className="text-sm font-medium text-craft-brown">Language</span>
-                      <span className="text-sm text-craft-bronze">{selectedLanguage}</span>
+                      <span className="text-sm text-craft-bronze">{languages.find(l => l.code === i18n.language)?.name || 'English'}</span>
                     </div>
                     <div className="flex items-center justify-between">
                       <span className="text-sm font-medium text-craft-brown">Deliver to</span>
