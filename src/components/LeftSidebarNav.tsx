@@ -30,8 +30,6 @@ const navigationItems: NavigationItem[] = [
   { path: "/profile/promotions", label: "Promotions", icon: Gift },
   { path: "/profile/shipments", label: "Shipments", icon: Truck },
   { path: "/profile/wishlist", label: "Wishlist", icon: Heart },
-  { path: "/profile/notifications", label: "Notifications", icon: Bell },
-  { path: "/profile/security", label: "Security", icon: Shield },
   { path: "/profile/settings", label: "Settings", icon: Settings },
 ];
 
