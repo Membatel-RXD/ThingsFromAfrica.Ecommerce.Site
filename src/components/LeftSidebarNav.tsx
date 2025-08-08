@@ -27,7 +27,7 @@ const navigationItems: NavigationItem[] = [
   { path: "/profile/payments", label: "Payments", icon: CreditCard },
   { path: "/profile/user/addresses", label: "Addresses", icon: MapPinned },
   { path: "/profile/user/my-orders", label: "Orders", icon: Package },
-  { path: "/profile/promotions", label: "Promotions", icon: Gift },
+  { path: "/coupons", label: "Promotions", icon: Gift },
   { path: "/profile/shipments", label: "Shipments", icon: Truck },
   { path: "/profile/wishlist", label: "Wishlist", icon: Heart },
   { path: "/profile/settings", label: "Settings", icon: Settings },
