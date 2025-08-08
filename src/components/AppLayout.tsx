@@ -5,6 +5,7 @@ import CraftShowcase from './CraftShowcase';
 import Footer from './Footer';
 import ShopByCategory from './ShopByCategory';
 import FloatingButtons from './FloatingButtons';
+import ShopByCraftType from './ShopByCraftType';
 
 interface AppLayoutProps {
   children?: React.ReactNode;
@@ -20,6 +21,7 @@ const AppLayout: React.FC<AppLayoutProps> = ({ children }) => {
             <HeroSection />
             <CraftShowcase />
             <ShopByCategory/>
+            <ShopByCraftType/>
           </>
         )}
       </main>
