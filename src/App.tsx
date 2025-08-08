@@ -20,8 +20,6 @@ import Cart from "./pages/Cart";
 import Wishlist from "./pages/Wishlist";
 import ProfileSettings from "./pages/ProfileSettings";
 import { AppProvider } from "./contexts/AppContext";
-import { LanguageProvider } from "./contexts/LanguageContext";
-
 import Sustainability from "./pages/sustainability";
 import CSR from "./pages/csr";
 import Addresses from "./pages/UserAddresses";
@@ -35,7 +33,6 @@ import { Coins } from "lucide-react";
 import MyCoupons from "./pages/MyCoupons";
 import Checkout from "./components/CheckoutPage";
 import OrderSuccess from "./components/OrderSuccess";
-import { LanguageProvider } from '@/contexts/LanguageContext';
 
 const queryClient = new QueryClient();
 
@@ -43,11 +40,8 @@ const App = () => (
   <ThemeProvider defaultTheme="light">
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
-      <LanguageProvider> {/* Add this */}
-
         <Toaster />
         <Sonner />
-        <LanguageProvider>
           <AppProvider>
             <BrowserRouter>
             <Routes>
@@ -84,8 +78,6 @@ const App = () => (
             </Routes>
             </BrowserRouter>
           </AppProvider>
-          </LanguageProvider> {/* Add this */}
-
       </TooltipProvider>
     </QueryClientProvider>
   </ThemeProvider>

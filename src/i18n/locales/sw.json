@@ -72,7 +72,42 @@
       "email": "Anwani ya barua pepe",
       "hours": "Masaa ya biashara",
       "visitWorkshop": "Tembelea warsha yetu",
-      "scheduleVisit": "Panga ziara"
+      "scheduleVisit": "Panga ziara",
+      "namePlaceholder": "Jina lako kamili",
+      "emailPlaceholder": "barua.pepe@mfano.com",
+      "subjectPlaceholder": "Ni kuhusu nini?",
+      "messagePlaceholder": "Tuambie zaidi kuhusu swali lako..."
+    },
+    "about": {
+      "title": "Kuhusu Sisi",
+      "subtitle": "Gundua hadithi na dhamira yetu",
+      "authenticity": "Uhalisi",
+      "quality": "Ubora",
+      "community": "Jamii",
+      "sustainability": "Uendelevu",
+      "artisans": "Mafundi",
+      "regions": "Mikoa",
+      "founded": "Ilianzishwa",
+      "customers": "Wateja",
+      "mission": "Dhamira Yetu",
+      "missionText1": "Tunaiunganisha ufundi halisi wa Kiafrika na ulimwengu.",
+      "missionText2": "Kila kipande kinasimulia hadithi ya jadi na ujuzi.",
+      "meetArtisans": "Kutana na Mafundi Wetu",
+      "values": "Maadili Yetu",
+      "story": "Hadithi Yetu",
+      "storyText1": "Ilianzishwa kwa shauku ya urithi wa Kiafrika.",
+      "storyText2": "Tunafanya kazi moja kwa moja na mafundi wenye ujuzi.",
+      "storyText3": "Kila ununuzi unasaidia jamii za mitaani.",
+      "communityImpact": "Athari za Kijamii",
+      "communityText": "Kusaidia jamii za mafundi za mitaani",
+      "globalReach": "Kufikia Kimataifa",
+      "globalText": "Kuunganisha Afrika na ulimwengu",
+      "sustainableFuture": "Maisha Endelevu",
+      "sustainableText": "Mbinu za mazingira",
+      "joinJourney": "Jiunge na Safari Yetu",
+      "joinText": "Kuwa sehemu ya kuhifadhi ufundi wa Kiafrika",
+      "shopCrafts": "Nunua Sanaa",
+      "learnMore": "Jifunze Zaidi"
     }
   }
 }

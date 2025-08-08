@@ -23,6 +23,7 @@ i18n
   .init({
     resources,
     fallbackLng: 'en',
+    lng: 'en',
     debug: false,
     
     detection: {
@@ -33,7 +34,13 @@ i18n
 
     interpolation: {
       escapeValue: false
+    },
+    
+    react: {
+      useSuspense: false
     }
   });
+
+
 
 export default i18n;

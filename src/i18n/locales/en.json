@@ -1,7 +1,7 @@
 {
   "nav": {
     "home": "Home",
-    "shop": "Shop",
+    "shop": "Shop", 
     "crafts": "Our Crafts",
     "stories": "Stories",
     "gifts": "Gift Ideas",
@@ -47,15 +47,36 @@
     "register": "Register"
   },
   "pages": {
-    "stories": {
-      "title": "Artisan Stories",
-      "subtitle": "Meet the talented craftspeople preserving African traditions through their art",
-      "noStories": "No Stories Available",
-      "checkBack": "Check back later for inspiring artisan stories.",
-      "shareStory": "Share Your Story",
-      "shareDescription": "Are you a skilled artisan with a story to tell? We'd love to feature your craft and share your journey with our community of art enthusiasts.",
-      "browseCrafts": "Browse Crafts",
-      "readFullStory": "Read Full Story"
+    "about": {
+      "title": "About Us",
+      "subtitle": "Discover our story and mission",
+      "authenticity": "Authenticity",
+      "quality": "Quality",
+      "community": "Community",
+      "sustainability": "Sustainability",
+      "artisans": "Artisans",
+      "regions": "Regions",
+      "founded": "Founded",
+      "customers": "Customers",
+      "mission": "Our Mission",
+      "missionText1": "We connect authentic African craftsmanship with the world.",
+      "missionText2": "Every piece tells a story of tradition and skill.",
+      "meetArtisans": "Meet Our Artisans",
+      "values": "Our Values",
+      "story": "Our Story",
+      "storyText1": "Founded with a passion for African heritage.",
+      "storyText2": "We work directly with skilled artisans.",
+      "storyText3": "Each purchase supports local communities.",
+      "communityImpact": "Community Impact",
+      "communityText": "Supporting local artisan communities",
+      "globalReach": "Global Reach",
+      "globalText": "Connecting Africa to the world",
+      "sustainableFuture": "Sustainable Future",
+      "sustainableText": "Eco-friendly practices",
+      "joinJourney": "Join Our Journey",
+      "joinText": "Be part of preserving African craftsmanship",
+      "shopCrafts": "Shop Crafts",
+      "learnMore": "Learn More"
     },
     "contact": {
       "title": "Contact Us",
@@ -72,7 +93,11 @@
       "email": "Email Address",
       "hours": "Business Hours",
       "visitWorkshop": "Visit Our Workshop",
-      "scheduleVisit": "Schedule a Visit"
+      "scheduleVisit": "Schedule a Visit",
+      "namePlaceholder": "Your full name",
+      "emailPlaceholder": "your.email@example.com",
+      "subjectPlaceholder": "What is this regarding?",
+      "messagePlaceholder": "Tell us more about your inquiry..."
     }
   }
 }

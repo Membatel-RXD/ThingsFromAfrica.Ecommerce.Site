@@ -383,7 +383,7 @@ const Header: React.FC = () => {
             {/* Cart */}
             <div className="flex items-center space-x-4">
               <div className="relative">
-                <a href="/cart" className="flex items-center space-x-2 hover:bg-craft-brown/10 px-3 py-2 rounded-md transition-all duration-300">
+                <Link to="/cart" className="flex items-center space-x-2 hover:bg-craft-brown/10 px-3 py-2 rounded-md transition-all duration-300">
                   <div className="relative">
                     <ShoppingCart className="h-6 w-6 text-craft-cream" />
                     <div className="absolute -top-2 -right-2 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs font-semibold">
@@ -394,7 +394,7 @@ const Header: React.FC = () => {
                     <div className="text-craft-bronze">{t('nav.cart')}</div>
                     <div className="font-semibold text-craft-cream">{cartItems}</div>
                   </div>
-                </a>
+                </Link>
               </div>
 
               {/* Mobile Menu Button */}
@@ -456,42 +456,42 @@ const Header: React.FC = () => {
               )}
             </div>
 
-            <a href="/" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            <Link to="/" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Home className="h-4 w-4" />
               <span>{t('nav.home')}</span>
-            </a>
-            <a href="/shop" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            </Link>
+            <Link to="/shop" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Store className="h-4 w-4" />
               <span>{t('nav.shop')}</span>
-            </a>
-            <a href="/crafts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            </Link>
+            <Link to="/crafts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Palette className="h-4 w-4" />
               <span>{t('nav.crafts')}</span>
-            </a>
-            <a href="/stories" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            </Link>
+            <Link to="/stories" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <BookOpen className="h-4 w-4" />
               <span>{t('nav.stories')}</span>
-            </a>
-            <a href="/gifts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            </Link>
+            <Link to="/gifts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Gift className="h-4 w-4" />
               <span>{t('nav.gifts')}</span>
-            </a>
-            <a href="/sustainability" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            </Link>
+            <Link to="/sustainability" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Leaf className="h-4 w-4" />
               <span>{t('nav.sustainability')}</span>
-            </a>
-            <a href="/corporate-social-responsibility" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            </Link>
+            <Link to="/corporate-social-responsibility" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <HeartHandshake className="h-4 w-4" />
               <span>{t('nav.csr')}</span>
-            </a>
-            <a href="/about" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            </Link>
+            <Link to="/about" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Info className="h-4 w-4" />
               <span>{t('nav.about')}</span>
-            </a>
-            <a href="/contact" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            </Link>
+            <Link to="/contact" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Phone className="h-4 w-4" />
               <span>{t('nav.contact')}</span>
-            </a>
+            </Link>
           </div>
         </div>
       </nav>
@@ -529,30 +529,30 @@ const Header: React.FC = () => {
           <div className="flex-1 overflow-y-auto py-4">
           <nav className="px-4">
               <div className="space-y-2">
-                <a href="/" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                <Link to="/" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Home className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>{t('nav.home')}</span>
-                </a>
-                <a href="/shop" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                </Link>
+                <Link to="/shop" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Store className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>{t('nav.shop')}</span>
-                </a>
-                <a href="/crafts" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                </Link>
+                <Link to="/crafts" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Palette className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>{t('nav.crafts')}</span>
-                </a>
-                <a href="/stories" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                </Link>
+                <Link to="/stories" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <BookOpen className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>{t('nav.stories')}</span>
-                </a>
-                <a href="/about" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                </Link>
+                <Link to="/about" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Info className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>{t('nav.about')}</span>
-                </a>
-                <a href="/contact" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
+                </Link>
+                <Link to="/contact" className="flex items-center px-4 py-4 text-lg font-medium text-craft-brown hover:bg-craft-tan/10 transition-colors duration-300 rounded-lg">
                   <Phone className="h-5 w-5 text-craft-bronze mr-4" />
                   <span>{t('nav.contact')}</span>
-                </a>
+                </Link>
 
                 {/* Mobile-only sections */}
                 <div className="border-t border-craft-bronze/20 pt-4 mt-4">

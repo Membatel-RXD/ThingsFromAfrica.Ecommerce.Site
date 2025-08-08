@@ -72,7 +72,42 @@
       "email": "Adresse e-mail",
       "hours": "Heures d'ouverture",
       "visitWorkshop": "Visitez notre atelier",
-      "scheduleVisit": "Planifier une visite"
+      "scheduleVisit": "Planifier une visite",
+      "namePlaceholder": "Votre nom complet",
+      "emailPlaceholder": "votre.email@exemple.com",
+      "subjectPlaceholder": "De quoi s'agit-il?",
+      "messagePlaceholder": "Parlez-nous de votre demande..."
+    },
+    "about": {
+      "title": "À Propos de Nous",
+      "subtitle": "Découvrez notre histoire et mission",
+      "authenticity": "Authenticité",
+      "quality": "Qualité",
+      "community": "Communauté",
+      "sustainability": "Durabilité",
+      "artisans": "Artisans",
+      "regions": "Régions",
+      "founded": "Fondé",
+      "customers": "Clients",
+      "mission": "Notre Mission",
+      "missionText1": "Nous connectons l'artisanat africain authentique au monde.",
+      "missionText2": "Chaque pièce raconte une histoire de tradition et de savoir-faire.",
+      "meetArtisans": "Rencontrez Nos Artisans",
+      "values": "Nos Valeurs",
+      "story": "Notre Histoire",
+      "storyText1": "Fondé avec une passion pour le patrimoine africain.",
+      "storyText2": "Nous travaillons directement avec des artisans qualifiés.",
+      "storyText3": "Chaque achat soutient les communautés locales.",
+      "communityImpact": "Impact Communautaire",
+      "communityText": "Soutenir les communautés artisanales locales",
+      "globalReach": "Portée Mondiale",
+      "globalText": "Connecter l'Afrique au monde",
+      "sustainableFuture": "Avenir Durable",
+      "sustainableText": "Pratiques écologiques",
+      "joinJourney": "Rejoignez Notre Voyage",
+      "joinText": "Participez à la préservation de l'artisanat africain",
+      "shopCrafts": "Acheter des Artisanats",
+      "learnMore": "En Savoir Plus"
     }
   }
 }
