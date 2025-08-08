@@ -1,51 +1,70 @@
-import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import React, { useEffect, useState } from 'react';
+import AppLayout from '@/components/AppLayout';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Heart, Users, Award, Leaf, Home, Globe, Sprout } from 'lucide-react';
+import { useLanguage } from '@/contexts/LanguageContext';
 
-const About: React.FC = () => {
+const AboutContent: React.FC = () => {
+  const { t } = useLanguage();
+  const [lang, setLang] = useState(localStorage.getItem('selectedLanguage') || 'en');
+  
+  useEffect(() => {
+    const handleStorageChange = () => {
+      setLang(localStorage.getItem('selectedLanguage') || 'en');
+    };
+    window.addEventListener('storage', handleStorageChange);
+    const interval = setInterval(() => {
+      const currentLang = localStorage.getItem('selectedLanguage') || 'en';
+      if (currentLang !== lang) {
+        setLang(currentLang);
+      }
+    }, 100);
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+      clearInterval(interval);
+    };
+  }, [lang]);
+  
   const values = [
     {
       icon: <Award className="h-5 w-5" />,
-      label: 'Authenticity',
+      label: t('page.about.authenticity'),
       color: 'bg-gray-100 text-black'
     },
     {
       icon: <Heart className="h-5 w-5" />,
-      label: 'Quality',
+      label: t('page.about.quality'),
       color: 'bg-gray-100 text-black'
     },
     {
       icon: <Users className="h-5 w-5" />,
-      label: 'Community',
+      label: t('page.about.community'),
       color: 'bg-gray-100 text-black'
     },
     {
       icon: <Leaf className="h-5 w-5" />,
-      label: 'Sustainability',
+      label: t('page.about.sustainability'),
       color: 'bg-gray-100 text-black'
     }
   ];
 
   const stats = [
-    { number: '10+', label: 'Artisans' },
-    { number: '15', label: 'Regions' },
-    { number: '2015', label: 'Founded' },
-    { number: '20+', label: 'Happy Customers' }
+    { number: '10+', label: t('page.about.artisans') },
+    { number: '15', label: t('page.about.regions') },
+    { number: '2015', label: t('page.about.founded') },
+    { number: '20+', label: t('page.about.customers') }
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8F4EF]">
-      <Header />
+    <div key={lang} className="min-h-screen bg-[#F8F4EF]">
       
       <main className="container mx-auto px-4 py-8">
         {/* Page header */}
         <div className="mb-8">
-          <h1 className="text-4xl font-bold text-black mb-2">About Things From Africa</h1>
-          <p className="text-gray-700">Preserving traditions, empowering artisans, and sharing the beauty of Africa with the world</p>
+          <h1 className="text-4xl font-bold text-black mb-2">{t('page.about.title')}</h1>
+          <p className="text-gray-700">{t('page.about.subtitle')}</p>
         </div>
 
         {/* Stats Section */}
@@ -63,21 +82,21 @@ const About: React.FC = () => {
         {/* Mission Section */}
         <div className="grid md:grid-cols-2 gap-8 mb-12">
           <div>
-            <h2 className="text-3xl font-bold text-black mb-6">Our Mission</h2>
+            <h2 className="text-3xl font-bold text-black mb-6">{t('page.about.mission')}</h2>
             <p className="text-gray-700 mb-4">
-              We are dedicated to preserving Africa's rich cultural heritage through authentic handcrafted products. Our mission is to connect skilled artisans with global markets while maintaining the integrity of traditional craftsmanship.
+              {t('page.about.missionText1')}
             </p>
             <p className="text-gray-700 mb-6">
-              Every purchase supports local communities and helps preserve centuries-old techniques passed down through generations.
+              {t('page.about.missionText2')}
             </p>
             <Button className="bg-black hover:bg-gray-800">
-              Meet Our Artisans
+              {t('page.about.meetArtisans')}
             </Button>
           </div>
           
           <Card className="border-gray-200">
             <CardContent className="p-6">
-              <h3 className="text-xl font-bold text-black mb-4">Our Values</h3>
+              <h3 className="text-xl font-bold text-black mb-4">{t('page.about.values')}</h3>
               <div className="grid grid-cols-2 gap-3">
                 {values.map((value, index) => (
                   <Badge 
@@ -96,18 +115,18 @@ const About: React.FC = () => {
 
         {/* Story Section */}
         <div className="mb-12">
-          <h2 className="text-3xl font-bold text-black text-center mb-8">Our Story</h2>
+          <h2 className="text-3xl font-bold text-black text-center mb-8">{t('page.about.story')}</h2>
           <Card className="border-gray-200">
             <CardContent className="p-8">
               <div className="space-y-6 text-gray-700">
                 <p>
-                  Founded in 2015, Malawi Crafts began as a small initiative to help local artisans reach international markets. What started as a passion project has grown into a thriving platform that showcases the incredible talent and creativity of Malawian craftspeople.
+                  {t('page.about.storyText1')}
                 </p>
                 <p>
-                  Today, we work with over 200 artisans across Malawi, from wood carvers in Lilongwe to basket weavers in the northern regions. Each piece tells a story of skill, tradition, and the vibrant culture of the "Warm Heart of Africa."
+                  {t('page.about.storyText2')}
                 </p>
                 <p>
-                  We believe that by sharing these beautiful crafts with the world, we're not just selling products – we're building bridges between cultures and creating sustainable livelihoods for talented artisans.
+                  {t('page.about.storyText3')}
                 </p>
               </div>
             </CardContent>
@@ -121,8 +140,8 @@ const About: React.FC = () => {
               <div className="text-4xl mb-4 flex justify-center">
                 <Home className="h-12 w-12 text-black" />
               </div>
-              <h3 className="font-bold text-black text-lg mb-2">Community Impact</h3>
-              <p className="text-gray-700 text-sm">Supporting families and preserving traditional skills in rural communities across Africa.</p>
+              <h3 className="font-bold text-black text-lg mb-2">{t('page.about.communityImpact')}</h3>
+              <p className="text-gray-700 text-sm">{t('page.about.communityText')}</p>
             </CardContent>
           </Card>
 
@@ -131,8 +150,8 @@ const About: React.FC = () => {
               <div className="text-4xl mb-4 flex justify-center">
                 <Globe className="h-12 w-12 text-black" />
               </div>
-              <h3 className="font-bold text-black text-lg mb-2">Global Reach</h3>
-              <p className="text-gray-700 text-sm">Connecting African artisans with customers worldwide, sharing our culture globally.</p>
+              <h3 className="font-bold text-black text-lg mb-2">{t('page.about.globalReach')}</h3>
+              <p className="text-gray-700 text-sm">{t('page.about.globalText')}</p>
             </CardContent>
           </Card>
 
@@ -141,8 +160,8 @@ const About: React.FC = () => {
               <div className="text-4xl mb-4 flex justify-center">
                 <Sprout className="h-12 w-12 text-black" />
               </div>
-              <h3 className="font-bold text-black text-lg mb-2">Sustainable Future</h3>
-              <p className="text-gray-700 text-sm">Creating lasting economic opportunities while respecting our environment and traditions.</p>
+              <h3 className="font-bold text-black text-lg mb-2">{t('page.about.sustainableFuture')}</h3>
+              <p className="text-gray-700 text-sm">{t('page.about.sustainableText')}</p>
             </CardContent>
           </Card>
         </div>
@@ -150,24 +169,30 @@ const About: React.FC = () => {
         {/* Call to Action */}
         <Card className="border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100">
           <CardContent className="p-8 text-center">
-            <h3 className="text-2xl font-bold text-black mb-4">Join Our Journey</h3>
+            <h3 className="text-2xl font-bold text-black mb-4">{t('page.about.joinJourney')}</h3>
             <p className="text-gray-700 mb-6 max-w-2xl mx-auto">
-              Become part of our story by supporting authentic African craftsmanship. Every purchase makes a difference in preserving our cultural heritage and supporting artisan communities.
+              {t('page.about.joinText')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-black hover:bg-gray-800">
-                Shop Our Crafts
+                {t('page.about.shopCrafts')}
               </Button>
               <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                Learn More
+                {t('page.about.learnMore')}
               </Button>
             </div>
           </CardContent>
         </Card>
-      </main>
-      
-      <Footer />
-    </div>
+        </main>
+        </div>
+  );
+};
+
+const About: React.FC = () => {
+  return (
+    <AppLayout>
+      <AboutContent />
+    </AppLayout>
   );
 };
 

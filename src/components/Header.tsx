@@ -68,10 +68,22 @@ const Header: React.FC = () => {
         if (!response.isSuccessful) throw new Error('Failed to fetch');
         const data = response.payload || [];
         setCategories(data);
+        setSelectedCategory(data.length > 0 ? data[0] : {
+          categoryId: 0,
+          categoryName: "All Categories",
+          categorySlug: "",
+          categoryDescription: "",
+          categoryImageUrl: "",
+          isTouristFavorite: false,
+          isActive: true,
+          sortOrder: 0,
+          createdAt: new Date().toISOString()
+        });
       } catch (error) {
         console.error('Error fetching categories:', error);
-      } finally {
-        setSelectedCategory(categories.length > 0 ? categories[0] : {
+        // Set default categories on error
+        setCategories([]);
+        setSelectedCategory({
           categoryId: 0,
           categoryName: "All Categories",
           categorySlug: "",
@@ -86,7 +98,7 @@ const Header: React.FC = () => {
     };
     
     checkAuth();
-    fetchCategories()
+    fetchCategories();
   }, []);
 
   const handleSearchSubmit = (e: React.FormEvent) => {
@@ -421,7 +433,7 @@ const Header: React.FC = () => {
                   left: '20px', // Align with the category button
                 }}>
                   <div className="absolute top-full left-0 mt-1 w-48 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-[999]">
-                  {categories.map((category) => (
+                  {categories && categories.length > 0 ? categories.map((category) => (
                       <a
                       href="#"
                       key={category.categoryId}
@@ -434,7 +446,11 @@ const Header: React.FC = () => {
                       {category.categoryName}
                     </a>
                     
-                    ))}
+                    )) : (
+                      <div className="px-4 py-3 text-sm text-craft-bronze">
+                        No categories available
+                      </div>
+                    )}
                   </div>
                 </div>
               )}
