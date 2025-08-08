@@ -33,6 +33,7 @@ import { Coins } from "lucide-react";
 import MyCoupons from "./pages/MyCoupons";
 import Checkout from "./components/CheckoutPage";
 import OrderSuccess from "./components/OrderSuccess";
+import ReturnRefundPolicy from "./pages/ReturnRefundPolicy";
 
 const queryClient = new QueryClient();
 
@@ -74,6 +75,7 @@ const App = () => (
             <Route path="/coupons" element={<MyCoupons />} />
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-success" element={<OrderSuccess />} />
+            <Route path="/return-policy" element={ <ReturnRefundPolicy/>} />
             <Route path="*" element={<NotFound />} />
             </Routes>
             </BrowserRouter>
