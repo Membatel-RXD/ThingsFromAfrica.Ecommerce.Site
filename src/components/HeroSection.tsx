@@ -21,10 +21,12 @@ const HeroSection: React.FC = () => {
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4 px-5">
-            <button className="btn btn-lg bg-black text-white border-none hover:bg-gray-800">
+            <Link
+              to="/crafts"
+              className="btn btn-lg bg-black text-white border-none hover:bg-gray-800">
               Explore Our Crafts
               <ArrowRight className="ml-2 h-5 w-5" />
-            </button>
+            </Link>
             
             <Link
               to="/artisan-stories"

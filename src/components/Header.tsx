@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { ShoppingCart, Search, X, Home, Store, Palette, BookOpen, Info, Phone, MapPin, ChevronDown, Menu, Globe, User, HeartHandshake, Leaf, Gift, LogOut, Settings, MessageCircle, Coins, Heart, CreditCard, HelpCircle, Shield, AlertTriangle } from 'lucide-react';
+import { ShoppingCart, Search, X, Home, Store, Palette, BookOpen, Info, Phone, MapPin, ChevronDown, Menu, Globe, User, HeartHandshake, Leaf, Gift, LogOut, Settings, MessageCircle, Coins, Heart, CreditCard, Shield, AlertTriangle } from 'lucide-react';
 import { useAppContext } from '../contexts/AppContext';
 import { WEBSITE_DETAILS } from '../constants/website_details';
 import { authService } from '../services/authService';
