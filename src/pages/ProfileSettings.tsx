@@ -380,14 +380,6 @@ const ProfileSettings: React.FC = () => {
               <h1 className="text-4xl font-bold text-black mb-2">Profile Settings</h1>
               <p className="text-gray-700">Manage your personal information, preferences, and communication settings</p>
             </div>
-            <Button 
-              onClick={handleLogout}
-              variant="outline" 
-              className="border-black text-black hover:bg-black hover:text-white"
-            >
-              <LogOut className="h-4 w-4 mr-2" />
-              Logout
-            </Button>
           </div>
         </div>
 
