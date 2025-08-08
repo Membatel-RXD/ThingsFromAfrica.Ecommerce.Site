@@ -6,12 +6,14 @@ import { Calendar, MapPin, User, Phone, Mail } from 'lucide-react';
 import { Artisan } from '@/models/members';
 import { apiService, IAPIResponse } from '@/lib/api';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { useNavigate } from 'react-router-dom';
 
 const Stories: React.FC = () => {
   const [artisans, setArtisans] = useState<Artisan[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
   const { t } = useLanguage();
+  const navigate = useNavigate();
 
   const fetchArtisans = async (): Promise<Artisan[]> => {
     try {
@@ -21,6 +23,11 @@ const Stories: React.FC = () => {
       throw new Error('Failed to fetch artisans');
     }
   };
+
+  const handleReadMore = (artisanId: string) => {
+    navigate(`/stories/${artisanId}`);
+  };
+
 
   useEffect(() => {
     const loadArtisans = async () => {
@@ -212,9 +219,12 @@ const Stories: React.FC = () => {
                       </div>
                       
                       <div className="mt-6">
-                        <button className="w-full bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-black transition-colors duration-300 text-sm font-medium">
-                          {t('page.stories.readFullStory')}
-                        </button>
+                        <button 
+                            onClick={() => handleReadMore(artisan.artisanSlug)}
+                            className="w-full bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-black transition-colors duration-300 text-sm font-medium"
+                          >
+                            {t('page.stories.readFullStory')}
+                          </button>
                       </div>
                     </div>
                   </Card>

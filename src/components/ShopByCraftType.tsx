@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Hammer, Palette, Scissors, Zap, ArrowRight, Sparkles, Clock, Target } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 interface CraftType {
   CraftTypeId: number;
@@ -20,7 +21,7 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
 }) => {
   const [hoveredType, setHoveredType] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-
+  const  navigate = useNavigate();
   // Mock data for demonstration - replace with actual API call
   const mockCraftTypes: CraftType[] = [
     {
@@ -116,6 +117,16 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
     if (onCraftTypeClick) {
       onCraftTypeClick(craftType.CraftTypeId, craftType.CraftTypeName);
     }
+  };
+
+  const handleMeetArtisansClick = () => {
+    navigate('/stories');
+  };
+
+  const handleViewAllClick = () => {
+    // Handle view all craft types navigation
+    console.log('Navigate to all craft types');
+    // You can implement navigation logic here
   };
 
   if (isLoading) {
@@ -255,7 +266,10 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
               Each craft type represents centuries of knowledge and skill, passed down through generations of African artisans
             </p>
             
-            <button className="bg-white text-black px-8 py-3 rounded-xl font-medium hover:bg-gray-100 transition-all duration-300 flex items-center space-x-2 mx-auto">
+            <button
+              onClick={handleMeetArtisansClick}
+              className="bg-white text-black px-8 py-3 rounded-xl font-medium hover:bg-gray-100 transition-all duration-300 flex items-center space-x-2 mx-auto"
+            >
               <span>Meet Our Artisans</span>
               <ArrowRight className="h-5 w-5" />
             </button>
@@ -264,7 +278,10 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
 
         {/* View All Button */}
         <div className="text-center mt-12">
-          <button className="bg-gray-100 border-2 border-gray-200 text-black px-8 py-4 rounded-xl font-medium hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center space-x-2 mx-auto group">
+          <button 
+            onClick={handleViewAllClick}
+            className="bg-gray-100 border-2 border-gray-200 text-black px-8 py-4 rounded-xl font-medium hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center space-x-2 mx-auto group"
+          >
             <span>View All Craft Types</span>
             <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </button>

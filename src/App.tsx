@@ -34,10 +34,14 @@ import MyCoupons from "./pages/MyCoupons";
 import Checkout from "./components/CheckoutPage";
 import OrderSuccess from "./components/OrderSuccess";
 import ReturnRefundPolicy from "./pages/ReturnRefundPolicy";
+import { LanguageProvider } from "./contexts/LanguageContext";
+import ArtisanDetail from './pages/ArtisanDetail'; // or wherever you place the component
 
 const queryClient = new QueryClient();
 
 const App = () => (
+  <LanguageProvider> {/* Add this wrapper */}
+
   <ThemeProvider defaultTheme="light">
     <QueryClientProvider client={queryClient}>
       <TooltipProvider>
@@ -76,6 +80,7 @@ const App = () => (
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="/return-policy" element={ <ReturnRefundPolicy/>} />
+            <Route path="/stories/:id" element={<ArtisanDetail />} />
             <Route path="*" element={<NotFound />} />
             </Routes>
             </BrowserRouter>
@@ -83,6 +88,7 @@ const App = () => (
       </TooltipProvider>
     </QueryClientProvider>
   </ThemeProvider>
+  </LanguageProvider>
 );
 
 export default App;
