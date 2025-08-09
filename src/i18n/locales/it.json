@@ -30,6 +30,23 @@
     "language": "Lingua",
     "allCategories": "Tutte le Categorie"
   },
+  "footer": {
+    "stayConnected": "Rimani Connesso",
+    "newsletterDesc": "Ricevi storie dai nostri artigiani e offerte esclusive da {{siteName}}",
+    "enterEmail": "Inserisci la tua email",
+    "subscribe": "Iscriviti",
+    "tagline": "Artigianato africano autentico. Sostenendo artigiani locali.",
+    "quickLinks": "Link Rapidi",
+    "customerCare": "Assistenza Clienti",
+    "shippingInfo": "Info Spedizione",
+    "trackOrder": "Traccia Ordine",
+    "returns": "Resi",
+    "faq": "FAQ",
+    "contactInfo": "Informazioni di Contatto",
+    "allRightsReserved": "Tutti i diritti riservati.",
+    "privacyPolicy": "Politica sulla Privacy",
+    "termsOfService": "Termini di Servizio"
+  },
   "user": {
     "profile": "Profilo",
     "signOut": "Esci",

@@ -30,6 +30,23 @@
     "language": "Lugha",
     "allCategories": "Makundi Yote"
   },
+  "footer": {
+    "stayConnected": "Endelea Kuungana",
+    "newsletterDesc": "Pata hadithi kutoka kwa mafundi wetu na matoleo maalum kutoka {{siteName}}",
+    "enterEmail": "Ingiza barua pepe yako",
+    "subscribe": "Jiandikishe",
+    "tagline": "Ufundi halisi wa Kiafrika. Kusaidia mafundi wa mitaani.",
+    "quickLinks": "Viungo vya Haraka",
+    "customerCare": "Huduma kwa Wateja",
+    "shippingInfo": "Maelezo ya Usafirishaji",
+    "trackOrder": "Fuatilia Agizo",
+    "returns": "Marejesho",
+    "faq": "Maswali Yanayoulizwa Mara kwa Mara",
+    "contactInfo": "Maelezo ya Mawasiliano",
+    "allRightsReserved": "Haki zote zimehifadhiwa.",
+    "privacyPolicy": "Sera ya Faragha",
+    "termsOfService": "Masharti ya Huduma"
+  },
   "user": {
     "profile": "Wasifu",
     "signOut": "Toka",
