@@ -1,17 +1,20 @@
 import AppLayout from '@/components/AppLayout';
 import { TreePine, Recycle, Users, Leaf, CheckCircle, Award, Shield, Heart } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const Sustainability = () => {
+  const { t } = useTranslation();
+  
   const commitments = [
     {
       icon: Recycle,
-      title: "Waste Reduction",
+      title: t('pages.sustainability.wasteReduction'),
       color: "from-blue-50 to-indigo-100",
       border: "border-blue-200 hover:border-blue-400",
       content: (
         <div className="space-y-4">
           <p className="text-gray-700 leading-relaxed">
-            We minimize environmental impact by maximizing material efficiency in every step of our process.
+            {t('pages.sustainability.wasteReductionDesc')}
           </p>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
@@ -32,13 +35,13 @@ const Sustainability = () => {
     },
     {
       icon: TreePine,
-      title: "Responsible Sourcing",
+      title: t('pages.sustainability.responsibleSourcing'),
       color: "from-green-50 to-emerald-100",
       border: "border-green-200 hover:border-green-400",
       content: (
         <div className="space-y-4">
           <p className="text-gray-700 leading-relaxed">
-            We work directly with communities to ensure ethical harvesting practices that respect both nature and tradition.
+            {t('pages.sustainability.responsibleSourcingDesc')}
           </p>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
@@ -59,13 +62,13 @@ const Sustainability = () => {
     },
     {
       icon: Users,
-      title: "Community Education",
+      title: t('pages.sustainability.communityEducation'),
       color: "from-amber-50 to-orange-100",
       border: "border-amber-200 hover:border-amber-400",
       content: (
         <div className="space-y-4">
           <p className="text-gray-700 leading-relaxed">
-            Education is key to lasting change. We invest in training and awareness programs throughout our supply chain.
+            {t('pages.sustainability.communityEducationDesc')}
           </p>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
@@ -86,13 +89,13 @@ const Sustainability = () => {
     },
     {
       icon: Heart,
-      title: "People & Planet",
+      title: t('pages.sustainability.peoplePlanet'),
       color: "from-red-50 to-rose-100",
       border: "border-red-200 hover:border-red-400",
       content: (
         <div className="space-y-4">
           <p className="text-gray-700 leading-relaxed">
-            True sustainability means protecting both our environment and empowering the people who create our products.
+            {t('pages.sustainability.peoplePlanetDesc')}
           </p>
           <div className="bg-green-50 border border-green-200 rounded-lg p-4">
             <div className="flex items-start">
@@ -123,11 +126,11 @@ const Sustainability = () => {
             <div className="flex items-center justify-center mb-4">
               <Leaf className="h-12 w-12 text-green-400 mr-4" />
               <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                Our Commitment to Sustainability
+                {t('pages.sustainability.title')}
               </h1>
             </div>
             <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
-              We create high-quality wooden products while minimizing our environmental impact through ethical, thoughtful practices that balance tradition with responsibility.
+              {t('pages.sustainability.subtitle')}
             </p>
             <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
               <span className="flex items-center">
@@ -198,12 +201,10 @@ const Sustainability = () => {
           <div className="max-w-4xl mx-auto">
             <TreePine className="h-16 w-16 text-green-600 mx-auto mb-6" />
             <h2 className="text-3xl font-bold text-gray-900 mb-6">
-              Balancing Tradition with Environmental Responsibility
+              {t('pages.sustainability.balancingTradition')}
             </h2>
             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-              While some of the wood we use is slow-growing hardwood, we take conscious steps to reduce harm and 
-              promote long-term sustainability. Our handcrafted chessboards and wooden products are made using 
-              ethical practices that honor both our craft traditions and our planet.
+              {t('pages.sustainability.balancingDesc')}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -235,11 +236,9 @@ const Sustainability = () => {
         {/* Impact Section */}
         <div className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-2xl p-12 text-center">
           <div className="max-w-3xl mx-auto">
-            <h3 className="text-3xl font-bold mb-4">Making a Meaningful Impact</h3>
+            <h3 className="text-3xl font-bold mb-4">{t('pages.sustainability.makingImpact')}</h3>
             <p className="text-lg mb-8 opacity-90 leading-relaxed">
-              We believe that true sustainability is about protecting the environment and empowering people. 
-              Every purchase supports ethical craftsmanship, rural livelihoods, and a growing movement 
-              toward conscious, meaningful design.
+              {t('pages.sustainability.impactDesc')}
             </p>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
@@ -261,7 +260,7 @@ const Sustainability = () => {
             </div>
 
             <button className="bg-white text-green-600 px-8 py-3 rounded-full hover:bg-gray-100 transition-colors duration-300 font-medium">
-              Shop Our Sustainable Collection
+              {t('pages.sustainability.shopCollection')}
             </button>
           </div>
         </div>

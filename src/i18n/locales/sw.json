@@ -78,6 +78,37 @@
       "subjectPlaceholder": "Ni kuhusu nini?",
       "messagePlaceholder": "Tuambie zaidi kuhusu swali lako..."
     },
+    "sustainability": {
+      "title": "Ahadi Yetu ya Uendelevu",
+      "subtitle": "Tunaunda bidhaa za ubora wa juu za mbao huku tukipunguza athari zetu za mazingira kupitia mazoea ya kimaadili na ya kufikiria yanayosawazisha jadi na uwajibikaji.",
+      "wasteReduction": "Kupunguza Taka",
+      "wasteReductionDesc": "Tunapunguza athari za mazingira kwa kuongeza ufanisi wa nyenzo katika kila hatua ya mchakato wetu.",
+      "responsibleSourcing": "Upatikanaji wa Kiwajibikaji",
+      "responsibleSourcingDesc": "Tunafanya kazi moja kwa moja na jamii kuhakikisha mazoea ya uvunaji wa kimaadili yanayoheshimu mazingira na jadi.",
+      "communityEducation": "Elimu ya Kijamii",
+      "communityEducationDesc": "Elimu ni ufunguo wa mabadiliko ya kudumu. Tunawekezea katika mipango ya mafunzo na uongozaji katika mlolongo wetu wote wa ugavi.",
+      "peoplePlanet": "Watu na Sayari",
+      "peoplePlanetDesc": "Uendelevu wa kweli unamaanisha kulinda mazingira yetu na kuwapa nguvu watu wanaoundaa bidhaa zetu.",
+      "balancingTradition": "Kusawazisha Jadi na Uwajibikaji wa Mazingira",
+      "balancingDesc": "Ingawa sehemu ya mbao tunazotumia ni mbao ngumu zinazokua polepole, tunachukua hatua za makusudi kupunguza madhara na kukuza uendelevu wa muda mrefu. Ubao wetu wa chess ulioundwa kwa mikono na bidhaa za mbao zinatengenezwa kwa kutumia mazoea ya kimaadili yanayoheshimu jadi zetu za ufundi na sayari yetu.",
+      "makingImpact": "Kuunda Athari ya Maana",
+      "impactDesc": "Tunaamini kwamba uendelevu wa kweli ni kuhusu kulinda mazingira na kuwapa nguvu watu. Kila ununuzi unasaidia ufundi wa kimaadili, maisha ya vijijini, na harakati zinazokua za muundo wa kiakili na wa maana.",
+      "shopCollection": "Nunua Mkusanyiko Wetu Endelevu"
+    },
+    "csr": {
+      "title": "Kuwapa Nguvu Jamii, Kubadilisha Maisha",
+      "subtitle": "Ahadi yetu inaenda zaidi ya kuunda sanaa nzuri. Tunajenga jamii imara, tunawapa nguvu mafundi, na kuunda mabadiliko mazuri ya kudumu katika Afrika nzima.",
+      "socialImpact": "Miradi Yetu ya Athari za Kijamii",
+      "flagshipPrograms": "Mipango Yetu Kuu",
+      "strategicPartnerships": "Ushirikiano Wetu wa Kimkakati",
+      "fairTrade": "Biashara ya Haki na Mazoea ya Kimaadili",
+      "fairTradeDesc": "Tunaamini katika fidia ya haki na mwenendo wa kimaadili kwa mafundi wetu wote. Ahadi yetu kwa kanuni za biashara ya haki inahakikisha kwamba mafundi wa jadi wanapokea mishahara ya haki na kufanya kazi katika mazingira salama na ya heshima.",
+      "socialImpactGoals": "Malengo Yetu ya Athari za Kijamii",
+      "partnerWithUs": "Shirikiana Nasi kwa Athari za Kijamii",
+      "partnerDesc": "Kila ununuzi unaofanya unachangia mipango yetu ya athari za kijamii. Jiunge nasi katika kuunda maisha endelevu, kuwapa nguvu jamii, na kuhifadhi urithi wa kitamaduni wa Kiafrika kwa vizazi vijavyo.",
+      "supportMission": "Unga Mkono Dhamira Yetu",
+      "downloadReport": "Pakua Ripoti ya CSR"
+    },
     "about": {
       "title": "Kuhusu Sisi",
       "subtitle": "Gundua hadithi na dhamira yetu",

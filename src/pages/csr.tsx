@@ -1,6 +1,6 @@
 import React from 'react';
-import Header from '@/components/Header';
-import Footer from '@/components/Footer';
+import AppLayout from '@/components/AppLayout';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
@@ -26,6 +26,7 @@ import {
 } from 'lucide-react';
 
 const CSR: React.FC = () => {
+  const { t } = useTranslation();
   const initiatives = [
     {
       icon: <GraduationCap className="h-6 w-6" />,
@@ -148,8 +149,7 @@ const CSR: React.FC = () => {
   ];
 
   return (
-    <div className="min-h-screen bg-[#F8F4EF]">
-      <Header />
+    <AppLayout>
       
       <main className="container mx-auto px-4 py-8">
         {/* Hero Section */}
@@ -159,12 +159,10 @@ const CSR: React.FC = () => {
             <span className="text-sm font-medium">Corporate Social Responsibility</span>
           </div>
           <h1 className="text-5xl font-bold text-black mb-4">
-            Empowering Communities,
-            <span className="text-blue-700"> Transforming Lives</span>
+            {t('pages.csr.title')}
           </h1>
           <p className="text-xl text-gray-700 max-w-3xl mx-auto">
-            Our commitment goes beyond creating beautiful crafts. We're building stronger communities, 
-            empowering artisans, and creating lasting positive change across Africa.
+            {t('pages.csr.subtitle')}
           </p>
         </div>
 
@@ -185,7 +183,7 @@ const CSR: React.FC = () => {
 
         {/* Our Initiatives */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-black text-center mb-8">Our Social Impact Initiatives</h2>
+          <h2 className="text-3xl font-bold text-black text-center mb-8">{t('pages.csr.socialImpact')}</h2>
           <div className="grid md:grid-cols-2 gap-6">
             {initiatives.map((initiative, index) => (
               <Card key={index} className="border-gray-200 hover:shadow-lg transition-shadow">
@@ -210,7 +208,7 @@ const CSR: React.FC = () => {
 
         {/* Main Programs */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-black text-center mb-8">Our Flagship Programs</h2>
+          <h2 className="text-3xl font-bold text-black text-center mb-8">{t('pages.csr.flagshipPrograms')}</h2>
           <div className="space-y-6">
             {programs.map((program, index) => (
               <Card key={index} className="border-gray-200">
@@ -255,7 +253,7 @@ const CSR: React.FC = () => {
 
         {/* Partnerships */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-black text-center mb-8">Our Strategic Partnerships</h2>
+          <h2 className="text-3xl font-bold text-black text-center mb-8">{t('pages.csr.strategicPartnerships')}</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {partnerships.map((partner, index) => (
               <Card key={index} className="border-gray-200 text-center hover:shadow-lg transition-shadow">
@@ -276,11 +274,9 @@ const CSR: React.FC = () => {
           <CardContent className="p-8">
             <div className="grid lg:grid-cols-2 gap-8 items-center">
               <div>
-                <h2 className="text-3xl font-bold text-black mb-4">Fair Trade & Ethical Practices</h2>
+                <h2 className="text-3xl font-bold text-black mb-4">{t('pages.csr.fairTrade')}</h2>
                 <p className="text-gray-700 mb-4">
-                  We believe in fair compensation and ethical treatment of all our artisans. Our commitment 
-                  to fair trade principles ensures that traditional craftspeople receive fair wages and work 
-                  in safe, respectful conditions.
+                  {t('pages.csr.fairTradeDesc')}
                 </p>
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
@@ -317,7 +313,7 @@ const CSR: React.FC = () => {
 
         {/* CSR Goals */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-black text-center mb-8">Our Social Impact Goals</h2>
+          <h2 className="text-3xl font-bold text-black text-center mb-8">{t('pages.csr.socialImpactGoals')}</h2>
           <div className="grid md:grid-cols-3 gap-6">
             {goals.map((goal, index) => (
               <Card key={index} className="border-gray-200">
@@ -380,27 +376,23 @@ const CSR: React.FC = () => {
         {/* Call to Action */}
         <Card className="border-gray-200 bg-gradient-to-r from-blue-600 to-indigo-700 text-white">
           <CardContent className="p-8 text-center">
-            <h3 className="text-2xl font-bold mb-4">Partner with Us for Social Impact</h3>
+            <h3 className="text-2xl font-bold mb-4">{t('pages.csr.partnerWithUs')}</h3>
             <p className="mb-6 max-w-2xl mx-auto opacity-90">
-              Every purchase you make contributes to our social impact programs. Join us in creating 
-              sustainable livelihoods, empowering communities, and preserving African cultural heritage 
-              for future generations.
+              {t('pages.csr.partnerDesc')}
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button className="bg-white text-blue-600 hover:bg-gray-100">
-                Support Our Mission
+                {t('pages.csr.supportMission')}
               </Button>
               <Button variant="outline" className="border-white text-white hover:bg-white hover:text-blue-600">
-                Download CSR Report
+                {t('pages.csr.downloadReport')}
                 <ArrowRight className="h-4 w-4 ml-2" />
               </Button>
             </div>
           </CardContent>
         </Card>
       </main>
-      
-      <Footer />
-    </div>
+    </AppLayout>
   );
 };
 

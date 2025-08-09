@@ -78,6 +78,37 @@
       "subjectPlaceholder": "De quoi s'agit-il?",
       "messagePlaceholder": "Parlez-nous de votre demande..."
     },
+    "sustainability": {
+      "title": "Notre Engagement pour la Durabilité",
+      "subtitle": "Nous créons des produits en bois de haute qualité tout en minimisant notre impact environnemental grâce à des pratiques éthiques et réfléchies qui équilibrent tradition et responsabilité.",
+      "wasteReduction": "Réduction des Déchets",
+      "wasteReductionDesc": "Nous minimisons l'impact environnemental en maximisant l'efficacité des matériaux à chaque étape de notre processus.",
+      "responsibleSourcing": "Approvisionnement Responsable",
+      "responsibleSourcingDesc": "Nous travaillons directement avec les communautés pour assurer des pratiques de récolte éthiques qui respectent à la fois la nature et la tradition.",
+      "communityEducation": "Éducation Communautaire",
+      "communityEducationDesc": "L'éducation est la clé d'un changement durable. Nous investissons dans des programmes de formation et de sensibilisation tout au long de notre chaîne d'approvisionnement.",
+      "peoplePlanet": "Personnes et Planète",
+      "peoplePlanetDesc": "La vraie durabilité signifie protéger à la fois notre environnement et autonomiser les personnes qui créent nos produits.",
+      "balancingTradition": "Équilibrer Tradition et Responsabilité Environnementale",
+      "balancingDesc": "Bien qu'une partie du bois que nous utilisons soit du bois dur à croissance lente, nous prenons des mesures conscientes pour réduire les dommages et promouvoir la durabilité à long terme. Nos échiquiers artisanaux et produits en bois sont fabriqués selon des pratiques éthiques qui honorent à la fois nos traditions artisanales et notre planète.",
+      "makingImpact": "Créer un Impact Significatif",
+      "impactDesc": "Nous croyons que la vraie durabilité consiste à protéger l'environnement et à autonomiser les gens. Chaque achat soutient l'artisanat éthique, les moyens de subsistance ruraux et un mouvement croissant vers un design conscient et significatif.",
+      "shopCollection": "Acheter Notre Collection Durable"
+    },
+    "csr": {
+      "title": "Autonomiser les Communautés, Transformer les Vies",
+      "subtitle": "Notre engagement va au-delà de la création de beaux artisanats. Nous construisons des communautés plus fortes, autonomisons les artisans et créons un changement positif durable à travers l'Afrique.",
+      "socialImpact": "Nos Initiatives d'Impact Social",
+      "flagshipPrograms": "Nos Programmes Phares",
+      "strategicPartnerships": "Nos Partenariats Stratégiques",
+      "fairTrade": "Commerce Équitable et Pratiques Éthiques",
+      "fairTradeDesc": "Nous croyons en une compensation équitable et un traitement éthique de tous nos artisans. Notre engagement envers les principes du commerce équitable garantit que les artisans traditionnels reçoivent des salaires équitables et travaillent dans des conditions sûres et respectueuses.",
+      "socialImpactGoals": "Nos Objectifs d'Impact Social",
+      "partnerWithUs": "Partenaire avec Nous pour l'Impact Social",
+      "partnerDesc": "Chaque achat que vous faites contribue à nos programmes d'impact social. Rejoignez-nous pour créer des moyens de subsistance durables, autonomiser les communautés et préserver le patrimoine culturel africain pour les générations futures.",
+      "supportMission": "Soutenir Notre Mission",
+      "downloadReport": "Télécharger le Rapport RSE"
+    },
     "about": {
       "title": "À Propos de Nous",
       "subtitle": "Découvrez notre histoire et mission",

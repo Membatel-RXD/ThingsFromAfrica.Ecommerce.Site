@@ -47,6 +47,37 @@
     "register": "Register"
   },
   "pages": {
+    "sustainability": {
+      "title": "Our Commitment to Sustainability",
+      "subtitle": "We create high-quality wooden products while minimizing our environmental impact through ethical, thoughtful practices that balance tradition with responsibility.",
+      "wasteReduction": "Waste Reduction",
+      "wasteReductionDesc": "We minimize environmental impact by maximizing material efficiency in every step of our process.",
+      "responsibleSourcing": "Responsible Sourcing",
+      "responsibleSourcingDesc": "We work directly with communities to ensure ethical harvesting practices that respect both nature and tradition.",
+      "communityEducation": "Community Education",
+      "communityEducationDesc": "Education is key to lasting change. We invest in training and awareness programs throughout our supply chain.",
+      "peoplePlanet": "People & Planet",
+      "peoplePlanetDesc": "True sustainability means protecting both our environment and empowering the people who create our products.",
+      "balancingTradition": "Balancing Tradition with Environmental Responsibility",
+      "balancingDesc": "While some of the wood we use is slow-growing hardwood, we take conscious steps to reduce harm and promote long-term sustainability. Our handcrafted chessboards and wooden products are made using ethical practices that honor both our craft traditions and our planet.",
+      "makingImpact": "Making a Meaningful Impact",
+      "impactDesc": "We believe that true sustainability is about protecting the environment and empowering people. Every purchase supports ethical craftsmanship, rural livelihoods, and a growing movement toward conscious, meaningful design.",
+      "shopCollection": "Shop Our Sustainable Collection"
+    },
+    "csr": {
+      "title": "Empowering Communities, Transforming Lives",
+      "subtitle": "Our commitment goes beyond creating beautiful crafts. We're building stronger communities, empowering artisans, and creating lasting positive change across Africa.",
+      "socialImpact": "Our Social Impact Initiatives",
+      "flagshipPrograms": "Our Flagship Programs",
+      "strategicPartnerships": "Our Strategic Partnerships",
+      "fairTrade": "Fair Trade & Ethical Practices",
+      "fairTradeDesc": "We believe in fair compensation and ethical treatment of all our artisans. Our commitment to fair trade principles ensures that traditional craftspeople receive fair wages and work in safe, respectful conditions.",
+      "socialImpactGoals": "Our Social Impact Goals",
+      "partnerWithUs": "Partner with Us for Social Impact",
+      "partnerDesc": "Every purchase you make contributes to our social impact programs. Join us in creating sustainable livelihoods, empowering communities, and preserving African cultural heritage for future generations.",
+      "supportMission": "Support Our Mission",
+      "downloadReport": "Download CSR Report"
+    },
     "about": {
       "title": "About Us",
       "subtitle": "Discover our story and mission",

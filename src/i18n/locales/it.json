@@ -78,6 +78,37 @@
       "subjectPlaceholder": "Di cosa si tratta?",
       "messagePlaceholder": "Raccontaci di più sulla tua richiesta..."
     },
+    "sustainability": {
+      "title": "Il Nostro Impegno per la Sostenibilità",
+      "subtitle": "Creiamo prodotti in legno di alta qualità minimizzando il nostro impatto ambientale attraverso pratiche etiche e ponderate che bilanciano tradizione e responsabilità.",
+      "wasteReduction": "Riduzione dei Rifiuti",
+      "wasteReductionDesc": "Minimizziamo l'impatto ambientale massimizzando l'efficienza dei materiali in ogni fase del nostro processo.",
+      "responsibleSourcing": "Approvvigionamento Responsabile",
+      "responsibleSourcingDesc": "Lavoriamo direttamente con le comunità per garantire pratiche di raccolta etiche che rispettino sia la natura che la tradizione.",
+      "communityEducation": "Educazione Comunitaria",
+      "communityEducationDesc": "L'educazione è la chiave per un cambiamento duraturo. Investiamo in programmi di formazione e sensibilizzazione in tutta la nostra catena di approvvigionamento.",
+      "peoplePlanet": "Persone e Pianeta",
+      "peoplePlanetDesc": "La vera sostenibilità significa proteggere sia il nostro ambiente che dare potere alle persone che creano i nostri prodotti.",
+      "balancingTradition": "Bilanciare Tradizione e Responsabilità Ambientale",
+      "balancingDesc": "Sebbene parte del legno che utilizziamo sia legno duro a crescita lenta, prendiamo misure consapevoli per ridurre i danni e promuovere la sostenibilità a lungo termine. Le nostre scacchiere artigianali e i prodotti in legno sono realizzati utilizzando pratiche etiche che onorano sia le nostre tradizioni artigianali che il nostro pianeta.",
+      "makingImpact": "Creare un Impatto Significativo",
+      "impactDesc": "Crediamo che la vera sostenibilità riguardi la protezione dell'ambiente e il dare potere alle persone. Ogni acquisto supporta l'artigianato etico, i mezzi di sussistenza rurali e un movimento crescente verso un design consapevole e significativo.",
+      "shopCollection": "Acquista la Nostra Collezione Sostenibile"
+    },
+    "csr": {
+      "title": "Dare Potere alle Comunità, Trasformare le Vite",
+      "subtitle": "Il nostro impegno va oltre la creazione di bellissimi artigianati. Stiamo costruendo comunità più forti, dando potere agli artigiani e creando un cambiamento positivo duraturo in tutta l'Africa.",
+      "socialImpact": "Le Nostre Iniziative di Impatto Sociale",
+      "flagshipPrograms": "I Nostri Programmi di Punta",
+      "strategicPartnerships": "Le Nostre Partnership Strategiche",
+      "fairTrade": "Commercio Equo e Pratiche Etiche",
+      "fairTradeDesc": "Crediamo in una compensazione equa e nel trattamento etico di tutti i nostri artigiani. Il nostro impegno per i principi del commercio equo garantisce che gli artigiani tradizionali ricevano salari equi e lavorino in condizioni sicure e rispettose.",
+      "socialImpactGoals": "I Nostri Obiettivi di Impatto Sociale",
+      "partnerWithUs": "Collabora con Noi per l'Impatto Sociale",
+      "partnerDesc": "Ogni acquisto che fai contribuisce ai nostri programmi di impatto sociale. Unisciti a noi nel creare mezzi di sussistenza sostenibili, dare potere alle comunità e preservare il patrimonio culturale africano per le generazioni future.",
+      "supportMission": "Supporta la Nostra Missione",
+      "downloadReport": "Scarica il Rapporto CSR"
+    },
     "about": {
       "title": "Chi Siamo",
       "subtitle": "Scopri la nostra storia e missione",

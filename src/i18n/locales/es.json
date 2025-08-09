@@ -78,6 +78,37 @@
       "subjectPlaceholder": "¿De qué se trata?",
       "messagePlaceholder": "Cuéntanos más sobre tu consulta..."
     },
+    "sustainability": {
+      "title": "Nuestro Compromiso con la Sostenibilidad",
+      "subtitle": "Creamos productos de madera de alta calidad mientras minimizamos nuestro impacto ambiental a través de prácticas éticas y reflexivas que equilibran tradición y responsabilidad.",
+      "wasteReduction": "Reducción de Residuos",
+      "wasteReductionDesc": "Minimizamos el impacto ambiental maximizando la eficiencia de materiales en cada paso de nuestro proceso.",
+      "responsibleSourcing": "Abastecimiento Responsable",
+      "responsibleSourcingDesc": "Trabajamos directamente con comunidades para asegurar prácticas de cosecha éticas que respeten tanto la naturaleza como la tradición.",
+      "communityEducation": "Educación Comunitaria",
+      "communityEducationDesc": "La educación es clave para un cambio duradero. Invertimos en programas de capacitación y concienciación en toda nuestra cadena de suministro.",
+      "peoplePlanet": "Personas y Planeta",
+      "peoplePlanetDesc": "La verdadera sostenibilidad significa proteger tanto nuestro medio ambiente como empoderar a las personas que crean nuestros productos.",
+      "balancingTradition": "Equilibrando Tradición con Responsabilidad Ambiental",
+      "balancingDesc": "Aunque parte de la madera que usamos es madera dura de crecimiento lento, tomamos medidas conscientes para reducir el daño y promover la sostenibilidad a largo plazo. Nuestros tableros de ajedrez artesanales y productos de madera se fabrican usando prácticas éticas que honran tanto nuestras tradiciones artesanales como nuestro planeta.",
+      "makingImpact": "Creando un Impacto Significativo",
+      "impactDesc": "Creemos que la verdadera sostenibilidad se trata de proteger el medio ambiente y empoderar a las personas. Cada compra apoya la artesanía ética, los medios de vida rurales y un movimiento creciente hacia un diseño consciente y significativo.",
+      "shopCollection": "Comprar Nuestra Colección Sostenible"
+    },
+    "csr": {
+      "title": "Empoderando Comunidades, Transformando Vidas",
+      "subtitle": "Nuestro compromiso va más allá de crear hermosas artesanías. Estamos construyendo comunidades más fuertes, empoderando artesanos y creando un cambio positivo duradero en toda África.",
+      "socialImpact": "Nuestras Iniciativas de Impacto Social",
+      "flagshipPrograms": "Nuestros Programas Insignia",
+      "strategicPartnerships": "Nuestras Alianzas Estratégicas",
+      "fairTrade": "Comercio Justo y Prácticas Éticas",
+      "fairTradeDesc": "Creemos en la compensación justa y el trato ético de todos nuestros artesanos. Nuestro compromiso con los principios del comercio justo asegura que los artesanos tradicionales reciban salarios justos y trabajen en condiciones seguras y respetuosas.",
+      "socialImpactGoals": "Nuestros Objetivos de Impacto Social",
+      "partnerWithUs": "Asóciate con Nosotros para el Impacto Social",
+      "partnerDesc": "Cada compra que haces contribuye a nuestros programas de impacto social. Únete a nosotros para crear medios de vida sostenibles, empoderar comunidades y preservar el patrimonio cultural africano para las generaciones futuras.",
+      "supportMission": "Apoyar Nuestra Misión",
+      "downloadReport": "Descargar Informe RSC"
+    },
     "about": {
       "title": "Acerca de Nosotros",
       "subtitle": "Descubre nuestra historia y misión",
