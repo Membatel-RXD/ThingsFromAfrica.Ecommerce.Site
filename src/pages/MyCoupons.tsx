@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader } from '@/components/ui/card';
@@ -30,6 +31,7 @@ import { apiService, IAPIResponse } from '@/lib/api';
 import { DiscountType, Promotion } from '@/models/members';
 
 const MyCoupons: React.FC = () => {
+  const { t } = useTranslation();
   const [coupons, setCoupons] = useState<Promotion[]>([]);
   const [discountTypes, setDiscountTypes] = useState<DiscountType[]>([]);
   const [filteredCoupons, setFilteredCoupons] = useState<Promotion[]>([]);
@@ -330,15 +332,15 @@ const MyCoupons: React.FC = () => {
             <div className="mb-8">
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h1 className="text-4xl font-bold text-black mb-2">My Coupons</h1>
-                  <p className="text-gray-700">Manage your discount codes and special offers</p>
+                  <h1 className="text-4xl font-bold text-black mb-2">{t('pages.coupons.title')}</h1>
+                  <p className="text-gray-700">{t('pages.coupons.subtitle')}</p>
                 </div>
                 <Button 
                   onClick={() => setIsRedeemModalOpen(true)}
                   className="bg-black text-white hover:bg-gray-800"
                 >
                   <Gift className="h-4 w-4 mr-2" />
-                  Redeem Coupon
+                  {t('pages.coupons.redeemCoupon')}
                 </Button>
               </div>
 
@@ -348,7 +350,7 @@ const MyCoupons: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Active Coupons</p>
+                        <p className="text-sm text-gray-600">{t('pages.coupons.activeCoupons')}</p>
                         <p className="text-2xl font-bold text-black">{activeCoupons.length}</p>
                       </div>
                       <Gift className="h-8 w-8 text-gray-400" />
@@ -360,7 +362,7 @@ const MyCoupons: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Used Coupons</p>
+                        <p className="text-sm text-gray-600">{t('pages.coupons.usedCoupons')}</p>
                         <p className="text-2xl font-bold text-black">{usedCoupons.length}</p>
                       </div>
                       <Check className="h-8 w-8 text-gray-400" />
@@ -372,7 +374,7 @@ const MyCoupons: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Expiring Soon</p>
+                        <p className="text-sm text-gray-600">{t('pages.coupons.expiringSoon')}</p>
                         <p className="text-2xl font-bold text-black">{expiringSoon.length}</p>
                       </div>
                       <AlertCircle className="h-8 w-8 text-gray-400" />
@@ -384,7 +386,7 @@ const MyCoupons: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Expired</p>
+                        <p className="text-sm text-gray-600">{t('pages.coupons.expired')}</p>
                         <p className="text-2xl font-bold text-black">{expiredCoupons.length}</p>
                       </div>
                       <Clock className="h-8 w-8 text-gray-400" />
@@ -398,7 +400,7 @@ const MyCoupons: React.FC = () => {
                 <div className="flex-1 relative">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                   <Input
-                    placeholder="Search coupons..."
+                    placeholder={t('pages.coupons.searchPlaceholder')}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10"
@@ -408,21 +410,21 @@ const MyCoupons: React.FC = () => {
                   <Filter className="h-4 w-4 text-gray-400" />
                   <Select value={statusFilter} onValueChange={setStatusFilter}>
                     <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Filter by status" />
+                      <SelectValue placeholder={t('pages.coupons.filterByStatus')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Coupons</SelectItem>
-                      <SelectItem value="active">Active</SelectItem>
-                      <SelectItem value="used">Used</SelectItem>
-                      <SelectItem value="expired">Expired</SelectItem>
+                      <SelectItem value="all">{t('pages.coupons.allCoupons')}</SelectItem>
+                      <SelectItem value="active">{t('pages.coupons.active')}</SelectItem>
+                      <SelectItem value="used">{t('pages.coupons.used')}</SelectItem>
+                      <SelectItem value="expired">{t('pages.coupons.expired')}</SelectItem>
                     </SelectContent>
                   </Select>
                   <Select value={typeFilter} onValueChange={setTypeFilter}>
                     <SelectTrigger className="w-48">
-                      <SelectValue placeholder="Filter by type" />
+                      <SelectValue placeholder={t('pages.coupons.filterByType')} />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">All Types</SelectItem>
+                      <SelectItem value="all">{t('pages.coupons.allTypes')}</SelectItem>
                       {discountTypes.map(type => (
                         <SelectItem key={type.discountTypeId} value={type.discountTypeId.toString()}>
                           {type.typeName}
@@ -440,18 +442,18 @@ const MyCoupons: React.FC = () => {
                 <Card className="border-gray-200 col-span-full">
                   <CardContent className="p-8 text-center">
                     <Gift className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">No coupons found</h3>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('pages.coupons.noCouponsFound')}</h3>
                     <p className="text-gray-600 mb-4">
                       {searchTerm || statusFilter !== 'all' || typeFilter !== 'all'
-                        ? 'Try adjusting your search or filter criteria'
-                        : "You don't have any coupons yet"}
+                        ? t('pages.coupons.adjustFilters')
+                        : t('pages.coupons.noCouponsYet')}
                     </p>
                     <Button
                       onClick={() => setIsRedeemModalOpen(true)}
                       className="bg-black text-white hover:bg-gray-800"
                     >
                       <Gift className="h-4 w-4 mr-2" />
-                      Redeem Coupon
+                      {t('pages.coupons.redeemCoupon')}
                     </Button>
                   </CardContent>
                 </Card>
@@ -487,7 +489,7 @@ const MyCoupons: React.FC = () => {
                           {remainingDays <= 7 && remainingDays > 0 && (
                             <div className="text-right">
                               <p className="text-xs text-red-600 font-medium">
-                                {remainingDays} days left
+                                {remainingDays} {t('pages.coupons.daysLeft')}
                               </p>
                             </div>
                           )}
@@ -509,7 +511,7 @@ const MyCoupons: React.FC = () => {
 
                         <div className="bg-gray-50 p-3 rounded-lg">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-sm font-medium text-gray-700">Coupon Code:</span>
+                            <span className="text-sm font-medium text-gray-700">{t('pages.coupons.enterCode')}:</span>
                             <Button
                               variant="ghost"
                               size="sm"
@@ -519,12 +521,12 @@ const MyCoupons: React.FC = () => {
                               {copiedCoupon === coupon.promotionCode ? (
                                 <>
                                   <Check className="h-3 w-3 mr-1" />
-                                  Copied
+                                  {t('pages.coupons.copied')}
                                 </>
                               ) : (
                                 <>
                                   <Copy className="h-3 w-3 mr-1" />
-                                  Copy
+                                  {t('pages.coupons.copy')}
                                 </>
                               )}
                             </Button>
@@ -536,15 +538,15 @@ const MyCoupons: React.FC = () => {
 
                         <div className="text-xs text-gray-500 space-y-1">
                           <div className="flex justify-between">
-                            <span>Min. Order:</span>
+                            <span>{t('pages.coupons.minOrder')}:</span>
                             <span>${coupon.minimumOrderAmount}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Valid Until:</span>
+                            <span>{t('pages.coupons.validUntil')}:</span>
                             <span>{formatDate(coupon.endDate)}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Usage:</span>
+                            <span>{t('pages.coupons.usage')}:</span>
                             <span>{coupon.currentUsageCount}/{coupon.maxUsageCount}</span>
                           </div>
                         </div>
@@ -556,7 +558,7 @@ const MyCoupons: React.FC = () => {
                             onClick={() => handleViewDetails(coupon)}
                             className="flex-1"
                           >
-                            View Details
+                            {t('pages.coupons.viewDetails')}
                           </Button>
                           {coupon.isActive && !isUsed && remainingDays > 0 && (
                             <Button
@@ -565,7 +567,7 @@ const MyCoupons: React.FC = () => {
                               className="flex-1 bg-black text-white hover:bg-gray-800"
                             >
                               <ShoppingCart className="h-4 w-4 mr-1" />
-                              Shop Now
+                              {t('pages.coupons.shopNow')}
                             </Button>
                           )}
                         </div>
@@ -652,7 +654,7 @@ const MyCoupons: React.FC = () => {
               
               <div className="flex justify-end space-x-2">
                 <Button variant="outline" onClick={() => setIsDetailModalOpen(false)}>
-                  Close
+                  {t('pages.coupons.close')}
                 </Button>
                 {selectedCoupon.isActive && selectedCoupon.currentUsageCount < selectedCoupon.maxUsageCount && (
                   <Button
@@ -663,7 +665,7 @@ const MyCoupons: React.FC = () => {
                     className="bg-black text-white hover:bg-gray-800"
                   >
                     <Copy className="h-4 w-4 mr-2" />
-                    Copy & Shop
+                    {t('pages.coupons.copyAndShop')}
                   </Button>
                 )}
               </div>
@@ -676,25 +678,25 @@ const MyCoupons: React.FC = () => {
       <Dialog open={isRedeemModalOpen} onOpenChange={setIsRedeemModalOpen}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Redeem Coupon Code</DialogTitle>
+            <DialogTitle>{t('pages.coupons.redeemCode')}</DialogTitle>
           </DialogHeader>
           
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Enter Coupon Code
+                {t('pages.coupons.enterCode')}
               </label>
               <Input
                 value={redeemCode}
                 onChange={(e) => setRedeemCode(e.target.value.toUpperCase())}
-                placeholder="Enter coupon code"
+                placeholder={t('pages.coupons.enterCodePlaceholder')}
                 className="font-mono"
               />
             </div>
             
             <div className="flex justify-end space-x-2">
               <Button variant="outline" onClick={() => setIsRedeemModalOpen(false)}>
-                Cancel
+                {t('pages.coupons.cancel')}
               </Button>
               <Button 
                 onClick={handleRedeemCoupon}
@@ -702,7 +704,7 @@ const MyCoupons: React.FC = () => {
                 className="bg-black text-white hover:bg-gray-800"
               >
                 <Gift className="h-4 w-4 mr-2" />
-                Redeem
+                {t('pages.coupons.redeem')}
               </Button>
             </div>
           </div>

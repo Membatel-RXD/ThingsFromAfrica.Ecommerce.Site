@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -55,6 +57,7 @@ interface UserDetails {
 }
 
 const ProfileSettings: React.FC = () => {
+  const { t } = useTranslation();
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -283,6 +286,11 @@ const ProfileSettings: React.FC = () => {
   const handlePreferenceChange = async (key: string, value: string | boolean | number) => {
     setPreferences(prev => ({ ...prev, [key]: value }));
     
+    // If language is being changed, update i18n immediately
+    if (key === 'language') {
+      i18n.changeLanguage(value as string);
+    }
+    
     try {
       // Get current user data first
       const token = authService.getAuthToken();
@@ -377,8 +385,8 @@ const ProfileSettings: React.FC = () => {
         <div className="mb-8">
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-4xl font-bold text-black mb-2">Profile Settings</h1>
-              <p className="text-gray-700">Manage your personal information, preferences, and communication settings</p>
+              <h1 className="text-4xl font-bold text-black mb-2">{t('pages.profile.settings.title')}</h1>
+              <p className="text-gray-700">{t('pages.profile.settings.subtitle')}</p>
             </div>
           </div>
         </div>
@@ -386,10 +394,10 @@ const ProfileSettings: React.FC = () => {
         {/* Profile Tabs */}
         <Tabs defaultValue="personal" className="space-y-6">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="personal">Personal Info</TabsTrigger>
-            <TabsTrigger value="preferences">Preferences</TabsTrigger>
-            <TabsTrigger value="notifications">Notifications</TabsTrigger>
-            <TabsTrigger value="security">Security</TabsTrigger>
+            <TabsTrigger value="personal">{t('pages.profile.settings.personalInfo')}</TabsTrigger>
+            <TabsTrigger value="preferences">{t('pages.profile.settings.preferences')}</TabsTrigger>
+            <TabsTrigger value="notifications">{t('pages.profile.settings.notifications')}</TabsTrigger>
+            <TabsTrigger value="security">{t('pages.profile.settings.security')}</TabsTrigger>
           </TabsList>
 
           {/* Personal Information Tab */}
@@ -399,7 +407,7 @@ const ProfileSettings: React.FC = () => {
                 <div className="flex justify-between items-center">
                   <CardTitle className="flex items-center text-black">
                     <User className="h-5 w-5 mr-2" />
-                    Personal Information
+                    {t('pages.profile.settings.personalInfo')}
                   </CardTitle>
                   <Button
                     onClick={() => editing ? handleSaveProfile() : setEditing(true)}
@@ -407,9 +415,9 @@ const ProfileSettings: React.FC = () => {
                     className="bg-black hover:bg-gray-800"
                   >
                     {editing ? (
-                      saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />Saving...</> : <><Save className="h-4 w-4 mr-2" />Save</>
+                      saving ? <><Loader2 className="h-4 w-4 mr-2 animate-spin" />{t('pages.profile.settings.saving')}</> : <><Save className="h-4 w-4 mr-2" />{t('pages.profile.settings.save')}</>
                     ) : (
-                      <><Edit className="h-4 w-4 mr-2" />Edit</>
+                      <><Edit className="h-4 w-4 mr-2" />{t('pages.profile.settings.edit')}</>
                     )}
                   </Button>
                 </div>
@@ -417,7 +425,7 @@ const ProfileSettings: React.FC = () => {
               <CardContent className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="firstName">First Name</Label>
+                    <Label htmlFor="firstName">{t('pages.profile.settings.firstName')}</Label>
                     <Input
                       id="firstName"
                       value={profileData.firstName}
@@ -426,7 +434,7 @@ const ProfileSettings: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="lastName">Last Name</Label>
+                    <Label htmlFor="lastName">{t('pages.profile.settings.lastName')}</Label>
                     <Input
                       id="lastName"
                       value={profileData.lastName}
@@ -438,7 +446,7 @@ const ProfileSettings: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="email">Email</Label>
+                    <Label htmlFor="email">{t('pages.profile.email')}</Label>
                     <Input
                       id="email"
                       type="email"
@@ -448,7 +456,7 @@ const ProfileSettings: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="phone">Phone Number</Label>
+                    <Label htmlFor="phone">{t('pages.profile.settings.phoneNumber')}</Label>
                     <Input
                       id="phone"
                       value={profileData.phone}
@@ -460,7 +468,7 @@ const ProfileSettings: React.FC = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="address">Address</Label>
+                  <Label htmlFor="address">{t('pages.profile.settings.address')}</Label>
                   <Input
                     id="address"
                     value={profileData.address}
@@ -472,7 +480,7 @@ const ProfileSettings: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                   <div>
-                    <Label htmlFor="city">City</Label>
+                    <Label htmlFor="city">{t('pages.profile.settings.city')}</Label>
                     <Input
                       id="city"
                       value={profileData.city}
@@ -482,7 +490,7 @@ const ProfileSettings: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="country">Country</Label>
+                    <Label htmlFor="country">{t('pages.profile.settings.country')}</Label>
                     <Select value={profileData.country} onValueChange={(value) => setProfileData(prev => ({ ...prev, country: value }))} disabled={!editing}>
                       <SelectTrigger>
                         <SelectValue />
@@ -497,7 +505,7 @@ const ProfileSettings: React.FC = () => {
                     </Select>
                   </div>
                   <div>
-                    <Label htmlFor="postalCode">Postal Code</Label>
+                    <Label htmlFor="postalCode">{t('pages.profile.settings.postalCode')}</Label>
                     <Input
                       id="postalCode"
                       value={profileData.postalCode}
@@ -509,7 +517,7 @@ const ProfileSettings: React.FC = () => {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div>
-                    <Label htmlFor="dateOfBirth">Date of Birth</Label>
+                    <Label htmlFor="dateOfBirth">{t('pages.profile.settings.dateOfBirth')}</Label>
                     <Input
                       id="dateOfBirth"
                       type="date"
@@ -519,7 +527,7 @@ const ProfileSettings: React.FC = () => {
                     />
                   </div>
                   <div>
-                    <Label htmlFor="gender">Gender</Label>
+                    <Label htmlFor="gender">{t('pages.profile.settings.gender')}</Label>
                     <Select value={profileData.gender} onValueChange={(value) => setProfileData(prev => ({ ...prev, gender: value }))} disabled={!editing}>
                       <SelectTrigger>
                         <SelectValue placeholder="Select gender" />
@@ -535,13 +543,13 @@ const ProfileSettings: React.FC = () => {
                 </div>
 
                 <div>
-                  <Label htmlFor="bio">Bio</Label>
+                  <Label htmlFor="bio">{t('pages.profile.settings.bio')}</Label>
                   <Textarea
                     id="bio"
                     value={profileData.bio}
                     onChange={(e) => setProfileData(prev => ({ ...prev, bio: e.target.value }))}
                     disabled={!editing}
-                    placeholder="Tell us about yourself..."
+                    placeholder={t('pages.profile.settings.bioPlaceholder')}
                     rows={3}
                   />
                 </div>
@@ -556,27 +564,28 @@ const ProfileSettings: React.FC = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center text-black">
                     <Globe className="h-5 w-5 mr-2" />
-                    Regional Preferences
+                    {t('pages.profile.settings.regionalPrefs')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     <div>
-                      <Label>Language</Label>
+                      <Label>{t('pages.profile.settings.language')}</Label>
                       <Select value={preferences.language} onValueChange={(value) => handlePreferenceChange('language', value)}>
                         <SelectTrigger>
                           <SelectValue />
                         </SelectTrigger>
                         <SelectContent>
                           <SelectItem value="en">English</SelectItem>
-                          <SelectItem value="sw">Swahili</SelectItem>
-                          <SelectItem value="fr">French</SelectItem>
-                          <SelectItem value="ny">Chichewa</SelectItem>
+                          <SelectItem value="es">Español</SelectItem>
+                          <SelectItem value="fr">Français</SelectItem>
+                          <SelectItem value="it">Italiano</SelectItem>
+                          <SelectItem value="sw">Kiswahili</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
                     <div>
-                      <Label>Currency</Label>
+                      <Label>{t('pages.profile.settings.currency')}</Label>
                       <Select value={preferences.currency} onValueChange={(value) => handlePreferenceChange('currency', value)}>
                         <SelectTrigger>
                           <SelectValue />
@@ -590,7 +599,7 @@ const ProfileSettings: React.FC = () => {
                       </Select>
                     </div>
                     <div>
-                      <Label>Timezone</Label>
+                      <Label>{t('pages.profile.settings.timezone')}</Label>
                       <Select value={preferences.timezone} onValueChange={(value) => handlePreferenceChange('timezone', value)}>
                         <SelectTrigger>
                           <SelectValue />
@@ -611,12 +620,12 @@ const ProfileSettings: React.FC = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center text-black">
                     <User className="h-5 w-5 mr-2" />
-                    Display Preferences
+                    {t('pages.profile.settings.displayPrefs')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div>
-                    <Label>Theme</Label>
+                    <Label>{t('pages.profile.settings.theme')}</Label>
                     <Select value={preferences.theme} onValueChange={(value) => handlePreferenceChange('theme', value)}>
                       <SelectTrigger className="w-full md:w-48">
                         <SelectValue />
@@ -640,15 +649,15 @@ const ProfileSettings: React.FC = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center text-black">
                     <Bell className="h-5 w-5 mr-2" />
-                    Communication Preferences
+                    {t('pages.profile.settings.commPrefs')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-6">
                   <div className="space-y-4">
                     <div className="flex items-center justify-between">
                       <div>
-                        <Label className="text-base font-medium">Email Notifications</Label>
-                        <p className="text-sm text-gray-600">Receive notifications via email</p>
+                        <Label className="text-base font-medium">{t('pages.profile.settings.emailNotifications')}</Label>
+                        <p className="text-sm text-gray-600">{t('pages.profile.settings.emailNotificationsDesc')}</p>
                       </div>
                       <Switch
                         checked={preferences.marketingOptIn}
@@ -658,8 +667,8 @@ const ProfileSettings: React.FC = () => {
                     
                     <div className="flex items-center justify-between">
                       <div>
-                        <Label className="text-base font-medium">SMS Notifications</Label>
-                        <p className="text-sm text-gray-600">Receive notifications via SMS</p>
+                        <Label className="text-base font-medium">{t('pages.profile.settings.smsNotifications')}</Label>
+                        <p className="text-sm text-gray-600">{t('pages.profile.settings.smsNotificationsDesc')}</p>
                       </div>
                       <Switch
                         checked={preferences.smsOptIn}
@@ -674,14 +683,14 @@ const ProfileSettings: React.FC = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center text-black">
                     <Mail className="h-5 w-5 mr-2" />
-                    Marketing & Promotions
+                    {t('pages.profile.settings.marketingPromos')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label className="text-base font-medium">Marketing Emails</Label>
-                      <p className="text-sm text-gray-600">Receive promotional emails and special offers</p>
+                      <Label className="text-base font-medium">{t('pages.profile.settings.marketingEmails')}</Label>
+                      <p className="text-sm text-gray-600">{t('pages.profile.settings.marketingEmailsDesc')}</p>
                     </div>
                     <Switch
                       checked={preferences.marketingOptIn}
@@ -691,8 +700,8 @@ const ProfileSettings: React.FC = () => {
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label className="text-base font-medium">Promotional SMS</Label>
-                      <p className="text-sm text-gray-600">Receive promotional text messages</p>
+                      <Label className="text-base font-medium">{t('pages.profile.settings.promotionalSms')}</Label>
+                      <p className="text-sm text-gray-600">{t('pages.profile.settings.promotionalSmsDesc')}</p>
                     </div>
                     <Switch
                       checked={preferences.smsOptIn}
@@ -702,8 +711,8 @@ const ProfileSettings: React.FC = () => {
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label className="text-base font-medium">Newsletter</Label>
-                      <p className="text-sm text-gray-600">Receive our weekly newsletter with craft stories and updates</p>
+                      <Label className="text-base font-medium">{t('pages.profile.settings.newsletter')}</Label>
+                      <p className="text-sm text-gray-600">{t('pages.profile.settings.newsletterDesc')}</p>
                     </div>
                     <Switch
                       checked={preferences.newsletterOptIn}
@@ -717,14 +726,14 @@ const ProfileSettings: React.FC = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center text-black">
                     <Shield className="h-5 w-5 mr-2" />
-                    Important Notifications
+                    {t('pages.profile.settings.importantNotifications')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label className="text-base font-medium">Order Updates</Label>
-                      <p className="text-sm text-gray-600">Notifications about your orders and shipments</p>
+                      <Label className="text-base font-medium">{t('pages.profile.settings.orderUpdates')}</Label>
+                      <p className="text-sm text-gray-600">{t('pages.profile.settings.orderUpdatesDesc')}</p>
                     </div>
                     <Switch
                       checked={preferences.orderUpdates}
@@ -734,8 +743,8 @@ const ProfileSettings: React.FC = () => {
                   
                   <div className="flex items-center justify-between">
                     <div>
-                      <Label className="text-base font-medium">Security Alerts</Label>
-                      <p className="text-sm text-gray-600">Important security notifications and login alerts</p>
+                      <Label className="text-base font-medium">{t('pages.profile.settings.securityAlerts')}</Label>
+                      <p className="text-sm text-gray-600">{t('pages.profile.settings.securityAlertsDesc')}</p>
                     </div>
                     <Switch
                       checked={preferences.securityAlerts}
@@ -753,40 +762,40 @@ const ProfileSettings: React.FC = () => {
               <CardHeader>
                 <CardTitle className="flex items-center text-black">
                   <Shield className="h-5 w-5 mr-2" />
-                  Security Settings
+                  {t('pages.profile.settings.securitySettings')}
                 </CardTitle>
               </CardHeader>
               <CardContent className="space-y-6">
                 <div className="space-y-4">
                   <div>
-                    <Label className="text-base font-medium">Change Password</Label>
-                    <p className="text-sm text-gray-600 mb-3">Update your password to keep your account secure</p>
+                    <Label className="text-base font-medium">{t('pages.profile.settings.changePassword')}</Label>
+                    <p className="text-sm text-gray-600 mb-3">{t('pages.profile.settings.changePasswordDesc')}</p>
                     <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                      Change Password
+                      {t('pages.profile.settings.changePassword')}
                     </Button>
                   </div>
                   
                   <div>
-                    <Label className="text-base font-medium">Two-Factor Authentication</Label>
-                    <p className="text-sm text-gray-600 mb-3">Add an extra layer of security to your account</p>
+                    <Label className="text-base font-medium">{t('pages.profile.settings.twoFactor')}</Label>
+                    <p className="text-sm text-gray-600 mb-3">{t('pages.profile.settings.twoFactorDesc')}</p>
                     <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                      Enable 2FA
+                      {t('pages.profile.settings.enable2FA')}
                     </Button>
                   </div>
                   
                   <div>
-                    <Label className="text-base font-medium">Active Sessions</Label>
-                    <p className="text-sm text-gray-600 mb-3">Manage devices that are currently logged into your account</p>
+                    <Label className="text-base font-medium">{t('pages.profile.settings.activeSessions')}</Label>
+                    <p className="text-sm text-gray-600 mb-3">{t('pages.profile.settings.activeSessionsDesc')}</p>
                     <Button variant="outline" className="border-black text-black hover:bg-black hover:text-white">
-                      View Sessions
+                      {t('pages.profile.settings.viewSessions')}
                     </Button>
                   </div>
                   
                   <div>
-                    <Label className="text-base font-medium">Delete Account</Label>
-                    <p className="text-sm text-gray-600 mb-3">Permanently delete your account and all associated data</p>
+                    <Label className="text-base font-medium">{t('pages.profile.settings.deleteAccount')}</Label>
+                    <p className="text-sm text-gray-600 mb-3">{t('pages.profile.settings.deleteAccountDesc')}</p>
                     <Button variant="destructive">
-                      Delete Account
+                      {t('pages.profile.settings.deleteAccount')}
                     </Button>
                   </div>
                 </div>

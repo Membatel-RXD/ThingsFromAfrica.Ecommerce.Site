@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -28,6 +29,7 @@ import {  CustomerProfileContainerDTO } from '@/models/members';
 import AccountSidebar from '@/components/LeftSidebarNav';
 
 const Profile: React.FC = () => {
+  const { t } = useTranslation();
   const [customerProfile, setCustomerProfile] = useState<CustomerProfileContainerDTO>(null);
   const [payments, setPayments] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
@@ -169,8 +171,8 @@ const Profile: React.FC = () => {
             {/* Profile Header */}
             <div className="mb-8">
               <div className="mb-6">
-                <h1 className="text-4xl font-bold text-black mb-2">My Profile</h1>
-                <p className="text-gray-700">Welcome back! Manage your account and view your activity</p>
+                <h1 className="text-4xl font-bold text-black mb-2">{t('pages.profile.title')}</h1>
+                <p className="text-gray-700">{t('pages.profile.subtitle')}</p>
               </div>
 
               {/* Quick Stats */}
@@ -180,7 +182,7 @@ const Profile: React.FC = () => {
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-gray-600">Total Orders</p>
+                          <p className="text-sm text-gray-600">{t('pages.profile.totalOrders')}</p>
                           <p className="text-2xl font-bold text-black">{customerProfile.customerProfile.totalOrders}</p>
                         </div>
                         <Package className="h-8 w-8 text-gray-400" />
@@ -192,7 +194,7 @@ const Profile: React.FC = () => {
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-gray-600">Total Spent</p>
+                          <p className="text-sm text-gray-600">{t('pages.profile.totalSpent')}</p>
                           <p className="text-2xl font-bold text-black">{formatCurrency(customerProfile.customerProfile.totalSpent)}</p>
                         </div>
                         <DollarSign className="h-8 w-8 text-gray-400" />
@@ -204,7 +206,7 @@ const Profile: React.FC = () => {
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-gray-600">Loyalty Points</p>
+                          <p className="text-sm text-gray-600">{t('pages.profile.loyaltyPoints')}</p>
                           <p className="text-2xl font-bold text-black">{customerProfile.customerProfile.loyaltyPoints}</p>
                         </div>
                         <Award className="h-8 w-8 text-gray-400" />
@@ -216,7 +218,7 @@ const Profile: React.FC = () => {
                     <CardContent className="p-6">
                       <div className="flex items-center justify-between">
                         <div>
-                          <p className="text-sm text-gray-600">Loyalty Tier</p>
+                          <p className="text-sm text-gray-600">{t('pages.profile.loyaltyTier')}</p>
                           <p className="text-2xl font-bold text-black">{customerProfile.customerProfile.loyaltyTier}</p>
                         </div>
                         <Star className="h-8 w-8 text-gray-400" />
@@ -235,37 +237,37 @@ const Profile: React.FC = () => {
                   <CardHeader>
                     <CardTitle className="flex items-center text-black">
                       <User className="h-5 w-5 mr-2" />
-                      Account Information
+                      {t('pages.profile.accountInfo')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       <div>
-                        <p className="text-sm text-gray-600">Email</p>
+                        <p className="text-sm text-gray-600">{t('pages.profile.email')}</p>
                         <p className="font-medium">{authService.getUserEmail()}</p>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-600">User ID</p>
+                        <p className="text-sm text-gray-600">{t('pages.profile.userId')}</p>
                         <p className="font-medium">{authService.getUserId()}</p>
                       </div>
                       {customerProfile && (
                         <>
                           <div>
-                            <p className="text-sm text-gray-600">Customer Type</p>
+                            <p className="text-sm text-gray-600">{t('pages.profile.customerType')}</p>
                             <Badge variant="secondary">{customerProfile.customerProfile.customerType}</Badge>
                           </div>
                           <div>
-                            <p className="text-sm text-gray-600">Member Since</p>
+                            <p className="text-sm text-gray-600">{t('pages.profile.memberSince')}</p>
                             <p className="font-medium">{formatDate(customerProfile.userDetails.createdAt)}</p>
                           </div>
                           {customerProfile.customerProfile.companyName && (
                             <div>
-                              <p className="text-sm text-gray-600">Company</p>
+                              <p className="text-sm text-gray-600">{t('pages.profile.company')}</p>
                               <p className="font-medium">{customerProfile.customerProfile.companyName}</p>
                             </div>
                           )}
                           <div>
-                            <p className="text-sm text-gray-600">Average Order Value</p>
+                            <p className="text-sm text-gray-600">{t('pages.profile.averageOrderValue')}</p>
                             <p className="font-medium">{formatCurrency(customerProfile.customerProfile.averageOrderValue)}</p>
                           </div>
                         </>
@@ -279,7 +281,7 @@ const Profile: React.FC = () => {
                   <CardHeader>
                     <CardTitle className="flex items-center text-black">
                       <Activity className="h-5 w-5 mr-2" />
-                      Recent Activity
+                      {t('pages.profile.recentActivity')}
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
@@ -288,7 +290,7 @@ const Profile: React.FC = () => {
                         <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                           <div className="flex items-center">
                             <Package className="h-4 w-4 text-gray-400 mr-3" />
-                            <span className="text-sm">Last Order</span>
+                            <span className="text-sm">{t('pages.profile.lastOrder')}</span>
                           </div>
                           <span className="text-sm text-gray-600">{formatDate(customerProfile.customerProfile.lastOrderDate)}</span>
                         </div>
@@ -315,7 +317,7 @@ const Profile: React.FC = () => {
                 <CardHeader>
                   <CardTitle className="flex items-center text-black">
                     <TrendingUp className="h-5 w-5 mr-2" />
-                    Customer Insights
+                    {t('pages.profile.customerInsights')}
                   </CardTitle>
                 </CardHeader>
                 <CardContent>
@@ -323,15 +325,15 @@ const Profile: React.FC = () => {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
                         <p className="text-2xl font-bold text-black">{formatCurrency(customerProfile.customerProfile.customerLifetimeValue)}</p>
-                        <p className="text-sm text-gray-600">Lifetime Value</p>
+                        <p className="text-sm text-gray-600">{t('pages.profile.lifetimeValue')}</p>
                       </div>
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
                         <p className="text-2xl font-bold text-black">{formatCurrency(customerProfile.customerProfile.averageOrderValue)}</p>
-                        <p className="text-sm text-gray-600">Average Order Value</p>
+                        <p className="text-sm text-gray-600">{t('pages.profile.averageOrderValue')}</p>
                       </div>
                       <div className="text-center p-4 bg-gray-50 rounded-lg">
                         <p className="text-2xl font-bold text-black">{customerProfile.customerProfile.totalOrders}</p>
-                        <p className="text-sm text-gray-600">Total Orders</p>
+                        <p className="text-sm text-gray-600">{t('pages.profile.totalOrders')}</p>
                       </div>
                     </div>
                   )}

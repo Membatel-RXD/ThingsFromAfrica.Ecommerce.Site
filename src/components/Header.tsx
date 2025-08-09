@@ -367,6 +367,7 @@ const Header: React.FC = () => {
                           key={index}
                           to={item.href}
                           className="flex items-center px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200"
+                          onClick={() => setUserMenuOpen(false)}
                           >
                             <Icon className="h-4 w-4 mr-3 text-craft-bronze" />
                           {item.label}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -36,6 +37,7 @@ import OrderHistory from '@/components/OrderHistory';
 
 
 const Orders: React.FC = () => {
+  const { t } = useTranslation();
   const [orders, setOrders] = useState<OrderDTO[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<OrderDTO[]>([]);
   const [loading, setLoading] = useState(true);
@@ -264,7 +266,7 @@ const Orders: React.FC = () => {
       <Dialog open={isDetailModalOpen} onOpenChange={setIsDetailModalOpen}>
         <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
           <DialogHeader>
-            <DialogTitle>Order Details - {selectedOrder.orderNumber}</DialogTitle>
+            <DialogTitle>{t('pages.orders.orderDetails')} - {selectedOrder.orderNumber}</DialogTitle>
           </DialogHeader>
           
           <div className="space-y-6">
@@ -274,7 +276,7 @@ const Orders: React.FC = () => {
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Order Total</p>
+                      <p className="text-sm text-gray-600">{t('pages.orders.orderTotal')}</p>
                       <p className="text-xl font-bold text-black">
                         {formatCurrency(selectedOrder.totalAmount, selectedOrder.currency)}
                       </p>
@@ -288,7 +290,7 @@ const Orders: React.FC = () => {
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Status</p>
+                      <p className="text-sm text-gray-600">{t('pages.orders.status')}</p>
                       <Badge className={`${getStatusColor(selectedOrder.orderStatus)} mt-1`}>
                         {getStatusIcon(selectedOrder.orderStatus)}
                         <span className="ml-1">{selectedOrder.orderStatus}</span>
@@ -302,7 +304,7 @@ const Orders: React.FC = () => {
                 <CardContent className="p-4">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="text-sm text-gray-600">Order Date</p>
+                      <p className="text-sm text-gray-600">{t('pages.orders.orderDate')}</p>
                       <p className="text-sm font-medium text-black">
                         {formatDate(selectedOrder.orderDate)}
                       </p>
@@ -318,7 +320,7 @@ const Orders: React.FC = () => {
               {/* Billing Address */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Billing Address</CardTitle>
+                  <CardTitle className="text-lg">{t('pages.orders.billingAddress')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-1">
@@ -346,7 +348,7 @@ const Orders: React.FC = () => {
               {/* Shipping Address */}
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Shipping Address</CardTitle>
+                  <CardTitle className="text-lg">{t('pages.orders.shippingAddress')}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-1">
@@ -372,31 +374,31 @@ const Orders: React.FC = () => {
             {/* Order Breakdown */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Order Breakdown</CardTitle>
+                <CardTitle className="text-lg">{t('pages.orders.orderBreakdown')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Subtotal:</span>
+                    <span className="text-gray-600">{t('pages.orders.subtotal')}:</span>
                     <span>{formatCurrency(selectedOrder.subTotal, selectedOrder.currency)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Tax Amount:</span>
+                    <span className="text-gray-600">{t('pages.orders.taxAmount')}:</span>
                     <span>{formatCurrency(selectedOrder.taxAmount, selectedOrder.currency)}</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Shipping:</span>
+                    <span className="text-gray-600">{t('pages.orders.shipping')}:</span>
                     <span>{formatCurrency(selectedOrder.shippingAmount, selectedOrder.currency)}</span>
                   </div>
                   {selectedOrder.discountAmount > 0 && (
                     <div className="flex justify-between text-green-600">
-                      <span>Discount:</span>
+                      <span>{t('pages.orders.discount')}:</span>
                       <span>-{formatCurrency(selectedOrder.discountAmount, selectedOrder.currency)}</span>
                     </div>
                   )}
                   <div className="border-t pt-3">
                     <div className="flex justify-between font-bold text-lg">
-                      <span>Total:</span>
+                      <span>{t('pages.orders.total')}:</span>
                       <span>{formatCurrency(selectedOrder.totalAmount, selectedOrder.currency)}</span>
                     </div>
                   </div>
@@ -408,25 +410,25 @@ const Orders: React.FC = () => {
             {(selectedOrder.customerNotes || selectedOrder.isTouristOrder || selectedOrder.requiresPhytosanitaryCertificate) && (
               <Card>
                 <CardHeader>
-                  <CardTitle className="text-lg">Additional Information</CardTitle>
+                  <CardTitle className="text-lg">{t('pages.orders.additionalInfo')}</CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-3">
                   {selectedOrder.customerNotes && (
                     <div>
-                      <p className="font-medium text-gray-700">Customer Notes:</p>
+                      <p className="font-medium text-gray-700">{t('pages.orders.customerNotes')}:</p>
                       <p className="text-gray-600">{selectedOrder.customerNotes}</p>
                     </div>
                   )}
                   {selectedOrder.isTouristOrder && (
                     <div>
-                      <p className="font-medium text-gray-700">Tourist Order:</p>
+                      <p className="font-medium text-gray-700">{t('pages.orders.touristOrder')}:</p>
                       <p className="text-gray-600">Yes - {selectedOrder.touristCountry}</p>
                     </div>
                   )}
                   {selectedOrder.requiresPhytosanitaryCertificate && (
                     <div>
-                      <p className="font-medium text-gray-700">Phytosanitary Certificate:</p>
-                      <p className="text-gray-600">Required</p>
+                      <p className="font-medium text-gray-700">{t('pages.orders.phytosanitaryCert')}:</p>
+                      <p className="text-gray-600">{t('pages.orders.required')}</p>
                     </div>
                   )}
                 </CardContent>
@@ -436,24 +438,24 @@ const Orders: React.FC = () => {
             {/* Timeline */}
             <Card>
               <CardHeader>
-                <CardTitle className="text-lg">Order Timeline</CardTitle>
+                <CardTitle className="text-lg">{t('pages.orders.orderTimeline')}</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3">
                     <div className="w-2 h-2 bg-green-500 rounded-full"></div>
-                    <span className="text-sm">Order placed on {formatDate(selectedOrder.orderDate)}</span>
+                    <span className="text-sm">{t('pages.orders.orderPlaced')} {formatDate(selectedOrder.orderDate)}</span>
                   </div>
                   {selectedOrder.shippedDate && (
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
-                      <span className="text-sm">Shipped on {formatDate(selectedOrder.shippedDate)}</span>
+                      <span className="text-sm">{t('pages.orders.shippedOn')} {formatDate(selectedOrder.shippedDate)}</span>
                     </div>
                   )}
                   {selectedOrder.deliveredDate && (
                     <div className="flex items-center space-x-3">
                       <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
-                      <span className="text-sm">Delivered on {formatDate(selectedOrder.deliveredDate)}</span>
+                      <span className="text-sm">{t('pages.orders.deliveredOn')} {formatDate(selectedOrder.deliveredDate)}</span>
                     </div>
                   )}
                 </div>
@@ -463,14 +465,14 @@ const Orders: React.FC = () => {
 
           <div className="flex justify-end space-x-2 pt-4">
             <Button variant="outline" onClick={() => setIsDetailModalOpen(false)}>
-              Close
+              {t('pages.orders.close')}
             </Button>
             <Button 
               onClick={() => selectedOrder && downloadInvoice(selectedOrder)}
               className="bg-black text-white hover:bg-gray-800"
             >
               <Download className="h-4 w-4 mr-2" />
-              Download Invoice
+              {t('pages.orders.downloadInvoice')}
             </Button>
           </div>
         </DialogContent>
@@ -505,8 +507,8 @@ const Orders: React.FC = () => {
             <div className="mb-8">
               <div className="flex justify-between items-center mb-6">
                 <div>
-                  <h1 className="text-4xl font-bold text-black mb-2">My Orders</h1>
-                  <p className="text-gray-700">Track and manage your order history</p>
+                  <h1 className="text-4xl font-bold text-black mb-2">{t('pages.orders.title')}</h1>
+                  <p className="text-gray-700">{t('pages.orders.subtitle')}</p>
                 </div>
               </div>
 
@@ -516,7 +518,7 @@ const Orders: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Total Orders</p>
+                        <p className="text-sm text-gray-600">{t('pages.orders.totalOrders')}</p>
                         <p className="text-2xl font-bold text-black">{orders.length}</p>
                       </div>
                       <ShoppingBag className="h-8 w-8 text-gray-400" />
@@ -528,7 +530,7 @@ const Orders: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Pending</p>
+                        <p className="text-sm text-gray-600">{t('pages.orders.pending')}</p>
                         <p className="text-2xl font-bold text-black">
                           {orders.filter(o => o.orderStatus.toLowerCase() === 'pending').length}
                         </p>
@@ -542,7 +544,7 @@ const Orders: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Shipped</p>
+                        <p className="text-sm text-gray-600">{t('pages.orders.shipped')}</p>
                         <p className="text-2xl font-bold text-black">
                           {orders.filter(o => o.orderStatus.toLowerCase() === 'shipped').length}
                         </p>
@@ -556,7 +558,7 @@ const Orders: React.FC = () => {
                   <CardContent className="p-6">
                     <div className="flex items-center justify-between">
                       <div>
-                        <p className="text-sm text-gray-600">Delivered</p>
+                        <p className="text-sm text-gray-600">{t('pages.orders.delivered')}</p>
                         <p className="text-2xl font-bold text-black">
                           {orders.filter(o => o.orderStatus.toLowerCase() === 'delivered').length}
                         </p>
@@ -577,7 +579,7 @@ const Orders: React.FC = () => {
                       : 'text-gray-600 hover:text-black'
                   }`}
                 >
-                  Current Orders
+                  {t('pages.orders.currentOrders')}
                 </button>
                 <button
                   onClick={() => setActiveTab('history')}
@@ -587,7 +589,7 @@ const Orders: React.FC = () => {
                       : 'text-gray-600 hover:text-black'
                   }`}
                 >
-                  Order History
+                  {t('pages.orders.orderHistory')}
                 </button>
               </div>
 
@@ -599,7 +601,7 @@ const Orders: React.FC = () => {
                     <div className="flex-1 relative">
                       <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
                       <Input
-                        placeholder="Search orders by number or name..."
+                        placeholder={t('pages.orders.searchPlaceholder')}
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="pl-10"
@@ -609,15 +611,15 @@ const Orders: React.FC = () => {
                       <Filter className="h-4 w-4 text-gray-400" />
                       <Select value={statusFilter} onValueChange={setStatusFilter}>
                         <SelectTrigger className="w-48">
-                          <SelectValue placeholder="Filter by status" />
+                          <SelectValue placeholder={t('pages.orders.filterByStatus')} />
                         </SelectTrigger>
                         <SelectContent>
-                          <SelectItem value="all">All Orders</SelectItem>
-                          <SelectItem value="pending">Pending</SelectItem>
-                          <SelectItem value="processing">Processing</SelectItem>
-                          <SelectItem value="shipped">Shipped</SelectItem>
-                          <SelectItem value="delivered">Delivered</SelectItem>
-                          <SelectItem value="cancelled">Cancelled</SelectItem>
+                          <SelectItem value="all">{t('pages.orders.allOrders')}</SelectItem>
+                          <SelectItem value="pending">{t('pages.orders.pending')}</SelectItem>
+                          <SelectItem value="processing">{t('pages.orders.processing')}</SelectItem>
+                          <SelectItem value="shipped">{t('pages.orders.shipped')}</SelectItem>
+                          <SelectItem value="delivered">{t('pages.orders.delivered')}</SelectItem>
+                          <SelectItem value="cancelled">{t('pages.orders.cancelled')}</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>
@@ -633,11 +635,11 @@ const Orders: React.FC = () => {
                   <Card className="border-gray-200">
                     <CardContent className="p-8 text-center">
                       <Package className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2">No orders found</h3>
+                      <h3 className="text-lg font-semibold text-gray-900 mb-2">{t('pages.orders.noOrdersFound')}</h3>
                       <p className="text-gray-600 mb-4">
                         {searchTerm || statusFilter !== 'all' 
-                          ? 'Try adjusting your search or filter criteria'
-                          : 'You haven\'t placed any orders yet'
+                          ? t('pages.orders.adjustFilters')
+                          : t('pages.orders.noOrdersYet')
                         }
                       </p>
                       <Button 
@@ -645,7 +647,7 @@ const Orders: React.FC = () => {
                         className="bg-black text-white hover:bg-gray-800"
                       >
                         <ShoppingBag className="h-4 w-4 mr-2" />
-                        Start Shopping
+                        {t('pages.orders.startShopping')}
                       </Button>
                     </CardContent>
                   </Card>
@@ -657,7 +659,7 @@ const Orders: React.FC = () => {
                           <div className="flex-1">
                             <div className="flex items-center mb-3">
                               <h3 className="text-lg font-semibold text-black mr-3">
-                                Order #{order.orderNumber}
+                                {t('pages.orders.orderNumber')}{order.orderNumber}
                               </h3>
                               <Badge className={getStatusColor(order.orderStatus)}>
                                 {getStatusIcon(order.orderStatus)}
@@ -665,24 +667,24 @@ const Orders: React.FC = () => {
                               </Badge>
                               {order.isTouristOrder && (
                                 <Badge variant="outline" className="ml-2">
-                                  Tourist Order
+                                  {t('pages.orders.touristOrder')}
                                 </Badge>
                               )}
                             </div>
                             
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
                               <div>
-                                <p className="text-gray-600">Order Date:</p>
+                                <p className="text-gray-600">{t('pages.orders.orderDate')}:</p>
                                 <p className="font-medium">{formatDate(order.orderDate)}</p>
                               </div>
                               <div>
-                                <p className="text-gray-600">Total Amount:</p>
+                                <p className="text-gray-600">{t('pages.orders.totalAmount')}:</p>
                                 <p className="font-medium text-lg">
                                   {formatCurrency(order.totalAmount, order.currency)}
                                 </p>
                               </div>
                               <div>
-                                <p className="text-gray-600">Shipping To:</p>
+                                <p className="text-gray-600">{t('pages.orders.shippingTo')}:</p>
                                 <p className="font-medium">
                                   {order.shippingFirstName} {order.shippingLastName}
                                 </p>
@@ -692,7 +694,7 @@ const Orders: React.FC = () => {
                               </div>
                               {order.shippedDate && (
                                 <div>
-                                  <p className="text-gray-600">Shipped Date:</p>
+                                  <p className="text-gray-600">{t('pages.orders.shippedDate')}:</p>
                                   <p className="font-medium">{formatDate(order.shippedDate)}</p>
                                 </div>
                               )}
@@ -707,7 +709,7 @@ const Orders: React.FC = () => {
                               className="flex items-center"
                             >
                               <Eye className="h-4 w-4 mr-2" />
-                              View Details
+                              {t('pages.orders.viewDetails')}
                             </Button>
                             
                             <Button
@@ -717,7 +719,7 @@ const Orders: React.FC = () => {
                               className="flex items-center"
                             >
                               <Download className="h-4 w-4 mr-2" />
-                              Download Invoice
+                              {t('pages.orders.downloadInvoice')}
                             </Button>
                             
                             {order.orderStatus.toLowerCase() === 'delivered' && (
@@ -726,7 +728,7 @@ const Orders: React.FC = () => {
                                 onClick={() => navigate(`/review-product/${order.orderId}`)}
                                 className="bg-green-600 hover:bg-green-700 text-white flex items-center"
                               >
-                                Write Review
+                                {t('pages.orders.writeReview')}
                               </Button>
                             )}
                           </div>
