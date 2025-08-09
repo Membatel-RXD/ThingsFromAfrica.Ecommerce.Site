@@ -314,6 +314,31 @@
       "emailPlaceholder": "your.email@example.com",
       "subjectPlaceholder": "What is this regarding?",
       "messagePlaceholder": "Tell us more about your inquiry..."
+    },
+    "trackOrder": {
+      "title": "Track Your Order",
+      "subtitle": "Enter your order number to track the real-time status of your authentic African crafts",
+      "orderNumber": "Order Number",
+      "placeholder": "Enter your order number (e.g., TFA12345)",
+      "tracking": "Tracking...",
+      "trackOrder": "Track Order",
+      "sampleNumbers": "Try sample order numbers: TFA12345, TFA54321, or TFA67890",
+      "orderNotFound": "Order Not Found",
+      "orderNotFoundDesc": "We couldn't find any shipment with the order number {{orderNumber}}",
+      "checkOrderNumber": "Please check your order number and try again, or contact customer service for assistance.",
+      "lastUpdated": "Last Updated",
+      "trackingNumber": "Tracking Number",
+      "estimatedDelivery": "Estimated Delivery",
+      "currentLocation": "Current Location",
+      "shipmentHistory": "Shipment History",
+      "shippingInfo": "Shipping Information",
+      "shippingInfoDesc": "Everything you need to know about our delivery process",
+      "deliveryTimes": "Delivery Times",
+      "deliveryTimesDesc": "Standard shipping typically takes 5-7 business days within Malawi, and 10-14 business days for international orders.",
+      "shippingPartners": "Shipping Partners",
+      "shippingPartnersDesc": "We work with trusted shipping partners including DHL, FedEx, and local courier services to ensure your items arrive safely.",
+      "needHelp": "Need Help?",
+      "needHelpDesc": "If you have any questions about your shipment, please contact our customer service team."
     }
   }
 }

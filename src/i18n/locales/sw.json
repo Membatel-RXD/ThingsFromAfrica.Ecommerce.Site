@@ -270,6 +270,31 @@
       "joinText": "Kuwa sehemu ya kuhifadhi ufundi wa Kiafrika",
       "shopCrafts": "Nunua Sanaa",
       "learnMore": "Jifunze Zaidi"
+    },
+    "trackOrder": {
+      "title": "Fuatilia Agizo Lako",
+      "subtitle": "Ingiza nambari ya agizo lako ili kufuatilia hali ya wakati halisi ya sanaa zako halisi za Kiafrika",
+      "orderNumber": "Nambari ya Agizo",
+      "placeholder": "Ingiza nambari ya agizo lako (mfano: TFA12345)",
+      "tracking": "Inafuatilia...",
+      "trackOrder": "Fuatilia Agizo",
+      "sampleNumbers": "Jaribu nambari za mfano: TFA12345, TFA54321, au TFA67890",
+      "orderNotFound": "Agizo Halijapatikana",
+      "orderNotFoundDesc": "Hatukuweza kupata mizigo yoyote yenye nambari ya agizo {{orderNumber}}",
+      "checkOrderNumber": "Tafadhali angalia nambari ya agizo lako na ujaribu tena, au wasiliana na timu yetu ya huduma kwa wateja.",
+      "lastUpdated": "Ilisasishwa Mwisho",
+      "trackingNumber": "Nambari ya Kufuatilia",
+      "estimatedDelivery": "Ufikishaji Unaokadiriwa",
+      "currentLocation": "Mahali pa Sasa",
+      "shipmentHistory": "Historia ya Mizigo",
+      "shippingInfo": "Maelezo ya Usafirishaji",
+      "shippingInfoDesc": "Kila kitu unachohitaji kujua kuhusu mchakato wetu wa ufikishaji",
+      "deliveryTimes": "Muda wa Ufikishaji",
+      "deliveryTimesDesc": "Usafirishaji wa kawaida kwa kawaida huchukua siku 5-7 za kazi ndani ya Malawi, na siku 10-14 za kazi kwa maagizo ya kimataifa.",
+      "shippingPartners": "Washirika wa Usafirishaji",
+      "shippingPartnersDesc": "Tunafanya kazi na washirika wa usafirishaji wanaoaminika ikiwa ni pamoja na DHL, FedEx, na huduma za ujumbe za mitaani ili kuhakikisha vitu vyako vinafika salama.",
+      "needHelp": "Unahitaji Msaada?",
+      "needHelpDesc": "Ikiwa una maswali yoyote kuhusu mizigo yako, tafadhali wasiliana na timu yetu ya huduma kwa wateja."
     }
   }
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Package, Truck, CheckCircle, Clock, AlertCircle, Search, MapPin, Calendar, Phone, Mail, Globe, Shield, ArrowRight, Sparkles } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import AppLayout from '@/components/AppLayout';
 
 interface ShipmentStatus {
@@ -16,6 +17,7 @@ interface ShipmentStatus {
 }
 
 const TrackOrderPage: React.FC = () => {
+  const { t } = useTranslation();
   const [orderNumber, setOrderNumber] = useState('');
   const [shipment, setShipment] = useState<ShipmentStatus | null>(null);
   const [loading, setLoading] = useState(false);
@@ -159,10 +161,10 @@ const TrackOrderPage: React.FC = () => {
             <div className="max-w-4xl mx-auto">
               
             <h1 className="text-5xl md:text-6xl font-bold mb-4 text-white">
-              Track Your Order
+              {t('pages.trackOrder.title')}
             </h1>
             <p className="text-xl text-white-600 max-w-2xl mx-auto">
-              Enter your order number to track the real-time status of your authentic African crafts
+              {t('pages.trackOrder.subtitle')}
             </p>
           </div>
         </div>
@@ -178,12 +180,12 @@ const TrackOrderPage: React.FC = () => {
                 <div className="flex flex-col md:flex-row gap-4">
                   <div className="flex-1">
                     <label htmlFor="orderNumber" className="block text-sm font-medium text-gray-700 mb-2">
-                      Order Number
+                      {t('pages.trackOrder.orderNumber')}
                     </label>
                     <input
                       id="orderNumber"
                       type="text"
-                      placeholder="Enter your order number (e.g., TFA12345)"
+                      placeholder={t('pages.trackOrder.placeholder')}
                       value={orderNumber}
                       onChange={(e) => setOrderNumber(e.target.value)}
                       className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-black focus:outline-none transition-colors text-lg"
@@ -197,12 +199,12 @@ const TrackOrderPage: React.FC = () => {
                     {loading ? (
                       <>
                         <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white"></div>
-                        <span>Tracking...</span>
+                        <span>{t('pages.trackOrder.tracking')}</span>
                       </>
                     ) : (
                       <>
                         <Search className="h-5 w-5" />
-                        <span>Track Order</span>
+                        <span>{t('pages.trackOrder.trackOrder')}</span>
                       </>
                     )}
                   </button>
@@ -210,7 +212,7 @@ const TrackOrderPage: React.FC = () => {
                 
                 <div className="flex justify-between items-center mt-4">
                   <p className="text-sm text-gray-500">
-                    Try sample order numbers: <span className="font-medium">TFA12345</span>, <span className="font-medium">TFA54321</span>, or <span className="font-medium">TFA67890</span>
+                    {t('pages.trackOrder.sampleNumbers')}
                   </p>
                   <button 
                     onClick={() => setShowRequestResponse(!showRequestResponse)}
@@ -231,12 +233,12 @@ const TrackOrderPage: React.FC = () => {
                         <AlertCircle className="h-12 w-12 text-red-500" />
                       </div>
                     </div>
-                    <h3 className="text-2xl font-bold text-red-600 mb-2">Order Not Found</h3>
+                    <h3 className="text-2xl font-bold text-red-600 mb-2">{t('pages.trackOrder.orderNotFound')}</h3>
                     <p className="text-red-700 mb-6">
-                      We couldn't find any shipment with the order number <span className="font-medium">{shipment.orderNumber}</span>
+                      {t('pages.trackOrder.orderNotFoundDesc', { orderNumber: shipment.orderNumber })}
                     </p>
                     <p className="text-sm text-red-600">
-                      Please check your order number and try again, or contact customer service for assistance.
+                      {t('pages.trackOrder.checkOrderNumber')}
                     </p>
                   </div>
                 ) : (
@@ -257,7 +259,7 @@ const TrackOrderPage: React.FC = () => {
                         </div>
                       </div>
                       <div className="text-right">
-                        <p className="text-sm text-gray-500">Last Updated</p>
+                        <p className="text-sm text-gray-500">{t('pages.trackOrder.lastUpdated')}</p>
                         <p className="font-medium">{new Date().toLocaleDateString()}</p>
                       </div>
                     </div>
@@ -268,7 +270,7 @@ const TrackOrderPage: React.FC = () => {
                         <div className="bg-white/60 rounded-xl p-4">
                           <div className="flex items-center mb-2">
                             <Package className="h-5 w-5 text-gray-500 mr-2" />
-                            <p className="text-sm text-gray-500">Tracking Number</p>
+                            <p className="text-sm text-gray-500">{t('pages.trackOrder.trackingNumber')}</p>
                           </div>
                           <p className="font-bold text-lg text-black">{shipment.trackingNumber}</p>
                         </div>
@@ -278,7 +280,7 @@ const TrackOrderPage: React.FC = () => {
                         <div className="bg-white/60 rounded-xl p-4">
                           <div className="flex items-center mb-2">
                             <Calendar className="h-5 w-5 text-gray-500 mr-2" />
-                            <p className="text-sm text-gray-500">Estimated Delivery</p>
+                            <p className="text-sm text-gray-500">{t('pages.trackOrder.estimatedDelivery')}</p>
                           </div>
                           <p className="font-bold text-lg text-black">{shipment.estimatedDelivery}</p>
                         </div>
@@ -288,7 +290,7 @@ const TrackOrderPage: React.FC = () => {
                         <div className="bg-white/60 rounded-xl p-4">
                           <div className="flex items-center mb-2">
                             <MapPin className="h-5 w-5 text-gray-500 mr-2" />
-                            <p className="text-sm text-gray-500">Current Location</p>
+                            <p className="text-sm text-gray-500">{t('pages.trackOrder.currentLocation')}</p>
                           </div>
                           <p className="font-bold text-lg text-black">{shipment.currentLocation}</p>
                         </div>
@@ -300,7 +302,7 @@ const TrackOrderPage: React.FC = () => {
                       <div className="bg-white/60 rounded-xl p-6">
                         <h4 className="text-xl font-bold mb-6 text-black flex items-center">
                           <Clock className="h-5 w-5 mr-2" />
-                          Shipment History
+                          {t('pages.trackOrder.shipmentHistory')}
                         </h4>
                         <div className="space-y-6">
                           {shipment.statusHistory.map((event, index) => (
@@ -337,8 +339,8 @@ const TrackOrderPage: React.FC = () => {
       <section className="py-16 bg-gradient-to-br from-gray-50 to-white">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold mb-4 text-black">Shipping Information</h2>
-            <p className="text-xl text-gray-600">Everything you need to know about our delivery process</p>
+            <h2 className="text-4xl font-bold mb-4 text-black">{t('pages.trackOrder.shippingInfo')}</h2>
+            <p className="text-xl text-gray-600">{t('pages.trackOrder.shippingInfoDesc')}</p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
@@ -346,9 +348,9 @@ const TrackOrderPage: React.FC = () => {
               <div className="p-3 bg-blue-100 rounded-full w-fit mb-4">
                 <Clock className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="text-xl font-bold text-black mb-3">Delivery Times</h3>
+              <h3 className="text-xl font-bold text-black mb-3">{t('pages.trackOrder.deliveryTimes')}</h3>
               <p className="text-gray-700">
-                Standard shipping typically takes 5-7 business days within Malawi, and 10-14 business days for international orders.
+                {t('pages.trackOrder.deliveryTimesDesc')}
               </p>
             </div>
 
@@ -356,9 +358,9 @@ const TrackOrderPage: React.FC = () => {
               <div className="p-3 bg-green-100 rounded-full w-fit mb-4">
                 <Shield className="h-8 w-8 text-green-600" />
               </div>
-              <h3 className="text-xl font-bold text-black mb-3">Shipping Partners</h3>
+              <h3 className="text-xl font-bold text-black mb-3">{t('pages.trackOrder.shippingPartners')}</h3>
               <p className="text-gray-700">
-                We work with trusted shipping partners including DHL, FedEx, and local courier services to ensure your items arrive safely.
+                {t('pages.trackOrder.shippingPartnersDesc')}
               </p>
             </div>
 
@@ -366,9 +368,9 @@ const TrackOrderPage: React.FC = () => {
               <div className="p-3 bg-purple-100 rounded-full w-fit mb-4">
                 <Sparkles className="h-8 w-8 text-purple-600" />
               </div>
-              <h3 className="text-xl font-bold text-black mb-3">Need Help?</h3>
+              <h3 className="text-xl font-bold text-black mb-3">{t('pages.trackOrder.needHelp')}</h3>
               <p className="text-gray-700 mb-4">
-                If you have any questions about your shipment, please contact our customer service team.
+                {t('pages.trackOrder.needHelpDesc')}
               </p>
               <div className="space-y-2">
                 <div className="flex items-center">

@@ -270,6 +270,31 @@
       "joinText": "Sé parte de preservar la artesanía africana",
       "shopCrafts": "Comprar Artesanías",
       "learnMore": "Aprender Más"
+    },
+    "trackOrder": {
+      "title": "Rastrear Tu Pedido",
+      "subtitle": "Ingresa tu número de pedido para rastrear el estado en tiempo real de tus artesanías africanas auténticas",
+      "orderNumber": "Número de Pedido",
+      "placeholder": "Ingresa tu número de pedido (ej: TFA12345)",
+      "tracking": "Rastreando...",
+      "trackOrder": "Rastrear Pedido",
+      "sampleNumbers": "Prueba números de ejemplo: TFA12345, TFA54321, o TFA67890",
+      "orderNotFound": "Pedido No Encontrado",
+      "orderNotFoundDesc": "No pudimos encontrar ningún envío con el número de pedido {{orderNumber}}",
+      "checkOrderNumber": "Por favor verifica tu número de pedido e inténtalo de nuevo, o contacta a nuestro servicio al cliente.",
+      "lastUpdated": "Última Actualización",
+      "trackingNumber": "Número de Seguimiento",
+      "estimatedDelivery": "Entrega Estimada",
+      "currentLocation": "Ubicación Actual",
+      "shipmentHistory": "Historial de Envío",
+      "shippingInfo": "Información de Envío",
+      "shippingInfoDesc": "Todo lo que necesitas saber sobre nuestro proceso de entrega",
+      "deliveryTimes": "Tiempos de Entrega",
+      "deliveryTimesDesc": "El envío estándar generalmente toma 5-7 días hábiles dentro de Malawi, y 10-14 días hábiles para pedidos internacionales.",
+      "shippingPartners": "Socios de Envío",
+      "shippingPartnersDesc": "Trabajamos con socios de envío confiables incluyendo DHL, FedEx, y servicios de mensajería locales para asegurar que tus artículos lleguen de forma segura.",
+      "needHelp": "¿Necesitas Ayuda?",
+      "needHelpDesc": "Si tienes alguna pregunta sobre tu envío, por favor contacta a nuestro equipo de servicio al cliente."
     }
   }
 }
