@@ -5,15 +5,28 @@ import { Badge } from '@/components/ui/badge';
 import { Calendar, MapPin, User, Phone, Mail } from 'lucide-react';
 import { Artisan } from '@/models/members';
 import { apiService, IAPIResponse } from '@/lib/api';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 
 const Stories: React.FC = () => {
   const [artisans, setArtisans] = useState<Artisan[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const { t } = useLanguage();
+  const { t, i18n } = useTranslation();
   const navigate = useNavigate();
+  const [lang, setLang] = useState(i18n.language);
+  
+  useEffect(() => {
+    const handleLanguageChange = (lng) => {
+      setLang(lng);
+    };
+    
+    i18n.on('languageChanged', handleLanguageChange);
+    
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
 
   const fetchArtisans = async (): Promise<Artisan[]> => {
     try {
@@ -112,17 +125,17 @@ const Stories: React.FC = () => {
 
   return (
     <AppLayout>
-      <div className="bg-[#F8F4EF] min-h-screen">
+      <div key={lang} className="bg-[#F8F4EF] min-h-screen">
         <section className="bg-gradient-to-r from-gray-900 to-black text-white py-20 relative overflow-hidden">
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="absolute inset-0 opacity-30"></div>
           <div className="container mx-auto px-4 text-center relative z-10">
             <div className="max-w-4xl mx-auto">
               <h1 className="text-5xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                {t('page.stories.title')}
+                {t('pages.stories.title')}
               </h1>
               <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
-                {t('page.stories.subtitle')}
+                {t('pages.stories.subtitle')}
               </p>
               <div className="flex items-center justify-center space-x-6 text-sm text-gray-400">
                 <span className="flex items-center">
@@ -147,8 +160,8 @@ const Stories: React.FC = () => {
             {artisans.length === 0 ? (
               <div className="text-center py-16">
                 <User className="h-16 w-16 text-gray-400 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('page.stories.noStories')}</h3>
-                <p className="text-lg text-gray-600">{t('page.stories.checkBack')}</p>
+                <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('pages.stories.noStories')}</h3>
+                <p className="text-lg text-gray-600">{t('pages.stories.checkBack')}</p>
               </div>
             ) : (
               <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -223,7 +236,7 @@ const Stories: React.FC = () => {
                             onClick={() => handleReadMore(artisan.artisanSlug)}
                             className="w-full bg-gray-900 text-white py-2 px-4 rounded-lg hover:bg-black transition-colors duration-300 text-sm font-medium"
                           >
-                            {t('page.stories.readFullStory')}
+                            {t('pages.stories.readFullStory')}
                           </button>
                       </div>
                     </div>
@@ -237,22 +250,22 @@ const Stories: React.FC = () => {
         <section className="bg-gradient-to-r from-gray-100 to-white py-20">
           <div className="container mx-auto px-4 text-center">
             <div className="max-w-3xl mx-auto">
-              <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('page.stories.shareStory')}</h2>
+              <h2 className="text-4xl font-bold text-gray-900 mb-6">{t('pages.stories.shareStory')}</h2>
               <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                {t('page.stories.shareDescription')}
+                {t('pages.stories.shareDescription')}
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <a 
                   href="/contact" 
                   className="inline-block bg-black text-white px-8 py-3 rounded-lg hover:bg-gray-800 transition-colors font-medium"
                 >
-                  {t('page.stories.shareStory')}
+                  {t('pages.stories.shareStory')}
                 </a>
                 <a 
                   href="/shop" 
                   className="inline-block border-2 border-gray-900 text-gray-900 px-8 py-3 rounded-lg hover:bg-gray-900 hover:text-white transition-colors font-medium"
                 >
-                  {t('page.stories.browseCrafts')}
+                  {t('pages.stories.browseCrafts')}
                 </a>
               </div>
             </div>

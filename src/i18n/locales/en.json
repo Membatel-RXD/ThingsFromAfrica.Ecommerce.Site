@@ -339,6 +339,16 @@
       "shippingPartnersDesc": "We work with trusted shipping partners including DHL, FedEx, and local courier services to ensure your items arrive safely.",
       "needHelp": "Need Help?",
       "needHelpDesc": "If you have any questions about your shipment, please contact our customer service team."
+    },
+    "stories": {
+      "title": "Artisan Stories",
+      "subtitle": "Meet the talented craftspeople preserving African traditions through their art",
+      "noStories": "No Stories Available",
+      "checkBack": "Check back later for inspiring artisan stories.",
+      "shareStory": "Share Your Story",
+      "shareDescription": "Are you a skilled artisan with a story to tell? We'd love to feature your craft and share your journey with our community of art enthusiasts.",
+      "browseCrafts": "Browse Crafts",
+      "readFullStory": "Read Full Story"
     }
   }
 }
