@@ -103,11 +103,11 @@ const CraftShowcase: React.FC = () => {
     return stars;
   };
   function getArtisanName(artisanId: number): React.ReactNode {
-    return artisans.find(a=>a.artisanId==artisanId).artisanName
+    return artisans?.find(a=>a.artisanId==artisanId).artisanName || " ";
   }
 
   function getArtisanVillage(artisanVillage: number): React.ReactNode {
-    return artisans.find(a=>a.artisanId==artisanVillage).village
+    return artisans?.find(a=>a.artisanId==artisanVillage).village || " ";
   }
   return (
     <section className="bg-gray-50">
@@ -173,7 +173,7 @@ const CraftShowcase: React.FC = () => {
               <div className="card-body flex flex-col flex-grow">
                 <h3 className="card-title text-black text-xl">{craft.productName}</h3>
                 <div className="flex justify-between items-center mb-4">
-                  <span className="text-3xl font-bold text-black">{craft.usdPrice}</span>
+                  <span className="text-3xl font-bold text-black">${craft.usdPrice}</span>
                   <div className="text-right text-sm text-gray-600">
                     <div>by {getArtisanName(craft.artisanId)}</div>
                     <div>{getArtisanVillage(craft.artisanId)}</div>
@@ -189,8 +189,8 @@ const CraftShowcase: React.FC = () => {
                   </button>
                   <button 
                     className="btn btn-outline border-gray-300 text-black hover:bg-black hover:text-white w-full rounded-md transition-all duration-200"
-                    onClick={() => setSelectedCraft(craft)}
-                  >
+                    onClick={() => navigate(`/crafts/${craft.productSlug}`)}
+                    >
                     Learn More
                   </button>
                 </div>

@@ -1,6 +1,8 @@
 import AppLayout from '@/components/AppLayout';
 import { TreePine, Recycle, Users, Leaf, CheckCircle, Award, Shield, Heart } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
+import PayPalDonateButton from "@/components/PayPalDonateButton"; // adjust path as needed
+import DonationButton from '@/components/PayPalDonateButton';
 
 const Sustainability = () => {
   const { t } = useTranslation();
@@ -258,10 +260,10 @@ const Sustainability = () => {
                 <p className="text-sm opacity-90">Long-term forest conservation</p>
               </div>
             </div>
-
-            <button className="bg-white text-green-600 px-8 py-3 rounded-full hover:bg-gray-100 transition-colors duration-300 font-medium">
-              {t('pages.sustainability.shopCollection')}
-            </button>
+            <div className="mt-8 flex justify-center">
+              <DonationButton />
+            </div>
+           
           </div>
         </div>
       </div>
