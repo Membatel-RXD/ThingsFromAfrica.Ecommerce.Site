@@ -43,8 +43,7 @@ const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <LanguageProvider> {/* Add this wrapper */}
-
+    <LanguageProvider>
       <ThemeProvider defaultTheme="light">
         <QueryClientProvider client={queryClient}>
           <TooltipProvider>
@@ -83,9 +82,9 @@ const App = () => {
                   <Route path="/checkout" element={<Checkout />} />
                   <Route path="/order-success" element={<OrderSuccess />} />
                   <Route path="/return-policy" element={<ReturnRefundPolicy />} />
+                  <Route path="/gifts" element={<GiftIdeas />} />
                   <Route path="/stories/:id" element={<ArtisanDetail />} />
                   <Route path="/crafts/:slug" element={<ProductDetail />} />
-
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </BrowserRouter>
@@ -96,54 +95,7 @@ const App = () => {
     </LanguageProvider>
   );
 };
-  <ThemeProvider defaultTheme="light">
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-          <AppProvider>
-            <BrowserRouter>
-            <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/shop" element={<Shop />} />
-            <Route path="/crafts" element={<OurCrafts />} />
-            <Route path="/contact" element={<Contact />} />
-            <Route path="/stories" element={<Stories />} />
-            <Route path="/sustainability" element={<Sustainability />} />
-            <Route path="/corporate-social-responsibility" element={<CSR />} />
-            <Route path="/artisan-stories" element={<Stories />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/signup" element={<SignUp />} />
-            <Route path="/verify-email" element={<VerifyEmail />} />
-            <Route path="/email-verification" element={<EmailVerificationInfo />} />
-            <Route path="/profile" element={<Profile />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/wishlist" element={<Wishlist />} />
-            <Route path="/profile/wishlist" element={<Wishlist />} />
-            <Route path="/profile/settings" element={<ProfileSettings />} />
-            <Route path="/profile/user/addresses" element={<Addresses />} />
-            <Route path="/payment/success" element={<PaymentSuccess />} />
-            <Route path="/payment/cancel" element={<PaymentCancel />} />
-            <Route path="/profile/user/my-orders" element={<Orders />} />
-            <Route path="/track-order" element={<TrackOrder />} />
-            <Route path="/review-product/:productId" element={<ReviewProduct />} />
-            <Route path="/messages" element={<MessageCenter />} />
-            <Route path="/profile/user/my-coins" element={<Coins />} />
-            <Route path="/coupons" element={<MyCoupons />} />
-            <Route path="/checkout" element={<Checkout />} />
-            <Route path="/order-success" element={<OrderSuccess />} />
-            <Route path="/return-policy" element={ <ReturnRefundPolicy/>} />
-            <Route path="/gifts" element={<GiftIdeas />} />
-            <Route path="/stories/:id" element={<ArtisanDetail />} />
-            <Route path="*" element={<NotFound />} />
-            </Routes>
-            </BrowserRouter>
-          </AppProvider>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </ThemeProvider>
-  </LanguageProvider>
-);
+
+
 
 export default App;
