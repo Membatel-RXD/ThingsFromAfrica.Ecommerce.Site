@@ -349,6 +349,36 @@
       "shippingPartnersDesc": "Nous travaillons avec des partenaires d'expédition de confiance incluant DHL, FedEx, et des services de courrier locaux pour assurer l'arrivée sécurisée de vos articles.",
       "needHelp": "Besoin d'Aide?",
       "needHelpDesc": "Si vous avez des questions sur votre expédition, veuillez contacter notre équipe de service client."
+    },
+    "gifts": {
+      "title": "Idées Cadeaux Personnalisés",
+      "subtitle": "Créez un artisanat africain personnalisé qui raconte votre histoire unique. Nos artisans donneront vie à votre vision.",
+      "personalInfo": "Informations Personnelles",
+      "yourName": "Votre Nom",
+      "namePlaceholder": "Entrez votre nom complet",
+      "email": "Adresse Email",
+      "emailPlaceholder": "votre.email@exemple.com",
+      "craftDetails": "Détails de l'Artisanat",
+      "craftType": "Type d'Artisanat",
+      "selectCraftType": "Sélectionnez le type d'artisanat",
+      "woodType": "Type de Bois",
+      "selectWoodType": "Sélectionnez le type de bois",
+      "colors": "Couleurs Préférées",
+      "size": "Taille",
+      "sizePlaceholder": "ex., 12x8 pouces, Grand, Moyen",
+      "budget": "Gamme de Budget",
+      "selectBudget": "Sélectionnez votre budget",
+      "occasion": "Occasion",
+      "occasionPlaceholder": "ex., Mariage, Anniversaire, Célébration",
+      "deliveryDate": "Date de Livraison Préférée",
+      "description": "Description Détaillée",
+      "descriptionPlaceholder": "Décrivez votre vision, exigences spéciales ou inspiration pour cette pièce personnalisée...",
+      "submitting": "Envoi en cours...",
+      "submitRequest": "Soumettre Demande Personnalisée",
+      "requestSubmitted": "Demande Soumise avec Succès!",
+      "requestSubmittedDesc": "Merci pour votre demande d'artisanat personnalisé. Nos artisans examineront vos exigences et vous contacteront dans 2-3 jours ouvrables avec une proposition détaillée et un calendrier.",
+      "requestSummary": "Résumé de la Demande",
+      "submitAnother": "Soumettre une Autre Demande"
     }
   }
 }

@@ -295,6 +295,36 @@
       "shippingPartnersDesc": "Trabajamos con socios de envío confiables incluyendo DHL, FedEx, y servicios de mensajería locales para asegurar que tus artículos lleguen de forma segura.",
       "needHelp": "¿Necesitas Ayuda?",
       "needHelpDesc": "Si tienes alguna pregunta sobre tu envío, por favor contacta a nuestro equipo de servicio al cliente."
+    },
+    "gifts": {
+      "title": "Ideas de Regalos Personalizados",
+      "subtitle": "Crea una artesanía africana personalizada que cuente tu historia única. Nuestros artesanos darán vida a tu visión.",
+      "personalInfo": "Información Personal",
+      "yourName": "Tu Nombre",
+      "namePlaceholder": "Ingresa tu nombre completo",
+      "email": "Dirección de Email",
+      "emailPlaceholder": "tu.email@ejemplo.com",
+      "craftDetails": "Detalles de la Artesanía",
+      "craftType": "Tipo de Artesanía",
+      "selectCraftType": "Selecciona tipo de artesanía",
+      "woodType": "Tipo de Madera",
+      "selectWoodType": "Selecciona tipo de madera",
+      "colors": "Colores Preferidos",
+      "size": "Tamaño",
+      "sizePlaceholder": "ej., 12x8 pulgadas, Grande, Mediano",
+      "budget": "Rango de Presupuesto",
+      "selectBudget": "Selecciona tu presupuesto",
+      "occasion": "Ocasión",
+      "occasionPlaceholder": "ej., Boda, Cumpleaños, Aniversario",
+      "deliveryDate": "Fecha de Entrega Preferida",
+      "description": "Descripción Detallada",
+      "descriptionPlaceholder": "Describe tu visión, requisitos especiales o inspiración para esta pieza personalizada...",
+      "submitting": "Enviando...",
+      "submitRequest": "Enviar Solicitud Personalizada",
+      "requestSubmitted": "¡Solicitud Enviada Exitosamente!",
+      "requestSubmittedDesc": "Gracias por tu solicitud de artesanía personalizada. Nuestros artesanos revisarán tus requisitos y te contactarán en 2-3 días hábiles con una propuesta detallada y cronograma.",
+      "requestSummary": "Resumen de Solicitud",
+      "submitAnother": "Enviar Otra Solicitud"
     }
   }
 }

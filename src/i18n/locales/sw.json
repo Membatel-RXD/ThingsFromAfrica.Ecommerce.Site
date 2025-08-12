@@ -295,6 +295,36 @@
       "shippingPartnersDesc": "Tunafanya kazi na washirika wa usafirishaji wanaoaminika ikiwa ni pamoja na DHL, FedEx, na huduma za ujumbe za mitaani ili kuhakikisha vitu vyako vinafika salama.",
       "needHelp": "Unahitaji Msaada?",
       "needHelpDesc": "Ikiwa una maswali yoyote kuhusu mizigo yako, tafadhali wasiliana na timu yetu ya huduma kwa wateja."
+    },
+    "gifts": {
+      "title": "Mawazo ya Zawadi za Kibinafsi",
+      "subtitle": "Unda sanaa ya Kiafrika ya kibinafsi inayosimulia hadithi yako ya kipekee. Mafundi wetu wataifanya maono yako kuwa ukweli.",
+      "personalInfo": "Maelezo ya Kibinafsi",
+      "yourName": "Jina Lako",
+      "namePlaceholder": "Ingiza jina lako kamili",
+      "email": "Anwani ya Barua Pepe",
+      "emailPlaceholder": "barua.pepe@mfano.com",
+      "craftDetails": "Maelezo ya Sanaa",
+      "craftType": "Aina ya Sanaa",
+      "selectCraftType": "Chagua aina ya sanaa",
+      "woodType": "Aina ya Mbao",
+      "selectWoodType": "Chagua aina ya mbao",
+      "colors": "Rangi Unazopenda",
+      "size": "Ukubwa",
+      "sizePlaceholder": "mfano, 12x8 inchi, Kubwa, Wastani",
+      "budget": "Kiwango cha Bajeti",
+      "selectBudget": "Chagua bajeti yako",
+      "occasion": "Tukio",
+      "occasionPlaceholder": "mfano, Harusi, Siku ya Kuzaliwa, Maadhimisho",
+      "deliveryDate": "Tarehe ya Ufikishaji Unayopenda",
+      "description": "Maelezo ya Kina",
+      "descriptionPlaceholder": "Eleza maono yako, mahitaji maalum au msukumo wa kipande hiki cha kibinafsi...",
+      "submitting": "Inatuma...",
+      "submitRequest": "Tuma Ombi la Kibinafsi",
+      "requestSubmitted": "Ombi Limetumwa kwa Mafanikio!",
+      "requestSubmittedDesc": "Asante kwa ombi lako la sanaa ya kibinafsi. Mafundi wetu watakagua mahitaji yako na kuwasiliana nawe ndani ya siku 2-3 za kazi na pendekezo la kina na ratiba.",
+      "requestSummary": "Muhtasari wa Ombi",
+      "submitAnother": "Tuma Ombi Lingine"
     }
   }
 }

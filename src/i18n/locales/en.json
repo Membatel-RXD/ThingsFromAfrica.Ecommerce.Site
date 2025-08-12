@@ -349,6 +349,36 @@
       "shareDescription": "Are you a skilled artisan with a story to tell? We'd love to feature your craft and share your journey with our community of art enthusiasts.",
       "browseCrafts": "Browse Crafts",
       "readFullStory": "Read Full Story"
+    },
+    "gifts": {
+      "title": "Custom Gift Ideas",
+      "subtitle": "Create a personalized African craft that tells your unique story. Our artisans will bring your vision to life.",
+      "personalInfo": "Personal Information",
+      "yourName": "Your Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "your.email@example.com",
+      "craftDetails": "Craft Details",
+      "craftType": "Craft Type",
+      "selectCraftType": "Select craft type",
+      "woodType": "Wood Type",
+      "selectWoodType": "Select wood type",
+      "colors": "Preferred Colors",
+      "size": "Size",
+      "sizePlaceholder": "e.g., 12x8 inches, Large, Medium",
+      "budget": "Budget Range",
+      "selectBudget": "Select your budget",
+      "occasion": "Occasion",
+      "occasionPlaceholder": "e.g., Wedding, Birthday, Anniversary",
+      "deliveryDate": "Preferred Delivery Date",
+      "description": "Detailed Description",
+      "descriptionPlaceholder": "Describe your vision, special requirements, or inspiration for this custom piece...",
+      "submitting": "Submitting...",
+      "submitRequest": "Submit Custom Request",
+      "requestSubmitted": "Request Submitted Successfully!",
+      "requestSubmittedDesc": "Thank you for your custom craft request. Our artisans will review your requirements and contact you within 2-3 business days with a detailed proposal and timeline.",
+      "requestSummary": "Request Summary",
+      "submitAnother": "Submit Another Request"
     }
   }
 }

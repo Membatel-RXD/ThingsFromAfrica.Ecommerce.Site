@@ -36,6 +36,7 @@ import OrderSuccess from "./components/OrderSuccess";
 import ReturnRefundPolicy from "./pages/ReturnRefundPolicy";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import ArtisanDetail from './pages/ArtisanDetail'; // or wherever you place the component
+import GiftIdeas from './pages/GiftIdeas';
 
 const queryClient = new QueryClient();
 
@@ -80,6 +81,7 @@ const App = () => (
             <Route path="/checkout" element={<Checkout />} />
             <Route path="/order-success" element={<OrderSuccess />} />
             <Route path="/return-policy" element={ <ReturnRefundPolicy/>} />
+            <Route path="/gifts" element={<GiftIdeas />} />
             <Route path="/stories/:id" element={<ArtisanDetail />} />
             <Route path="*" element={<NotFound />} />
             </Routes>

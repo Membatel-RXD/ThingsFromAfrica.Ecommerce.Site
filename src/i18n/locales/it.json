@@ -295,6 +295,36 @@
       "shippingPartnersDesc": "Lavoriamo con partner di spedizione affidabili inclusi DHL, FedEx, e servizi di corriere locali per assicurare che i tuoi articoli arrivino in sicurezza.",
       "needHelp": "Hai Bisogno di Aiuto?",
       "needHelpDesc": "Se hai domande sulla tua spedizione, per favore contatta il nostro team di servizio clienti."
+    },
+    "gifts": {
+      "title": "Idee Regalo Personalizzate",
+      "subtitle": "Crea un artigianato africano personalizzato che racconta la tua storia unica. I nostri artigiani daranno vita alla tua visione.",
+      "personalInfo": "Informazioni Personali",
+      "yourName": "Il Tuo Nome",
+      "namePlaceholder": "Inserisci il tuo nome completo",
+      "email": "Indirizzo Email",
+      "emailPlaceholder": "tua.email@esempio.com",
+      "craftDetails": "Dettagli dell'Artigianato",
+      "craftType": "Tipo di Artigianato",
+      "selectCraftType": "Seleziona tipo di artigianato",
+      "woodType": "Tipo di Legno",
+      "selectWoodType": "Seleziona tipo di legno",
+      "colors": "Colori Preferiti",
+      "size": "Dimensione",
+      "sizePlaceholder": "es., 12x8 pollici, Grande, Medio",
+      "budget": "Fascia di Budget",
+      "selectBudget": "Seleziona il tuo budget",
+      "occasion": "Occasione",
+      "occasionPlaceholder": "es., Matrimonio, Compleanno, Anniversario",
+      "deliveryDate": "Data di Consegna Preferita",
+      "description": "Descrizione Dettagliata",
+      "descriptionPlaceholder": "Descrivi la tua visione, requisiti speciali o ispirazione per questo pezzo personalizzato...",
+      "submitting": "Invio in corso...",
+      "submitRequest": "Invia Richiesta Personalizzata",
+      "requestSubmitted": "Richiesta Inviata con Successo!",
+      "requestSubmittedDesc": "Grazie per la tua richiesta di artigianato personalizzato. I nostri artigiani esamineranno i tuoi requisiti e ti contatteranno entro 2-3 giorni lavorativi con una proposta dettagliata e tempistiche.",
+      "requestSummary": "Riepilogo Richiesta",
+      "submitAnother": "Invia Un'Altra Richiesta"
     }
   }
 }
