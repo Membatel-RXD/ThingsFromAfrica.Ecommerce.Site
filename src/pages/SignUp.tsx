@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 import { useTranslation } from 'react-i18next';
+import { ChevronDown, Globe } from 'lucide-react';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -13,9 +14,18 @@ const SignUp: React.FC = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [languageOpen, setLanguageOpen] = useState(false);
   const navigate = useNavigate();
   const { t, i18n } = useTranslation();
   const [lang, setLang] = useState(i18n.language);
+
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'es', name: 'Español' },
+    { code: 'fr', name: 'Français' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'sw', name: 'Kiswahili' }
+  ];
   
   useEffect(() => {
     const handleLanguageChange = (lng) => {
@@ -28,6 +38,11 @@ const SignUp: React.FC = () => {
       i18n.off('languageChanged', handleLanguageChange);
     };
   }, [i18n]);
+
+  const handleLanguageSelect = (language: { code: string; name: string }) => {
+    i18n.changeLanguage(language.code);
+    setLanguageOpen(false);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -57,7 +72,37 @@ const SignUp: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 relative">
+      {/* Language Selector */}
+      <div className="absolute top-4 right-4">
+        <div className="relative">
+          <button
+            onClick={() => setLanguageOpen(!languageOpen)}
+            className="flex items-center space-x-2 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
+          >
+            <Globe className="h-4 w-4 text-gray-600" />
+            <span className="text-sm text-gray-700">
+              {languages.find(l => l.code === i18n.language)?.name || 'English'}
+            </span>
+            <ChevronDown className="h-4 w-4 text-gray-600" />
+          </button>
+          
+          {languageOpen && (
+            <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+              {languages.map((language) => (
+                <button
+                  key={language.code}
+                  onClick={() => handleLanguageSelect(language)}
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 first:rounded-t-md last:rounded-b-md"
+                >
+                  {language.name}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
