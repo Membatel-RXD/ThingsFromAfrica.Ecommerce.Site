@@ -152,10 +152,10 @@ const Header: React.FC = () => {
 
   const unauthenticatedMenuItems: MenuItem[] = [
     { label: t('user.signIn'), href: '/login', icon: User },
-    { label: t('user.register'), href: '/register', icon: User },
+    { label: t('user.register'), href: '/signup', icon: User },
     { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
     { label: t('user.myCoins'), href: '/coins', icon: Coins },
-    { label: t('user.messageCenter'), href: '/messages', icon: MessageCircle },
+   
     { label: t('user.payment'), href: '/payment', icon: CreditCard },
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
@@ -171,7 +171,7 @@ const Header: React.FC = () => {
     { label: t('user.signOut'), href: '#', icon: LogOut, onClick: handleSignOut },
     { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
     { label: t('user.myCoins'), href: '/profile/user/my-coins', icon: Coins },
-    { label: t('user.messageCenter'), href: '/messages', icon: MessageCircle },
+    
     { label: t('user.payment'), href: '/payment', icon: CreditCard },
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },

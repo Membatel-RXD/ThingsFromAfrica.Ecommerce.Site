@@ -1,41 +1,56 @@
+import React, { useState, useEffect } from 'react';
 import AppLayout from '@/components/AppLayout';
 import Footer from '@/components/Footer';
 import { Shield, RotateCcw, CreditCard, AlertTriangle, Clock, Package, CheckCircle, Mail } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const ReturnRefundPolicy = () => {
+  const { t, i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+  
+  useEffect(() => {
+    const handleLanguageChange = (lng) => {
+      setLang(lng);
+    };
+    
+    i18n.on('languageChanged', handleLanguageChange);
+    
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
   const policies = [
     {
       icon: RotateCcw,
-      title: "Returns",
+      title: t('pages.returnPolicy.returns'),
       color: "from-blue-50 to-indigo-100",
       border: "border-blue-200 hover:border-blue-400",
       content: (
         <div className="space-y-4">
           <p className="text-gray-700 leading-relaxed">
-            You may return an item within <strong>14 days of delivery</strong> for a full refund or exchange, provided the item:
+            {t('pages.returnPolicy.returnDescription')}
           </p>
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Is in its original condition (unused and undamaged)
+              {t('pages.returnPolicy.originalCondition')}
             </li>
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Is returned in its original packaging
+              {t('pages.returnPolicy.originalPackaging')}
             </li>
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Is not a custom or personalized item (unless damaged or defective)
+              {t('pages.returnPolicy.notCustomItem')}
             </li>
           </ul>
           <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
             <div className="flex items-start">
               <Mail className="h-5 w-5 text-blue-600 mr-3 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-blue-800 font-medium">To start a return:</p>
+                <p className="text-blue-800 font-medium">{t('pages.returnPolicy.toStartReturn')}</p>
                 <p className="text-blue-700 text-sm mt-1">
-                  Email us at <span className="font-medium">[your email]</span> with your order number and reason for return. 
-                  We'll provide instructions for shipping the item back to us.
+                  {t('pages.returnPolicy.emailInstructions')}
                 </p>
               </div>
             </div>
@@ -45,23 +60,22 @@ const ReturnRefundPolicy = () => {
     },
     {
       icon: CreditCard,
-      title: "Refunds",
+      title: t('pages.returnPolicy.refunds'),
       color: "from-green-50 to-emerald-100",
       border: "border-green-200 hover:border-green-400",
       content: (
         <div className="space-y-4">
           <p className="text-gray-700 leading-relaxed">
-            Once we receive and inspect your returned item, we'll notify you and process your refund to your 
-            original payment method within <strong>5–7 business days</strong>.
+            {t('pages.returnPolicy.refundDescription')}
           </p>
           <div className="flex items-center space-x-4 text-sm text-gray-600 bg-green-50 rounded-lg p-4">
             <div className="flex items-center">
               <Clock className="h-4 w-4 text-green-600 mr-2" />
-              Fast Processing
+              {t('pages.returnPolicy.fastProcessing')}
             </div>
             <div className="flex items-center">
               <Shield className="h-4 w-4 text-green-600 mr-2" />
-              Secure Refunds
+              {t('pages.returnPolicy.secureRefunds')}
             </div>
           </div>
         </div>
@@ -69,7 +83,7 @@ const ReturnRefundPolicy = () => {
     },
     {
       icon: AlertTriangle,
-      title: "Exceptions",
+      title: t('pages.returnPolicy.exceptions'),
       color: "from-amber-50 to-orange-100",
       border: "border-amber-200 hover:border-amber-400",
       content: (
@@ -78,15 +92,13 @@ const ReturnRefundPolicy = () => {
             <li className="flex items-start">
               <AlertTriangle className="h-5 w-5 text-amber-500 mr-3 mt-0.5 flex-shrink-0" />
               <div>
-                <strong>Custom-made or personalized items</strong> cannot be returned or refunded, 
-                unless they arrive damaged or with a manufacturing fault.
+                {t('pages.returnPolicy.customItemException')}
               </div>
             </li>
             <li className="flex items-start">
               <AlertTriangle className="h-5 w-5 text-amber-500 mr-3 mt-0.5 flex-shrink-0" />
               <div>
-                <strong>Return shipping costs</strong> are the buyer's responsibility unless 
-                the item is incorrect or arrives damaged.
+                {t('pages.returnPolicy.shippingCostException')}
               </div>
             </li>
           </ul>
@@ -95,23 +107,21 @@ const ReturnRefundPolicy = () => {
     },
     {
       icon: Package,
-      title: "Damaged or Incorrect Items",
+      title: t('pages.returnPolicy.damagedItems'),
       color: "from-red-50 to-rose-100",
       border: "border-red-200 hover:border-red-400",
       content: (
         <div className="space-y-4">
           <p className="text-gray-700 leading-relaxed">
-            If your item arrives damaged or is not what you ordered, please contact us within 
-            <strong> 48 hours of delivery</strong>, with clear photos. We'll arrange a replacement 
-            or refund at no extra cost to you.
+            {t('pages.returnPolicy.damagedDescription')}
           </p>
           <div className="bg-red-50 border border-red-200 rounded-lg p-4">
             <div className="flex items-start">
               <AlertTriangle className="h-5 w-5 text-red-600 mr-3 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-red-800 font-medium">Quick Action Required</p>
+                <p className="text-red-800 font-medium">{t('pages.returnPolicy.quickAction')}</p>
                 <p className="text-red-700 text-sm mt-1">
-                  Report issues within 48 hours with photos for fastest resolution
+                  {t('pages.returnPolicy.reportWithPhotos')}
                 </p>
               </div>
             </div>
@@ -134,24 +144,24 @@ const ReturnRefundPolicy = () => {
               <div className="flex items-center justify-center mb-4">
                 <Shield className="h-12 w-12 text-blue-400 mr-4" />
                 <h1 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                  Return & Refund Policy
+                  {t('pages.returnPolicy.title')}
                 </h1>
               </div>
               <p className="text-lg md:text-xl text-gray-300 mb-6 leading-relaxed">
-                We want you to be completely happy with your purchase. If for any reason you're not satisfied, we're here to help.
+                {t('pages.returnPolicy.subtitle')}
               </p>
               <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
                 <span className="flex items-center">
                   <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
-                  14-Day Returns
+                  {t('pages.returnPolicy.fourteenDayReturns')}
                 </span>
                 <span className="flex items-center">
                   <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                  Fast Refunds
+                  {t('pages.returnPolicy.fastRefunds')}
                 </span>
                 <span className="flex items-center">
                   <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></span>
-                  Customer First
+                  {t('pages.returnPolicy.customerFirst')}
                 </span>
               </div>
             </div>
@@ -208,38 +218,38 @@ const ReturnRefundPolicy = () => {
           <div className="bg-gradient-to-r from-gray-50 to-white rounded-2xl p-12 border border-gray-200 text-center">
             <div className="max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold text-gray-900 mb-4">
-                Need Help with Your Order?
+                {t('pages.returnPolicy.needHelp')}
               </h2>
               <p className="text-lg text-gray-600 mb-8">
-                Our customer service team is here to assist you with returns, refunds, or any questions about your purchase.
+                {t('pages.returnPolicy.customerServiceDesc')}
               </p>
               
               <div className="flex flex-wrap justify-center gap-6 mb-8">
                 <div className="bg-white rounded-lg px-6 py-4 border border-gray-200 shadow-sm flex items-center">
                   <Mail className="h-6 w-6 text-blue-600 mr-3" />
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">Email Us</p>
+                    <p className="font-medium text-gray-900">{t('pages.returnPolicy.emailUs')}</p>
                     <p className="text-sm text-gray-600">[your email]</p>
                   </div>
                 </div>
                 <div className="bg-white rounded-lg px-6 py-4 border border-gray-200 shadow-sm flex items-center">
                   <Clock className="h-6 w-6 text-green-600 mr-3" />
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">Response Time</p>
-                    <p className="text-sm text-gray-600">Within 24 hours</p>
+                    <p className="font-medium text-gray-900">{t('pages.returnPolicy.responseTime')}</p>
+                    <p className="text-sm text-gray-600">{t('pages.returnPolicy.within24Hours')}</p>
                   </div>
                 </div>
                 <div className="bg-white rounded-lg px-6 py-4 border border-gray-200 shadow-sm flex items-center">
                   <Shield className="h-6 w-6 text-purple-600 mr-3" />
                   <div className="text-left">
-                    <p className="font-medium text-gray-900">Satisfaction</p>
-                    <p className="text-sm text-gray-600">100% Guaranteed</p>
+                    <p className="font-medium text-gray-900">{t('pages.returnPolicy.satisfaction')}</p>
+                    <p className="text-sm text-gray-600">{t('pages.returnPolicy.guaranteed')}</p>
                   </div>
                 </div>
               </div>
 
               <button className="bg-black text-white px-8 py-3 rounded-full hover:bg-gray-800 transition-colors duration-300 font-medium">
-                Contact Support
+                {t('pages.returnPolicy.contactSupport')}
               </button>
             </div>
           </div>
@@ -247,11 +257,9 @@ const ReturnRefundPolicy = () => {
           {/* Additional Info */}
           <div className="mt-12 text-center">
             <div className="bg-blue-50 border border-blue-200 rounded-lg p-6 max-w-2xl mx-auto">
-              <h3 className="font-bold text-blue-900 mb-2">Important Notice</h3>
+              <h3 className="font-bold text-blue-900 mb-2">{t('pages.returnPolicy.importantNotice')}</h3>
               <p className="text-blue-800 text-sm">
-                This policy applies to all orders placed through our website. For orders placed through third-party 
-                platforms, please refer to their respective return policies. We reserve the right to update this 
-                policy at any time, with changes taking effect immediately upon posting.
+                {t('pages.returnPolicy.policyNotice')}
               </p>
             </div>
           </div>
