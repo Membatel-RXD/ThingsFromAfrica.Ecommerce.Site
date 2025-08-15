@@ -109,10 +109,22 @@ const ProductDetailContent = () => {
     }
     
     // Add gallery images if they exist
-    if (productData.galleryImages && Array.isArray(productData.galleryImages)) {
-      const validGalleryImages = productData.galleryImages.filter(img => img && img.trim() !== '');
-      images.push(...validGalleryImages);
-    }
+// Add gallery images if they exist
+      if (productData.galleryImages) {
+        let galleryArray = [];
+
+        if (Array.isArray(productData.galleryImages)) {
+          galleryArray = productData.galleryImages;
+        } else if (typeof productData.galleryImages === 'string') {
+          // Split comma-separated string into array
+          galleryArray = productData.galleryImages.split(',');
+        }
+
+        // Filter out empty or invalid entries
+        const validGalleryImages = galleryArray.filter(img => img && img.trim() !== '');
+        images.push(...validGalleryImages);
+      }
+
     
     // If no images, return placeholder
     if (images.length === 0) {
@@ -221,14 +233,13 @@ const ProductDetailContent = () => {
               
               <div className="flex flex-col items-center text-center">
                 <div className="w-48 h-48 rounded-full overflow-hidden mb-4 border-4 border-amber-200">
-                  <img 
-                    src={productData.artisanImage || '/api/placeholder/200/200'} 
-                    alt="Artisan" 
+                <img
+                    src={productData.artisanImage || 'https://dummyimage.com/200x200/cccccc/000000.png&text=Artisan'}
+                    alt="Artisan"
                     className="w-full h-full object-cover"
-                    onError={(e) => {
-                      e.currentTarget.src = '/api/placeholder/200/200';
-                    }}
+                   
                   />
+
                 </div>
                 <div className="space-y-2">
                   <Badge variant="secondary" className="bg-amber-100 text-amber-800">
