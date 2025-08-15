@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
+import { useTranslation } from 'react-i18next';
+import { ChevronDown, Globe } from 'lucide-react';
 
 const SignUp: React.FC = () => {
   const [formData, setFormData] = useState({
@@ -12,7 +14,35 @@ const SignUp: React.FC = () => {
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
+  const [languageOpen, setLanguageOpen] = useState(false);
   const navigate = useNavigate();
+  const { t, i18n } = useTranslation();
+  const [lang, setLang] = useState(i18n.language);
+
+  const languages = [
+    { code: 'en', name: 'English' },
+    { code: 'es', name: 'Español' },
+    { code: 'fr', name: 'Français' },
+    { code: 'it', name: 'Italiano' },
+    { code: 'sw', name: 'Kiswahili' }
+  ];
+  
+  useEffect(() => {
+    const handleLanguageChange = (lng) => {
+      setLang(lng);
+    };
+    
+    i18n.on('languageChanged', handleLanguageChange);
+    
+    return () => {
+      i18n.off('languageChanged', handleLanguageChange);
+    };
+  }, [i18n]);
+
+  const handleLanguageSelect = (language: { code: string; name: string }) => {
+    i18n.changeLanguage(language.code);
+    setLanguageOpen(false);
+  };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -32,24 +62,54 @@ const SignUp: React.FC = () => {
       if (response.isSuccessful) {
         navigate('/email-verification');
       } else {
-        setError(response.remark || 'Sign up failed');
+        setError(response.remark || t('pages.signup.signupFailed'));
       }
     } catch (error) {
-      setError('An error occurred during sign up');
+      setError(t('pages.signup.errorOccurred'));
     } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 relative">
+      {/* Language Selector */}
+      <div className="absolute top-4 right-4">
+        <div className="relative">
+          <button
+            onClick={() => setLanguageOpen(!languageOpen)}
+            className="flex items-center space-x-2 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-black"
+          >
+            <Globe className="h-4 w-4 text-gray-600" />
+            <span className="text-sm text-gray-700">
+              {languages.find(l => l.code === i18n.language)?.name || 'English'}
+            </span>
+            <ChevronDown className="h-4 w-4 text-gray-600" />
+          </button>
+          
+          {languageOpen && (
+            <div className="absolute right-0 mt-2 w-40 bg-white border border-gray-300 rounded-md shadow-lg z-10">
+              {languages.map((language) => (
+                <button
+                  key={language.code}
+                  onClick={() => handleLanguageSelect(language)}
+                  className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 first:rounded-t-md last:rounded-b-md"
+                >
+                  {language.name}
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+      
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create your account
+            {t('pages.signup.title')}
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Join us to start shopping authentic African crafts
+            {t('pages.signup.subtitle')}
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
@@ -62,7 +122,7 @@ const SignUp: React.FC = () => {
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <label htmlFor="firstName" className="block text-sm font-medium text-gray-700">
-                  First Name
+                  {t('pages.signup.firstName')}
                 </label>
                 <input
                   id="firstName"
@@ -76,7 +136,7 @@ const SignUp: React.FC = () => {
               </div>
               <div>
                 <label htmlFor="lastName" className="block text-sm font-medium text-gray-700">
-                  Last Name
+                  {t('pages.signup.lastName')}
                 </label>
                 <input
                   id="lastName"
@@ -91,7 +151,7 @@ const SignUp: React.FC = () => {
             </div>
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                Email address
+                {t('pages.signup.emailAddress')}
               </label>
               <input
                 id="email"
@@ -105,7 +165,7 @@ const SignUp: React.FC = () => {
             </div>
             <div>
               <label htmlFor="phoneNumber" className="block text-sm font-medium text-gray-700">
-                Phone Number
+                {t('pages.signup.phoneNumber')}
               </label>
               <input
                 id="phoneNumber"
@@ -119,7 +179,7 @@ const SignUp: React.FC = () => {
             </div>
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                Password
+                {t('pages.signup.password')}
               </label>
               <input
                 id="password"
@@ -139,15 +199,15 @@ const SignUp: React.FC = () => {
               disabled={loading}
               className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-black hover:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-black disabled:opacity-50"
             >
-              {loading ? 'Creating account...' : 'Sign up'}
+              {loading ? t('pages.signup.creatingAccount') : t('pages.signup.signUp')}
             </button>
           </div>
 
           <div className="text-center">
             <span className="text-sm text-gray-600">
-              Already have an account?{' '}
+              {t('pages.signup.haveAccount')}{' '}
               <Link to="/login" className="font-medium text-black hover:underline">
-                Sign in
+                {t('pages.signup.signIn')}
               </Link>
             </span>
           </div>

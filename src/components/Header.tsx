@@ -144,7 +144,7 @@ const Header: React.FC = () => {
   type MenuItem = {
     label: string;
     href: string;
-    icon: React.ComponentType<React.SVGProps<SVGSVGElement>> | React.ReactElement<React.SVGProps<SVGSVGElement>>;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     onClick?: () => void;
   };
 
@@ -152,15 +152,15 @@ const Header: React.FC = () => {
 
   const unauthenticatedMenuItems: MenuItem[] = [
     { label: t('user.signIn'), href: '/login', icon: User },
-    { label: t('user.register'), href: '/register', icon: User },
+    { label: t('user.register'), href: '/signup', icon: User },
     { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
     { label: t('user.myCoins'), href: '/coins', icon: Coins },
-    { label: t('user.messageCenter'), href: '/messages', icon: MessageCircle },
+   
     { label: t('user.payment'), href: '/payment', icon: CreditCard },
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
     { label: t('user.settings'), href: '/settings', icon: Settings },
-    { label: t('user.sellerLogin'), href: '/seller-login', icon: User },
+  
     { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
    // { label: 'Help Center', href: '/help', icon: HelpCircle },
     { label: t('user.disputes'), href: '/disputes', icon: AlertTriangle },
@@ -171,12 +171,12 @@ const Header: React.FC = () => {
     { label: t('user.signOut'), href: '#', icon: LogOut, onClick: handleSignOut },
     { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
     { label: t('user.myCoins'), href: '/profile/user/my-coins', icon: Coins },
-    { label: t('user.messageCenter'), href: '/messages', icon: MessageCircle },
+    
     { label: t('user.payment'), href: '/payment', icon: CreditCard },
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
     { label: t('user.settings'), href: '/settings', icon: Settings },
-    { label: t('user.sellerLogin'), href: '/seller-login', icon: User },
+  
     { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
     //{ label: 'Help Center', href: '/help', icon: HelpCircle },
     { label: t('user.disputes'), href: '/disputes', icon: AlertTriangle },
@@ -272,7 +272,7 @@ const Header: React.FC = () => {
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl mx-4">
               <div className="flex rounded-lg overflow-hidden shadow-lg hover:shadow-craft-hover transition-all duration-300 hover:-translate-y-0.5">
-                <div className="flex-1 relative">
+                <div className="flex-1">
                   <input
                     type="text"
                     value={searchQuery}
@@ -393,7 +393,7 @@ const Header: React.FC = () => {
                   </div>
                   <div className="text-xs hidden sm:block">
                     <div className="text-craft-bronze">{t('nav.cart')}</div>
-                    <div className="font-semibold text-craft-cream">{cartItems}</div>
+                    
                   </div>
                 </Link>
               </div>
