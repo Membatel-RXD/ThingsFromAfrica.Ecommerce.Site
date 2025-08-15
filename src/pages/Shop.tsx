@@ -581,24 +581,33 @@ const Shop = () => {
 
               <div className="space-y-6">
                 {/* Price Range */}
-                <div>
-                  <div className="flex items-center justify-between mb-3 cursor-pointer" onClick={() => toggleSection('price')}>
-                    <h3 className="font-semibold text-gray-800">Price Range</h3>
-                    {expandedSections.price ? <ChevronUp className="h-4 w-4" /> : <ChevronDown className="h-4 w-4" />}
+                <div className="border-b border-gray-100 pb-6">
+                  <div className="flex items-center justify-between mb-4 cursor-pointer group" onClick={() => toggleSection('price')}>
+                    <h3 className="font-semibold text-gray-900 group-hover:text-gray-700 transition-colors">Price Range</h3>
+                    <div className="p-1 rounded-full group-hover:bg-gray-50 transition-colors">
+                      {expandedSections.price ? <ChevronUp className="h-4 w-4 text-gray-500" /> : <ChevronDown className="h-4 w-4 text-gray-500" />}
+                    </div>
                   </div>
                   {expandedSections.price && (
-                    <div className="space-y-3">
-                      <Slider
-                        value={priceRange}
-                        onValueChange={setPriceRange}
-                        max={200}
-                        min={0}
-                        step={5}
-                        className="w-full"
-                      />
-                      <div className="flex justify-between text-sm text-gray-600">
-                        <span>${priceRange[0]}</span>
-                        <span>${priceRange[1]}</span>
+                    <div className="space-y-4">
+                      <div className="px-2">
+                        <Slider
+                          value={priceRange}
+                          onValueChange={setPriceRange}
+                          max={200}
+                          min={0}
+                          step={5}
+                          className="w-full"
+                        />
+                      </div>
+                      <div className="flex justify-between items-center">
+                        <div className="bg-gray-50 px-3 py-2 rounded-lg border">
+                          <span className="text-sm font-medium text-gray-700">${priceRange[0]}</span>
+                        </div>
+                        <div className="h-px bg-gray-300 flex-1 mx-3"></div>
+                        <div className="bg-gray-50 px-3 py-2 rounded-lg border">
+                          <span className="text-sm font-medium text-gray-700">${priceRange[1]}</span>
+                        </div>
                       </div>
                     </div>
                   )}

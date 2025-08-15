@@ -160,7 +160,7 @@ const Header: React.FC = () => {
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
     { label: t('user.settings'), href: '/settings', icon: Settings },
-    { label: t('user.sellerLogin'), href: '/seller-login', icon: User },
+  
     { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
    // { label: 'Help Center', href: '/help', icon: HelpCircle },
     { label: t('user.disputes'), href: '/disputes', icon: AlertTriangle },
@@ -176,7 +176,7 @@ const Header: React.FC = () => {
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
     { label: t('user.settings'), href: '/settings', icon: Settings },
-    { label: t('user.sellerLogin'), href: '/seller-login', icon: User },
+  
     { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
     //{ label: 'Help Center', href: '/help', icon: HelpCircle },
     { label: t('user.disputes'), href: '/disputes', icon: AlertTriangle },
@@ -393,7 +393,7 @@ const Header: React.FC = () => {
                   </div>
                   <div className="text-xs hidden sm:block">
                     <div className="text-craft-bronze">{t('nav.cart')}</div>
-                    <div className="font-semibold text-craft-cream">{cartItems}</div>
+                    
                   </div>
                 </Link>
               </div>
