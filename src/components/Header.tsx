@@ -144,7 +144,7 @@ const Header: React.FC = () => {
   type MenuItem = {
     label: string;
     href: string;
-    icon: React.ComponentType<React.SVGProps<SVGSVGElement>> | React.ReactElement<React.SVGProps<SVGSVGElement>>;
+    icon: React.ComponentType<React.SVGProps<SVGSVGElement>>;
     onClick?: () => void;
   };
 
@@ -272,7 +272,7 @@ const Header: React.FC = () => {
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl mx-4">
               <div className="flex rounded-lg overflow-hidden shadow-lg hover:shadow-craft-hover transition-all duration-300 hover:-translate-y-0.5">
-                <div className="flex-1 relative">
+                <div className="flex-1">
                   <input
                     type="text"
                     value={searchQuery}
