@@ -84,6 +84,7 @@
     "csr": {
       "title": "Empowering Communities, Transforming Lives",
       "subtitle": "Our commitment goes beyond creating beautiful crafts. We're building stronger communities, empowering artisans, and creating lasting positive change across Africa.",
+      "badge": "Corporate Social Responsibility",
       "socialImpact": "Our Social Impact Initiatives",
       "flagshipPrograms": "Our Flagship Programs",
       "strategicPartnerships": "Our Strategic Partnerships",
@@ -93,7 +94,33 @@
       "partnerWithUs": "Partner with Us for Social Impact",
       "partnerDesc": "Every purchase you make contributes to our social impact programs. Join us in creating sustainable livelihoods, empowering communities, and preserving African cultural heritage for future generations.",
       "supportMission": "Support Our Mission",
-      "downloadReport": "Download CSR Report"
+      "downloadReport": "Download CSR Report",
+      "stats": {
+        "artisanFamilies": "Artisan Families Supported",
+        "communities": "Communities Reached",
+        "investment": "Community Investment",
+        "fairTrade": "Fair Trade Practices"
+      },
+      "education": {
+        "title": "Education & Skills Development",
+        "description": "Providing vocational training, literacy programs, and apprenticeships to empower local communities.",
+        "impact": "500+ people trained"
+      },
+      "healthcare": {
+        "title": "Healthcare Support",
+        "description": "Supporting community health centers and providing medical assistance to artisan families.",
+        "impact": "1,200+ lives improved"
+      },
+      "childWelfare": {
+        "title": "Child Welfare Programs",
+        "description": "Supporting orphanages, school feeding programs, and educational scholarships for children.",
+        "impact": "300+ children supported"
+      },
+      "infrastructure": {
+        "title": "Community Infrastructure",
+        "description": "Building wells, improving roads, and supporting community centers in artisan villages.",
+        "impact": "25+ projects completed"
+      }
     },
     "profile": {
       "title": "My Profile",

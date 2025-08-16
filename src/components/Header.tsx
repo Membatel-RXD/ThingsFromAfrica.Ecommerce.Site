@@ -42,7 +42,11 @@ const Header: React.FC = () => {
     { code: 'es', name: 'Español' },
     { code: 'fr', name: 'Français' },
     { code: 'it', name: 'Italiano' },
-    { code: 'sw', name: 'Kiswahili' }
+    { code: 'sw', name: 'Kiswahili' },
+    { code: 'de', name: 'Deutsch' },
+    { code: 'pt', name: 'Português' },
+    { code: 'nl', name: 'Nederlands' },
+    { code: 'zh', name: '中文' }
   ];
 
   // Check authentication status on component mount
@@ -305,7 +309,7 @@ const Header: React.FC = () => {
               </button>
               
               {languageOpen && (
-                <div className="absolute top-full right-0 mt-1 w-32 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-10">
+                <div className="absolute top-full right-0 mt-1 w-40 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-10">
                 {languages.map((language) => (
                   <button
                     key={language.code}

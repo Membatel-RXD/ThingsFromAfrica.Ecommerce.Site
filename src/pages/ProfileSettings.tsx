@@ -581,6 +581,10 @@ const ProfileSettings: React.FC = () => {
                           <SelectItem value="fr">Français</SelectItem>
                           <SelectItem value="it">Italiano</SelectItem>
                           <SelectItem value="sw">Kiswahili</SelectItem>
+                          <SelectItem value="de">Deutsch</SelectItem>
+                          <SelectItem value="pt">Português</SelectItem>
+                          <SelectItem value="nl">Nederlands</SelectItem>
+                          <SelectItem value="zh">中文</SelectItem>
                         </SelectContent>
                       </Select>
                     </div>

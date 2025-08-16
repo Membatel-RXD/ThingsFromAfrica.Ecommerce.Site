@@ -30,39 +30,39 @@ const CSR: React.FC = () => {
   const initiatives = [
     {
       icon: <GraduationCap className="h-6 w-6" />,
-      title: 'Education & Skills Development',
-      description: 'Providing vocational training, literacy programs, and apprenticeships to empower local communities.',
-      impact: '500+ people trained',
+      title: t('pages.csr.education.title'),
+      description: t('pages.csr.education.description'),
+      impact: t('pages.csr.education.impact'),
       color: 'bg-blue-100 text-blue-800'
     },
     {
       icon: <Stethoscope className="h-6 w-6" />,
-      title: 'Healthcare Support',
-      description: 'Supporting community health centers and providing medical assistance to artisan families.',
-      impact: '1,200+ lives improved',
+      title: t('pages.csr.healthcare.title'),
+      description: t('pages.csr.healthcare.description'),
+      impact: t('pages.csr.healthcare.impact'),
       color: 'bg-red-100 text-red-800'
     },
     {
       icon: <Baby className="h-6 w-6" />,
-      title: 'Child Welfare Programs',
-      description: 'Supporting orphanages, school feeding programs, and educational scholarships for children.',
-      impact: '300+ children supported',
+      title: t('pages.csr.childWelfare.title'),
+      description: t('pages.csr.childWelfare.description'),
+      impact: t('pages.csr.childWelfare.impact'),
       color: 'bg-purple-100 text-purple-800'
     },
     {
       icon: <Home className="h-6 w-6" />,
-      title: 'Community Infrastructure',
-      description: 'Building wells, improving roads, and supporting community centers in artisan villages.',
-      impact: '25+ projects completed',
+      title: t('pages.csr.infrastructure.title'),
+      description: t('pages.csr.infrastructure.description'),
+      impact: t('pages.csr.infrastructure.impact'),
       color: 'bg-green-100 text-green-800'
     }
   ];
 
   const stats = [
-    { number: '200+', label: 'Artisan Families Supported', icon: <Users className="h-8 w-8" /> },
-    { number: '15', label: 'Communities Reached', icon: <Globe className="h-8 w-8" /> },
-    { number: '$500K+', label: 'Community Investment', icon: <DollarSign className="h-8 w-8" /> },
-    { number: '95%', label: 'Fair Trade Practices', icon: <Shield className="h-8 w-8" /> }
+    { number: '200+', label: t('pages.csr.stats.artisanFamilies'), icon: <Users className="h-8 w-8" /> },
+    { number: '15', label: t('pages.csr.stats.communities'), icon: <Globe className="h-8 w-8" /> },
+    { number: '$500K+', label: t('pages.csr.stats.investment'), icon: <DollarSign className="h-8 w-8" /> },
+    { number: '95%', label: t('pages.csr.stats.fairTrade'), icon: <Shield className="h-8 w-8" /> }
   ];
 
   const programs = [
@@ -156,7 +156,7 @@ const CSR: React.FC = () => {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full mb-4">
             <Heart className="h-4 w-4" />
-            <span className="text-sm font-medium">Corporate Social Responsibility</span>
+            <span className="text-sm font-medium">{t('pages.csr.badge')}</span>
           </div>
           <h1 className="text-5xl font-bold text-black mb-4">
             {t('pages.csr.title')}
