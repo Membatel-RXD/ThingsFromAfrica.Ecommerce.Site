@@ -3,6 +3,7 @@ import { ChevronRight, Star, Heart, ShoppingBag, Users, TrendingUp, Award, Arrow
 import { useNavigate } from 'react-router-dom';
 import { apiService, IAPIResponse } from '@/lib/api';
 import { ProductCategory } from '@/models/members';
+import { useTranslation } from 'react-i18next';
 
 
 
@@ -18,6 +19,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
   const [hoveredCategory, setHoveredCategory] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [fetchedCategories, setFetchedCategories] = useState<ProductCategory[]>([]);
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -98,10 +100,10 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
             <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-24"></div>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-black">
-            Shop by Category
+            {t('pages.home.shopByCategory')}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Discover our curated collection of authentic African crafts, organized by traditional categories
+            {t('pages.home.shopByCategoryDesc')}
           </p>
         </div>
 
@@ -127,7 +129,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
                 {category.isTouristFavorite && (
                   <div className="absolute top-4 right-4 bg-gradient-to-r from-yellow-400 to-yellow-500 text-black px-3 py-1 rounded-full text-sm font-bold flex items-center space-x-1">
                     <Star className="h-4 w-4 fill-current" />
-                    <span>Tourist Favorite</span>
+                    <span>{t('pages.home.touristFavorite')}</span>
                   </div>
                 )}
 
@@ -164,7 +166,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
                   </h3>
                   <div className="flex items-center space-x-2 text-white/80">
                     <TrendingUp className="h-4 w-4" />
-                    <span className="text-sm">Trending</span>
+                    <span className="text-sm">{t('pages.home.trending')}</span>
                   </div>
                 </div>
               </div>
@@ -180,11 +182,11 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
                   <div className="flex items-center space-x-4">
                     <div className="flex items-center space-x-1 text-gray-500">
                       <Users className="h-4 w-4" />
-                      <span className="text-sm">Popular</span>
+                      <span className="text-sm">{t('pages.home.popular')}</span>
                     </div>
                     <div className="flex items-center space-x-1 text-gray-500">
                       <Award className="h-4 w-4" />
-                      <span className="text-sm">Authentic</span>
+                      <span className="text-sm">{t('pages.home.authentic')}</span>
                     </div>
                   </div>
                   <div className="text-sm text-gray-400">
@@ -200,7 +202,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
                     handleCategoryClick(category);
                   }}
                 >
-                  <span>Explore Category</span>
+                  <span>{t('pages.home.exploreCategory')}</span>
                   <ArrowRight className={`h-4 w-4 transition-transform duration-300 ${
                     hoveredCategory === category.categoryId ? 'translate-x-1' : ''
                   }`} />
@@ -223,7 +225,7 @@ const ShopByCategory: React.FC<ShopByCategoryProps> = ({
             className="bg-white border-2 border-black text-black px-8 py-4 rounded-xl font-medium hover:bg-black hover:text-white transition-all duration-300 flex items-center space-x-2 mx-auto group"
             onClick={handleViewAllCategories}
           >
-            <span>View All Categories</span>
+            <span>{t('pages.home.viewAllCategories')}</span>
             <ChevronRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>

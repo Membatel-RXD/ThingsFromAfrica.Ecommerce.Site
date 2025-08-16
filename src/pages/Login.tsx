@@ -20,10 +20,10 @@ const Login: React.FC = () => {
     { code: 'fr', name: 'Français' },
     { code: 'it', name: 'Italiano' },
     { code: 'sw', name: 'Kiswahili' },
+    { code: 'zh', name: '中文' },
     { code: 'de', name: 'Deutsch' },
     { code: 'pt', name: 'Português' },
-    { code: 'nl', name: 'Nederlands' },
-    { code: 'zh', name: '中文' }
+    { code: 'nl', name: 'Nederlands' }
   ];
   
   useEffect(() => {

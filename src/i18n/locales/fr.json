@@ -110,13 +110,38 @@
       "balancingDesc": "Bien qu'une partie du bois que nous utilisons soit du bois dur à croissance lente, nous prenons des mesures conscientes pour réduire les dommages et promouvoir la durabilité à long terme. Nos échiquiers artisanaux et produits en bois sont fabriqués selon des pratiques éthiques qui honorent à la fois nos traditions artisanales et notre planète.",
       "makingImpact": "Créer un Impact Significatif",
       "impactDesc": "Nous croyons que la vraie durabilité consiste à protéger l'environnement et à autonomiser les gens. Chaque achat soutient l'artisanat éthique, les moyens de subsistance ruraux et un mouvement croissant vers un design conscient et significatif.",
-      "shopCollection": "Acheter Notre Collection Durable"
+      "shopCollection": "Acheter Notre Collection Durable",
+      "wasteReductionPoint1": "Utiliser les chutes de bois et le bois récupéré chaque fois que possible",
+      "wasteReductionPoint2": "Réutiliser les matériaux restants pour réduire les déchets",
+      "wasteReductionPoint3": "Former les artisans aux techniques de production à déchets minimaux",
+      "responsibleSourcingPoint1": "Partenariat avec les communautés qui possèdent des arbres",
+      "responsibleSourcingPoint2": "Promouvoir des méthodes de récolte responsables",
+      "responsibleSourcingPoint3": "Soutenir la gestion forestière durable",
+      "communityEducationPoint1": "Former les artisans aux pratiques durables",
+      "communityEducationPoint2": "Éduquer les fournisseurs sur la conservation des forêts",
+      "communityEducationPoint3": "Sensibiliser à l'importance de la durabilité",
+      "ourImpact": "Notre Impact",
+      "ourImpactDesc": "Chaque achat soutient l'artisanat éthique, les moyens de subsistance ruraux et le design conscient",
+      "communitySupport": "Soutien Communautaire",
+      "wasteMinimization": "Minimisation des Déchets",
+      "wasteMinimizationDesc": "Efficacité maximale des matériaux",
+      "communityPartnership": "Partenariat Communautaire",
+      "communityPartnershipDesc": "Collaboration directe",
+      "ethicalCraftsmanship": "Artisanat Éthique",
+      "ethicalCraftsmanshipDesc": "Qualité avec conscience",
+      "ethical": "Éthique",
+      "ethicalDesc": "Pratiques d'approvisionnement responsables",
+      "empowering": "Autonomisant",
+      "empoweringDesc": "Soutenir les communautés rurales",
+      "sustainable": "Durable",
+      "sustainableDesc": "Conservation forestière à long terme"
     },
     "csr": {
       "title": "Autonomiser les Communautés, Transformer les Vies",
       "subtitle": "Notre engagement va au-delà de la création de beaux artisanats. Nous construisons des communautés plus fortes, autonomisons les artisans et créons un changement positif durable à travers l'Afrique.",
+      "badge": "Responsabilité Sociale d'Entreprise",
       "socialImpact": "Nos Initiatives d'Impact Social",
-      "flagshipPrograms": "Nos Programmes Phares",
+      "flagshipProgramsTitle": "Nos Programmes Phares",
       "strategicPartnerships": "Nos Partenariats Stratégiques",
       "fairTrade": "Commerce Équitable et Pratiques Éthiques",
       "fairTradeDesc": "Nous croyons en une compensation équitable et un traitement éthique de tous nos artisans. Notre engagement envers les principes du commerce équitable garantit que les artisans traditionnels reçoivent des salaires équitables et travaillent dans des conditions sûres et respectueuses.",
@@ -124,7 +149,135 @@
       "partnerWithUs": "Partenaire avec Nous pour l'Impact Social",
       "partnerDesc": "Chaque achat que vous faites contribue à nos programmes d'impact social. Rejoignez-nous pour créer des moyens de subsistance durables, autonomiser les communautés et préserver le patrimoine culturel africain pour les générations futures.",
       "supportMission": "Soutenir Notre Mission",
-      "downloadReport": "Télécharger le Rapport RSE"
+      "downloadReport": "Télécharger le Rapport RSE",
+      "stats": {
+        "artisanFamilies": "Familles d'Artisans Soutenues",
+        "communities": "Communautés Atteintes",
+        "investment": "Investissement Communautaire",
+        "fairTrade": "Pratiques de Commerce Équitable"
+      },
+      "education": {
+        "title": "Éducation et Développement des Compétences",
+        "description": "Fournir une formation professionnelle, des programmes d'alphabétisation et des apprentissages pour autonomiser les communautés locales.",
+        "impact": "500+ personnes formées"
+      },
+      "healthcare": {
+        "title": "Soutien Sanitaire",
+        "description": "Soutenir les centres de santé communautaires et fournir une assistance médicale aux familles d'artisans.",
+        "impact": "1.200+ vies améliorées"
+      },
+      "childWelfare": {
+        "title": "Programmes de Bien-Être Infantile",
+        "description": "Soutenir les orphelinats, les programmes d'alimentation scolaire et les bourses d'éducation pour les enfants.",
+        "impact": "300+ enfants soutenus"
+      },
+      "infrastructure": {
+        "title": "Infrastructure Communautaire",
+        "description": "Construire des puits, améliorer les routes et soutenir les centres communautaires dans les villages d'artisans.",
+        "impact": "25+ projets achevés"
+      },
+      "programs": {
+        "artisanEmpowerment": "Programme d'Autonomisation des Artisans",
+        "womenEmpowerment": "Autonomisation Économique des Femmes",
+        "youthDevelopment": "Initiative de Développement des Jeunes",
+        "established": "Établi",
+        "beneficiaries": "bénéficiaires",
+        "artisans": "artisans",
+        "women": "femmes",
+        "youth": "jeunes",
+        "growingImpact": "Impact Croissant",
+        "keyFeatures": "Caractéristiques Clés",
+        "fairWageGuarantee": "Garantie de salaire équitable (150% au-dessus du minimum local)",
+        "healthInsurance": "Couverture d'assurance santé",
+        "skillsWorkshops": "Ateliers de développement des compétences",
+        "businessMentorship": "Mentorat d'entreprise",
+        "leadershipPrograms": "Programmes de développement du leadership",
+        "microfinanceAccess": "Accès au microcrédit",
+        "childcareSupport": "Soutien à la garde d'enfants",
+        "marketAccess": "Facilitation d'accès au marché",
+        "apprenticeshipPrograms": "Programmes d'apprentissage",
+        "digitalLiteracy": "Formation à l'alphabétisation numérique",
+        "entrepreneurshipWorkshops": "Ateliers d'entrepreneuriat",
+        "culturalPreservation": "Éducation à la préservation culturelle"
+      },
+      "flagshipPrograms": {
+        "artisanEmpowerment": {
+          "title": "Programme d'Autonomisation des Artisans",
+          "established": "Ést. 2015",
+          "description": "Fournir des salaires équitables, une formation aux compétences et un soutien au développement des entreprises aux artisans locaux.",
+          "beneficiaries": "200+ artisans",
+          "status": "Impact Croissant",
+          "keyFeatures": "Caractéristiques Clés :",
+          "features": {
+            "fairWage": "Garantie de salaire équitable (150% au-dessus du minimum local)",
+            "healthInsurance": "Couverture d'assurance santé",
+            "skillsWorkshops": "Ateliers de développement des compétences",
+            "businessMentorship": "Mentorat d'entreprise"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Autonomisation Économique des Femmes",
+          "established": "Ést. 2017",
+          "description": "Soutenir les artisanes par la formation au leadership, le microcrédit et la formation de coopératives.",
+          "beneficiaries": "120+ femmes",
+          "status": "Impact Croissant",
+          "keyFeatures": "Caractéristiques Clés :",
+          "features": {
+            "leadershipPrograms": "Programmes de développement du leadership",
+            "microfinanceAccess": "Accès au microcrédit",
+            "childcareSupport": "Soutien à la garde d'enfants",
+            "marketAccess": "Facilitation d'accès au marché"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Initiative de Développement des Jeunes",
+          "established": "Ést. 2019",
+          "description": "Engager les jeunes dans les métiers traditionnels tout en fournissant des compétences commerciales modernes.",
+          "beneficiaries": "80+ jeunes",
+          "status": "Impact Croissant",
+          "keyFeatures": "Caractéristiques Clés :",
+          "features": {
+            "apprenticeshipPrograms": "Programmes d'apprentissage",
+            "digitalLiteracy": "Formation à l'alphabétisation numérique",
+            "entrepreneurshipWorkshops": "Ateliers d'entrepreneuriat",
+            "culturalPreservation": "Éducation à la préservation culturelle"
+          }
+        }
+      },
+      "partnerships": {
+        "localNGOs": "ONG Locales",
+        "localNGOsDesc": "Collaborer avec des organisations de base pour le développement communautaire",
+        "educationalInstitutions": "Institutions Éducatives",
+        "educationalDesc": "Soutenir les écoles et centres de formation professionnelle",
+        "governmentAgencies": "Agences Gouvernementales",
+        "governmentDesc": "Travailler avec les autorités locales sur des projets d'infrastructure",
+        "internationalOrgs": "Organisations Internationales",
+        "internationalDesc": "Partenariat avec des ONG mondiales pour le développement durable"
+      },
+      "fairTradeDetails": {
+        "wages150": "Salaires 150% au-dessus du minimum local",
+        "healthcareCoverage": "Couverture santé pour les familles d'artisans",
+        "safeConditions": "Conditions de travail sûres garanties",
+        "transparentPricing": "Prix transparents et partage des bénéfices",
+        "certifiedProducts": "Produits Certifiés Commerce Équitable",
+        "verifiedSourcing": "Approvisionnement Éthique Vérifié"
+      },
+      "goals": {
+        "onTrack": "Sur la Bonne Voie",
+        "inProgress": "En Cours",
+        "nearlyComplete": "Presque Terminé",
+        "progress": "Progrès",
+        "support300Families": "Soutenir 300 familles d'artisans",
+        "establish5Centers": "Établir 5 nouveaux centres de formation",
+        "achieve100FairTrade": "Atteindre 100% de certification commerce équitable"
+      },
+      "successStory": {
+        "title": "Histoire de Succès: Coopérative de Mary",
+        "description": "En 2018, nous avons soutenu Mary Banda dans la formation d'une coopérative de vannerie féminine dans le Malawi rural. En commençant avec seulement 5 femmes, la coopérative emploie maintenant 25 artisanes, a construit un atelier communautaire et fournit des avantages de santé à toutes les familles des membres. L'histoire de Mary représente le pouvoir transformateur des pratiques commerciales éthiques et du développement centré sur la communauté.",
+        "womenEmployed": "Femmes Employées",
+        "annualIncrease": "Augmentation de Revenus Annuels",
+        "familyMembers": "Membres de la Famille Bénéficiaires"
+      }
     },
     "profile": {
       "title": "Mon Profil",
@@ -443,6 +596,37 @@
       "signIn": "Se connecter",
       "signupFailed": "Échec de l'inscription",
       "errorOccurred": "Une erreur s'est produite lors de l'inscription"
+    },
+    "home": {
+      "authentic": "Authentiques",
+      "africanCrafts": "Artisanats Africains",
+      "heroDescription": "Découvrez le riche patrimoine de l'artisanat africain. Chaque pièce raconte une histoire de tradition, de savoir-faire et de fierté culturelle transmise à travers les générations.",
+      "exploreCrafts": "Explorez Nos Artisanats",
+      "readStories": "Lisez Leurs Histoires",
+      "uniqueCrafts": "Artisanats Uniques",
+      "masterArtisans": "Maîtres Artisans",
+      "yearsHeritage": "Années de Patrimoine",
+      "featuredCrafts": "Artisanats en Vedette",
+      "featuredDescription": "Chaque pièce vient avec l'histoire de son créateur, vous connectant au cœur de la culture africaine",
+      "bestSeller": "Meilleure Vente",
+      "quickPreview": "Aperçu Rapide",
+      "addToCart": "Ajouter au Panier",
+      "learnMore": "En Savoir Plus",
+      "viewAllCrafts": "Voir Tous les Artisanats",
+      "shopByCategory": "Acheter par Catégorie",
+      "shopByCategoryDesc": "Découvrez notre collection curée d'artisanats africains authentiques, organisés par catégories traditionnelles",
+      "touristFavorite": "Favori Touristique",
+      "trending": "Tendance",
+      "popular": "Populaire",
+      "exploreCategory": "Explorer la Catégorie",
+      "viewAllCategories": "Voir Toutes les Catégories",
+      "shopByCraftType": "Acheter par Type d'Artisanat",
+      "shopByCraftTypeDesc": "Explorez différentes techniques artisanales traditionnelles et découvrez l'art derrière chaque méthode",
+      "traditional": "Traditionnel",
+      "masterCraftspeople": "Maîtres Artisans",
+      "masterCraftspeopleDesc": "Chaque type d'artisanat représente des siècles de connaissances et de compétences, transmis à travers les générations d'artisans africains",
+      "meetOurArtisans": "Rencontrez Nos Artisans",
+      "viewAllCraftTypes": "Voir Tous les Types d'Artisanat"
     }
   }
 }

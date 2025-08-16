@@ -79,13 +79,38 @@
       "balancingDesc": "Obwohl ein Teil des von uns verwendeten Holzes langsam wachsendes Hartholz ist, unternehmen wir bewusste Schritte, um Schäden zu reduzieren und langfristige Nachhaltigkeit zu fördern.",
       "makingImpact": "Einen bedeutsamen Einfluss schaffen",
       "impactDesc": "Wir glauben, dass wahre Nachhaltigkeit den Schutz der Umwelt und die Stärkung der Menschen bedeutet. Jeder Kauf unterstützt ethische Handwerkskunst, ländliche Lebensgrundlagen und eine wachsende Bewegung hin zu bewusstem, bedeutungsvollem Design.",
-      "shopCollection": "Kaufen Sie unsere nachhaltige Kollektion"
+      "shopCollection": "Kaufen Sie unsere nachhaltige Kollektion",
+      "wasteReductionPoint1": "Verwendung von Holzabschnitten und wiederverwendetem Holz wann immer möglich",
+      "wasteReductionPoint2": "Wiederverwertung von übrig gebliebenen Materialien zur Abfallreduzierung",
+      "wasteReductionPoint3": "Schulung von Handwerkern in abfallarmen Produktionstechniken",
+      "responsibleSourcingPoint1": "Partnerschaft mit Gemeinden, die Bäume besitzen",
+      "responsibleSourcingPoint2": "Förderung verantwortlicher Ernteverfahren",
+      "responsibleSourcingPoint3": "Unterstützung nachhaltiger Forstwirtschaft",
+      "communityEducationPoint1": "Schulung von Handwerkern in nachhaltigen Praktiken",
+      "communityEducationPoint2": "Aufklärung von Lieferanten über Waldschutz",
+      "communityEducationPoint3": "Aufbau von Bewusstsein für die Bedeutung der Nachhaltigkeit",
+      "ourImpact": "Unser Einfluss",
+      "ourImpactDesc": "Jeder Kauf unterstützt ethische Handwerkskunst, ländliche Lebensgrundlagen und bewusstes Design",
+      "communitySupport": "Gemeinschaftsunterstützung",
+      "wasteMinimization": "Abfallminimierung",
+      "wasteMinimizationDesc": "Maximale Materialeffizienz",
+      "communityPartnership": "Gemeinschaftspartnerschaft",
+      "communityPartnershipDesc": "Direkte Zusammenarbeit",
+      "ethicalCraftsmanship": "Ethische Handwerkskunst",
+      "ethicalCraftsmanshipDesc": "Qualität mit Gewissen",
+      "ethical": "Ethisch",
+      "ethicalDesc": "Verantwortliche Beschaffungspraktiken",
+      "empowering": "Stärkend",
+      "empoweringDesc": "Unterstützung ländlicher Gemeinden",
+      "sustainable": "Nachhaltig",
+      "sustainableDesc": "Langfristiger Waldschutz",
+      "communitySupport": "Gemeinschaftsunterstützung"
     },
     "csr": {
       "title": "Gemeinden stärken, Leben transformieren",
       "subtitle": "Unser Engagement geht über die Schaffung schöner Handwerkskunst hinaus. Wir bauen stärkere Gemeinden auf, stärken Handwerker und schaffen dauerhaften positiven Wandel in ganz Afrika.",
       "socialImpact": "Unsere sozialen Wirkungsinitiativen",
-      "flagshipPrograms": "Unsere Flaggschiff-Programme",
+      "flagshipProgramsTitle": "Unsere Flaggschiff-Programme",
       "strategicPartnerships": "Unsere strategischen Partnerschaften",
       "fairTrade": "Fairer Handel und ethische Praktiken",
       "fairTradeDesc": "Wir glauben an faire Entlohnung und ethische Behandlung aller unserer Handwerker. Unser Engagement für Fair-Trade-Prinzipien stellt sicher, dass traditionelle Handwerker faire Löhne erhalten und unter sicheren, respektvollen Bedingungen arbeiten.",
@@ -120,6 +145,141 @@
         "title": "Gemeinschaftsinfrastruktur",
         "description": "Bau von Brunnen, Verbesserung von Straßen und Unterstützung von Gemeindezentren in Handwerkerdörfern.",
         "impact": "25+ Projekte abgeschlossen"
+      },
+      "programs": {
+        "artisanEmpowerment": {
+          "title": "Handwerker-Stärkungsprogramm",
+          "established": "Gegr. 2015",
+          "description": "Bereitstellung fairer Löhne, Kompetenztraining und Geschäftsentwicklungsunterstützung für lokale Handwerker.",
+          "beneficiaries": "200+ Handwerker",
+          "status": "Wachsende Wirkung",
+          "features": {
+            "fairWage": "Faire Lohngarantie (150% über lokalem Mindestlohn)",
+            "healthInsurance": "Krankenversicherungsschutz",
+            "skillsWorkshops": "Kompetenzentwicklungsworkshops",
+            "businessMentorship": "Geschäftsmentoring"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Wirtschaftliche Stärkung von Frauen",
+          "established": "Gegr. 2017",
+          "description": "Unterstützung weiblicher Handwerker durch Führungstraining, Mikrofinanzierung und Genossenschaftsbildung.",
+          "beneficiaries": "120+ Frauen",
+          "status": "Wachsende Wirkung",
+          "features": {
+            "leadershipPrograms": "Führungsentwicklungsprogramme",
+            "microfinanceAccess": "Mikrofinanzierungszugang",
+            "childcareSupport": "Kinderbetreuungsunterstützung",
+            "marketAccess": "Marktzugangserleichterung"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Jugendentwicklungsinitiative",
+          "established": "Gegr. 2019",
+          "description": "Einbindung junger Menschen in traditionelle Handwerke bei gleichzeitiger Vermittlung moderner Geschäftsfähigkeiten.",
+          "beneficiaries": "80+ Jugendliche",
+          "status": "Wachsende Wirkung",
+          "features": {
+            "apprenticeshipPrograms": "Ausbildungsprogramme",
+            "digitalLiteracy": "Digitale Kompetenzschulung",
+            "entrepreneurshipWorkshops": "Unternehmertum-Workshops",
+            "culturalPreservation": "Kulturerhaltungsbildung"
+          }
+        }
+      },
+      "partnerships": {
+        "localNgos": {
+          "title": "Lokale NGOs",
+          "description": "Zusammenarbeit mit Basisorganisationen für Gemeinschaftsentwicklung"
+        },
+        "educationalInstitutions": {
+          "title": "Bildungseinrichtungen",
+          "description": "Unterstützung von Schulen und Berufsbildungszentren"
+        },
+        "governmentAgencies": {
+          "title": "Regierungsbehörden",
+          "description": "Zusammenarbeit mit lokalen Behörden bei Infrastrukturprojekten"
+        },
+        "internationalOrganizations": {
+          "title": "Internationale Organisationen",
+          "description": "Partnerschaft mit globalen NGOs für nachhaltige Entwicklung"
+        }
+      },
+      "fairTradeDetails": {
+        "wagesAboveMinimum": "Löhne 150% über lokalem Mindestlohn",
+        "healthcareCoverage": "Krankenversicherung für Handwerkerfamilien",
+        "safeWorkingConditions": "Sichere Arbeitsbedingungen garantiert",
+        "transparentPricing": "Transparente Preisgestaltung und Gewinnbeteiligung",
+        "certifiedProducts": "95% Fair-Trade-zertifizierte Produkte",
+        "verifiedSourcing": "Verifizierte ethische Beschaffung"
+      },
+      "goals": {
+        "2025": {
+          "title": "300 Handwerkerfamilien unterstützen",
+          "status": "Auf Kurs",
+          "progress": "67%"
+        },
+        "2026": {
+          "title": "5 neue Ausbildungszentren errichten",
+          "status": "In Bearbeitung",
+          "progress": "40%"
+        },
+        "2027": {
+          "title": "100% Fair-Trade-Zertifizierung erreichen",
+          "status": "Fast abgeschlossen",
+          "progress": "85%"
+        }
+      },
+      "successStory": {
+        "title": "Erfolgsgeschichte: Marys Genossenschaft",
+        "description": "2018 unterstützten wir Mary Banda bei der Gründung einer Frauenkorbflechterei-Genossenschaft im ländlichen Malawi. Beginnend mit nur 5 Frauen beschäftigt die Genossenschaft heute 25 weibliche Handwerker, hat eine Gemeinschaftswerkstatt gebaut und bietet Gesundheitsleistungen für alle Mitgliederfamilien. Marys Geschichte repräsentiert die transformative Kraft ethischer Geschäftspraktiken und gemeinschaftszentrierter Entwicklung.",
+        "womenEmployed": "25 Frauen beschäftigt",
+        "incomeIncrease": "15.000$ jährliche Einkommenssteigerung",
+        "familyMembers": "80+ Familienmitglieder profitiert"
+      },
+      "flagshipPrograms": {
+        "artisanEmpowerment": {
+          "title": "Handwerker-Stärkungsprogramm",
+          "established": "Gegr. 2015",
+          "description": "Bereitstellung fairer Löhne, Kompetenztraining und Geschäftsentwicklungsunterstützung für lokale Handwerker.",
+          "beneficiaries": "200+ Handwerker",
+          "status": "Wachsende Wirkung",
+          "keyFeatures": "Hauptmerkmale:",
+          "features": {
+            "fairWage": "Faire Lohngarantie (150% über lokalem Mindestlohn)",
+            "healthInsurance": "Krankenversicherungsschutz",
+            "skillsWorkshops": "Kompetenzentwicklungsworkshops",
+            "businessMentorship": "Geschäftsmentoring"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Wirtschaftliche Stärkung von Frauen",
+          "established": "Gegr. 2017",
+          "description": "Unterstützung weiblicher Handwerker durch Führungstraining, Mikrofinanzierung und Genossenschaftsbildung.",
+          "beneficiaries": "120+ Frauen",
+          "status": "Wachsende Wirkung",
+          "keyFeatures": "Hauptmerkmale:",
+          "features": {
+            "leadershipPrograms": "Führungsentwicklungsprogramme",
+            "microfinanceAccess": "Mikrofinanzierungszugang",
+            "childcareSupport": "Kinderbetreuungsunterstützung",
+            "marketAccess": "Marktzugangserleichterung"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Jugendentwicklungsinitiative",
+          "established": "Gegr. 2019",
+          "description": "Einbindung junger Menschen in traditionelle Handwerke bei gleichzeitiger Vermittlung moderner Geschäftsfähigkeiten.",
+          "beneficiaries": "80+ Jugendliche",
+          "status": "Wachsende Wirkung",
+          "keyFeatures": "Hauptmerkmale:",
+          "features": {
+            "apprenticeshipPrograms": "Ausbildungsprogramme",
+            "digitalLiteracy": "Digitale Kompetenzschulung",
+            "entrepreneurshipWorkshops": "Unternehmertum-Workshops",
+            "culturalPreservation": "Kulturerhaltungsbildung"
+          }
+        }
       }
     },
     "about": {

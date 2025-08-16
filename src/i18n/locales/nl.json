@@ -79,13 +79,38 @@
       "balancingDesc": "Hoewel een deel van het hout dat we gebruiken langzaam groeiend hardhout is, nemen we bewuste stappen om schade te verminderen en duurzaamheid op lange termijn te bevorderen.",
       "makingImpact": "Een Betekenisvolle Impact Maken",
       "impactDesc": "We geloven dat echte duurzaamheid gaat over het beschermen van het milieu en het versterken van mensen. Elke aankoop ondersteunt ethisch vakmanschap, landelijke levensonderhoud en een groeiende beweging naar bewust, betekenisvol ontwerp.",
-      "shopCollection": "Koop Onze Duurzame Collectie"
+      "shopCollection": "Koop Onze Duurzame Collectie",
+      "wasteReductionPoint1": "Gebruik van houtafval en gerecycled hout waar mogelijk",
+      "wasteReductionPoint2": "Hergebruik van restmaterialen om afval te verminderen",
+      "wasteReductionPoint3": "Training van ambachtslieden in minimale afvalproductietechnieken",
+      "responsibleSourcingPoint1": "Samenwerking met gemeenschappen die bomen bezitten",
+      "responsibleSourcingPoint2": "Bevordering van verantwoorde oogstmethoden",
+      "responsibleSourcingPoint3": "Ondersteuning van duurzaam bosbeheer",
+      "communityEducationPoint1": "Training van ambachtslieden in duurzame praktijken",
+      "communityEducationPoint2": "Educatie van leveranciers over bosbescherming",
+      "communityEducationPoint3": "Bewustwording creëren over het belang van duurzaamheid",
+      "ourImpact": "Onze Impact",
+      "ourImpactDesc": "Elke aankoop ondersteunt ethisch vakmanschap, landelijke levensonderhoud en bewust ontwerp",
+      "communitySupport": "Gemeenschapsondersteuning",
+      "wasteMinimization": "Afvalminimalisatie",
+      "wasteMinimizationDesc": "Maximale materiaalefficiëntie",
+      "communityPartnership": "Gemeenschapspartnerschap",
+      "communityPartnershipDesc": "Directe samenwerking",
+      "ethicalCraftsmanship": "Ethisch Vakmanschap",
+      "ethicalCraftsmanshipDesc": "Kwaliteit met geweten",
+      "ethical": "Ethisch",
+      "ethicalDesc": "Verantwoorde inkooppraktijken",
+      "empowering": "Versterkend",
+      "empoweringDesc": "Ondersteuning van landelijke gemeenschappen",
+      "sustainable": "Duurzaam",
+      "sustainableDesc": "Langetermijn bosbescherming",
+      "communitySupport": "Gemeenschapsondersteuning"
     },
     "csr": {
       "title": "Gemeenschappen Versterken, Levens Transformeren",
       "subtitle": "Onze toewijding gaat verder dan het creëren van prachtig handwerk. We bouwen sterkere gemeenschappen, versterken ambachtslieden en creëren blijvende positieve verandering door heel Afrika.",
       "socialImpact": "Onze Sociale Impact Initiatieven",
-      "flagshipPrograms": "Onze Vlaggenschip Programma's",
+      "flagshipProgramsTitle": "Onze Vlaggenschip Programma's",
       "strategicPartnerships": "Onze Strategische Partnerschappen",
       "fairTrade": "Eerlijke Handel en Ethische Praktijken",
       "fairTradeDesc": "We geloven in eerlijke compensatie en ethische behandeling van al onze ambachtslieden. Onze toewijding aan eerlijke handelsprincipes zorgt ervoor dat traditionele ambachtslieden eerlijke lonen ontvangen en werken onder veilige, respectvolle omstandigheden.",
@@ -120,6 +145,141 @@
         "title": "Gemeenschapsinfrastructuur",
         "description": "Het bouwen van waterputten, het verbeteren van wegen en het ondersteunen van gemeenschapscentra in ambachtsdorpen.",
         "impact": "25+ projecten voltooid"
+      },
+      "programs": {
+        "artisanEmpowerment": {
+          "title": "Ambachtslieden Versterkingsprogramma",
+          "established": "Opgericht 2015",
+          "description": "Het bieden van eerlijke lonen, vaardigheidstraining en bedrijfsontwikkelingsondersteuning aan lokale ambachtslieden.",
+          "beneficiaries": "200+ ambachtslieden",
+          "status": "Groeiende Impact",
+          "features": {
+            "fairWage": "Eerlijke loongarantie (150% boven lokaal minimum)",
+            "healthInsurance": "Ziektekostenverzekeringsdekking",
+            "skillsWorkshops": "Vaardigheidsontwikkelingsworkshops",
+            "businessMentorship": "Bedrijfsmentorschap"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Economische Versterking van Vrouwen",
+          "established": "Opgericht 2017",
+          "description": "Ondersteuning van vrouwelijke ambachtslieden door leiderschapstraining, microfinanciering en coöperatievorming.",
+          "beneficiaries": "120+ vrouwen",
+          "status": "Groeiende Impact",
+          "features": {
+            "leadershipPrograms": "Leiderschapsontwikkelingsprogramma's",
+            "microfinanceAccess": "Microfinancieringstoegang",
+            "childcareSupport": "Kinderopvangondersteuning",
+            "marketAccess": "Markttoegang facilitering"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Jeugdontwikkelingsinitiative",
+          "established": "Opgericht 2019",
+          "description": "Jongeren betrekken bij traditionele ambachten terwijl moderne bedrijfsvaardigheden worden aangeboden.",
+          "beneficiaries": "80+ jongeren",
+          "status": "Groeiende Impact",
+          "features": {
+            "apprenticeshipPrograms": "Leerlingprogramma's",
+            "digitalLiteracy": "Digitale geletterdheidsstraining",
+            "entrepreneurshipWorkshops": "Ondernemerschapsworkshops",
+            "culturalPreservation": "Cultureel behoudonderwijs"
+          }
+        }
+      },
+      "partnerships": {
+        "localNgos": {
+          "title": "Lokale NGO's",
+          "description": "Samenwerking met grassroots organisaties voor gemeenschapsontwikkeling"
+        },
+        "educationalInstitutions": {
+          "title": "Onderwijsinstellingen",
+          "description": "Ondersteuning van scholen en beroepsopleidingscentra"
+        },
+        "governmentAgencies": {
+          "title": "Overheidsinstanties",
+          "description": "Samenwerking met lokale autoriteiten aan infrastructuurprojecten"
+        },
+        "internationalOrganizations": {
+          "title": "Internationale Organisaties",
+          "description": "Partnerschap met wereldwijde NGO's voor duurzame ontwikkeling"
+        }
+      },
+      "fairTradeDetails": {
+        "wagesAboveMinimum": "Lonen 150% boven lokaal minimum",
+        "healthcareCoverage": "Zorgverzekering voor ambachtsfamilies",
+        "safeWorkingConditions": "Veilige werkomstandigheden gegarandeerd",
+        "transparentPricing": "Transparante prijsstelling en winstdeling",
+        "certifiedProducts": "95% Fair Trade Gecertificeerde Producten",
+        "verifiedSourcing": "Geverifieerde Ethische Inkoop"
+      },
+      "goals": {
+        "2025": {
+          "title": "300 ambachtsfamilies ondersteunen",
+          "status": "Op Koers",
+          "progress": "67%"
+        },
+        "2026": {
+          "title": "5 nieuwe trainingscentra oprichten",
+          "status": "In Uitvoering",
+          "progress": "40%"
+        },
+        "2027": {
+          "title": "100% fair trade certificering bereiken",
+          "status": "Bijna Voltooid",
+          "progress": "85%"
+        }
+      },
+      "successStory": {
+        "title": "Succesverhaal: Mary's Coöperatie",
+        "description": "In 2018 ondersteunden we Mary Banda bij het vormen van een vrouwelijke mandenmakerij coöperatie in landelijk Malawi. Beginnend met slechts 5 vrouwen, heeft de coöperatie nu 25 vrouwelijke ambachtslieden in dienst, heeft een gemeenschapsworkshop gebouwd en biedt zorgvoordelen aan alle ledenfamilies. Mary's verhaal vertegenwoordigt de transformerende kracht van ethische bedrijfspraktijken en gemeenschapsgerichte ontwikkeling.",
+        "womenEmployed": "25 Vrouwen in Dienst",
+        "incomeIncrease": "$15K Jaarlijkse Inkomensverhoging",
+        "familyMembers": "80+ Familieleden Profiteerden"
+      },
+      "flagshipPrograms": {
+        "artisanEmpowerment": {
+          "title": "Ambachtslieden Versterkingsprogramma",
+          "established": "Opgericht 2015",
+          "description": "Het bieden van eerlijke lonen, vaardigheidstraining en bedrijfsontwikkelingsondersteuning aan lokale ambachtslieden.",
+          "beneficiaries": "200+ ambachtslieden",
+          "status": "Groeiende Impact",
+          "keyFeatures": "Belangrijkste Kenmerken:",
+          "features": {
+            "fairWage": "Eerlijke loongarantie (150% boven lokaal minimum)",
+            "healthInsurance": "Ziektekostenverzekeringsdekking",
+            "skillsWorkshops": "Vaardigheidsontwikkelingsworkshops",
+            "businessMentorship": "Bedrijfsmentorschap"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Economische Versterking van Vrouwen",
+          "established": "Opgericht 2017",
+          "description": "Ondersteuning van vrouwelijke ambachtslieden door leiderschapstraining, microfinanciering en coöperatievorming.",
+          "beneficiaries": "120+ vrouwen",
+          "status": "Groeiende Impact",
+          "keyFeatures": "Belangrijkste Kenmerken:",
+          "features": {
+            "leadershipPrograms": "Leiderschapsontwikkelingsprogramma's",
+            "microfinanceAccess": "Microfinancieringstoegang",
+            "childcareSupport": "Kinderopvangondersteuning",
+            "marketAccess": "Markttoegang facilitering"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Jeugdontwikkelingsinitiative",
+          "established": "Opgericht 2019",
+          "description": "Jongeren betrekken bij traditionele ambachten terwijl moderne bedrijfsvaardigheden worden aangeboden.",
+          "beneficiaries": "80+ jongeren",
+          "status": "Groeiende Impact",
+          "keyFeatures": "Belangrijkste Kenmerken:",
+          "features": {
+            "apprenticeshipPrograms": "Leerlingprogramma's",
+            "digitalLiteracy": "Digitale geletterdheidsstraining",
+            "entrepreneurshipWorkshops": "Ondernemerschapsworkshops",
+            "culturalPreservation": "Cultureel behoudonderwijs"
+          }
+        }
       }
     },
     "about": {
@@ -470,6 +630,37 @@
       "signIn": "Inloggen",
       "signupFailed": "Registratie mislukt",
       "errorOccurred": "Er is een fout opgetreden tijdens de registratie"
+    },
+    "home": {
+      "authentic": "Authentieke",
+      "africanCrafts": "Afrikaanse Ambachten",
+      "heroDescription": "Ontdek de rijke erfenis van Afrikaanse ambachten. Elk stuk vertelt een verhaal van traditie, vaardigheid en culturele trots doorgegeven door generaties.",
+      "exploreCrafts": "Ontdek Onze Ambachten",
+      "readStories": "Lees Hun Verhalen",
+      "uniqueCrafts": "Unieke Ambachten",
+      "masterArtisans": "Meester Ambachtslieden",
+      "yearsHeritage": "Jaar Erfgoed",
+      "featuredCrafts": "Uitgelichte Ambachten",
+      "featuredDescription": "Elk stuk komt met het verhaal van zijn maker, waardoor u verbonden wordt met het hart van de Afrikaanse cultuur",
+      "bestSeller": "Bestseller",
+      "quickPreview": "Snelle Voorvertoning",
+      "addToCart": "Toevoegen aan Winkelwagen",
+      "learnMore": "Meer Weten",
+      "viewAllCrafts": "Alle Ambachten Bekijken",
+      "shopByCategory": "Winkelen op Categorie",
+      "shopByCategoryDesc": "Ontdek onze samengestelde collectie van authentieke Afrikaanse ambachten, georganiseerd naar traditionele categorieën",
+      "touristFavorite": "Toeristenfavoriet",
+      "trending": "Trending",
+      "popular": "Populair",
+      "exploreCategory": "Categorie Verkennen",
+      "viewAllCategories": "Alle Categorieën Bekijken",
+      "shopByCraftType": "Winkelen op Ambachtstype",
+      "shopByCraftTypeDesc": "Verken verschillende traditionele ambachtstechnieken en ontdek de kunst achter elke methode",
+      "traditional": "Traditioneel",
+      "masterCraftspeople": "Meester Ambachtslieden",
+      "masterCraftspeopleDesc": "Elk ambachtstype vertegenwoordigt eeuwen van kennis en vaardigheid, doorgegeven door generaties van Afrikaanse ambachtslieden",
+      "meetOurArtisans": "Ontmoet Onze Ambachtslieden",
+      "viewAllCraftTypes": "Alle Ambachtstypes Bekijken"
     }
   }
 }

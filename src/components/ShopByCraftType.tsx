@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Hammer, Palette, Scissors, Zap, ArrowRight, Sparkles, Clock, Target } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 interface CraftType {
   CraftTypeId: number;
@@ -21,6 +22,7 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
 }) => {
   const [hoveredType, setHoveredType] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const { t } = useTranslation();
   const  navigate = useNavigate();
   // Mock data for demonstration - replace with actual API call
   const mockCraftTypes: CraftType[] = [
@@ -171,10 +173,10 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
             <div className="h-px bg-gradient-to-r from-transparent via-gray-300 to-transparent w-24"></div>
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4 text-black">
-            Shop by Craft Type
+            {t('pages.home.shopByCraftType')}
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Explore different traditional crafting techniques and discover the artistry behind each method
+            {t('pages.home.shopByCraftTypeDesc')}
           </p>
         </div>
 
@@ -221,7 +223,7 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
                   <div className="flex items-center space-x-4 mb-6">
                     <div className="flex items-center space-x-1 text-gray-600">
                       <Clock className="h-4 w-4" />
-                      <span className="text-sm">Traditional</span>
+                      <span className="text-sm">{t('pages.home.traditional')}</span>
                     </div>
                     <div className="flex items-center space-x-1 text-gray-600">
                       <Target className="h-4 w-4" />
@@ -233,7 +235,7 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
                   <button className={`w-full bg-black text-white py-3 px-6 rounded-xl font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center space-x-2 group transform ${
                     hoveredType === craftType.CraftTypeId ? 'scale-105' : ''
                   }`}>
-                    <span>Explore Crafts</span>
+                    <span>{t('pages.home.exploreCrafts')}</span>
                     <ArrowRight className={`h-4 w-4 transition-transform duration-300 ${
                       hoveredType === craftType.CraftTypeId ? 'translate-x-1' : ''
                     }`} />
@@ -258,19 +260,19 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
           <div className="relative z-10">
             <div className="flex items-center justify-center mb-4">
               <Sparkles className="h-8 w-8 text-yellow-400 mr-2" />
-              <h3 className="text-2xl md:text-3xl font-bold">Master Craftspeople</h3>
+              <h3 className="text-2xl md:text-3xl font-bold">{t('pages.home.masterCraftspeople')}</h3>
               <Sparkles className="h-8 w-8 text-yellow-400 ml-2" />
             </div>
             
             <p className="text-lg md:text-xl text-gray-300 mb-6 max-w-2xl mx-auto">
-              Each craft type represents centuries of knowledge and skill, passed down through generations of African artisans
+              {t('pages.home.masterCraftspeopleDesc')}
             </p>
             
             <button
               onClick={handleMeetArtisansClick}
               className="bg-white text-black px-8 py-3 rounded-xl font-medium hover:bg-gray-100 transition-all duration-300 flex items-center space-x-2 mx-auto"
             >
-              <span>Meet Our Artisans</span>
+              <span>{t('pages.home.meetOurArtisans')}</span>
               <ArrowRight className="h-5 w-5" />
             </button>
           </div>
@@ -282,7 +284,7 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
             onClick={handleViewAllClick}
             className="bg-gray-100 border-2 border-gray-200 text-black px-8 py-4 rounded-xl font-medium hover:bg-gray-200 hover:border-gray-300 transition-all duration-300 flex items-center space-x-2 mx-auto group"
           >
-            <span>View All Craft Types</span>
+            <span>{t('pages.home.viewAllCraftTypes')}</span>
             <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
           </button>
         </div>
