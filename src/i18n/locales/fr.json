@@ -445,7 +445,17 @@
       "orderPlaced": "Commande passée le",
       "shippedOn": "Expédié le",
       "deliveredOn": "Livré le",
-      "close": "Fermer"
+      "close": "Fermer",
+      "refresh": "Actualiser",
+      "noOrdersMatchingCriteria": "Aucune commande trouvée correspondant à vos critères.",
+      "recentUpdates": "Mises à Jour Récentes :",
+      "downloadInvoice": "Télécharger la Facture",
+      "reorderItems": "Recommander les Articles",
+      "reordering": "Recommande...",
+      "showing": "Affichage",
+      "of": "de",
+      "orders": "commandes",
+      "totalSpent": "Total dépensé :"
     },
     "about": {
       "title": "À Propos de Nous",

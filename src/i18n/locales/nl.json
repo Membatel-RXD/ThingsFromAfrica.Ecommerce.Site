@@ -500,7 +500,17 @@
       "orderPlaced": "Bestelling geplaatst op",
       "shippedOn": "Verzonden op",
       "deliveredOn": "Bezorgd op",
-      "close": "Sluiten"
+      "close": "Sluiten",
+      "refresh": "Vernieuwen",
+      "noOrdersMatchingCriteria": "Geen bestellingen gevonden die voldoen aan uw criteria.",
+      "recentUpdates": "Recente Updates:",
+      "downloadInvoice": "Factuur Downloaden",
+      "reorderItems": "Artikelen Opnieuw Bestellen",
+      "reordering": "Opnieuw bestellen...",
+      "showing": "Toont",
+      "of": "van",
+      "orders": "bestellingen",
+      "totalSpent": "Totaal uitgegeven:"
     },
     "trackOrder": {
       "title": "Uw Bestelling Volgen",

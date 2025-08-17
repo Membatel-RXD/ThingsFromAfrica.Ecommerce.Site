@@ -431,7 +431,17 @@
       "orderPlaced": "Order placed on",
       "shippedOn": "Shipped on",
       "deliveredOn": "Delivered on",
-      "close": "Close"
+      "close": "Close",
+      "refresh": "Refresh",
+      "noOrdersMatchingCriteria": "No orders found matching your criteria.",
+      "recentUpdates": "Recent Updates:",
+      "downloadInvoice": "Download Invoice",
+      "reorderItems": "Reorder Items",
+      "reordering": "Reordering...",
+      "showing": "Showing",
+      "of": "of",
+      "orders": "orders",
+      "totalSpent": "Total spent:"
     },
     "about": {
       "title": "About Us",

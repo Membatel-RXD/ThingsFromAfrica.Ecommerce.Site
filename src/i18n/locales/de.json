@@ -500,7 +500,17 @@
       "orderPlaced": "Bestellung aufgegeben am",
       "shippedOn": "Versandt am",
       "deliveredOn": "Geliefert am",
-      "close": "Schließen"
+      "close": "Schließen",
+      "refresh": "Aktualisieren",
+      "noOrdersMatchingCriteria": "Keine Bestellungen gefunden, die Ihren Kriterien entsprechen.",
+      "recentUpdates": "Neueste Updates:",
+      "downloadInvoice": "Rechnung herunterladen",
+      "reorderItems": "Artikel erneut bestellen",
+      "reordering": "Wird erneut bestellt...",
+      "showing": "Zeige",
+      "of": "von",
+      "orders": "Bestellungen",
+      "totalSpent": "Insgesamt ausgegeben:"
     },
     "trackOrder": {
       "title": "Ihre Bestellung verfolgen",
