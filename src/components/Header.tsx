@@ -267,7 +267,7 @@ const Header: React.FC = () => {
             </div>
 
             {/* Deliver To - Hidden on mobile */}
-            <LocationWidget/>
+            {/* <LocationWidget/> */}
 
             {/* Search Bar */}
             <div className="flex-1 max-w-2xl mx-4">

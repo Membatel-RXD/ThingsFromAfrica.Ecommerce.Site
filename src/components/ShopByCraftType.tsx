@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { Hammer, Palette, Scissors, Zap, ArrowRight, Sparkles, Clock, Target } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { apiService, IAPIResponse } from '@/lib/api';
 
 interface CraftType {
-  CraftTypeId: number;
-  CraftTypeName: string;
-  CraftTypeDescription: string;
+  craftTypeId: number;
+  craftTypeName: string;
+  craftTypeDescription: string;
   IsActive: boolean;
   CreatedAt: string;
 }
@@ -21,54 +22,31 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
 }) => {
   const [hoveredType, setHoveredType] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const  navigate = useNavigate();
-  // Mock data for demonstration - replace with actual API call
-  const mockCraftTypes: CraftType[] = [
-    {
-      CraftTypeId: 1,
-      CraftTypeName: "Wood Carving",
-      CraftTypeDescription: "Traditional woodworking techniques passed down through generations, creating intricate sculptures and functional pieces",
-      IsActive: true,
-      CreatedAt: "2024-01-15T10:30:00Z"
-    },
-    {
-      CraftTypeId: 2,
-      CraftTypeName: "Basket Weaving",
-      CraftTypeDescription: "Ancient art of weaving natural materials into beautiful and functional baskets for daily use",
-      IsActive: true,
-      CreatedAt: "2024-01-16T11:45:00Z"
-    },
-    {
-      CraftTypeId: 3,
-      CraftTypeName: "Pottery & Ceramics",
-      CraftTypeDescription: "Clay molding and firing techniques creating vessels, decorative pieces, and artistic expressions",
-      IsActive: true,
-      CreatedAt: "2024-01-17T09:20:00Z"
-    },
-    {
-      CraftTypeId: 4,
-      CraftTypeName: "Textile Weaving",
-      CraftTypeDescription: "Creating colorful fabrics and textiles using traditional looms and natural dyes",
-      IsActive: true,
-      CreatedAt: "2024-01-18T14:15:00Z"
-    },
-    {
-      CraftTypeId: 5,
-      CraftTypeName: "Beadwork",
-      CraftTypeDescription: "Intricate bead patterns and jewelry making techniques with cultural and spiritual significance",
-      IsActive: true,
-      CreatedAt: "2024-01-19T16:30:00Z"
-    },
-    {
-      CraftTypeId: 6,
-      CraftTypeName: "Stone Carving",
-      CraftTypeDescription: "Sculpting and carving natural stones into artistic pieces and functional objects",
-      IsActive: true,
-      CreatedAt: "2024-01-20T12:00:00Z"
-    }
-  ];
+  const [fetchedCraftTypes, setFetchedCraftTypes] = useState<CraftType[]>([]);
+  const navigate = useNavigate();
 
-  const displayCraftTypes = craftTypes.length > 0 ? craftTypes : mockCraftTypes;
+  useEffect(() => {
+    const fetchCraftTypes = async () => {
+      try {
+        const response = await apiService.get<IAPIResponse<CraftType[]>>('CraftTypes/GetAll');
+        if (!response.isSuccessful) throw new Error('Failed to fetch craft types');
+        const data = response.payload || [];
+        setFetchedCraftTypes(data);
+      } catch (error) {
+        console.error('Error fetching craft types:', error);
+        // Optionally set error state here
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchCraftTypes();
+  }, []);
+
+  const displayCraftTypes =
+    craftTypes.length > 0 ? craftTypes :
+    fetchedCraftTypes.length > 0 ? fetchedCraftTypes :
+    [];
 
   // Icon mapping for different craft types
   const getIcon = (craftTypeName: string) => {
@@ -107,15 +85,13 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
     return borders[index % borders.length];
   };
 
-  useEffect(() => {
-    // Simulate loading
-    const timer = setTimeout(() => setIsLoading(false), 1000);
-    return () => clearTimeout(timer);
-  }, []);
-
   const handleCraftTypeClick = (craftType: CraftType) => {
+    // If parent component provided a click handler, use it
     if (onCraftTypeClick) {
-      onCraftTypeClick(craftType.CraftTypeId, craftType.CraftTypeName);
+      onCraftTypeClick(craftType.craftTypeId, craftType.craftTypeName);
+    } else {
+      // Default behavior: navigate to shop page with craft type filter
+      navigate(`/shop?craftType=${encodeURIComponent(craftType.craftTypeName.toLowerCase())}&craftTypeId=${craftType.craftTypeId}`);
     }
   };
 
@@ -124,9 +100,8 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
   };
 
   const handleViewAllClick = () => {
-    // Handle view all craft types navigation
-    console.log('Navigate to all craft types');
-    // You can implement navigation logic here
+    // Navigate to shop page showing all craft types
+    navigate('/shop');
   };
 
   if (isLoading) {
@@ -180,29 +155,29 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {displayCraftTypes.map((craftType, index) => {
-            const IconComponent = getIcon(craftType.CraftTypeName);
+            const IconComponent = getIcon(craftType.craftTypeName);
             
             return (
               <div
-                key={craftType.CraftTypeId}
+                key={craftType.craftTypeId}
                 className={`group relative ${getBackgroundClass(index)} rounded-2xl border-2 ${getBorderClass(index)} transition-all duration-500 cursor-pointer hover:shadow-2xl hover:scale-105 p-8`}
-                onMouseEnter={() => setHoveredType(craftType.CraftTypeId)}
+                onMouseEnter={() => setHoveredType(craftType.craftTypeId)}
                 onMouseLeave={() => setHoveredType(null)}
                 onClick={() => handleCraftTypeClick(craftType)}
               >
                 {/* Animated Background Elements */}
                 <div className="absolute inset-0 rounded-2xl overflow-hidden">
                   <div className={`absolute -top-4 -right-4 w-24 h-24 rounded-full bg-white/20 transition-transform duration-700 ${
-                    hoveredType === craftType.CraftTypeId ? 'scale-150 rotate-45' : 'scale-100'
+                    hoveredType === craftType.craftTypeId ? 'scale-150 rotate-45' : 'scale-100'
                   }`}></div>
                   <div className={`absolute -bottom-6 -left-6 w-32 h-32 rounded-full bg-white/10 transition-transform duration-700 ${
-                    hoveredType === craftType.CraftTypeId ? 'scale-125 -rotate-12' : 'scale-100'
+                    hoveredType === craftType.craftTypeId ? 'scale-125 -rotate-12' : 'scale-100'
                   }`}></div>
                 </div>
 
                 {/* Icon */}
                 <div className={`relative z-10 w-16 h-16 bg-black rounded-full flex items-center justify-center mb-6 transition-all duration-500 ${
-                  hoveredType === craftType.CraftTypeId ? 'scale-110 rotate-12' : ''
+                  hoveredType === craftType.craftTypeId ? 'scale-110 rotate-12' : ''
                 }`}>
                   <IconComponent className="h-8 w-8 text-white" />
                 </div>
@@ -210,11 +185,11 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
                 {/* Content */}
                 <div className="relative z-10">
                   <h3 className="text-2xl font-bold mb-3 text-black group-hover:text-gray-800 transition-colors">
-                    {craftType.CraftTypeName}
+                    {craftType.craftTypeName}
                   </h3>
                   
                   <p className="text-gray-700 mb-6 leading-relaxed">
-                    {craftType.CraftTypeDescription}
+                    {craftType.craftTypeDescription}
                   </p>
 
                   {/* Stats */}
@@ -230,19 +205,25 @@ const ShopByCraftType: React.FC<ShopByCraftTypeProps> = ({
                   </div>
 
                   {/* CTA Button */}
-                  <button className={`w-full bg-black text-white py-3 px-6 rounded-xl font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center space-x-2 group transform ${
-                    hoveredType === craftType.CraftTypeId ? 'scale-105' : ''
-                  }`}>
+                  <button 
+                    className={`w-full bg-black text-white py-3 px-6 rounded-xl font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center space-x-2 group transform ${
+                      hoveredType === craftType.craftTypeId ? 'scale-105' : ''
+                    }`}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCraftTypeClick(craftType);
+                    }}
+                  >
                     <span>Explore Crafts</span>
                     <ArrowRight className={`h-4 w-4 transition-transform duration-300 ${
-                      hoveredType === craftType.CraftTypeId ? 'translate-x-1' : ''
+                      hoveredType === craftType.craftTypeId ? 'translate-x-1' : ''
                     }`} />
                   </button>
                 </div>
 
                 {/* Hover Effect Overlay */}
                 <div className={`absolute inset-0 rounded-2xl bg-white/10 backdrop-blur-sm transition-opacity duration-300 ${
-                  hoveredType === craftType.CraftTypeId ? 'opacity-100' : 'opacity-0'
+                  hoveredType === craftType.craftTypeId ? 'opacity-100' : 'opacity-0'
                 }`}></div>
               </div>
             );
