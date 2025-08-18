@@ -6,6 +6,7 @@ import { cartService } from '../services/cartService';
 import { useAppContext } from '../contexts/AppContext';
 import { AddCartItem, Artisan, Product } from '@/models/members';
 import { apiService, IAPIResponse } from '@/lib/api';
+import { useTranslation } from 'react-i18next';
 
 
 const CraftShowcase: React.FC = () => {
@@ -15,6 +16,7 @@ const CraftShowcase: React.FC = () => {
   const [fetchedProducts, setFetchedProducts] = useState<Product[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [artisans, setArtisans] = useState<Artisan[]>([]);
+  const { t } = useTranslation();
 
   const navigate = useNavigate();
   const { updateCartCount } = useAppContext();
@@ -114,10 +116,10 @@ const CraftShowcase: React.FC = () => {
       <div className="container mx-auto">
         <div className="text-center mb-4">
           <h2 className="text-5xl font-bold mb-1 text-black">
-            Featured Crafts
+            {t('pages.home.featuredCrafts')}
           </h2>
           <p className="text-xl text-gray-700 max-w-2xl mx-auto">
-            Each piece comes with the story of its creator, connecting you to the heart of African culture
+            {t('pages.home.featuredDescription')}
           </p>
         </div>
         

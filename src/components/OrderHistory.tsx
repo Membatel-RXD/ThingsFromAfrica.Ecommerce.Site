@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
@@ -37,6 +38,7 @@ interface OrderItem {
 }
 
 const OrderHistory: React.FC = () => {
+  const { t } = useTranslation();
   const [orders, setOrders] = useState<OrderItem[]>([]);
   const [filteredOrders, setFilteredOrders] = useState<OrderItem[]>([]);
   const [statusHistory, setStatusHistory] = useState<OrderStatusHistory[]>([]);
@@ -388,10 +390,10 @@ const OrderHistory: React.FC = () => {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <div className="flex justify-between items-center mb-6">
-        <h3 className="text-2xl font-bold text-black">Order History</h3>
+        <h3 className="text-2xl font-bold text-black">{t('pages.orders.orderHistory')}</h3>
         <Button onClick={loadOrderHistory} variant="outline" size="sm">
           <RefreshCw className="h-4 w-4 mr-2" />
-          Refresh
+          {t('pages.orders.refresh')}
         </Button>
       </div>
 
@@ -400,7 +402,7 @@ const OrderHistory: React.FC = () => {
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
           <Input
-            placeholder="Search orders by number or name..."
+            placeholder={t('pages.orders.searchPlaceholder')}
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             className="pl-10"
@@ -408,15 +410,15 @@ const OrderHistory: React.FC = () => {
         </div>
         <Select value={statusFilter} onValueChange={setStatusFilter}>
           <SelectTrigger className="w-48">
-            <SelectValue placeholder="Filter by status" />
+            <SelectValue placeholder={t('pages.orders.filterByStatus')} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value="all">All Orders</SelectItem>
-            <SelectItem value="pending">Pending</SelectItem>
-            <SelectItem value="processing">Processing</SelectItem>
-            <SelectItem value="shipped">Shipped</SelectItem>
-            <SelectItem value="delivered">Delivered</SelectItem>
-            <SelectItem value="cancelled">Cancelled</SelectItem>
+            <SelectItem value="all">{t('pages.orders.allOrders')}</SelectItem>
+            <SelectItem value="pending">{t('pages.orders.pending')}</SelectItem>
+            <SelectItem value="processing">{t('pages.orders.processing')}</SelectItem>
+            <SelectItem value="shipped">{t('pages.orders.shipped')}</SelectItem>
+            <SelectItem value="delivered">{t('pages.orders.delivered')}</SelectItem>
+            <SelectItem value="cancelled">{t('pages.orders.cancelled')}</SelectItem>
           </SelectContent>
         </Select>
       </div>
@@ -426,7 +428,7 @@ const OrderHistory: React.FC = () => {
         {filteredOrders.length === 0 ? (
           <div className="text-center py-8 text-gray-500">
             <Package className="h-12 w-12 mx-auto mb-4 text-gray-300" />
-            <p>No orders found matching your criteria.</p>
+            <p>{t('pages.orders.noOrdersMatchingCriteria')}</p>
           </div>
         ) : (
           filteredOrders.map((order) => (
@@ -436,7 +438,7 @@ const OrderHistory: React.FC = () => {
                   <div className="flex-1">
                     <div className="flex items-center mb-3">
                       <h4 className="text-lg font-semibold text-black mr-3">
-                        Order #{order.orderNumber}
+                        {t('pages.orders.orderNumber')}{order.orderNumber}
                       </h4>
                       <Badge className={getStatusColor(order.orderStatus)}>
                         {getStatusIcon(order.orderStatus)}
@@ -446,21 +448,21 @@ const OrderHistory: React.FC = () => {
                     
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
                       <div>
-                        <p className="text-gray-600">Order Date:</p>
+                        <p className="text-gray-600">{t('pages.orders.orderDate')}:</p>
                         <p className="font-medium flex items-center">
                           <Calendar className="h-4 w-4 mr-1" />
                           {formatDate(order.orderDate)}
                         </p>
                       </div>
                       <div>
-                        <p className="text-gray-600">Total Amount:</p>
+                        <p className="text-gray-600">{t('pages.orders.totalAmount')}:</p>
                         <p className="font-medium text-lg flex items-center">
                           <DollarSign className="h-4 w-4 mr-1" />
                           {formatCurrency(order.totalAmount, order.currency)}
                         </p>
                       </div>
                       <div>
-                        <p className="text-gray-600">Shipping To:</p>
+                        <p className="text-gray-600">{t('pages.orders.shippingTo')}:</p>
                         <p className="font-medium">
                           {order.shippingFirstName} {order.shippingLastName}
                         </p>
@@ -473,7 +475,7 @@ const OrderHistory: React.FC = () => {
                     {/* Status History */}
                     {order.statusHistory && order.statusHistory.length > 0 && (
                       <div className="mt-4 pt-4 border-t">
-                        <p className="text-sm font-medium text-gray-700 mb-2">Recent Updates:</p>
+                        <p className="text-sm font-medium text-gray-700 mb-2">{t('pages.orders.recentUpdates')}</p>
                         <div className="space-y-2">
                           {order.statusHistory.slice(0, 2).map((history) => (
                             <div key={history.historyId} className="flex items-center text-sm text-gray-600">
@@ -502,7 +504,7 @@ const OrderHistory: React.FC = () => {
                       className="flex items-center"
                     >
                       <Download className="h-4 w-4 mr-2" />
-                      Download Invoice
+                      {t('pages.orders.downloadInvoice')}
                     </Button>
                     
                     <Button
@@ -514,12 +516,12 @@ const OrderHistory: React.FC = () => {
                       {reorderingId === order.orderId ? (
                         <>
                           <RefreshCw className="h-4 w-4 mr-2 animate-spin" />
-                          Reordering...
+                          {t('pages.orders.reordering')}
                         </>
                       ) : (
                         <>
                           <RefreshCw className="h-4 w-4 mr-2" />
-                          Reorder Items
+                          {t('pages.orders.reorderItems')}
                         </>
                       )}
                     </Button>
@@ -536,10 +538,10 @@ const OrderHistory: React.FC = () => {
         <div className="mt-6 pt-6 border-t">
           <div className="flex items-center justify-between text-sm text-gray-600">
             <span>
-              Showing {filteredOrders.length} of {orders.length} orders
+              {t('pages.orders.showing')} {filteredOrders.length} {t('pages.orders.of')} {orders.length} {t('pages.orders.orders')}
             </span>
             <span>
-              Total spent: {formatCurrency(
+              {t('pages.orders.totalSpent')} {formatCurrency(
                 filteredOrders.reduce((sum, order) => sum + order.totalAmount, 0),
                 'USD'
               )}

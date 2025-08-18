@@ -24,7 +24,11 @@ const SignUp: React.FC = () => {
     { code: 'es', name: 'Español' },
     { code: 'fr', name: 'Français' },
     { code: 'it', name: 'Italiano' },
-    { code: 'sw', name: 'Kiswahili' }
+    { code: 'sw', name: 'Kiswahili' },
+    { code: 'zh', name: '中文' },
+    { code: 'de', name: 'Deutsch' },
+    { code: 'pt', name: 'Português' },
+    { code: 'nl', name: 'Nederlands' }
   ];
   
   useEffect(() => {

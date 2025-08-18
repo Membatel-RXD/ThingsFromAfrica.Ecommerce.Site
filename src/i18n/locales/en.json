@@ -28,7 +28,31 @@
     "buyNow": "Buy Now",
     "contactUs": "Contact Us",
     "language": "Language",
-    "allCategories": "All Categories"
+    "allCategories": "All Categories",
+    "donateNow": "Donate Now",
+    "makeADifference": "Make a Difference",
+    "donationHelps": "Your donation helps us continue our mission",
+    "donorInformation": "Donor Information",
+    "emailRequired": "Email address *",
+    "fullNameRequired": "Full name *",
+    "phoneOptional": "Phone number (optional)",
+    "donationType": "Donation Type",
+    "oneTime": "One-time",
+    "monthly": "Monthly",
+    "chooseAmount": "Choose Amount",
+    "perMonth": "per month",
+    "enterCustomAmount": "Enter custom amount",
+    "yourImpact": "Your Impact",
+    "impactMessage": "${{amount}} can help provide essential resources to those in need.",
+    "paymentInformation": "Payment Information",
+    "processingPayment": "Processing Payment...",
+    "donate": "Donate",
+    "now": "Now",
+    "securePayment": "Secure Payment",
+    "taxDeductible": "Tax Deductible",
+    "thankYou": "Thank You!",
+    "donationSuccess": "Your {{type}}donation of ${{amount}} has been processed successfully.",
+    "confirmationEmail": "You will receive a confirmation email shortly."
   },
   "footer": {
     "stayConnected": "Stay Connected",
@@ -79,13 +103,39 @@
       "balancingDesc": "While some of the wood we use is slow-growing hardwood, we take conscious steps to reduce harm and promote long-term sustainability. Our handcrafted chessboards and wooden products are made using ethical practices that honor both our craft traditions and our planet.",
       "makingImpact": "Making a Meaningful Impact",
       "impactDesc": "We believe that true sustainability is about protecting the environment and empowering people. Every purchase supports ethical craftsmanship, rural livelihoods, and a growing movement toward conscious, meaningful design.",
-      "shopCollection": "Shop Our Sustainable Collection"
+      "shopCollection": "Shop Our Sustainable Collection",
+      "wasteReductionPoint1": "Using wood offcuts and reclaimed timber whenever possible",
+      "wasteReductionPoint2": "Repurposing leftover materials to reduce waste",
+      "wasteReductionPoint3": "Training artisans in minimal waste production techniques",
+      "responsibleSourcingPoint1": "Partnering with communities who own trees",
+      "responsibleSourcingPoint2": "Promoting responsible harvesting methods",
+      "responsibleSourcingPoint3": "Supporting sustainable forest management",
+      "communityEducationPoint1": "Training artisans in sustainable practices",
+      "communityEducationPoint2": "Educating suppliers on forest conservation",
+      "communityEducationPoint3": "Building awareness about sustainability importance",
+      "ourImpact": "Our Impact",
+      "ourImpactDesc": "Every purchase supports ethical craftsmanship, rural livelihoods, and conscious design",
+      "communitySupport": "Community Support",
+      "wasteMinimization": "Waste Minimization",
+      "wasteMinimizationDesc": "Maximum material efficiency",
+      "communityPartnership": "Community Partnership",
+      "communityPartnershipDesc": "Direct collaboration",
+      "ethicalCraftsmanship": "Ethical Craftsmanship",
+      "ethicalCraftsmanshipDesc": "Quality with conscience",
+      "ethical": "Ethical",
+      "ethicalDesc": "Responsible sourcing practices",
+      "empowering": "Empowering",
+      "empoweringDesc": "Supporting rural communities",
+      "sustainable": "Sustainable",
+      "sustainableDesc": "Long-term forest conservation",
+      "communitySupport": "Community Support"
     },
     "csr": {
       "title": "Empowering Communities, Transforming Lives",
       "subtitle": "Our commitment goes beyond creating beautiful crafts. We're building stronger communities, empowering artisans, and creating lasting positive change across Africa.",
+      "badge": "Corporate Social Responsibility",
       "socialImpact": "Our Social Impact Initiatives",
-      "flagshipPrograms": "Our Flagship Programs",
+      "flagshipProgramsTitle": "Our Flagship Programs",
       "strategicPartnerships": "Our Strategic Partnerships",
       "fairTrade": "Fair Trade & Ethical Practices",
       "fairTradeDesc": "We believe in fair compensation and ethical treatment of all our artisans. Our commitment to fair trade principles ensures that traditional craftspeople receive fair wages and work in safe, respectful conditions.",
@@ -93,7 +143,127 @@
       "partnerWithUs": "Partner with Us for Social Impact",
       "partnerDesc": "Every purchase you make contributes to our social impact programs. Join us in creating sustainable livelihoods, empowering communities, and preserving African cultural heritage for future generations.",
       "supportMission": "Support Our Mission",
-      "downloadReport": "Download CSR Report"
+      "downloadReport": "Download CSR Report",
+      "stats": {
+        "artisanFamilies": "Artisan Families Supported",
+        "communities": "Communities Reached",
+        "investment": "Community Investment",
+        "fairTrade": "Fair Trade Practices"
+      },
+      "education": {
+        "title": "Education & Skills Development",
+        "description": "Providing vocational training, literacy programs, and apprenticeships to empower local communities.",
+        "impact": "500+ people trained"
+      },
+      "healthcare": {
+        "title": "Healthcare Support",
+        "description": "Supporting community health centers and providing medical assistance to artisan families.",
+        "impact": "1,200+ lives improved"
+      },
+      "childWelfare": {
+        "title": "Child Welfare Programs",
+        "description": "Supporting orphanages, school feeding programs, and educational scholarships for children.",
+        "impact": "300+ children supported"
+      },
+      "infrastructure": {
+        "title": "Community Infrastructure",
+        "description": "Building wells, improving roads, and supporting community centers in artisan villages.",
+        "impact": "25+ projects completed"
+      },
+      "flagshipPrograms": {
+        "artisanEmpowerment": {
+          "title": "Artisan Empowerment Program",
+          "established": "Est. 2015",
+          "description": "Providing fair wages, skills training, and business development support to local craftspeople.",
+          "beneficiaries": "200+ artisans",
+          "status": "Growing Impact",
+          "keyFeatures": "Key Features:",
+          "features": {
+            "fairWage": "Fair wage guarantee (150% above local minimum)",
+            "healthInsurance": "Health insurance coverage",
+            "skillsWorkshops": "Skills development workshops",
+            "businessMentorship": "Business mentorship"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Women's Economic Empowerment",
+          "established": "Est. 2017",
+          "description": "Supporting female artisans through leadership training, microfinance, and cooperative formation.",
+          "beneficiaries": "120+ women",
+          "status": "Growing Impact",
+          "keyFeatures": "Key Features:",
+          "features": {
+            "leadershipPrograms": "Leadership development programs",
+            "microfinanceAccess": "Microfinance access",
+            "childcareSupport": "Childcare support",
+            "marketAccess": "Market access facilitation"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Youth Development Initiative",
+          "established": "Est. 2019",
+          "description": "Engaging young people in traditional crafts while providing modern business skills.",
+          "beneficiaries": "80+ youth",
+          "status": "Growing Impact",
+          "keyFeatures": "Key Features:",
+          "features": {
+            "apprenticeshipPrograms": "Apprenticeship programs",
+            "digitalLiteracy": "Digital literacy training",
+            "entrepreneurshipWorkshops": "Entrepreneurship workshops",
+            "culturalPreservation": "Cultural preservation education"
+          }
+        }
+      },
+      "partnerships": {
+        "localNgos": {
+          "title": "Local NGOs",
+          "description": "Collaborating with grassroots organizations for community development"
+        },
+        "educationalInstitutions": {
+          "title": "Educational Institutions",
+          "description": "Supporting schools and vocational training centers"
+        },
+        "governmentAgencies": {
+          "title": "Government Agencies",
+          "description": "Working with local authorities on infrastructure projects"
+        },
+        "internationalOrganizations": {
+          "title": "International Organizations",
+          "description": "Partnering with global NGOs for sustainable development"
+        }
+      },
+      "fairTradeDetails": {
+        "wagesAboveMinimum": "Wages 150% above local minimum",
+        "healthcareCoverage": "Healthcare coverage for artisan families",
+        "safeWorkingConditions": "Safe working conditions guaranteed",
+        "transparentPricing": "Transparent pricing and profit sharing",
+        "certifiedProducts": "Fair Trade Certified Products",
+        "verifiedSourcing": "Verified Ethical Sourcing"
+      },
+      "goals": {
+        "2025": {
+          "title": "Support 300 artisan families",
+          "status": "On Track",
+          "progress": "67%"
+        },
+        "2026": {
+          "title": "Establish 5 new training centers",
+          "status": "In Progress",
+          "progress": "40%"
+        },
+        "2027": {
+          "title": "Achieve 100% fair trade certification",
+          "status": "Nearly Complete",
+          "progress": "85%"
+        }
+      },
+      "successStory": {
+        "title": "Success Story: Mary's Cooperative",
+        "description": "In 2018, we supported Mary Banda in forming a women's basketry cooperative in rural Malawi. Starting with just 5 women, the cooperative now employs 25 female artisans, has built a community workshop, and provides healthcare benefits to all members' families. Mary's story represents the transformative power of ethical business practices and community-centered development.",
+        "womenEmployed": "Women Employed",
+        "incomeIncrease": "Annual Income Increase",
+        "familyMembers": "Family Members Benefited"
+      }
     },
     "profile": {
       "title": "My Profile",
@@ -261,7 +431,17 @@
       "orderPlaced": "Order placed on",
       "shippedOn": "Shipped on",
       "deliveredOn": "Delivered on",
-      "close": "Close"
+      "close": "Close",
+      "refresh": "Refresh",
+      "noOrdersMatchingCriteria": "No orders found matching your criteria.",
+      "recentUpdates": "Recent Updates:",
+      "downloadInvoice": "Download Invoice",
+      "reorderItems": "Reorder Items",
+      "reordering": "Reordering...",
+      "showing": "Showing",
+      "of": "of",
+      "orders": "orders",
+      "totalSpent": "Total spent:"
     },
     "about": {
       "title": "About Us",
@@ -443,6 +623,37 @@
       "signIn": "Sign in",
       "signupFailed": "Sign up failed",
       "errorOccurred": "An error occurred during sign up"
+    },
+    "home": {
+      "authentic": "Authentic",
+      "africanCrafts": "African Crafts",
+      "heroDescription": "Discover the rich heritage of African craftsmanship. Each piece tells a story of tradition, skill, and cultural pride passed down through generations.",
+      "exploreCrafts": "Explore Our Crafts",
+      "readStories": "Read Their Stories",
+      "uniqueCrafts": "Unique Crafts",
+      "masterArtisans": "Master Artisans",
+      "yearsHeritage": "Years Heritage",
+      "featuredCrafts": "Featured Crafts",
+      "featuredDescription": "Each piece comes with the story of its creator, connecting you to the heart of African culture",
+      "bestSeller": "Best Seller",
+      "quickPreview": "Quick Preview",
+      "addToCart": "Add to Cart",
+      "learnMore": "Learn More",
+      "viewAllCrafts": "View All Crafts",
+      "shopByCategory": "Shop by Category",
+      "shopByCategoryDesc": "Discover our curated collection of authentic African crafts, organized by traditional categories",
+      "touristFavorite": "Tourist Favorite",
+      "trending": "Trending",
+      "popular": "Popular",
+      "exploreCategory": "Explore Category",
+      "viewAllCategories": "View All Categories",
+      "shopByCraftType": "Shop by Craft Type",
+      "shopByCraftTypeDesc": "Explore different traditional crafting techniques and discover the artistry behind each method",
+      "traditional": "Traditional",
+      "masterCraftspeople": "Master Craftspeople",
+      "masterCraftspeopleDesc": "Each craft type represents centuries of knowledge and skill, passed down through generations of African artisans",
+      "meetOurArtisans": "Meet Our Artisans",
+      "viewAllCraftTypes": "View All Craft Types"
     }
   }
 }

@@ -8,6 +8,7 @@ import {
   useElements
 } from '@stripe/react-stripe-js';
 import { apiService, IAPIResponse } from '@/lib/api';
+import { useTranslation } from 'react-i18next';
 
 // Types
 interface DonorInfo {
@@ -60,6 +61,7 @@ const DonationForm: React.FC<DonationFormProps> = ({
   selectedAmount,
   donationType,
 }) => {
+  const { t } = useTranslation();
   const stripe = useStripe();
   const elements = useElements();
   const [isProcessing, setIsProcessing] = useState(false);
@@ -173,7 +175,7 @@ const DonationForm: React.FC<DonationFormProps> = ({
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-3">
           <CreditCard className="w-4 h-4 inline mr-2" />
-          Payment Information
+          {t('common.paymentInformation')}
         </label>
         <div className={`p-4 border-2 rounded-lg transition-colors ${
           cardError ? 'border-red-300' : cardComplete ? 'border-green-300' : 'border-gray-200 focus-within:border-pink-500'
@@ -200,10 +202,10 @@ const DonationForm: React.FC<DonationFormProps> = ({
         {isProcessing ? (
           <div className="flex items-center justify-center">
             <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-            Processing Payment...
+            {t('common.processingPayment')}
           </div>
         ) : (
-          `Donate $${selectedAmount} ${donationType === 'monthly' ? 'Monthly' : 'Now'}`
+          `${t('common.donate')} $${selectedAmount} ${donationType === 'monthly' ? t('common.monthly') : t('common.now')}`
         )}
       </button>
     </div>
@@ -211,6 +213,7 @@ const DonationForm: React.FC<DonationFormProps> = ({
 };
 
 const DonationButton: React.FC = () => {
+  const { t } = useTranslation();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState(25);
   const [customAmount, setCustomAmount] = useState('');
@@ -330,7 +333,7 @@ const DonationButton: React.FC = () => {
         className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300"
       >
         <Heart className="w-5 h-5 mr-2 transition-transform group-hover:scale-110" />
-        <span>Donate Now</span>
+        <span>{t('common.donateNow')}</span>
         <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
       </button>
 
@@ -350,8 +353,8 @@ const DonationButton: React.FC = () => {
                 <div className="w-16 h-16 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full flex items-center justify-center mx-auto mb-4">
                   <Heart className="w-8 h-8 text-white" />
                 </div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-2">Make a Difference</h2>
-                <p className="text-gray-600">Your donation helps us continue our mission</p>
+                <h2 className="text-2xl font-bold text-gray-900 mb-2">{t('common.makeADifference')}</h2>
+                <p className="text-gray-600">{t('common.donationHelps')}</p>
               </div>
             </div>
 
@@ -369,12 +372,12 @@ const DonationButton: React.FC = () => {
 
                   {/* Donor Information */}
                   <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-3">Donor Information</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-3">{t('common.donorInformation')}</label>
                     <div className="space-y-3">
                       <div>
                         <input
                           type="email"
-                          placeholder="Email address *"
+                          placeholder={t('common.emailRequired')}
                           value={donorInfo.email}
                           onChange={(e) => handleDonorInfoChange('email', e.target.value)}
                           className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
@@ -386,7 +389,7 @@ const DonationButton: React.FC = () => {
                       <div>
                         <input
                           type="text"
-                          placeholder="Full name *"
+                          placeholder={t('common.fullNameRequired')}
                           value={donorInfo.name}
                           onChange={(e) => handleDonorInfoChange('name', e.target.value)}
                           className={`w-full px-4 py-3 border-2 rounded-lg focus:outline-none transition-colors ${
@@ -398,7 +401,7 @@ const DonationButton: React.FC = () => {
                       <div>
                         <input
                           type="tel"
-                          placeholder="Phone number (optional)"
+                          placeholder={t('common.phoneOptional')}
                           value={donorInfo.phone}
                           onChange={(e) => handleDonorInfoChange('phone', e.target.value)}
                           className="w-full px-4 py-3 border-2 border-gray-200 rounded-lg focus:border-pink-500 focus:outline-none transition-colors"
@@ -409,7 +412,7 @@ const DonationButton: React.FC = () => {
 
                   {/* Donation Type */}
                   <div className="mb-6">
-                    <label className="block text-sm font-medium text-gray-700 mb-3">Donation Type</label>
+                    <label className="block text-sm font-medium text-gray-700 mb-3">{t('common.donationType')}</label>
                     <div className="grid grid-cols-2 gap-3">
                       <button
                         type="button"
@@ -420,7 +423,7 @@ const DonationButton: React.FC = () => {
                             : 'border-gray-200 text-gray-600 hover:border-gray-300'
                         }`}
                       >
-                        One-time
+                        {t('common.oneTime')}
                       </button>
                       <button
                         type="button"
@@ -431,7 +434,7 @@ const DonationButton: React.FC = () => {
                             : 'border-gray-200 text-gray-600 hover:border-gray-300'
                         }`}
                       >
-                        Monthly
+                        {t('common.monthly')}
                       </button>
                     </div>
                   </div>
@@ -439,7 +442,7 @@ const DonationButton: React.FC = () => {
                   {/* Amount Selection */}
                   <div className="mb-6">
                     <label className="block text-sm font-medium text-gray-700 mb-3">
-                      Choose Amount {donationType === 'monthly' && '(per month)'}
+                      {t('common.chooseAmount')} {donationType === 'monthly' && `(${t('common.perMonth')})`}
                     </label>
                     <div className="grid grid-cols-3 gap-3 mb-4">
                       {predefinedAmounts.map((amount) => (
@@ -463,7 +466,7 @@ const DonationButton: React.FC = () => {
                       <DollarSign className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                       <input
                         type="number"
-                        placeholder="Enter custom amount"
+                        placeholder={t('common.enterCustomAmount')}
                         value={customAmount}
                         onChange={handleCustomAmountChange}
                         min="1"
@@ -481,9 +484,9 @@ const DonationButton: React.FC = () => {
                     <div className="flex items-start space-x-3">
                       <Target className="w-5 h-5 text-pink-600 mt-0.5 flex-shrink-0" />
                       <div>
-                        <h4 className="font-semibold text-gray-900 mb-1">Your Impact</h4>
+                        <h4 className="font-semibold text-gray-900 mb-1">{t('common.yourImpact')}</h4>
                         <p className="text-sm text-gray-700">
-                          ${selectedAmount} can help provide essential resources to those in need.
+                          {t('common.impactMessage', { amount: selectedAmount })}
                         </p>
                       </div>
                     </div>
@@ -507,11 +510,11 @@ const DonationButton: React.FC = () => {
                     <div className="flex items-center justify-center text-xs text-gray-500">
                       <div className="flex items-center mr-4">
                         <div className="w-3 h-3 bg-green-500 rounded-full mr-1"></div>
-                        Secure Payment
+                        {t('common.securePayment')}
                       </div>
                       <div className="flex items-center">
                         <Users className="w-3 h-3 mr-1" />
-                        Tax Deductible
+                        {t('common.taxDeductible')}
                       </div>
                     </div>
                   </div>
@@ -522,12 +525,15 @@ const DonationButton: React.FC = () => {
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
                     <Check className="w-8 h-8 text-green-600" />
                   </div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">Thank You!</h3>
+                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('common.thankYou')}</h3>
                   <p className="text-gray-600 mb-4">
-                    Your {donationType === 'monthly' ? 'monthly ' : ''}donation of ${selectedAmount} has been processed successfully.
+                    {t('common.donationSuccess', { 
+                      type: donationType === 'monthly' ? t('common.monthly').toLowerCase() + ' ' : '',
+                      amount: selectedAmount 
+                    })}
                   </p>
                   <p className="text-sm text-gray-500">
-                    You will receive a confirmation email shortly.
+                    {t('common.confirmationEmail')}
                   </p>
                 </div>
               )}

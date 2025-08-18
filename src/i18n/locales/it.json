@@ -110,13 +110,38 @@
       "balancingDesc": "Sebbene parte del legno che utilizziamo sia legno duro a crescita lenta, prendiamo misure consapevoli per ridurre i danni e promuovere la sostenibilità a lungo termine. Le nostre scacchiere artigianali e i prodotti in legno sono realizzati utilizzando pratiche etiche che onorano sia le nostre tradizioni artigianali che il nostro pianeta.",
       "makingImpact": "Creare un Impatto Significativo",
       "impactDesc": "Crediamo che la vera sostenibilità riguardi la protezione dell'ambiente e il dare potere alle persone. Ogni acquisto supporta l'artigianato etico, i mezzi di sussistenza rurali e un movimento crescente verso un design consapevole e significativo.",
-      "shopCollection": "Acquista la Nostra Collezione Sostenibile"
+      "shopCollection": "Acquista la Nostra Collezione Sostenibile",
+      "wasteReductionPoint1": "Utilizzare scarti di legno e legname recuperato quando possibile",
+      "wasteReductionPoint2": "Riutilizzare materiali avanzati per ridurre gli sprechi",
+      "wasteReductionPoint3": "Formare artigiani in tecniche di produzione a spreco minimo",
+      "responsibleSourcingPoint1": "Collaborare con comunità che possiedono alberi",
+      "responsibleSourcingPoint2": "Promuovere metodi di raccolta responsabili",
+      "responsibleSourcingPoint3": "Supportare la gestione forestale sostenibile",
+      "communityEducationPoint1": "Formare artigiani in pratiche sostenibili",
+      "communityEducationPoint2": "Educare fornitori sulla conservazione forestale",
+      "communityEducationPoint3": "Costruire consapevolezza sull'importanza della sostenibilità",
+      "ourImpact": "Il Nostro Impatto",
+      "ourImpactDesc": "Ogni acquisto supporta l'artigianato etico, i mezzi di sussistenza rurali e il design consapevole",
+      "communitySupport": "Supporto Comunitario",
+      "wasteMinimization": "Minimizzazione dei Rifiuti",
+      "wasteMinimizationDesc": "Massima efficienza dei materiali",
+      "communityPartnership": "Partnership Comunitaria",
+      "communityPartnershipDesc": "Collaborazione diretta",
+      "ethicalCraftsmanship": "Artigianato Etico",
+      "ethicalCraftsmanshipDesc": "Qualità con coscienza",
+      "ethical": "Etico",
+      "ethicalDesc": "Pratiche di approvvigionamento responsabili",
+      "empowering": "Potenziante",
+      "empoweringDesc": "Supportare comunità rurali",
+      "sustainable": "Sostenibile",
+      "sustainableDesc": "Conservazione forestale a lungo termine"
     },
     "csr": {
       "title": "Dare Potere alle Comunità, Trasformare le Vite",
       "subtitle": "Il nostro impegno va oltre la creazione di bellissimi artigianati. Stiamo costruendo comunità più forti, dando potere agli artigiani e creando un cambiamento positivo duraturo in tutta l'Africa.",
+      "badge": "Responsabilità Sociale d'Impresa",
       "socialImpact": "Le Nostre Iniziative di Impatto Sociale",
-      "flagshipPrograms": "I Nostri Programmi di Punta",
+      "flagshipProgramsTitle": "I Nostri Programmi di Punta",
       "strategicPartnerships": "Le Nostre Partnership Strategiche",
       "fairTrade": "Commercio Equo e Pratiche Etiche",
       "fairTradeDesc": "Crediamo in una compensazione equa e nel trattamento etico di tutti i nostri artigiani. Il nostro impegno per i principi del commercio equo garantisce che gli artigiani tradizionali ricevano salari equi e lavorino in condizioni sicure e rispettose.",
@@ -124,7 +149,168 @@
       "partnerWithUs": "Collabora con Noi per l'Impatto Sociale",
       "partnerDesc": "Ogni acquisto che fai contribuisce ai nostri programmi di impatto sociale. Unisciti a noi nel creare mezzi di sussistenza sostenibili, dare potere alle comunità e preservare il patrimonio culturale africano per le generazioni future.",
       "supportMission": "Supporta la Nostra Missione",
-      "downloadReport": "Scarica il Rapporto CSR"
+      "downloadReport": "Scarica il Rapporto CSR",
+      "stats": {
+        "artisanFamilies": "Famiglie di Artigiani Supportate",
+        "communities": "Comunità Raggiunte",
+        "investment": "Investimento Comunitario",
+        "fairTrade": "Pratiche di Commercio Equo"
+      },
+      "education": {
+        "title": "Educazione e Sviluppo delle Competenze",
+        "description": "Fornire formazione professionale, programmi di alfabetizzazione e apprendistati per potenziare le comunità locali.",
+        "impact": "500+ persone formate"
+      },
+      "healthcare": {
+        "title": "Supporto Sanitario",
+        "description": "Supportare centri sanitari comunitari e fornire assistenza medica alle famiglie di artigiani.",
+        "impact": "1.200+ vite migliorate"
+      },
+      "childWelfare": {
+        "title": "Programmi di Benessere Infantile",
+        "description": "Supportare orfanotrofi, programmi di alimentazione scolastica e borse di studio educative per bambini.",
+        "impact": "300+ bambini supportati"
+      },
+      "infrastructure": {
+        "title": "Infrastrutture Comunitarie",
+        "description": "Costruire pozzi, migliorare strade e supportare centri comunitari nei villaggi degli artigiani.",
+        "impact": "25+ progetti completati"
+      },
+      "programs": {
+        "artisanEmpowerment": {
+          "title": "Programma di Empowerment degli Artigiani",
+          "established": "Fondato nel 2015",
+          "description": "Fornire salari equi, formazione delle competenze e supporto allo sviluppo aziendale agli artigiani locali.",
+          "beneficiaries": "200+ artigiani",
+          "status": "Impatto Crescente",
+          "features": {
+            "fairWage": "Garanzia di salario equo (150% sopra il minimo locale)",
+            "healthInsurance": "Copertura assicurativa sanitaria",
+            "skillsWorkshops": "Workshop di sviluppo delle competenze",
+            "businessMentorship": "Mentorship aziendale"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Empowerment Economico delle Donne",
+          "established": "Fondato nel 2017",
+          "description": "Supportare le artigiane attraverso formazione alla leadership, microfinanza e formazione di cooperative.",
+          "beneficiaries": "120+ donne",
+          "status": "Impatto Crescente",
+          "features": {
+            "leadershipPrograms": "Programmi di sviluppo della leadership",
+            "microfinanceAccess": "Accesso alla microfinanza",
+            "childcareSupport": "Supporto per l'assistenza all'infanzia",
+            "marketAccess": "Facilitazione dell'accesso al mercato"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Iniziativa di Sviluppo Giovanile",
+          "established": "Fondato nel 2019",
+          "description": "Coinvolgere i giovani nei mestieri tradizionali fornendo al contempo competenze aziendali moderne.",
+          "beneficiaries": "80+ giovani",
+          "status": "Impatto Crescente",
+          "features": {
+            "apprenticeshipPrograms": "Programmi di apprendistato",
+            "digitalLiteracy": "Formazione sull'alfabetizzazione digitale",
+            "entrepreneurshipWorkshops": "Workshop sull'imprenditorialità",
+            "culturalPreservation": "Educazione alla conservazione culturale"
+          }
+        }
+      },
+      "partnerships": {
+        "localNgos": {
+          "title": "ONG Locali",
+          "description": "Collaborazione con organizzazioni di base per lo sviluppo comunitario"
+        },
+        "educationalInstitutions": {
+          "title": "Istituzioni Educative",
+          "description": "Supporto a scuole e centri di formazione professionale"
+        },
+        "governmentAgencies": {
+          "title": "Agenzie Governative",
+          "description": "Collaborazione con autorità locali su progetti infrastrutturali"
+        },
+        "internationalOrganizations": {
+          "title": "Organizzazioni Internazionali",
+          "description": "Partnership con ONG globali per lo sviluppo sostenibile"
+        }
+      },
+      "fairTradeDetails": {
+        "wagesAboveMinimum": "Salari 150% sopra il minimo locale",
+        "healthcareCoverage": "Copertura sanitaria per le famiglie degli artigiani",
+        "safeWorkingConditions": "Condizioni di lavoro sicure garantite",
+        "transparentPricing": "Prezzi trasparenti e condivisione dei profitti",
+        "certifiedProducts": "95% Prodotti Certificati Commercio Equo",
+        "verifiedSourcing": "Approvvigionamento Etico Verificato"
+      },
+      "goals": {
+        "2025": {
+          "title": "Supportare 300 famiglie di artigiani",
+          "status": "In Corso",
+          "progress": "67%"
+        },
+        "2026": {
+          "title": "Stabilire 5 nuovi centri di formazione",
+          "status": "In Progresso",
+          "progress": "40%"
+        },
+        "2027": {
+          "title": "Raggiungere la certificazione 100% commercio equo",
+          "status": "Quasi Completo",
+          "progress": "85%"
+        }
+      },
+      "successStory": {
+        "title": "Storia di Successo: La Cooperativa di Mary",
+        "description": "Nel 2018, abbiamo supportato Mary Banda nella formazione di una cooperativa di cesteria femminile nel Malawi rurale. Iniziando con solo 5 donne, la cooperativa ora impiega 25 artigiane, ha costruito un laboratorio comunitario e fornisce benefici sanitari a tutte le famiglie dei membri. La storia di Mary rappresenta il potere trasformativo delle pratiche aziendali etiche e dello sviluppo centrato sulla comunità.",
+        "womenEmployed": "25 Donne Impiegate",
+        "incomeIncrease": "$15K Aumento del Reddito Annuale",
+        "familyMembers": "80+ Membri della Famiglia Beneficiati"
+      },
+      "flagshipPrograms": {
+        "artisanEmpowerment": {
+          "title": "Programma di Empowerment degli Artigiani",
+          "established": "Fondato nel 2015",
+          "description": "Fornire salari equi, formazione delle competenze e supporto allo sviluppo aziendale agli artigiani locali.",
+          "beneficiaries": "200+ artigiani",
+          "status": "Impatto Crescente",
+          "keyFeatures": "Caratteristiche Principali:",
+          "features": {
+            "fairWage": "Garanzia di salario equo (150% sopra il minimo locale)",
+            "healthInsurance": "Copertura assicurativa sanitaria",
+            "skillsWorkshops": "Workshop di sviluppo delle competenze",
+            "businessMentorship": "Mentorship aziendale"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Empowerment Economico delle Donne",
+          "established": "Fondato nel 2017",
+          "description": "Supportare le artigiane attraverso formazione alla leadership, microfinanza e formazione di cooperative.",
+          "beneficiaries": "120+ donne",
+          "status": "Impatto Crescente",
+          "keyFeatures": "Caratteristiche Principali:",
+          "features": {
+            "leadershipPrograms": "Programmi di sviluppo della leadership",
+            "microfinanceAccess": "Accesso alla microfinanza",
+            "childcareSupport": "Supporto per l'assistenza all'infanzia",
+            "marketAccess": "Facilitazione dell'accesso al mercato"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Iniziativa di Sviluppo Giovanile",
+          "established": "Fondato nel 2019",
+          "description": "Coinvolgere i giovani nei mestieri tradizionali fornendo al contempo competenze aziendali moderne.",
+          "beneficiaries": "80+ giovani",
+          "status": "Impatto Crescente",
+          "keyFeatures": "Caratteristiche Principali:",
+          "features": {
+            "apprenticeshipPrograms": "Programmi di apprendistato",
+            "digitalLiteracy": "Formazione sull'alfabetizzazione digitale",
+            "entrepreneurshipWorkshops": "Workshop sull'imprenditorialità",
+            "culturalPreservation": "Educazione alla conservazione culturale"
+          }
+        }
+      }
     },
     "orders": {
       "title": "I Miei Ordini",
@@ -141,8 +327,48 @@
       "processing": "In Elaborazione",
       "cancelled": "Annullato",
       "noOrdersFound": "Nessun ordine trovato",
+      "adjustFilters": "Prova ad aggiustare i tuoi criteri di ricerca o filtro",
       "noOrdersYet": "Non hai ancora effettuato ordini",
-      "startShopping": "Inizia a Comprare"
+      "startShopping": "Inizia a Comprare",
+      "orderNumber": "Ordine #",
+      "touristOrder": "Ordine Turistico",
+      "orderDate": "Data Ordine",
+      "totalAmount": "Importo Totale",
+      "shippingTo": "Spedizione a",
+      "shippedDate": "Data di Spedizione",
+      "viewDetails": "Visualizza Dettagli",
+      "downloadInvoice": "Scarica Fattura",
+      "writeReview": "Scrivi Recensione",
+      "orderDetails": "Dettagli Ordine",
+      "orderTotal": "Totale Ordine",
+      "status": "Stato",
+      "billingAddress": "Indirizzo di Fatturazione",
+      "shippingAddress": "Indirizzo di Spedizione",
+      "orderBreakdown": "Riepilogo Ordine",
+      "subtotal": "Subtotale",
+      "taxAmount": "Importo Tasse",
+      "shipping": "Spedizione",
+      "discount": "Sconto",
+      "total": "Totale",
+      "additionalInfo": "Informazioni Aggiuntive",
+      "customerNotes": "Note Cliente",
+      "phytosanitaryCert": "Certificato Fitosanitario",
+      "required": "Richiesto",
+      "orderTimeline": "Timeline Ordine",
+      "orderPlaced": "Ordine effettuato il",
+      "shippedOn": "Spedito il",
+      "deliveredOn": "Consegnato il",
+      "close": "Chiudi",
+      "refresh": "Aggiorna",
+      "noOrdersMatchingCriteria": "Nessun ordine trovato che corrisponda ai tuoi criteri.",
+      "recentUpdates": "Aggiornamenti Recenti:",
+      "downloadInvoice": "Scarica Fattura",
+      "reorderItems": "Riordina Articoli",
+      "reordering": "Riordinando...",
+      "showing": "Mostrando",
+      "of": "di",
+      "orders": "ordini",
+      "totalSpent": "Totale speso:"
     },
     "coupons": {
       "title": "I Miei Coupon",
@@ -389,6 +615,37 @@
       "signIn": "Accedi",
       "signupFailed": "Registrazione fallita",
       "errorOccurred": "Si è verificato un errore durante la registrazione"
+    },
+    "home": {
+      "authentic": "Autentici",
+      "africanCrafts": "Artigianati Africani",
+      "heroDescription": "Scopri il ricco patrimonio dell'artigianato africano. Ogni pezzo racconta una storia di tradizione, abilità e orgoglio culturale tramandato attraverso le generazioni.",
+      "exploreCrafts": "Esplora i Nostri Artigianati",
+      "readStories": "Leggi le Loro Storie",
+      "uniqueCrafts": "Artigianati Unici",
+      "masterArtisans": "Maestri Artigiani",
+      "yearsHeritage": "Anni di Patrimonio",
+      "featuredCrafts": "Artigianati in Evidenza",
+      "featuredDescription": "Ogni pezzo viene con la storia del suo creatore, collegandoti al cuore della cultura africana",
+      "bestSeller": "Più Venduto",
+      "quickPreview": "Anteprima Veloce",
+      "addToCart": "Aggiungi al Carrello",
+      "learnMore": "Scopri di Più",
+      "viewAllCrafts": "Vedi Tutti gli Artigianati",
+      "shopByCategory": "Acquista per Categoria",
+      "shopByCategoryDesc": "Scopri la nostra collezione curata di artigianati africani autentici, organizzati per categorie tradizionali",
+      "touristFavorite": "Preferito dai Turisti",
+      "trending": "Di Tendenza",
+      "popular": "Popolare",
+      "exploreCategory": "Esplora Categoria",
+      "viewAllCategories": "Vedi Tutte le Categorie",
+      "shopByCraftType": "Acquista per Tipo di Artigianato",
+      "shopByCraftTypeDesc": "Esplora diverse tecniche artigianali tradizionali e scopri l'arte dietro ogni metodo",
+      "traditional": "Tradizionale",
+      "masterCraftspeople": "Maestri Artigiani",
+      "masterCraftspeopleDesc": "Ogni tipo di artigianato rappresenta secoli di conoscenza e abilità, tramandati attraverso generazioni di artigiani africani",
+      "meetOurArtisans": "Incontra i Nostri Artigiani",
+      "viewAllCraftTypes": "Vedi Tutti i Tipi di Artigianato"
     }
   }
 }

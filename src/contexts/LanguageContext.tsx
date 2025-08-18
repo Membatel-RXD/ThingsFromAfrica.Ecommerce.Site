@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, useMemo } from 'react';
 
-export type Language = 'en' | 'es' | 'fr' | 'it' | 'sw';
+export type Language = 'en' | 'es' | 'fr' | 'it' | 'sw' | 'de' | 'pt' | 'nl' | 'zh';
 
 interface LanguageContextType {
   currentLanguage: Language;
@@ -520,6 +520,118 @@ const translations = {
     'page.crafts.skilledArtisans': 'Mafundi Wenye Ujuzi',
     'page.crafts.yearsOfTradition': 'Miaka ya Utamaduni',
     'page.crafts.authenticHandmade': 'Kimetengenezwa kwa Mikono Halisi',
+  },
+  de: {
+    // Navigation
+    'nav.home': 'Startseite',
+    'nav.shop': 'Shop',
+    'nav.crafts': 'Unser Handwerk',
+    'nav.stories': 'Geschichten',
+    'nav.gifts': 'Geschenkideen',
+    'nav.sustainability': 'Nachhaltigkeit',
+    'nav.csr': 'CSR',
+    'nav.about': 'Über uns',
+    'nav.contact': 'Kontakt',
+    'nav.cart': 'Warenkorb',
+    'nav.signin': 'Anmelden / Registrieren',
+    'nav.account': 'Konto',
+    'nav.welcome': 'Willkommen',
+    
+    // Common
+    'common.loading': 'Lädt...',
+    'common.error': 'Fehler',
+    'common.tryAgain': 'Erneut versuchen',
+    'common.readMore': 'Mehr lesen',
+    'common.learnMore': 'Mehr erfahren',
+    'common.viewAll': 'Alle anzeigen',
+    'common.shopNow': 'Jetzt einkaufen',
+    'common.addToCart': 'In den Warenkorb',
+    'common.buyNow': 'Jetzt kaufen',
+    'common.contactUs': 'Kontaktieren Sie uns',
+  },
+  pt: {
+    // Navigation
+    'nav.home': 'Início',
+    'nav.shop': 'Loja',
+    'nav.crafts': 'Nossos Artesanatos',
+    'nav.stories': 'Histórias',
+    'nav.gifts': 'Ideias de Presentes',
+    'nav.sustainability': 'Sustentabilidade',
+    'nav.csr': 'RSC',
+    'nav.about': 'Sobre',
+    'nav.contact': 'Contato',
+    'nav.cart': 'Carrinho',
+    'nav.signin': 'Entrar / Registrar',
+    'nav.account': 'Conta',
+    'nav.welcome': 'Bem-vindo',
+    
+    // Common
+    'common.loading': 'Carregando...',
+    'common.error': 'Erro',
+    'common.tryAgain': 'Tentar novamente',
+    'common.readMore': 'Ler mais',
+    'common.learnMore': 'Saber mais',
+    'common.viewAll': 'Ver tudo',
+    'common.shopNow': 'Comprar agora',
+    'common.addToCart': 'Adicionar ao carrinho',
+    'common.buyNow': 'Comprar agora',
+    'common.contactUs': 'Entre em contato',
+  },
+  nl: {
+    // Navigation
+    'nav.home': 'Home',
+    'nav.shop': 'Winkel',
+    'nav.crafts': 'Ons Handwerk',
+    'nav.stories': 'Verhalen',
+    'nav.gifts': 'Cadeau-ideeën',
+    'nav.sustainability': 'Duurzaamheid',
+    'nav.csr': 'MVO',
+    'nav.about': 'Over ons',
+    'nav.contact': 'Contact',
+    'nav.cart': 'Winkelwagen',
+    'nav.signin': 'Inloggen / Registreren',
+    'nav.account': 'Account',
+    'nav.welcome': 'Welkom',
+    
+    // Common
+    'common.loading': 'Laden...',
+    'common.error': 'Fout',
+    'common.tryAgain': 'Opnieuw proberen',
+    'common.readMore': 'Meer lezen',
+    'common.learnMore': 'Meer leren',
+    'common.viewAll': 'Alles bekijken',
+    'common.shopNow': 'Nu winkelen',
+    'common.addToCart': 'Toevoegen aan winkelwagen',
+    'common.buyNow': 'Nu kopen',
+    'common.contactUs': 'Neem contact op',
+  },
+  zh: {
+    // Navigation
+    'nav.home': '首页',
+    'nav.shop': '商店',
+    'nav.crafts': '我们的工艺品',
+    'nav.stories': '故事',
+    'nav.gifts': '礼品创意',
+    'nav.sustainability': '可持续性',
+    'nav.csr': '企业社会责任',
+    'nav.about': '关于我们',
+    'nav.contact': '联系我们',
+    'nav.cart': '购物车',
+    'nav.signin': '登录 / 注册',
+    'nav.account': '账户',
+    'nav.welcome': '欢迎',
+    
+    // Common
+    'common.loading': '加载中...',
+    'common.error': '错误',
+    'common.tryAgain': '重试',
+    'common.readMore': '阅读更多',
+    'common.learnMore': '了解更多',
+    'common.viewAll': '查看全部',
+    'common.shopNow': '立即购买',
+    'common.addToCart': '添加到购物车',
+    'common.buyNow': '立即购买',
+    'common.contactUs': '联系我们',
   }
 };
 
@@ -528,7 +640,7 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('selectedLanguage') as Language;
-    if (savedLanguage && ['en', 'es', 'fr', 'it', 'sw'].includes(savedLanguage)) {
+    if (savedLanguage && ['en', 'es', 'fr', 'it', 'sw', 'de', 'pt', 'nl', 'zh'].includes(savedLanguage)) {
       setCurrentLanguage(savedLanguage);
     }
   }, []);

@@ -30,99 +30,99 @@ const CSR: React.FC = () => {
   const initiatives = [
     {
       icon: <GraduationCap className="h-6 w-6" />,
-      title: 'Education & Skills Development',
-      description: 'Providing vocational training, literacy programs, and apprenticeships to empower local communities.',
-      impact: '500+ people trained',
+      title: t('pages.csr.education.title'),
+      description: t('pages.csr.education.description'),
+      impact: t('pages.csr.education.impact'),
       color: 'bg-blue-100 text-blue-800'
     },
     {
       icon: <Stethoscope className="h-6 w-6" />,
-      title: 'Healthcare Support',
-      description: 'Supporting community health centers and providing medical assistance to artisan families.',
-      impact: '1,200+ lives improved',
+      title: t('pages.csr.healthcare.title'),
+      description: t('pages.csr.healthcare.description'),
+      impact: t('pages.csr.healthcare.impact'),
       color: 'bg-red-100 text-red-800'
     },
     {
       icon: <Baby className="h-6 w-6" />,
-      title: 'Child Welfare Programs',
-      description: 'Supporting orphanages, school feeding programs, and educational scholarships for children.',
-      impact: '300+ children supported',
+      title: t('pages.csr.childWelfare.title'),
+      description: t('pages.csr.childWelfare.description'),
+      impact: t('pages.csr.childWelfare.impact'),
       color: 'bg-purple-100 text-purple-800'
     },
     {
       icon: <Home className="h-6 w-6" />,
-      title: 'Community Infrastructure',
-      description: 'Building wells, improving roads, and supporting community centers in artisan villages.',
-      impact: '25+ projects completed',
+      title: t('pages.csr.infrastructure.title'),
+      description: t('pages.csr.infrastructure.description'),
+      impact: t('pages.csr.infrastructure.impact'),
       color: 'bg-green-100 text-green-800'
     }
   ];
 
   const stats = [
-    { number: '200+', label: 'Artisan Families Supported', icon: <Users className="h-8 w-8" /> },
-    { number: '15', label: 'Communities Reached', icon: <Globe className="h-8 w-8" /> },
-    { number: '$500K+', label: 'Community Investment', icon: <DollarSign className="h-8 w-8" /> },
-    { number: '95%', label: 'Fair Trade Practices', icon: <Shield className="h-8 w-8" /> }
+    { number: '200+', label: t('pages.csr.stats.artisanFamilies'), icon: <Users className="h-8 w-8" /> },
+    { number: '15', label: t('pages.csr.stats.communities'), icon: <Globe className="h-8 w-8" /> },
+    { number: '$500K+', label: t('pages.csr.stats.investment'), icon: <DollarSign className="h-8 w-8" /> },
+    { number: '95%', label: t('pages.csr.stats.fairTrade'), icon: <Shield className="h-8 w-8" /> }
   ];
 
   const programs = [
     {
-      title: 'Artisan Empowerment Program',
-      description: 'Providing fair wages, skills training, and business development support to local craftspeople.',
-      beneficiaries: '200+ artisans',
-      established: '2015',
+      title: t('pages.csr.flagshipPrograms.artisanEmpowerment.title'),
+      description: t('pages.csr.flagshipPrograms.artisanEmpowerment.description'),
+      beneficiaries: t('pages.csr.flagshipPrograms.artisanEmpowerment.beneficiaries'),
+      established: t('pages.csr.flagshipPrograms.artisanEmpowerment.established'),
       features: [
-        'Fair wage guarantee (150% above local minimum)',
-        'Health insurance coverage',
-        'Skills development workshops',
-        'Business mentorship'
+        t('pages.csr.flagshipPrograms.artisanEmpowerment.features.fairWage'),
+        t('pages.csr.flagshipPrograms.artisanEmpowerment.features.healthInsurance'),
+        t('pages.csr.flagshipPrograms.artisanEmpowerment.features.skillsWorkshops'),
+        t('pages.csr.flagshipPrograms.artisanEmpowerment.features.businessMentorship')
       ]
     },
     {
-      title: 'Women\'s Economic Empowerment',
-      description: 'Supporting female artisans through leadership training, microfinance, and cooperative formation.',
-      beneficiaries: '120+ women',
-      established: '2017',
+      title: t('pages.csr.flagshipPrograms.womensEmpowerment.title'),
+      description: t('pages.csr.flagshipPrograms.womensEmpowerment.description'),
+      beneficiaries: t('pages.csr.flagshipPrograms.womensEmpowerment.beneficiaries'),
+      established: t('pages.csr.flagshipPrograms.womensEmpowerment.established'),
       features: [
-        'Leadership development programs',
-        'Microfinance access',
-        'Childcare support',
-        'Market access facilitation'
+        t('pages.csr.flagshipPrograms.womensEmpowerment.features.leadershipPrograms'),
+        t('pages.csr.flagshipPrograms.womensEmpowerment.features.microfinanceAccess'),
+        t('pages.csr.flagshipPrograms.womensEmpowerment.features.childcareSupport'),
+        t('pages.csr.flagshipPrograms.womensEmpowerment.features.marketAccess')
       ]
     },
     {
-      title: 'Youth Development Initiative',
-      description: 'Engaging young people in traditional crafts while providing modern business skills.',
-      beneficiaries: '80+ youth',
-      established: '2019',
+      title: t('pages.csr.flagshipPrograms.youthDevelopment.title'),
+      description: t('pages.csr.flagshipPrograms.youthDevelopment.description'),
+      beneficiaries: t('pages.csr.flagshipPrograms.youthDevelopment.beneficiaries'),
+      established: t('pages.csr.flagshipPrograms.youthDevelopment.established'),
       features: [
-        'Apprenticeship programs',
-        'Digital literacy training',
-        'Entrepreneurship workshops',
-        'Cultural preservation education'
+        t('pages.csr.flagshipPrograms.youthDevelopment.features.apprenticeshipPrograms'),
+        t('pages.csr.flagshipPrograms.youthDevelopment.features.digitalLiteracy'),
+        t('pages.csr.flagshipPrograms.youthDevelopment.features.entrepreneurshipWorkshops'),
+        t('pages.csr.flagshipPrograms.youthDevelopment.features.culturalPreservation')
       ]
     }
   ];
 
   const partnerships = [
     {
-      name: 'Local NGOs',
-      description: 'Collaborating with grassroots organizations for community development',
+      name: t('pages.csr.partnerships.localNgos.title'),
+      description: t('pages.csr.partnerships.localNgos.description'),
       icon: <HandHeart className="h-6 w-6" />
     },
     {
-      name: 'Educational Institutions',
-      description: 'Supporting schools and vocational training centers',
+      name: t('pages.csr.partnerships.educationalInstitutions.title'),
+      description: t('pages.csr.partnerships.educationalInstitutions.description'),
       icon: <BookOpen className="h-6 w-6" />
     },
     {
-      name: 'Government Agencies',
-      description: 'Working with local authorities on infrastructure projects',
+      name: t('pages.csr.partnerships.governmentAgencies.title'),
+      description: t('pages.csr.partnerships.governmentAgencies.description'),
       icon: <Building className="h-6 w-6" />
     },
     {
-      name: 'International Organizations',
-      description: 'Partnering with global NGOs for sustainable development',
+      name: t('pages.csr.partnerships.internationalOrganizations.title'),
+      description: t('pages.csr.partnerships.internationalOrganizations.description'),
       icon: <Globe className="h-6 w-6" />
     }
   ];
@@ -130,21 +130,21 @@ const CSR: React.FC = () => {
   const goals = [
     {
       year: '2025',
-      target: 'Support 300 artisan families',
-      progress: '67%',
-      status: 'On Track'
+      target: t('pages.csr.goals.2025.title'),
+      progress: t('pages.csr.goals.2025.progress'),
+      status: t('pages.csr.goals.2025.status')
     },
     {
       year: '2026',
-      target: 'Establish 5 new training centers',
-      progress: '40%',
-      status: 'In Progress'
+      target: t('pages.csr.goals.2026.title'),
+      progress: t('pages.csr.goals.2026.progress'),
+      status: t('pages.csr.goals.2026.status')
     },
     {
       year: '2027',
-      target: 'Achieve 100% fair trade certification',
-      progress: '85%',
-      status: 'Nearly Complete'
+      target: t('pages.csr.goals.2027.title'),
+      progress: t('pages.csr.goals.2027.progress'),
+      status: t('pages.csr.goals.2027.status')
     }
   ];
 
@@ -156,7 +156,7 @@ const CSR: React.FC = () => {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-2 bg-blue-100 text-blue-800 px-4 py-2 rounded-full mb-4">
             <Heart className="h-4 w-4" />
-            <span className="text-sm font-medium">Corporate Social Responsibility</span>
+            <span className="text-sm font-medium">{t('pages.csr.badge')}</span>
           </div>
           <h1 className="text-5xl font-bold text-black mb-4">
             {t('pages.csr.title')}
@@ -208,7 +208,7 @@ const CSR: React.FC = () => {
 
         {/* Main Programs */}
         <div className="mb-16">
-          <h2 className="text-3xl font-bold text-black text-center mb-8">{t('pages.csr.flagshipPrograms')}</h2>
+          <h2 className="text-3xl font-bold text-black text-center mb-8">{t('pages.csr.flagshipProgramsTitle')}</h2>
           <div className="space-y-6">
             {programs.map((program, index) => (
               <Card key={index} className="border-gray-200">
@@ -229,12 +229,20 @@ const CSR: React.FC = () => {
                         </div>
                         <div className="flex items-center gap-1">
                           <TrendingUp className="h-4 w-4 text-green-600" />
-                          <span className="text-green-600 font-medium">Growing Impact</span>
+                          <span className="text-green-600 font-medium">
+                            {index === 0 && t('pages.csr.flagshipPrograms.artisanEmpowerment.status')}
+                            {index === 1 && t('pages.csr.flagshipPrograms.womensEmpowerment.status')}
+                            {index === 2 && t('pages.csr.flagshipPrograms.youthDevelopment.status')}
+                          </span>
                         </div>
                       </div>
                     </div>
                     <div className="bg-gray-50 rounded-lg p-4">
-                      <h4 className="font-semibold text-black mb-3">Key Features:</h4>
+                      <h4 className="font-semibold text-black mb-3">
+                        {index === 0 && t('pages.csr.flagshipPrograms.artisanEmpowerment.keyFeatures')}
+                        {index === 1 && t('pages.csr.flagshipPrograms.womensEmpowerment.keyFeatures')}
+                        {index === 2 && t('pages.csr.flagshipPrograms.youthDevelopment.keyFeatures')}
+                      </h4>
                       <ul className="space-y-2">
                         {program.features.map((feature, featureIndex) => (
                           <li key={featureIndex} className="flex items-start gap-2 text-sm">
@@ -281,19 +289,19 @@ const CSR: React.FC = () => {
                 <div className="space-y-3">
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-green-600" />
-                    <span className="text-gray-700">Wages 150% above local minimum</span>
+                    <span className="text-gray-700">{t('pages.csr.fairTradeDetails.wagesAboveMinimum')}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-green-600" />
-                    <span className="text-gray-700">Healthcare coverage for artisan families</span>
+                    <span className="text-gray-700">{t('pages.csr.fairTradeDetails.healthcareCoverage')}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-green-600" />
-                    <span className="text-gray-700">Safe working conditions guaranteed</span>
+                    <span className="text-gray-700">{t('pages.csr.fairTradeDetails.safeWorkingConditions')}</span>
                   </div>
                   <div className="flex items-center gap-3">
                     <CheckCircle className="h-5 w-5 text-green-600" />
-                    <span className="text-gray-700">Transparent pricing and profit sharing</span>
+                    <span className="text-gray-700">{t('pages.csr.fairTradeDetails.transparentPricing')}</span>
                   </div>
                 </div>
               </div>
@@ -301,9 +309,9 @@ const CSR: React.FC = () => {
                 <div className="bg-white rounded-lg p-6 shadow-lg">
                   <Shield className="h-16 w-16 text-blue-600 mx-auto mb-4" />
                   <div className="text-3xl font-bold text-black mb-2">95%</div>
-                  <p className="text-gray-700 mb-4">Fair Trade Certified Products</p>
+                  <p className="text-gray-700 mb-4">{t('pages.csr.fairTradeDetails.certifiedProducts')}</p>
                   <Badge className="bg-blue-600 hover:bg-blue-700 text-white">
-                    Verified Ethical Sourcing
+                    {t('pages.csr.fairTradeDetails.verifiedSourcing')}
                   </Badge>
                 </div>
               </div>
@@ -348,26 +356,23 @@ const CSR: React.FC = () => {
           <CardContent className="p-8">
             <div className="text-center mb-8">
               <Award className="h-12 w-12 text-blue-600 mx-auto mb-4" />
-              <h2 className="text-3xl font-bold text-black mb-4">Success Story: Mary's Cooperative</h2>
+              <h2 className="text-3xl font-bold text-black mb-4">{t('pages.csr.successStory.title')}</h2>
               <p className="text-gray-700 max-w-3xl mx-auto">
-                In 2018, we supported Mary Banda in forming a women's basketry cooperative in rural Malawi. 
-                Starting with just 5 women, the cooperative now employs 25 female artisans, has built a community 
-                workshop, and provides healthcare benefits to all members' families. Mary's story represents the 
-                transformative power of ethical business practices and community-centered development.
+                {t('pages.csr.successStory.description')}
               </p>
             </div>
             <div className="grid md:grid-cols-3 gap-4 text-center">
               <div className="bg-white rounded-lg p-4">
                 <div className="text-2xl font-bold text-black mb-1">25</div>
-                <div className="text-sm text-gray-600">Women Employed</div>
+                <div className="text-sm text-gray-600">{t('pages.csr.successStory.womenEmployed')}</div>
               </div>
               <div className="bg-white rounded-lg p-4">
                 <div className="text-2xl font-bold text-black mb-1">$15K</div>
-                <div className="text-sm text-gray-600">Annual Income Increase</div>
+                <div className="text-sm text-gray-600">{t('pages.csr.successStory.incomeIncrease')}</div>
               </div>
               <div className="bg-white rounded-lg p-4">
                 <div className="text-2xl font-bold text-black mb-1">80+</div>
-                <div className="text-sm text-gray-600">Family Members Benefited</div>
+                <div className="text-sm text-gray-600">{t('pages.csr.successStory.familyMembers')}</div>
               </div>
             </div>
           </CardContent>

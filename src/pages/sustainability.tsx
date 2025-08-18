@@ -21,15 +21,15 @@ const Sustainability = () => {
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Using wood offcuts and reclaimed timber whenever possible
+              {t('pages.sustainability.wasteReductionPoint1')}
             </li>
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Repurposing leftover materials to reduce waste
+              {t('pages.sustainability.wasteReductionPoint2')}
             </li>
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Training artisans in minimal waste production techniques
+              {t('pages.sustainability.wasteReductionPoint3')}
             </li>
           </ul>
         </div>
@@ -48,15 +48,15 @@ const Sustainability = () => {
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Partnering with communities who own trees
+              {t('pages.sustainability.responsibleSourcingPoint1')}
             </li>
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Promoting responsible harvesting methods
+              {t('pages.sustainability.responsibleSourcingPoint2')}
             </li>
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Supporting sustainable forest management
+              {t('pages.sustainability.responsibleSourcingPoint3')}
             </li>
           </ul>
         </div>
@@ -75,15 +75,15 @@ const Sustainability = () => {
           <ul className="space-y-2 text-gray-700">
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Training artisans in sustainable practices
+              {t('pages.sustainability.communityEducationPoint1')}
             </li>
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Educating suppliers on forest conservation
+              {t('pages.sustainability.communityEducationPoint2')}
             </li>
             <li className="flex items-start">
               <CheckCircle className="h-5 w-5 text-green-500 mr-3 mt-0.5 flex-shrink-0" />
-              Building awareness about sustainability importance
+              {t('pages.sustainability.communityEducationPoint3')}
             </li>
           </ul>
         </div>
@@ -103,9 +103,9 @@ const Sustainability = () => {
             <div className="flex items-start">
               <Heart className="h-5 w-5 text-green-600 mr-3 mt-0.5 flex-shrink-0" />
               <div>
-                <p className="text-green-800 font-medium">Our Impact</p>
+                <p className="text-green-800 font-medium">{t('pages.sustainability.ourImpact')}</p>
                 <p className="text-green-700 text-sm mt-1">
-                  Every purchase supports ethical craftsmanship, rural livelihoods, and conscious design
+                  {t('pages.sustainability.ourImpactDesc')}
                 </p>
               </div>
             </div>
@@ -137,15 +137,15 @@ const Sustainability = () => {
             <div className="flex items-center justify-center space-x-4 text-sm text-gray-400">
               <span className="flex items-center">
                 <span className="w-2 h-2 bg-green-400 rounded-full mr-2"></span>
-                Waste Reduction
+                {t('pages.sustainability.wasteReduction')}
               </span>
               <span className="flex items-center">
                 <span className="w-2 h-2 bg-blue-400 rounded-full mr-2"></span>
-                Ethical Sourcing
+                {t('pages.sustainability.responsibleSourcing')}
               </span>
               <span className="flex items-center">
                 <span className="w-2 h-2 bg-yellow-400 rounded-full mr-2"></span>
-                Community Support
+                {t('pages.sustainability.communitySupport')}
               </span>
             </div>
           </div>
@@ -213,22 +213,22 @@ const Sustainability = () => {
               <div className="bg-white rounded-lg px-6 py-4 border border-gray-200 shadow-sm flex items-center">
                 <Recycle className="h-6 w-6 text-blue-600 mr-3" />
                 <div className="text-left">
-                  <p className="font-medium text-gray-900">Waste Minimization</p>
-                  <p className="text-sm text-gray-600">Maximum material efficiency</p>
+                  <p className="font-medium text-gray-900">{t('pages.sustainability.wasteMinimization')}</p>
+                  <p className="text-sm text-gray-600">{t('pages.sustainability.wasteMinimizationDesc')}</p>
                 </div>
               </div>
               <div className="bg-white rounded-lg px-6 py-4 border border-gray-200 shadow-sm flex items-center">
                 <Users className="h-6 w-6 text-green-600 mr-3" />
                 <div className="text-left">
-                  <p className="font-medium text-gray-900">Community Partnership</p>
-                  <p className="text-sm text-gray-600">Direct collaboration</p>
+                  <p className="font-medium text-gray-900">{t('pages.sustainability.communityPartnership')}</p>
+                  <p className="text-sm text-gray-600">{t('pages.sustainability.communityPartnershipDesc')}</p>
                 </div>
               </div>
               <div className="bg-white rounded-lg px-6 py-4 border border-gray-200 shadow-sm flex items-center">
                 <Award className="h-6 w-6 text-purple-600 mr-3" />
                 <div className="text-left">
-                  <p className="font-medium text-gray-900">Ethical Craftsmanship</p>
-                  <p className="text-sm text-gray-600">Quality with conscience</p>
+                  <p className="font-medium text-gray-900">{t('pages.sustainability.ethicalCraftsmanship')}</p>
+                  <p className="text-sm text-gray-600">{t('pages.sustainability.ethicalCraftsmanshipDesc')}</p>
                 </div>
               </div>
             </div>
@@ -246,18 +246,18 @@ const Sustainability = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                 <Shield className="h-8 w-8 mx-auto mb-3 text-green-200" />
-                <div className="text-2xl font-bold mb-1">Ethical</div>
-                <p className="text-sm opacity-90">Responsible sourcing practices</p>
+                <div className="text-2xl font-bold mb-1">{t('pages.sustainability.ethical')}</div>
+                <p className="text-sm opacity-90">{t('pages.sustainability.ethicalDesc')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                 <Heart className="h-8 w-8 mx-auto mb-3 text-green-200" />
-                <div className="text-2xl font-bold mb-1">Empowering</div>
-                <p className="text-sm opacity-90">Supporting rural communities</p>
+                <div className="text-2xl font-bold mb-1">{t('pages.sustainability.empowering')}</div>
+                <p className="text-sm opacity-90">{t('pages.sustainability.empoweringDesc')}</p>
               </div>
               <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
                 <TreePine className="h-8 w-8 mx-auto mb-3 text-green-200" />
-                <div className="text-2xl font-bold mb-1">Sustainable</div>
-                <p className="text-sm opacity-90">Long-term forest conservation</p>
+                <div className="text-2xl font-bold mb-1">{t('pages.sustainability.sustainable')}</div>
+                <p className="text-sm opacity-90">{t('pages.sustainability.sustainableDesc')}</p>
               </div>
             </div>
             <div className="mt-8 flex justify-center">

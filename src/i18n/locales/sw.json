@@ -110,13 +110,37 @@
       "balancingDesc": "Ingawa sehemu ya mbao tunazotumia ni mbao ngumu zinazokua polepole, tunachukua hatua za makusudi kupunguza madhara na kukuza uendelevu wa muda mrefu. Ubao wetu wa chess ulioundwa kwa mikono na bidhaa za mbao zinatengenezwa kwa kutumia mazoea ya kimaadili yanayoheshimu jadi zetu za ufundi na sayari yetu.",
       "makingImpact": "Kuunda Athari ya Maana",
       "impactDesc": "Tunaamini kwamba uendelevu wa kweli ni kuhusu kulinda mazingira na kuwapa nguvu watu. Kila ununuzi unasaidia ufundi wa kimaadili, maisha ya vijijini, na harakati zinazokua za muundo wa kiakili na wa maana.",
-      "shopCollection": "Nunua Mkusanyiko Wetu Endelevu"
+      "shopCollection": "Nunua Mkusanyiko Wetu Endelevu",
+      "wasteReductionPoint1": "Kutumia vipande vya mbao na mbao zilizorejelewa inapowezekana",
+      "wasteReductionPoint2": "Kutumia tena vifaa vilivyobaki kupunguza upotevu",
+      "wasteReductionPoint3": "Kufundisha mafundi mbinu za uzalishaji wa upotevu mdogo",
+      "responsibleSourcingPoint1": "Kushirikiana na jamii zinazomiliki miti",
+      "responsibleSourcingPoint2": "Kukuza mbinu za uvunaji zinazowajibika",
+      "responsibleSourcingPoint3": "Kuunga mkono usimamizi endelevu wa misitu",
+      "communityEducationPoint1": "Kufundisha mafundi mazoea endelevu",
+      "communityEducationPoint2": "Kuelimisha wasambazaji kuhusu uhifadhi wa misitu",
+      "communityEducationPoint3": "Kujenga uelewa kuhusu umuhimu wa uendelevu",
+      "ourImpact": "Athari Zetu",
+      "ourImpactDesc": "Kila ununuzi unaunga mkono ufundi wa kimaadili, maisha ya vijijini na muundo wa kiakili",
+      "communitySupport": "Msaada wa Kijamii",
+      "wasteMinimization": "Kupunguza Upotevu",
+      "wasteMinimizationDesc": "Ufanisi mkubwa wa vifaa",
+      "communityPartnership": "Ushirikiano wa Kijamii",
+      "communityPartnershipDesc": "Ushirikiano wa moja kwa moja",
+      "ethicalCraftsmanship": "Ufundi wa Kimaadili",
+      "ethicalCraftsmanshipDesc": "Ubora wenye dhamiri",
+      "ethical": "Wa kimaadili",
+      "ethicalDesc": "Mazoea ya upatikanaji yanayowajibika",
+      "empowering": "Kuwezesha",
+      "empoweringDesc": "Kuunga mkono jamii za vijijini",
+      "sustainable": "Endelevu",
+      "sustainableDesc": "Uhifadhi wa misitu wa muda mrefu"
     },
     "csr": {
       "title": "Kuwapa Nguvu Jamii, Kubadilisha Maisha",
       "subtitle": "Ahadi yetu inaenda zaidi ya kuunda sanaa nzuri. Tunajenga jamii imara, tunawapa nguvu mafundi, na kuunda mabadiliko mazuri ya kudumu katika Afrika nzima.",
       "socialImpact": "Miradi Yetu ya Athari za Kijamii",
-      "flagshipPrograms": "Mipango Yetu Kuu",
+      "flagshipProgramsTitle": "Mipango Yetu Kuu",
       "strategicPartnerships": "Ushirikiano Wetu wa Kimkakati",
       "fairTrade": "Biashara ya Haki na Mazoea ya Kimaadili",
       "fairTradeDesc": "Tunaamini katika fidia ya haki na mwenendo wa kimaadili kwa mafundi wetu wote. Ahadi yetu kwa kanuni za biashara ya haki inahakikisha kwamba mafundi wa jadi wanapokea mishahara ya haki na kufanya kazi katika mazingira salama na ya heshima.",
@@ -124,7 +148,169 @@
       "partnerWithUs": "Shirikiana Nasi kwa Athari za Kijamii",
       "partnerDesc": "Kila ununuzi unaofanya unachangia mipango yetu ya athari za kijamii. Jiunge nasi katika kuunda maisha endelevu, kuwapa nguvu jamii, na kuhifadhi urithi wa kitamaduni wa Kiafrika kwa vizazi vijavyo.",
       "supportMission": "Unga Mkono Dhamira Yetu",
-      "downloadReport": "Pakua Ripoti ya CSR"
+      "downloadReport": "Pakua Ripoti ya CSR",
+      "badge": "Uwajibikaji wa Kijamii wa Kampuni",
+      "stats": {
+        "artisanFamilies": "Familia za Mafundi Zilizosaidiwa",
+        "communities": "Jamii Zilizofikwa",
+        "investment": "Uwekezaji wa Kijamii",
+        "fairTrade": "Mazoea ya Biashara ya Haki"
+      },
+      "education": {
+        "title": "Elimu na Maendeleo ya Ujuzi",
+        "description": "Kutoa mafunzo ya kitaaluma, mipango ya kusoma na kuandika, na uongozaji wa kufundishia ili kuwapa nguvu jamii za mitaani.",
+        "impact": "500+ watu wamefunzwa"
+      },
+      "healthcare": {
+        "title": "Msaada wa Afya",
+        "description": "Kusaidia vituo vya afya vya kijamii na kutoa msaada wa kimatibabu kwa familia za mafundi.",
+        "impact": "1,200+ maisha yameboreshwa"
+      },
+      "childWelfare": {
+        "title": "Mipango ya Ustawi wa Watoto",
+        "description": "Kusaidia makazi ya yatima, mipango ya kulisha shuleni na ufadhili wa elimu kwa watoto.",
+        "impact": "300+ watoto wamesaidiwa"
+      },
+      "infrastructure": {
+        "title": "Miundombinu ya Kijamii",
+        "description": "Kujenga visima, kuboresha barabara na kusaidia vituo vya kijamii katika vijiji vya mafundi.",
+        "impact": "25+ miradi imekamilika"
+      },
+      "programs": {
+        "artisanEmpowerment": {
+          "title": "Mpango wa Kuwapa Nguvu Mafundi",
+          "established": "Ilianzishwa 2015",
+          "description": "Kutoa mishahara ya haki, mafunzo ya ujuzi na msaada wa maendeleo ya biashara kwa mafundi wa mitaani.",
+          "beneficiaries": "200+ mafundi",
+          "status": "Athari Inayokua",
+          "features": {
+            "fairWage": "Dhamana ya mshahara wa haki (150% juu ya kiwango cha chini cha mitaani)",
+            "healthInsurance": "Bima ya afya",
+            "skillsWorkshops": "Warsha za maendeleo ya ujuzi",
+            "businessMentorship": "Uongozaji wa biashara"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Uwezeshaji wa Kiuchumi wa Wanawake",
+          "established": "Ilianzishwa 2017",
+          "description": "Kusaidia mafundi wa kike kupitia mafunzo ya uongozi, fedha ndogo na kuunda vyama.",
+          "beneficiaries": "120+ wanawake",
+          "status": "Athari Inayokua",
+          "features": {
+            "leadershipPrograms": "Mipango ya maendeleo ya uongozi",
+            "microfinanceAccess": "Upatikanaji wa fedha ndogo",
+            "childcareSupport": "Msaada wa utunzaji wa watoto",
+            "marketAccess": "Uwezesha wa upatikanaji wa soko"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Mpango wa Maendeleo ya Vijana",
+          "established": "Ilianzishwa 2019",
+          "description": "Kushirikisha vijana katika sanaa za jadi huku wakipewa ujuzi wa kisasa wa biashara.",
+          "beneficiaries": "80+ vijana",
+          "status": "Athari Inayokua",
+          "features": {
+            "apprenticeshipPrograms": "Mipango ya uongozaji",
+            "digitalLiteracy": "Mafunzo ya ujuzi wa kidijitali",
+            "entrepreneurshipWorkshops": "Warsha za ujasiriamali",
+            "culturalPreservation": "Elimu ya uhifadhi wa kitamaduni"
+          }
+        }
+      },
+      "partnerships": {
+        "localNgos": {
+          "title": "Mashirika ya Mitaani",
+          "description": "Kushirikiana na mashirika ya msingi kwa maendeleo ya kijamii"
+        },
+        "educationalInstitutions": {
+          "title": "Taasisi za Elimu",
+          "description": "Kusaidia shule na vituo vya mafunzo ya kitaaluma"
+        },
+        "governmentAgencies": {
+          "title": "Mashirika ya Serikali",
+          "description": "Kufanya kazi na mamlaka za mitaani kwenye miradi ya miundombinu"
+        },
+        "internationalOrganizations": {
+          "title": "Mashirika ya Kimataifa",
+          "description": "Ushirikiano na mashirika ya kimataifa kwa maendeleo endelevu"
+        }
+      },
+      "fairTradeDetails": {
+        "wagesAboveMinimum": "Mishahara 150% juu ya kiwango cha chini cha mitaani",
+        "healthcareCoverage": "Bima ya afya kwa familia za mafundi",
+        "safeWorkingConditions": "Mazingira salama ya kazi yamehakikishwa",
+        "transparentPricing": "Bei wazi na mgawanyo wa faida",
+        "certifiedProducts": "95% Bidhaa za Biashara ya Haki Zilizoidhinishwa",
+        "verifiedSourcing": "Upatikanaji wa Kimaadili Uliothibitishwa"
+      },
+      "goals": {
+        "2025": {
+          "title": "Kusaidia familia 300 za mafundi",
+          "status": "Kwenye Njia",
+          "progress": "67%"
+        },
+        "2026": {
+          "title": "Kuanzisha vituo 5 vipya vya mafunzo",
+          "status": "Inaendelea",
+          "progress": "40%"
+        },
+        "2027": {
+          "title": "Kufikia cheti cha 100% cha biashara ya haki",
+          "status": "Karibu Kukamilika",
+          "progress": "85%"
+        }
+      },
+      "successStory": {
+        "title": "Hadithi ya Mafanikio: Ushirika wa Mary",
+        "description": "Mnamo 2018, tulisaidia Mary Banda kuunda ushirika wa wanawake wa kusonga vikapu vijijini Malawi. Kuanzia na wanawake 5 tu, ushirika sasa unaajiri mafundi wa kike 25, umejenga warsha ya kijamii na hutoa faida za afya kwa familia zote za wanachama. Hadithi ya Mary inawakilisha nguvu ya kubadilisha ya mazoea ya biashara ya kimaadili na maendeleo yanayolenga jamii.",
+        "womenEmployed": "25 Wanawake Walioajiriwa",
+        "incomeIncrease": "$15K Ongezeko la Mapato ya Kila Mwaka",
+        "familyMembers": "80+ Wanafamilia Walifaidika"
+      },
+      "flagshipPrograms": {
+        "artisanEmpowerment": {
+          "title": "Mpango wa Kuwapa Nguvu Mafundi",
+          "established": "Ilianzishwa 2015",
+          "description": "Kutoa mishahara ya haki, mafunzo ya ujuzi na msaada wa maendeleo ya biashara kwa mafundi wa mitaani.",
+          "beneficiaries": "200+ mafundi",
+          "status": "Athari Inayokua",
+          "keyFeatures": "Vipengele Muhimu:",
+          "features": {
+            "fairWage": "Dhamana ya mshahara wa haki (150% juu ya kiwango cha chini cha mitaani)",
+            "healthInsurance": "Bima ya afya",
+            "skillsWorkshops": "Warsha za maendeleo ya ujuzi",
+            "businessMentorship": "Uongozaji wa biashara"
+          }
+        },
+        "womensEmpowerment": {
+          "title": "Uwezeshaji wa Kiuchumi wa Wanawake",
+          "established": "Ilianzishwa 2017",
+          "description": "Kusaidia mafundi wa kike kupitia mafunzo ya uongozi, fedha ndogo na kuunda vyama.",
+          "beneficiaries": "120+ wanawake",
+          "status": "Athari Inayokua",
+          "keyFeatures": "Vipengele Muhimu:",
+          "features": {
+            "leadershipPrograms": "Mipango ya maendeleo ya uongozi",
+            "microfinanceAccess": "Upatikanaji wa fedha ndogo",
+            "childcareSupport": "Msaada wa utunzaji wa watoto",
+            "marketAccess": "Uwezesha wa upatikanaji wa soko"
+          }
+        },
+        "youthDevelopment": {
+          "title": "Mpango wa Maendeleo ya Vijana",
+          "established": "Ilianzishwa 2019",
+          "description": "Kushirikisha vijana katika sanaa za jadi huku wakipewa ujuzi wa kisasa wa biashara.",
+          "beneficiaries": "80+ vijana",
+          "status": "Athari Inayokua",
+          "keyFeatures": "Vipengele Muhimu:",
+          "features": {
+            "apprenticeshipPrograms": "Mipango ya uongozaji",
+            "digitalLiteracy": "Mafunzo ya ujuzi wa kidijitali",
+            "entrepreneurshipWorkshops": "Warsha za ujasiriamali",
+            "culturalPreservation": "Elimu ya uhifadhi wa kitamaduni"
+          }
+        }
+      }
     },
     "orders": {
       "title": "Maagizo Yangu",
@@ -141,8 +327,48 @@
       "processing": "Inachakatwa",
       "cancelled": "Imeghairiwa",
       "noOrdersFound": "Hakuna maagizo yaliyopatikana",
+      "adjustFilters": "Jaribu kubadilisha vigezo vyako vya utafutaji au kichujio",
       "noOrdersYet": "Bado hujaweka maagizo yoyote",
-      "startShopping": "Anza Ununuzi"
+      "startShopping": "Anza Ununuzi",
+      "orderNumber": "Agizo #",
+      "touristOrder": "Agizo la Mtalii",
+      "orderDate": "Tarehe ya Agizo",
+      "totalAmount": "Kiasi Jumla",
+      "shippingTo": "Kutuma kwa",
+      "shippedDate": "Tarehe ya Kutuma",
+      "viewDetails": "Ona Maelezo",
+      "downloadInvoice": "Pakua Ankara",
+      "writeReview": "Andika Tathmini",
+      "orderDetails": "Maelezo ya Agizo",
+      "orderTotal": "Jumla ya Agizo",
+      "status": "Hali",
+      "billingAddress": "Anwani ya Malipo",
+      "shippingAddress": "Anwani ya Kutuma",
+      "orderBreakdown": "Mgawanyo wa Agizo",
+      "subtotal": "Jumla Ndogo",
+      "taxAmount": "Kiasi cha Kodi",
+      "shipping": "Usafirishaji",
+      "discount": "Punguzo",
+      "total": "Jumla",
+      "additionalInfo": "Maelezo ya Ziada",
+      "customerNotes": "Maelezo ya Mteja",
+      "phytosanitaryCert": "Cheti cha Afya ya Mimea",
+      "required": "Inahitajika",
+      "orderTimeline": "Ratiba ya Agizo",
+      "orderPlaced": "Agizo limewekwa",
+      "shippedOn": "Limetumwa",
+      "deliveredOn": "Limefikishwa",
+      "close": "Funga",
+      "refresh": "Onyesha upya",
+      "noOrdersMatchingCriteria": "Hakuna maagizo yaliyopatikana yanayolingana na vigezo vyako.",
+      "recentUpdates": "Masasisho ya Hivi Karibuni:",
+      "downloadInvoice": "Pakua Ankara",
+      "reorderItems": "Agiza Vitu Tena",
+      "reordering": "Inaagiza tena...",
+      "showing": "Inaonyesha",
+      "of": "ya",
+      "orders": "maagizo",
+      "totalSpent": "Jumla iliyotumika:"
     },
     "coupons": {
       "title": "Kuponi Zangu",
@@ -389,6 +615,37 @@
       "signIn": "Ingia",
       "signupFailed": "Usajili umeshindikana",
       "errorOccurred": "Hitilafu imetokea wakati wa usajili"
+    },
+    "home": {
+      "authentic": "Halisi",
+      "africanCrafts": "Sanaa za Kiafrika",
+      "heroDescription": "Gundua urithi mkuu wa ufundi wa Kiafrika. Kila kipande kinasimulia hadithi ya jadi, ujuzi, na fahari ya kitamaduni iliyopitishwa kupitia vizazi.",
+      "exploreCrafts": "Chunguza Sanaa Zetu",
+      "readStories": "Soma Hadithi Zao",
+      "uniqueCrafts": "Sanaa za Kipekee",
+      "masterArtisans": "Mafundi Bingwa",
+      "yearsHeritage": "Miaka ya Urithi",
+      "featuredCrafts": "Sanaa Maalum",
+      "featuredDescription": "Kila kipande kinakuja na hadithi ya muundaji wake, kikuunganisha na moyo wa utamaduni wa Kiafrika",
+      "bestSeller": "Kinachouzwa Zaidi",
+      "quickPreview": "Onyesho la Haraka",
+      "addToCart": "Ongeza kwenye Kikapu",
+      "learnMore": "Jifunze Zaidi",
+      "viewAllCrafts": "Ona Sanaa Zote",
+      "shopByCategory": "Nunua kwa Kikundi",
+      "shopByCategoryDesc": "Gundua mkusanyiko wetu wa sanaa halisi za Kiafrika, zilizopangwa kwa makundi ya jadi",
+      "touristFavorite": "Kipenzi cha Watalii",
+      "trending": "Kinachojulikana",
+      "popular": "Maarufu",
+      "exploreCategory": "Chunguza Kikundi",
+      "viewAllCategories": "Ona Makundi Yote",
+      "shopByCraftType": "Nunua kwa Aina ya Sanaa",
+      "shopByCraftTypeDesc": "Chunguza mbinu mbalimbali za ufundi wa jadi na ugundue sanaa nyuma ya kila njia",
+      "traditional": "Jadi",
+      "masterCraftspeople": "Mafundi Bingwa",
+      "masterCraftspeopleDesc": "Kila aina ya sanaa inawakilisha karne za maarifa na ujuzi, uliopitishwa kupitia vizazi vya mafundi wa Kiafrika",
+      "meetOurArtisans": "Kutana na Mafundi Wetu",
+      "viewAllCraftTypes": "Ona Aina Zote za Sanaa"
     }
   }
 }

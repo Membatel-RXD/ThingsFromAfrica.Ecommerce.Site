@@ -42,7 +42,11 @@ const Header: React.FC = () => {
     { code: 'es', name: 'Español' },
     { code: 'fr', name: 'Français' },
     { code: 'it', name: 'Italiano' },
-    { code: 'sw', name: 'Kiswahili' }
+    { code: 'sw', name: 'Kiswahili' },
+    { code: 'zh', name: '中文' },
+    { code: 'de', name: 'Deutsch' },
+    { code: 'pt', name: 'Português' },
+    { code: 'nl', name: 'Nederlands' }
   ];
 
   // Check authentication status on component mount
@@ -159,7 +163,6 @@ const Header: React.FC = () => {
     { label: t('user.payment'), href: '/payment', icon: CreditCard },
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
-    { label: t('user.settings'), href: '/settings', icon: Settings },
   
     { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
    // { label: 'Help Center', href: '/help', icon: HelpCircle },
@@ -168,18 +171,18 @@ const Header: React.FC = () => {
 
   const authenticatedMenuItems: MenuItem[] = [
     { label: t('user.profile'), href: '/profile', icon: User },
-    { label: t('user.signOut'), href: '#', icon: LogOut, onClick: handleSignOut },
     { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
     { label: t('user.myCoins'), href: '/profile/user/my-coins', icon: Coins },
     
     { label: t('user.payment'), href: '/payment', icon: CreditCard },
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
-    { label: t('user.settings'), href: '/settings', icon: Settings },
+    { label: t('user.settings'), href: 'http://localhost:8080/profile/settings', icon: Settings },
   
     { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
     //{ label: 'Help Center', href: '/help', icon: HelpCircle },
     { label: t('user.disputes'), href: '/disputes', icon: AlertTriangle },
+    { label: t('user.signOut'), href: '#', icon: LogOut, onClick: handleSignOut },
   ];
 
   const menuItems = isAuthenticated ? authenticatedMenuItems : unauthenticatedMenuItems;
@@ -305,7 +308,7 @@ const Header: React.FC = () => {
               </button>
               
               {languageOpen && (
-                <div className="absolute top-full right-0 mt-1 w-32 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-10">
+                <div className="absolute top-full right-0 mt-1 w-40 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-10">
                 {languages.map((language) => (
                   <button
                     key={language.code}
@@ -323,13 +326,12 @@ const Header: React.FC = () => {
             <div className="hidden md:block relative">
               <div 
                 className="flex items-center space-x-2 hover:bg-craft-brown/10 px-3 py-2 rounded-md cursor-pointer transition-all duration-300"
-                onMouseEnter={() => setUserMenuOpen(true)}
-                onMouseLeave={() => setUserMenuOpen(false)}
+                onClick={() => setUserMenuOpen(!userMenuOpen)}
               >
                  <User className="h-4 w-4 text-craft-beige" />
                 <div className="text-xs">
                   <div className="text-craft-bronze">
-                    {isAuthenticated ? `Hi, ${userName || 'User'}` : t('nav.welcome')}
+                    {isAuthenticated ? `Hello, ${userName || 'User'}` : t('nav.welcome')}
                   </div>
                   <div className="font-medium flex items-center text-craft-cream">
                     {isAuthenticated ? t('nav.account') : t('nav.signin')}
@@ -342,8 +344,6 @@ const Header: React.FC = () => {
               {userMenuOpen && (
                 <div 
                   className="absolute top-full right-0 mt-1 w-60 bg-craft-cream border border-craft-bronze/20 rounded-lg shadow-lg z-20"
-                  onMouseEnter={() => setUserMenuOpen(true)}
-                  onMouseLeave={() => setUserMenuOpen(false)}
                 >
                   <div className="py-2">
                     {menuItems.map((item, index) => {
@@ -354,9 +354,13 @@ const Header: React.FC = () => {
                           <button
                             key={index}
                             onClick={item.onClick}
-                            className="flex items-center w-full px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200"
+                            className={`flex items-center w-full px-4 py-3 text-sm hover:bg-craft-tan/10 transition-colors duration-200 ${
+                              item.label === t('user.signOut') ? 'text-red-600 hover:text-red-700' : 'text-craft-brown'
+                            }`}
                           >
-                            <Icon className="h-4 w-4 mr-3" />
+                            <Icon className={`h-4 w-4 mr-3 ${
+                              item.label === t('user.signOut') ? 'text-red-500' : ''
+                            }`} />
                             {item.label}
                           </button>
                         );
@@ -368,6 +372,8 @@ const Header: React.FC = () => {
                           to={item.href}
                           className="flex items-center px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200"
                           onClick={() => setUserMenuOpen(false)}
+                          target={item.href.startsWith('http') ? '_blank' : undefined}
+                          rel={item.href.startsWith('http') ? 'noopener noreferrer' : undefined}
                           >
                             <Icon className="h-4 w-4 mr-3 text-craft-bronze" />
                           {item.label}
@@ -589,11 +595,12 @@ const Header: React.FC = () => {
       </div>
 
       {/* Click outside handlers for dropdowns */}
-      {(languageOpen) && (
+      {(languageOpen || userMenuOpen) && (
         <div 
           className="fixed inset-0 z-30" 
           onClick={() => {
             setLanguageOpen(false);
+            setUserMenuOpen(false);
           }}
         />
       )}
