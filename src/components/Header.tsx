@@ -177,7 +177,7 @@ const Header: React.FC = () => {
     { label: t('user.payment'), href: '/payment', icon: CreditCard },
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
-    { label: t('user.settings'), href: 'http://localhost:8080/profile/settings', icon: Settings },
+    { label: t('user.settings'), href: '/profile/settings', icon: Settings },
   
     { label: t('user.returnPolicy'), href: '/return-policy', icon: Shield },
     //{ label: 'Help Center', href: '/help', icon: HelpCircle },
@@ -479,10 +479,10 @@ const Header: React.FC = () => {
               <BookOpen className="h-4 w-4" />
               <span>{t('nav.stories')}</span>
             </Link>
-            <Link to="/gifts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
+            {/* <Link to="/gifts" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Gift className="h-4 w-4" />
               <span>{t('nav.gifts')}</span>
-            </Link>
+            </Link> */}
             <Link to="/sustainability" className="whitespace-nowrap text-sm font-medium hover:text-craft-caramel transition-all duration-300 flex items-center space-x-2 px-3 py-2 rounded-md hover:bg-craft-tan/10 hover:-translate-y-0.5">
               <Leaf className="h-4 w-4" />
               <span>{t('nav.sustainability')}</span>

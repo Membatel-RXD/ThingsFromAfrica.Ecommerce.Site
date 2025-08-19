@@ -1,25 +1,23 @@
+import { apiService, IAPIResponse } from "@/lib/api";
+
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export interface AuthResponse {
-  isSuccessful: boolean;
-  remark: string;
-  payload: {
-    token: string;
-    tokenExpiration: string;
-    userId: number;
-    fullName: string;
-    email: string;
-    phoneNumber: string;
-    userRole: {
-      roleId: number;
-      roleName: string;
-      roleDescription: string;
-      isActive: boolean;
-      createdAt: string;
-      modifiedAt: string;
-    };
-    userName: string;
-  } | null;
+  token: string;
+  tokenExpiration: string; // or Date, depending on how you handle it
+  userId: number;
+  fullName: string;
+  email: string;
+  phoneNumber: string;
+  userRole: {
+    roleId: number;
+    roleName: string;
+    roleDescription: string;
+    isActive: boolean;
+    createdAt: string; // or Date
+    modifiedAt: string; // or Date
+  };
+  userName: string;
 }
 
 export interface SessionResponse {
@@ -122,15 +120,10 @@ class AuthService {
     email: string;
     password: string;
     phoneNumber: string;
-  }): Promise<AuthResponse> {
+  }): Promise<IAPIResponse<AuthResponse>> {
     try {
-      const response = await fetch(`${API_BASE_URL}/Users/SignUp`, {
-        method: 'POST',
-        headers: {
-          'accept': 'text/plain',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
+      const response = await apiService.post<IAPIResponse<AuthResponse>>(`${API_BASE_URL}/Users/SignUp`, 
+       {
           roleId: 2,
           passwordHash: userData.password,
           username: userData.email,
@@ -150,13 +143,10 @@ class AuthService {
           createdAt: new Date().toISOString(),
           modifiedAt: new Date().toISOString(),
           lastActiveAt: new Date().toISOString()
-        })
-      });
+        });
 
-      const data: AuthResponse = await response.json();
-      return data;
+      return response;
     } catch (error) {
-      console.error('Sign up failed:', error);
       return {
         isSuccessful: false,
         remark: 'Network error occurred',
@@ -165,37 +155,34 @@ class AuthService {
     }
   }
 
-  async authenticate(email: string, password: string): Promise<AuthResponse> {
+  async authenticate(email: string, password: string): Promise<IAPIResponse<AuthResponse>> {
     try {
-      const response = await fetch(`${API_BASE_URL}/Users/Authenticate`, {
-        method: 'POST',
-        headers: {
-          'accept': 'text/plain',
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ email, password })
-      });
-
-      const data: AuthResponse = await response.json();
+      const response = await apiService.post<IAPIResponse<AuthResponse>>(
+        `/Users/Authenticate`,
+        {
+          email: email,
+          password: password,
+        }
+      );
       
-      if (data.isSuccessful && data.payload?.token) {
-        this.setAuthToken(data.payload.token);
+      
+      if (response.isSuccessful && response.payload) {
+        this.setAuthToken(response.payload.token);
         // Store user info for session tracking
-        localStorage.setItem('userId', data.payload.userId.toString());
-        localStorage.setItem('userEmail', data.payload.email);
+        localStorage.setItem('userId', response.payload.userId.toString());
+        localStorage.setItem('userEmail', response.payload.email);
 
-        console.log("User ID is:" +data.payload.userId);
 
-      } else if (!data.isSuccessful && data.remark?.includes('verify')) {
+      } else if (!response.isSuccessful) {
         // For now, bypass email verification requirement
         return {
           isSuccessful: false,
-          remark: 'Please contact support to activate your account.',
+          remark: response.remark || 'Please contact support to activate your account.',
           payload: null
         };
       }
       
-      return data;
+      return response;
     } catch (error) {
       console.error('Authentication failed:', error);
       return {
@@ -261,7 +248,6 @@ class AuthService {
 
   getUserId(): number | null {
     const userId = localStorage.getItem('userId');
-    console.log("The value of User is: " + userId);
     
     const parsed = Number(userId);
     return isNaN(parsed) ? null : parsed;

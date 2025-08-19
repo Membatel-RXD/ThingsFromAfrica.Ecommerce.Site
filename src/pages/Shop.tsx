@@ -15,8 +15,10 @@ import { wishlistService } from '../services/wishlistService';
 import { useAppContext } from '../contexts/AppContext';
 import { searchProducts, filterByCategory, sortProducts } from '../utils/shopUtils';
 import { AddCartItem, Artisan, Product, ProductCategory } from '@/models/members';
-import { useSnackbar } from '@/components/SnackBar';
 import { apiService, IAPIResponse } from '@/lib/api';
+import { useToast } from '../hooks/use-toast';
+import ToastContainer from '@/components/ToastContainer';
+
 
 const Checkbox = ({ id, checked, onCheckedChange, children, ...props }) => (
   <div className="flex items-center space-x-2">
@@ -74,7 +76,7 @@ const Shop = () => {
   const [activeCategoryName, setActiveCategoryName] = useState('');
   
   const { updateCartCount } = useAppContext();
-  const { snackbar, showSnackbar, hideSnackbar } = useSnackbar();
+  const { showSnackbar, snackbar } = useToast();
 
   // Filter states
   const [priceRange, setPriceRange] = useState([0, 200]);
@@ -300,8 +302,6 @@ const Shop = () => {
       return;
     }
     
-    console.log("User ID from auth is:"+userId);
-
     const product = products.find(p => p.productId === productId);
     if (!product) return;
     
@@ -524,6 +524,8 @@ const Shop = () => {
   if (loading || categoriesLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
+              <ToastContainer/>
+
         <div className="text-center">
           <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-burnt-sienna"></div>
           <p className="mt-4 text-gray-600">Loading products and categories...</p>
@@ -534,6 +536,7 @@ const Shop = () => {
 
   return (
     <div className="min-h-screen bg-[#F8F4EF]">
+      <ToastContainer/>
       <Header />
       
       <main className="container mx-auto px-4 py-8">
