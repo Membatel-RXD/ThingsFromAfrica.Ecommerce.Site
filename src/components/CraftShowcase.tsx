@@ -51,39 +51,44 @@ const CraftShowcase: React.FC = () => {
     setPreviewProduct(craft);
   };
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await apiService.get<IAPIResponse<Product[]>>('Products/GetAll');
-        if (!response.isSuccessful) throw new Error('Failed to fetch');
-        const data = response.payload || [];
-        setFetchedProducts(data);
-      } catch (error) {
-        console.error('Error fetching categories:', error);
-      } finally {
-        setIsLoading(false);
+// Add these improvements to your component:
+
+// 1. Add error state
+const [error, setError] = useState<string | null>(null);
+
+// 2. Update your useEffect with better error handling
+useEffect(() => {
+  const fetchCategories = async () => {
+    try {
+      const response = await apiService.get<IAPIResponse<Product[]>>('Products/GetAll');
+      if (!response.isSuccessful) throw new Error('Failed to fetch products');
+      const data = response.payload || [];
+      setFetchedProducts(data);
+    } catch (error) {
+      console.error('Error fetching products:', error);
+      setError('Failed to load products');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const loadArtisans = async () => {
+    try {
+      const apiCategories = await apiService.get<IAPIResponse<Artisan[]>>('Artisans/GetAll');
+      if (apiCategories.isSuccessful && apiCategories.payload) {
+        setArtisans(apiCategories.payload);
+      } else {
+        throw new Error('Failed to fetch artisans');
       }
-    };
-    const loadArtisans = async () => {
-      try {
-        setIsLoading(true);
-        const apiCategories = await apiService.get<IAPIResponse<Artisan[]>>('Artisans/GetAll');
-       if(apiCategories.isSuccessful && apiCategories.payload){
-         setArtisans(apiCategories.payload);
-       }
-        
-      } catch (error) {
-        console.error('Failed to load product categories:', error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
+    } catch (error) {
+      console.error('Failed to load artisans:', error);
+      setError('Failed to load artisan information');
+    }
+  };
 
-
-    loadArtisans();
-    fetchCategories();
-  }, []);
-
+  loadArtisans();
+  fetchCategories();
+}, []);
 
   const renderStars = (rating: number) => {
     const stars = [];
@@ -105,12 +110,48 @@ const CraftShowcase: React.FC = () => {
     return stars;
   };
   function getArtisanName(artisanId: number): React.ReactNode {
-    return artisans?.find(a=>a.artisanId==artisanId).artisanName || " ";
+    const artisan = artisans?.find(a => a.artisanId === artisanId);
+    return artisan?.artisanName || "Unknown Artisan";
+  }
+  
+  function getArtisanVillage(artisanId: number): React.ReactNode {
+    const artisan = artisans?.find(a => a.artisanId === artisanId);
+    return artisan?.village || "Unknown Village";
   }
 
-  function getArtisanVillage(artisanVillage: number): React.ReactNode {
-    return artisans?.find(a=>a.artisanId==artisanVillage).village || " ";
-  }
+  // 3. Add early returns for loading and error states
+if (isLoading) {
+  return (
+    <section className="bg-gray-50 py-16">
+      <div className="container mx-auto text-center">
+        <div className="loading loading-spinner loading-lg"></div>
+        <p className="mt-4 text-gray-600">Loading crafts...</p>
+      </div>
+    </section>
+  );
+}
+
+if (error) {
+  return (
+    <section className="bg-gray-50 py-16">
+      <div className="container mx-auto text-center">
+        <div className="alert alert-error max-w-md mx-auto">
+          <span>{error}</span>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+if (!fetchedProducts.length) {
+  return (
+    <section className="bg-gray-50 py-16">
+      <div className="container mx-auto text-center">
+        <p className="text-gray-600">No crafts available at the moment.</p>
+      </div>
+    </section>
+  );
+}
   return (
     <section className="bg-gray-50">
       <div className="container mx-auto">
