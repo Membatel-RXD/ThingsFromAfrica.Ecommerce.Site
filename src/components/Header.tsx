@@ -160,7 +160,7 @@ const Header: React.FC = () => {
     { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
     { label: t('user.myCoins'), href: '/coins', icon: Coins },
    
-    { label: t('user.payment'), href: '/payment', icon: CreditCard },
+    // { label: t('user.payment'), href: '/payment', icon: CreditCard },
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
   
@@ -174,7 +174,7 @@ const Header: React.FC = () => {
     { label: t('user.myOrders'), href: '/profile/user/my-orders', icon: ShoppingCart },
     { label: t('user.myCoins'), href: '/profile/user/my-coins', icon: Coins },
     
-    { label: t('user.payment'), href: '/payment', icon: CreditCard },
+    // { label: t('user.payment'), href: '/payment', icon: CreditCard },
     { label: t('user.wishList'), href: '/profile/wishlist', icon: Heart },
     { label: t('user.myCoupons'), href: '/coupons', icon: Gift },
     { label: t('user.settings'), href: '/profile/settings', icon: Settings },
@@ -190,7 +190,7 @@ const Header: React.FC = () => {
   return (
     <>
 
-         {/* Custom Tailwind Styles */}
+         {/* Custom Tailwind Styles #d19254 */}
          <style>{`
         .bg-craft-charcoal { background-color: #1A1612; }
         .bg-craft-brown { background-color: #2C1810; }
@@ -220,7 +220,7 @@ const Header: React.FC = () => {
         .hover\\:border-craft-tan:hover { border-color: #C19A6B; }
         
         .bg-gradient-craft { background: linear-gradient(135deg, #1A1612 0%, #2C2419 50%, #1A1612 100%); }
-        .bg-gradient-nav { background: linear-gradient(135deg, #2C1810 0%, #3D2418 100%); }
+        .bg-gradient-nav { background: linear-gradient(135deg, #97663A 0%, #A66B2E 100%); }
         .bg-gradient-gold { background: linear-gradient(135deg, #D4AF37 0%, #B8941F 100%); }
         .bg-gradient-golden-hover { background: linear-gradient(135deg, #E6C34A 0%, #C4A429 100%); }
         

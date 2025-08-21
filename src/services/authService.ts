@@ -9,6 +9,8 @@ export interface AuthResponse {
   fullName: string;
   email: string;
   phoneNumber: string;
+  requiresTwoFactor:boolean;
+  sessionId:string;
   userRole: {
     roleId: number;
     roleName: string;
@@ -18,6 +20,21 @@ export interface AuthResponse {
     modifiedAt: string; // or Date
   };
   userName: string;
+}
+
+export interface Verify2FARequest {
+  userId: number;
+  verificationCode: string;
+}
+
+export interface Verify2FAResponse {
+  userId: number;
+  email: string;
+  firstName: string;
+  lastName: string;
+  sessionId: string;
+  token: string;
+  tokenExpiration: string;
 }
 
 export interface SessionResponse {
@@ -71,6 +88,53 @@ export interface LoginHistoryResponse {
 }
 
 class AuthService {
+  public async verify2FA(request: { userId: number; verificationCode: string; }): Promise<IAPIResponse<Verify2FAResponse>> {
+    try {
+      const response = await apiService.post<IAPIResponse<Verify2FAResponse>>(
+        `/auth/Verify2FA`,
+        {
+          userId: request.userId,
+          verificationCode: request.verificationCode
+        }
+      );
+      
+      if (response.isSuccessful && response.payload) {
+        // Store the JWT token and user info after successful 2FA verification
+        this.setAuthToken(response.payload.token);
+        localStorage.setItem('userId', response.payload.userId.toString());
+        localStorage.setItem('userEmail', response.payload.email);
+      }
+      
+      return response;
+    } catch (error) {
+      console.error('2FA verification failed:', error);
+      return {
+        isSuccessful: false,
+        remark: 'Network error occurred during 2FA verification',
+        payload: null
+      };
+    }
+  }
+  
+  public async resend2FA(userId: number): Promise<IAPIResponse<any>> {
+    try {
+      const response = await apiService.post<IAPIResponse<any>>(
+        `/auth/Resend2FA`,
+        {
+          userId: userId
+        }
+      );
+      
+      return response;
+    } catch (error) {
+      console.error('2FA resend failed:', error);
+      return {
+        isSuccessful: false,
+        remark: 'Network error occurred while resending 2FA code',
+        payload: null
+      };
+    }
+  }
   public getAuthToken(): string | null {
     return localStorage.getItem('authToken');
   }
@@ -131,7 +195,7 @@ class AuthService {
           firstName: userData.firstName,
           lastName: userData.lastName,
           phoneNumber: userData.phoneNumber,
-          emailVerified: true,
+          emailVerified: false,
           isLocked: false,
           failedLoginAttempts: 0,
           twoFactorEnabled: false,
