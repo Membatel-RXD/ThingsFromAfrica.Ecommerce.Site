@@ -249,13 +249,13 @@ const Header: React.FC = () => {
            <div className="flex items-center space-x-3">
            <Link to="/" className="flex items-center space-x-3 group">
 
-              <div className="w-10 h-10 bg-gradient-to-br from-craft-caramel to-craft-tan rounded-full flex items-center justify-center shadow-craft-logo hover:shadow-craft-logo-hover transition-all duration-300 hover:scale-105">
+              <div className="w-20 h-15 bg-gradient-to-br from-craft-caramel to-craft-tan  flex items-center justify-center  hover:shadow-craft-logo-hover transition-all duration-300 hover:scale-105">
                 <div className="avatar">
                   <div className="w-20 h-20 rounded-full flex items-center justify-center">
                   <img 
-                    width={32} 
-                    height={32} 
-                    src="/TFTLogo.png" 
+                    width={100} 
+                    height={100} 
+                    src="/logo.png" 
                     alt="TFT Logo" 
                   />
                   </div>

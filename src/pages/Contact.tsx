@@ -1,20 +1,33 @@
 import React, { useState, useEffect } from 'react';
 import AppLayout from '@/components/AppLayout';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle } from 'lucide-react';
+import { Alert, AlertDescription } from '@/components/ui/alert';
+import { MapPin, Phone, Mail, Clock, Send, MessageCircle, CheckCircle, AlertCircle } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { apiService, IAPIResponse } from '@/lib/api';
+
+interface ContactForm {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+}
 
 const Contact: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactForm>({
     name: '',
     email: '',
     subject: '',
     message: ''
   });
+  
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
+  
   const { t } = useLanguage();
   const [lang, setLang] = useState(localStorage.getItem('selectedLanguage') || 'en');
   
@@ -35,9 +48,33 @@ const Contact: React.FC = () => {
     };
   }, [lang]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    setIsSubmitting(true);
+    setSuccessMessage('');
+    setErrorMessage('');
+
+    try {
+      const response = await apiService.post<IAPIResponse<object>>('Contact/send', formData);
+      
+      if (response.isSuccessful) {
+        setSuccessMessage(response.remark || "Form submitted successfully, we will get back to you");
+        // Reset form on success
+        setFormData({
+          name: '',
+          email: '',
+          subject: '',
+          message: ''
+        });
+      } else {
+        setErrorMessage(response.remark || "Failed to send message. Please try again.");
+      }
+    } catch (error) {
+      console.error('Contact form submission error:', error);
+      setErrorMessage("An error occurred while sending your message. Please try again later.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -45,6 +82,9 @@ const Contact: React.FC = () => {
       ...formData,
       [e.target.name]: e.target.value
     });
+    // Clear messages when user starts typing
+    if (successMessage) setSuccessMessage('');
+    if (errorMessage) setErrorMessage('');
   };
 
   return (
@@ -74,6 +114,26 @@ const Contact: React.FC = () => {
                 <h2 className="text-3xl font-bold text-gray-900 mb-3">{t('page.contact.sendMessage')}</h2>
                 <p className="text-gray-600">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
               </div>
+
+              {/* Success Message */}
+              {successMessage && (
+                <Alert className="mb-6 border-green-200 bg-green-50">
+                  <CheckCircle className="h-4 w-4 text-green-600" />
+                  <AlertDescription className="text-green-800">
+                    {successMessage}
+                  </AlertDescription>
+                </Alert>
+              )}
+
+              {/* Error Message */}
+              {errorMessage && (
+                <Alert className="mb-6 border-red-200 bg-red-50">
+                  <AlertCircle className="h-4 w-4 text-red-600" />
+                  <AlertDescription className="text-red-800">
+                    {errorMessage}
+                  </AlertDescription>
+                </Alert>
+              )}
               
               <form onSubmit={handleSubmit} className="space-y-6">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -85,7 +145,8 @@ const Contact: React.FC = () => {
                       value={formData.name}
                       onChange={handleChange}
                       required
-                      className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                      disabled={isSubmitting}
+                      className="border-gray-300 focus:border-gray-900 focus:ring-gray-900 disabled:opacity-50"
                       placeholder="Enter your full name"
                     />
                   </div>
@@ -98,7 +159,8 @@ const Contact: React.FC = () => {
                       value={formData.email}
                       onChange={handleChange}
                       required
-                      className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                      disabled={isSubmitting}
+                      className="border-gray-300 focus:border-gray-900 focus:ring-gray-900 disabled:opacity-50"
                       placeholder="Enter your email address"
                     />
                   </div>
@@ -112,7 +174,8 @@ const Contact: React.FC = () => {
                     value={formData.subject}
                     onChange={handleChange}
                     required
-                    className="border-gray-300 focus:border-gray-900 focus:ring-gray-900"
+                    disabled={isSubmitting}
+                    className="border-gray-300 focus:border-gray-900 focus:ring-gray-900 disabled:opacity-50"
                     placeholder="What is this about?"
                   />
                 </div>
@@ -126,17 +189,19 @@ const Contact: React.FC = () => {
                     onChange={handleChange}
                     required
                     rows={6}
-                    className="border-gray-300 focus:border-gray-900 focus:ring-gray-900 resize-none"
+                    disabled={isSubmitting}
+                    className="border-gray-300 focus:border-gray-900 focus:ring-gray-900 resize-none disabled:opacity-50"
                     placeholder="Tell us more about your inquiry..."
                   />
                 </div>
                 
                 <Button 
                   type="submit" 
-                  className="w-full bg-black hover:bg-gray-800 text-white py-3 px-6 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center"
+                  disabled={isSubmitting}
+                  className="w-full bg-black hover:bg-gray-800 text-white py-3 px-6 rounded-lg font-medium transition-colors duration-300 flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <Send className="h-5 w-5 mr-2" />
-                  {t('page.contact.sendButton')}
+                  <Send className={`h-5 w-5 mr-2 ${isSubmitting ? 'animate-pulse' : ''}`} />
+                  {isSubmitting ? 'Sending...' : t('page.contact.sendButton')}
                 </Button>
               </form>
             </div>
