@@ -1,13 +1,5 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { loadStripe } from '@stripe/stripe-js';
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements
-} from '@stripe/react-stripe-js';
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -20,9 +12,10 @@ import { CreditCard, Lock, AlertCircle } from 'lucide-react';
 import { authService } from '../services/authService';
 import { cartService } from '../services/cartService';
 import { apiService, IAPIResponse } from '@/lib/api';
-import { AddressDTO, CustomerOrderRequest, OrderDetails, CartItem } from '@/models/members';
+import { AddressDTO, CustomerOrderRequest, OrderDetails, CartItem, PayPalOrder } from '@/models/members';
 
-const stripePromise = loadStripe('pk_test_51Rs04G6RY5uQXuiJ081BEKW9xs4WBNHi2qODCCNsQJ5WCH38hwbI4vXanKKCotJSmqsRekMnJUSa8krYolN404cA00IqeBR3Oj');
+// PayPal configuration
+const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID; 
 
 interface CheckoutFormData {
   // Billing Address
@@ -53,21 +46,52 @@ interface CheckoutFormData {
   sameAsBilling: boolean;
 }
 
+// PayPal response types
+interface PayPalOrderResult {
+  orderId: string;
+  status: string;
+  approvalUrl: string;
+  links: Array<{ rel: string; href: string; method: string }>;
+}
+
+interface CaptureOrderResponse {
+  transactionId: string;
+  paymentStatus: string;
+  paymentMethod: string;
+  payerName: string;
+  payerEmail: string;
+  currency: string;
+  amountPaid: string;
+  paymentDate: string;
+}
+
+// PayPal types for client SDK
+declare global {
+  interface Window {
+    paypal?: {
+      Buttons: (config: any) => {
+        render: (selector: string) => Promise<void>;
+      };
+    };
+  }
+}
+
 const CheckoutForm: React.FC<{
   cartItems: CartItem[];
   total: number;
   totalItems: number;
   useSystemAddress: boolean;
 }> = ({ cartItems, total, totalItems, useSystemAddress }) => {
-  const stripe = useStripe();
-  const elements = useElements();
   const navigate = useNavigate();
+  const paypalRef = useRef<HTMLDivElement>(null);
   
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>('');
   const [systemAddresses, setSystemAddresses] = useState<AddressDTO[]>([]);
   const [selectedBillingAddress, setSelectedBillingAddress] = useState<string>('');
   const [selectedShippingAddress, setSelectedShippingAddress] = useState<string>('');
+  const [paypalLoaded, setPaypalLoaded] = useState(false);
+  const [orderNumber, setOrderNumber] = useState<string>('');
   
   const [formData, setFormData] = useState<CheckoutFormData>({
     billingFirstName: '',
@@ -97,7 +121,28 @@ const CheckoutForm: React.FC<{
     if (useSystemAddress) {
       loadSystemAddresses();
     }
+    loadPayPalScript();
   }, [useSystemAddress]);
+
+  useEffect(() => {
+    if (paypalLoaded && paypalRef.current && window.paypal) {
+      renderPayPalButtons();
+    }
+  }, [paypalLoaded, formData, selectedBillingAddress, selectedShippingAddress]);
+
+  const loadPayPalScript = () => {
+    // Check if PayPal script is already loaded
+    if (window.paypal) {
+      setPaypalLoaded(true);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD&intent=authorize`;
+    script.addEventListener('load', () => setPaypalLoaded(true));
+    script.addEventListener('error', () => setError('Failed to load PayPal SDK'));
+    document.body.appendChild(script);
+  };
 
   const loadSystemAddresses = async () => {
     const userId = authService.getUserId();
@@ -129,186 +174,287 @@ const CheckoutForm: React.FC<{
     return systemAddresses.find(addr => addr.addressId?.toString() === addressId) || null;
   };
 
-  const handleSubmit = async (event: React.FormEvent) => {
-    event.preventDefault();
-    
-    if (!stripe || !elements) {
-      setError('Stripe has not loaded yet. Please try again.');
-      return;
+  const validateForm = (): boolean => {
+    if (!useSystemAddress) {
+      const requiredFields = [
+        'billingFirstName', 'billingLastName', 'billingEmail',
+        'billingAddressLine1', 'billingCity', 'billingStateProvince', 'billingPostalCode'
+      ];
+
+      if (!formData.sameAsBilling) {
+        requiredFields.push(
+          'shippingFirstName', 'shippingLastName', 'shippingAddressLine1',
+          'shippingCity', 'shippingStateProvince', 'shippingPostalCode'
+        );
+      }
+
+      for (const field of requiredFields) {
+        if (!formData[field as keyof CheckoutFormData]) {
+          setError(`Please fill in all required fields`);
+          return false;
+        }
+      }
     }
 
-    setLoading(true);
-    setError('');
+    if (useSystemAddress && (!selectedBillingAddress || !selectedShippingAddress)) {
+      setError('Please select billing and shipping addresses');
+      return false;
+    }
 
-    try {
-      // Create order first
-      const orderCreation: CustomerOrderRequest = {
-        orderItems: cartItems.map(item => ({
-          productId: item.productId,
-          quantity: item.quantity,
-          unitPrice: item.unitPrice,
-          specialInstructions: '',
-          giftMessage: '',
-          giftWrapRequired: false
-        })),
-        totalAmount: total,
-        customerEmail: formData.billingEmail,
-        useSystemAddress: useSystemAddress,
-        orderNumber: '',
-        customerId: authService.getUserId(),
-        customerPhone: useSystemAddress ? '' : formData.billingPhone,
-        
-        // Billing address
-        billingFirstName: useSystemAddress ? 
-          getSelectedAddress(selectedBillingAddress)?.contactName || '' : 
-          formData.billingFirstName,
-        billingLastName: useSystemAddress ? 
-          getSelectedAddress(selectedBillingAddress)?.contactName || '' : 
-          formData.billingLastName,
-        billingCompany: useSystemAddress ? 
-          getSelectedAddress(selectedBillingAddress)?.contactName || '' : 
-          formData.billingCompany,
-        billingAddressLine1: useSystemAddress ? 
-          getSelectedAddress(selectedBillingAddress)?.addressLine1 || '' : 
-          formData.billingAddressLine1,
-        billingAddressLine2: useSystemAddress ? 
-          getSelectedAddress(selectedBillingAddress)?.addressLine2 || '' : 
-          formData.billingAddressLine2,
-        billingCity: useSystemAddress ? 
-          getSelectedAddress(selectedBillingAddress)?.city || '' : 
-          formData.billingCity,
-        billingStateProvince: useSystemAddress ? 
-          getSelectedAddress(selectedBillingAddress)?.stateProvince || '' : 
-          formData.billingStateProvince,
-        billingPostalCode: useSystemAddress ? 
-          getSelectedAddress(selectedBillingAddress)?.postalCode || '' : 
-          formData.billingPostalCode,
-        billingCountryCode: useSystemAddress ? 
-          getSelectedAddress(selectedBillingAddress)?.country || 'US' : 
-          formData.billingCountryCode,
-        
-        // Shipping address
-        shippingFirstName: useSystemAddress ? 
-          getSelectedAddress(selectedShippingAddress)?.contactName || '' : 
-          (formData.sameAsBilling ? formData.billingFirstName : formData.shippingFirstName),
-        shippingLastName: useSystemAddress ? 
-          getSelectedAddress(selectedShippingAddress)?.contactName || '' : 
-          (formData.sameAsBilling ? formData.billingLastName : formData.shippingLastName),
-        shippingCompany: useSystemAddress ? 
-          getSelectedAddress(selectedShippingAddress)?.contactName || '' : 
-          (formData.sameAsBilling ? formData.billingCompany : formData.shippingCompany),
-        shippingAddressLine1: useSystemAddress ? 
-          getSelectedAddress(selectedShippingAddress)?.addressLine1 || '' : 
-          (formData.sameAsBilling ? formData.billingAddressLine1 : formData.shippingAddressLine1),
-        shippingAddressLine2: useSystemAddress ? 
-          getSelectedAddress(selectedShippingAddress)?.addressLine2 || '' : 
-          (formData.sameAsBilling ? formData.billingAddressLine2 : formData.shippingAddressLine2),
-        shippingCity: useSystemAddress ? 
-          getSelectedAddress(selectedShippingAddress)?.city || '' : 
-          (formData.sameAsBilling ? formData.billingCity : formData.shippingCity),
-        shippingStateProvince: useSystemAddress ? 
-          getSelectedAddress(selectedShippingAddress)?.stateProvince || '' : 
-          (formData.sameAsBilling ? formData.billingStateProvince : formData.shippingStateProvince),
-        shippingPostalCode: useSystemAddress ? 
-          getSelectedAddress(selectedShippingAddress)?.postalCode || '' : 
-          (formData.sameAsBilling ? formData.billingPostalCode : formData.shippingPostalCode),
-        shippingCountryCode: useSystemAddress ? 
-          getSelectedAddress(selectedShippingAddress)?.country || 'US' : 
-          (formData.sameAsBilling ? formData.billingCountryCode : formData.shippingCountryCode),
-        
-        subTotal: total,
-        taxAmount: 0,
-        shippingAmount: 0,
-        discountAmount: 0,
-        currency: 'USD',
-        isTouristOrder: false,
-        touristCountry: '',
-        requiresPhytosanitaryCertificate: false,
-        customerNotes: '',
-        adminNotes: '',
-        requiredDate: null
-      };
+    return true;
+  };
 
-      // Create order
-      const orderResponse = await apiService.post<IAPIResponse<OrderDetails>>(
-        'Orders/CustomerCreatesOrder', 
-        orderCreation
-      );
+  const createInternalOrder = async (): Promise<string> => {
+    const orderCreation: CustomerOrderRequest = {
+      orderItems: cartItems.map(item => ({
+        productId: item.productId,
+        quantity: item.quantity,
+        unitPrice: item.unitPrice,
+        specialInstructions: '',
+        giftMessage: '',
+        giftWrapRequired: false
+      })),
+      totalAmount: total,
+      customerEmail: formData.billingEmail,
+      useSystemAddress: useSystemAddress,
+      orderNumber: '',
+      customerId: authService.getUserId(),
+      customerPhone: useSystemAddress ? '' : formData.billingPhone,
+      
+      // Billing address
+      billingFirstName: useSystemAddress ? 
+        getSelectedAddress(selectedBillingAddress)?.contactName || '' : 
+        formData.billingFirstName,
+      billingLastName: useSystemAddress ? 
+        getSelectedAddress(selectedBillingAddress)?.contactName || '' : 
+        formData.billingLastName,
+      billingCompany: useSystemAddress ? 
+        getSelectedAddress(selectedBillingAddress)?.contactName || '' : 
+        formData.billingCompany,
+      billingAddressLine1: useSystemAddress ? 
+        getSelectedAddress(selectedBillingAddress)?.addressLine1 || '' : 
+        formData.billingAddressLine1,
+      billingAddressLine2: useSystemAddress ? 
+        getSelectedAddress(selectedBillingAddress)?.addressLine2 || '' : 
+        formData.billingAddressLine2,
+      billingCity: useSystemAddress ? 
+        getSelectedAddress(selectedBillingAddress)?.city || '' : 
+        formData.billingCity,
+      billingStateProvince: useSystemAddress ? 
+        getSelectedAddress(selectedBillingAddress)?.stateProvince || '' : 
+        formData.billingStateProvince,
+      billingPostalCode: useSystemAddress ? 
+        getSelectedAddress(selectedBillingAddress)?.postalCode || '' : 
+        formData.billingPostalCode,
+      billingCountryCode: useSystemAddress ? 
+        getSelectedAddress(selectedBillingAddress)?.country || 'US' : 
+        formData.billingCountryCode,
+      
+      // Shipping address
+      shippingFirstName: useSystemAddress ? 
+        getSelectedAddress(selectedShippingAddress)?.contactName || '' : 
+        (formData.sameAsBilling ? formData.billingFirstName : formData.shippingFirstName),
+      shippingLastName: useSystemAddress ? 
+        getSelectedAddress(selectedShippingAddress)?.contactName || '' : 
+        (formData.sameAsBilling ? formData.billingLastName : formData.shippingLastName),
+      shippingCompany: useSystemAddress ? 
+        getSelectedAddress(selectedShippingAddress)?.contactName || '' : 
+        (formData.sameAsBilling ? formData.billingCompany : formData.shippingCompany),
+      shippingAddressLine1: useSystemAddress ? 
+        getSelectedAddress(selectedShippingAddress)?.addressLine1 || '' : 
+        (formData.sameAsBilling ? formData.billingAddressLine1 : formData.shippingAddressLine1),
+      shippingAddressLine2: useSystemAddress ? 
+        getSelectedAddress(selectedShippingAddress)?.addressLine2 || '' : 
+        (formData.sameAsBilling ? formData.billingAddressLine2 : formData.shippingAddressLine2),
+      shippingCity: useSystemAddress ? 
+        getSelectedAddress(selectedShippingAddress)?.city || '' : 
+        (formData.sameAsBilling ? formData.billingCity : formData.shippingCity),
+      shippingStateProvince: useSystemAddress ? 
+        getSelectedAddress(selectedShippingAddress)?.stateProvince || '' : 
+        (formData.sameAsBilling ? formData.billingStateProvince : formData.shippingStateProvince),
+      shippingPostalCode: useSystemAddress ? 
+        getSelectedAddress(selectedShippingAddress)?.postalCode || '' : 
+        (formData.sameAsBilling ? formData.billingPostalCode : formData.shippingPostalCode),
+      shippingCountryCode: useSystemAddress ? 
+        getSelectedAddress(selectedShippingAddress)?.country || 'US' : 
+        (formData.sameAsBilling ? formData.billingCountryCode : formData.shippingCountryCode),
+      
+      subTotal: total,
+      taxAmount: 0,
+      shippingAmount: 0,
+      discountAmount: 0,
+      currency: 'USD',
+      isTouristOrder: false,
+      touristCountry: '',
+      requiresPhytosanitaryCertificate: false,
+      customerNotes: '',
+      adminNotes: '',
+      requiredDate: null
+    };
 
-      if (!orderResponse || !orderResponse.isSuccessful || !orderResponse.payload) {
-        throw new Error(orderResponse?.remark || 'Failed to create order');
-      }
+    const orderResponse = await apiService.post<IAPIResponse<OrderDetails>>(
+      'Orders/CustomerCreatesOrder', 
+      orderCreation
+    );
 
-      // Create payment intent
-      const paymentIntentResponse = await apiService.post<IAPIResponse<{ clientSecret: string }>>(
-        'Payments/create-payment-intent',
+    if (!orderResponse || !orderResponse.isSuccessful || !orderResponse.payload) {
+      throw new Error(orderResponse?.remark || 'Failed to create order');
+    }
+
+    setOrderNumber(orderResponse.payload.orderNumber);
+    return orderResponse.payload.orderNumber;
+  };
+
+  const createPayPalOrderRequest = (orderNumber: string) => {
+    return {
+      orderNumber: orderNumber,
+      purchaseUnits: [
         {
-          amount: Math.round(total * 100),
-          currency: 'usd',
-          orderNumber: orderResponse.payload.orderNumber,
-          customerEmail: formData.billingEmail
-        }
-      );
-
-      if (!paymentIntentResponse || !paymentIntentResponse.isSuccessful || !paymentIntentResponse.payload) {
-        throw new Error('Failed to create payment intent');
-      }
-
-      // Confirm payment with Stripe
-      const cardElement = elements.getElement(CardElement);
-      if (!cardElement) {
-        throw new Error('Card element not found');
-      }
-
-      const { error: stripeError, paymentIntent } = await stripe.confirmCardPayment(
-        paymentIntentResponse.payload.clientSecret,
-        {
-          payment_method: {
-            card: cardElement,
-            billing_details: {
-              name: `${formData.billingFirstName} ${formData.billingLastName}`,
-              email: formData.billingEmail,
-              phone: formData.billingPhone,
-              address: {
-                line1: formData.billingAddressLine1,
-                line2: formData.billingAddressLine2,
-                city: formData.billingCity,
-                state: formData.billingStateProvince,
-                postal_code: formData.billingPostalCode,
-                country: formData.billingCountryCode,
-              },
-            },
+          amount: {
+            currencyCode: 'USD',
+            value: total.toFixed(2)
           },
+          items: cartItems.map(item => ({
+            name: item.productName || `Product ${item.productId}`,
+            quantity: item.quantity.toString(),
+            unitAmount: {
+              currencyCode: 'USD',
+              value: item.unitPrice.toFixed(2)
+            }
+          }))
         }
-      );
+      ]
+    };
+  };
+  const getTotalPrice = () => {
+    return cartItems.reduce((total, item) => total + (item.unitPrice * item.quantity), 0);
+  };
+  const renderPayPalButtons = () => {
+    if (!window.paypal || !paypalRef.current) return;
 
-      if (stripeError) {
-        throw new Error(stripeError.message || 'Payment failed');
-      }
+    // Clear previous buttons
+    paypalRef.current.innerHTML = '';
 
-      if (paymentIntent?.status === 'succeeded') {
-        // Clear cart and redirect to success page
-        cartService.clearCartCache();
-        navigate('/order-success', {
-          state: {
-            orderNumber: orderResponse.payload.orderNumber,
-            paymentIntentId: paymentIntent.id
+    window.paypal.Buttons({
+      createOrder: async () => {
+        console.log('PayPal createOrder called');
+        try {
+          setLoading(true);
+          setError('');
+          
+          if (!validateForm()) {
+            console.log('Form validation failed');
+            setLoading(false);
+            return Promise.reject(new Error('Form validation failed'));
           }
-        });
-      } else {
-        throw new Error('Payment was not completed successfully');
-      }
 
-    } catch (error: any) {
-      console.error('Payment error:', error);
-      setError(error.message || 'Payment failed. Please try again.');
-    } finally {
-      setLoading(false);
-    }
+          console.log('Creating internal order...');
+          const orderNum = await createInternalOrder();
+          console.log('Internal order created:', orderNum);
+          
+          // Create PayPal order via your backend
+          console.log('Creating PayPal order via backend...');
+          const paypalOrderRequest : PayPalOrder = {
+            intent: 'AUTHORIZE', 
+            orderNumber: orderNum,
+            purchaseUnits: [{
+                reference_id: `PU-${Date.now()}`,
+                description: 'Purchase from Things From Africa Store',
+                custom_id: orderNum,
+                soft_descriptor: 'ThingsFromAfricaStore',
+                amount: {
+                    currency_code: 'USD',
+                    value: getTotalPrice().toFixed(2)
+                },
+                items: cartItems.map(item => ({
+                    name: item.productName,
+                    quantity: item.quantity.toString(),
+                    unit_amount: {
+                        currency_code: 'USD',
+                        value: item.unitPrice.toFixed(2)
+                    },
+                    description: item.productDescription || item.productName,
+                    sku: item.sku || `SKU-${item.productId}`,
+                    category: 'PHYSICAL_GOODS'
+                }))
+            }]
+        };
+        
+          
+          const response = await apiService.post<IAPIResponse<PayPalOrderResult>>(
+            'PayPal/create-order',
+            paypalOrderRequest
+          );
+
+          console.log('PayPal order response:', response);
+
+          if (!response || !response.isSuccessful || !response.payload?.orderId) {
+            throw new Error(response?.remark || 'Failed to create PayPal order - no order ID returned');
+          }
+
+          setLoading(false);
+          console.log('PayPal order ID:', response.payload.orderId);
+          return response.payload.orderId;
+        } catch (error: any) {
+          console.error('PayPal createOrder error:', error);
+          setError(error.message || 'Failed to create order');
+          setLoading(false);
+          return Promise.reject(error);
+        }
+      },
+      
+      onApprove: async (data: any) => {
+        try {
+          setLoading(true);
+          console.log('PayPal onApprove called with data:', data);
+          
+          // Capture the payment via your backend
+          const response = await apiService.post<IAPIResponse<CaptureOrderResponse>>(
+            'PayPal/capture-order',
+            {
+              payPalOrderId: data.orderID,
+              payerID: data.payerID
+            }
+          );
+
+          if (!response || !response.isSuccessful) {
+            throw new Error(response?.remark || 'Failed to capture payment');
+          }
+
+          console.log('Payment captured successfully:', response.payload);
+
+          // Clear cart and redirect to success page
+          cartService.clearCartCache();
+          navigate('/order-success', {
+            state: {
+              orderNumber: orderNumber,
+              paypalOrderId: data.orderID,
+              captureDetails: response.payload
+            }
+          });
+        } catch (error: any) {
+          console.error('Payment capture error:', error);
+          setError(error.message || 'Payment capture failed');
+          setLoading(false);
+        }
+      },
+      
+      onError: (err: any) => {
+        console.error('PayPal error:', err);
+        setError('PayPal payment failed. Please try again.');
+        setLoading(false);
+      },
+      
+      onCancel: () => {
+        console.log('PayPal payment cancelled');
+        setError('Payment was cancelled');
+        setLoading(false);
+      }
+    }).render(paypalRef.current);
   };
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
+    <div className="space-y-6">
       {error && (
         <Alert className="border-red-200 bg-red-50">
           <AlertCircle className="h-4 w-4 text-red-600" />
@@ -543,37 +689,6 @@ const CheckoutForm: React.FC<{
         </CardContent>
       </Card>
 
-      {/* Payment Information */}
-      <Card>
-        <CardHeader>
-          <CardTitle className="flex items-center">
-            <CreditCard className="h-5 w-5 mr-2" />
-            Payment Information
-          </CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="p-4 border border-gray-300 rounded-md">
-            <CardElement
-              options={{
-                style: {
-                  base: {
-                    fontSize: '16px',
-                    color: '#424770',
-                    '::placeholder': {
-                      color: '#aab7c4',
-                    },
-                  },
-                },
-              }}
-            />
-          </div>
-          <div className="mt-4 flex items-center text-sm text-gray-600">
-            <Lock className="h-4 w-4 mr-2" />
-            Your payment information is secure and encrypted
-          </div>
-        </CardContent>
-      </Card>
-
       {/* Order Summary */}
       <Card>
         <CardHeader>
@@ -602,20 +717,41 @@ const CheckoutForm: React.FC<{
         </CardContent>
       </Card>
 
-      {/* Submit Button */}
-      <Button
-        type="submit"
-        className="w-full bg-black hover:bg-gray-800"
-        disabled={!stripe || loading}
-      >
-        {loading ? (
-          <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white mr-2"></div>
-        ) : (
-          <CreditCard className="h-4 w-4 mr-2" />
-        )}
-        {loading ? 'Processing Payment...' : `Pay $${total.toFixed(2)}`}
-      </Button>
-    </form>
+      {/* PayPal Payment Section */}
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center">
+            <CreditCard className="h-5 w-5 mr-2" />
+            Payment Information
+          </CardTitle>
+        </CardHeader>
+        <CardContent>
+          {loading && (
+            <div className="flex items-center justify-center py-8">
+              <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+              <span className="ml-2">Processing...</span>
+            </div>
+          )}
+          
+          <div 
+            ref={paypalRef}
+            className={loading ? 'opacity-50 pointer-events-none' : ''}
+          ></div>
+          
+          {!paypalLoaded && (
+            <div className="text-center py-4">
+              <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto mb-2"></div>
+              <p className="text-gray-600">Loading PayPal...</p>
+            </div>
+          )}
+          
+          <div className="mt-4 flex items-center text-sm text-gray-600">
+            <Lock className="h-4 w-4 mr-2" />
+            Your payment is secure and protected by PayPal
+          </div>
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 
@@ -641,17 +777,15 @@ const Checkout: React.FC = () => {
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-4xl font-bold text-black mb-2">Checkout</h1>
-          <p className="text-gray-700">Complete your purchase</p>
+          <p className="text-gray-700">Complete your purchase with PayPal</p>
         </div>
 
-        <Elements stripe={stripePromise}>
-          <CheckoutForm
-            cartItems={cartItems}
-            total={total}
-            totalItems={totalItems}
-            useSystemAddress={useSystemAddress}
-          />
-        </Elements>
+        <CheckoutForm
+          cartItems={cartItems}
+          total={total}
+          totalItems={totalItems}
+          useSystemAddress={useSystemAddress}
+        />
       </main>
       
       <Footer />
