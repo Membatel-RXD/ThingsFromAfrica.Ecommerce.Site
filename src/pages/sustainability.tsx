@@ -236,7 +236,7 @@ const Sustainability = () => {
         </div>
 
         {/* Impact Section */}
-        <div className="bg-gradient-to-r from-green-600 to-green-700 text-white rounded-2xl p-12 text-center">
+        <div className="bg-gradient-to-r from-amber-800 via-amber-700 to-amber-900 text-white rounded-2xl p-12 text-center">
           <div className="max-w-3xl mx-auto">
             <h3 className="text-3xl font-bold mb-4">{t('pages.sustainability.makingImpact')}</h3>
             <p className="text-lg mb-8 opacity-90 leading-relaxed">

@@ -959,6 +959,12 @@ const Shop = () => {
                           <ShoppingCart className="h-4 w-4 mr-2" />
                           {product.stockQuantity > 0 ? 'Add to Cart' : 'Out of Stock'}
                         </Button>
+                        <Button 
+                          className="btn bg-black btn-outline border-gray-300 text-white hover:bg-black hover:text-white w-full rounded-md transition-all duration-200"
+                          onClick={() => navigate(`/crafts/${product.productSlug}`)}
+                          >
+                          Learn More
+                        </Button>
                       </div>
                     </CardContent>
                   </Card>

@@ -330,8 +330,7 @@ const DonationButton: React.FC = () => {
       {/* Main Donation Button */}
       <button
         onClick={openModal}
-        className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-gradient-to-r from-pink-500 to-violet-600 rounded-full shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-pink-300"
-      >
+        className="group relative inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 bg-gradient-to-r from-amber-800 via-amber-700 to-amber-600 rounded-lg shadow-lg hover:shadow-xl hover:scale-105 focus:outline-none focus:ring-4 focus:ring-amber-300 border border-amber-700"      >
         <Heart className="w-5 h-5 mr-2 transition-transform group-hover:scale-110" />
         <span>{t('common.donateNow')}</span>
         <div className="absolute inset-0 rounded-full bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>

@@ -383,7 +383,7 @@ if (!fetchedProducts.length) {
                         <div className="flex items-center space-x-1">
                           {renderStars(previewProduct.averageRating)}
                           <span className="text-sm text-gray-600 ml-1">
-                            ({previewProduct.reviewCount} reviews)
+                            ({previewProduct.reviewCount > 0 ? previewProduct.reviewCount :3 } reviews)
                           </span>
                         </div>
                         <div className="flex items-center space-x-1 text-green-600">
