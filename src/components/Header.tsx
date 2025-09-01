@@ -107,7 +107,6 @@ const Header: React.FC = () => {
 
   const handleSearchSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    console.log('Search query:', searchQuery);
   };
 
   const handleCategorySelect = (category: ProductCategory) => {

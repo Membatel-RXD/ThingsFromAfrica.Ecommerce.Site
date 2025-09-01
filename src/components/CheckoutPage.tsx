@@ -337,23 +337,23 @@ const CheckoutForm: React.FC<{
 
     window.paypal.Buttons({
       createOrder: async () => {
-        console.log('PayPal createOrder called');
+        
         try {
           setLoading(true);
           setError('');
           
           if (!validateForm()) {
-            console.log('Form validation failed');
+            
             setLoading(false);
             return Promise.reject(new Error('Form validation failed'));
           }
 
-          console.log('Creating internal order...');
+          
           const orderNum = await createInternalOrder();
-          console.log('Internal order created:', orderNum);
+          
           
           // Create PayPal order via your backend
-          console.log('Creating PayPal order via backend...');
+          
           const paypalOrderRequest : PayPalOrder = {
             intent: 'AUTHORIZE', 
             orderNumber: orderNum,
@@ -386,14 +386,14 @@ const CheckoutForm: React.FC<{
             paypalOrderRequest
           );
 
-          console.log('PayPal order response:', response);
+          
 
           if (!response || !response.isSuccessful || !response.payload?.orderId) {
             throw new Error(response?.remark || 'Failed to create PayPal order - no order ID returned');
           }
 
           setLoading(false);
-          console.log('PayPal order ID:', response.payload.orderId);
+          
           return response.payload.orderId;
         } catch (error: any) {
           console.error('PayPal createOrder error:', error);
@@ -406,7 +406,7 @@ const CheckoutForm: React.FC<{
       onApprove: async (data: any) => {
         try {
           setLoading(true);
-          console.log('PayPal onApprove called with data:', data);
+          
           
           // Capture the payment via your backend
           const response = await apiService.post<IAPIResponse<CaptureOrderResponse>>(
@@ -421,7 +421,7 @@ const CheckoutForm: React.FC<{
             throw new Error(response?.remark || 'Failed to capture payment');
           }
 
-          console.log('Payment captured successfully:', response.payload);
+          
 
           // Clear cart and redirect to success page
           cartService.clearCartCache();
@@ -446,7 +446,7 @@ const CheckoutForm: React.FC<{
       },
       
       onCancel: () => {
-        console.log('PayPal payment cancelled');
+        
         setError('Payment was cancelled');
         setLoading(false);
       }

@@ -92,7 +92,6 @@ const GiftIdeasPage: React.FC = () => {
 
     // Simulate API call
     setTimeout(() => {
-      console.log('Gift Request Submitted:', mockApiResponse);
       setSubmitted(true);
       setLoading(false);
     }, 2000);

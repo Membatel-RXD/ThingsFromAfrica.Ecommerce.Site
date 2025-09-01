@@ -534,7 +534,6 @@ const ProfileSettings: React.FC = () => {
         setShowSuccessPopup(true);
 
 
-      console.log(securitySettings.twoFactorEnabled, JSON.stringify(response.payload));
         // ✅ If 2FA was just enabled, display QR code or secret
         if (!securitySettings.twoFactorEnabled && response.payload) {
           const { qrCodeUri, secret } = response.payload as { qrCodeUri: string, secret: string };

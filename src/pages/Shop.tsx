@@ -119,8 +119,8 @@ const Shop = () => {
     const categoryParam = urlParams.get('category');
     const categoryNameParam = urlParams.get('categoryName');
     
-    console.log("url parameter: " + categoryParam);
-    console.log("available categories:", productCategories);
+    
+    
     
     if (categoryParam && categoryParam !== 'all') {
       setSelectedCategory(categoryParam);
@@ -268,7 +268,7 @@ const Shop = () => {
         if (categoriesResult.status === 'fulfilled' && 
             categoriesResult.value.isSuccessful && 
             categoriesResult.value.payload) {
-          console.log('Loaded categories:', categoriesResult.value.payload);
+          
           setProductCategories(categoriesResult.value.payload);
         } else {
           console.error('Failed to load product categories:', categoriesResult);
@@ -426,9 +426,9 @@ const Shop = () => {
       return [];
     }
 
-    console.log('Filtering with categories:', productCategories);
-    console.log('Selected category:', selectedCategory);
-    console.log('Active category name:', activeCategoryName);
+    
+    
+    
 
     // Step 1: Start with all products
     let filtered = [...products];
@@ -440,9 +440,9 @@ const Shop = () => {
 
     // Step 3: Apply category filter
     if (selectedCategory !== 'all' && productCategories.length > 0) {
-      console.log('Applying category filter...');
+      
       filtered = filterByCategory(filtered, activeCategoryName, productCategories);
-      console.log('Filtered products after category filter:', filtered.length);
+      
     }
 
     // Step 4: Apply price range filter

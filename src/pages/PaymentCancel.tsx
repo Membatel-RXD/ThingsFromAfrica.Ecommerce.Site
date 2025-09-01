@@ -13,7 +13,7 @@ const PaymentCancel: React.FC = () => {
   useEffect(() => {
     const token = searchParams.get('token');
     if (token) {
-      console.log('Payment cancelled for PayPal order:', token);
+      console.log('Payment cancelled for PayPal order:');
     }
   }, [searchParams]);
 

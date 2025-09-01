@@ -1,12 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Heart, DollarSign, Users, Target, X, Check, CreditCard, AlertCircle } from 'lucide-react';
-import { loadStripe, StripeElementsOptions } from '@stripe/stripe-js';
-import {
-  Elements,
-  CardElement,
-  useStripe,
-  useElements
-} from '@stripe/react-stripe-js';
 import { apiService, IAPIResponse } from '@/lib/api';
 import { useTranslation } from 'react-i18next';
 
@@ -21,30 +14,32 @@ interface FormErrors {
   [key: string]: string;
 }
 
-interface PaymentIntentResponse {
-  clientSecret: string;
-  paymentIntentId: string;
+interface CreatePaymentIntentResponse {
+  donationId: string;
+  orderId: string; // This should now be the PayPal order ID
+  approvalUrl: string;
+  clientToken?: string;
 }
 
-// Replace with your actual Stripe publishable key
-const stripePromise = loadStripe(import.meta.env.VITE_STRIPE_PUBLISHABLE_KEY || 'pk_test_51Rs04G6RY5uQXuiJ081BEKW9xs4WBNHi2qODCCNsQJ5WCH38hwbI4vXanKKCotJSmqsRekMnJUSa8krYolN404cA00IqeBR3Oj');
+interface ExecutePaymentResponse {
+  message: string;
+  donationId: string;
+  transactionId: string;
+}
 
-const CARD_ELEMENT_OPTIONS = {
-  style: {
-    base: {
-      fontSize: '16px',
-      color: '#424770',
-      '::placeholder': {
-        color: '#aab7c4',
-      },
-      padding: '16px',
-    },
-    invalid: {
-      color: '#9e2146',
-    },
-  },
-  hidePostalCode: false,
-};
+// PayPal configuration
+const PAYPAL_CLIENT_ID = import.meta.env.VITE_PAYPAL_CLIENT_ID;
+
+// PayPal types for client SDK
+declare global {
+  interface Window {
+    paypal?: {
+      Buttons: (config: any) => {
+        render: (selector: string) => Promise<void>;
+      };
+    };
+  }
+}
 
 interface DonationFormProps {
   onSuccess: () => void;
@@ -62,152 +57,240 @@ const DonationForm: React.FC<DonationFormProps> = ({
   donationType,
 }) => {
   const { t } = useTranslation();
-  const stripe = useStripe();
-  const elements = useElements();
+  const paypalRef = useRef<HTMLDivElement>(null);
   const [isProcessing, setIsProcessing] = useState(false);
-  const [cardComplete, setCardComplete] = useState(false);
-  const [cardError, setCardError] = useState<string>('');
+  const [paypalLoaded, setPaypalLoaded] = useState(false);
+  const [currentDonationId, setCurrentDonationId] = useState<string>('');
+  const [currentPaymentId, setCurrentPaymentId] = useState<string>('');
 
-  const handleCardChange = (event: any) => {
-    setCardComplete(event.complete);
-    setCardError(event.error ? event.error.message : '');
+  useEffect(() => {
+    loadPayPalScript();
+  }, []);
+
+  useEffect(() => {
+    if (paypalLoaded && paypalRef.current && window.paypal) {
+      renderPayPalButtons();
+    }
+  }, [paypalLoaded, donorInfo, selectedAmount, donationType]);
+
+  const loadPayPalScript = () => {
+    // Check if PayPal script is already loaded
+    if (window.paypal) {
+      setPaypalLoaded(true);
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.src = `https://www.paypal.com/sdk/js?client-id=${PAYPAL_CLIENT_ID}&currency=USD&intent=capture`;
+    script.addEventListener('load', () => setPaypalLoaded(true));
+    script.addEventListener('error', () => onError('Failed to load PayPal SDK'));
+    document.body.appendChild(script);
   };
 
-  const createPaymentIntent = async (): Promise<PaymentIntentResponse> => {
-    const response = await apiService.post<IAPIResponse<PaymentIntentResponse>>('Donations/create-payment-intent', {
-      amount: Math.round(selectedAmount * 100), // Convert to cents
-      currency: 'usd',
-      donationType: donationType === 'one-time' ? 1 : 2,
+  const createPaymentIntent = async (): Promise<CreatePaymentIntentResponse> => {
+    const response = await apiService.post<IAPIResponse<CreatePaymentIntentResponse>>('Donations/create-payment-intent', {
+      amount: selectedAmount,
+      currency: 'USD',
+      donationType: donationType === 'one-time' ? 1 : 2, // Assuming 1 = one-time, 2 = monthly
       donorEmail: donorInfo.email,
       donorName: donorInfo.name,
       donorPhone: donorInfo.phone,
-      paymentMethod: 1 // Stripe
     });
 
-    if (!response.isSuccessful) {
+    if (!response.isSuccessful || !response.payload) {
       throw new Error(response.remark || 'Failed to create payment intent');
     }
 
     return response.payload;
   };
 
-  const confirmPayment = async (paymentIntentId: string): Promise<void> => {
-    const response = await apiService.post<IAPIResponse<object>>('Donations/confirm-payment', {
-      paymentIntentId,
-      donorInfo
-    });
 
-    if (!response.isSuccessful) {
-      throw new Error(response.remark || 'Payment confirmation failed');
-    }
-  };
 
-  const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
-    if (!stripe || !elements) {
-      onError('Stripe has not loaded yet. Please try again.');
-      return;
-    }
-
-    const cardElement = elements.getElement(CardElement);
-    if (!cardElement) {
-      onError('Card element not found');
-      return;
-    }
-
-    if (!cardComplete) {
-      onError('Please complete your card information');
-      return;
-    }
-
-    setIsProcessing(true);
-
-    try {
-      // Step 1: Create payment intent on backend
-      const { clientSecret, paymentIntentId } = await createPaymentIntent();
-
-      console.log("Client secret is this: "+clientSecret);
-
-      // Step 2: Confirm payment with Stripe
-      const { error, paymentIntent } = await stripe.confirmCardPayment(clientSecret, {
-        payment_method: {
-          card: cardElement,
-          billing_details: {
-            name: donorInfo.name,
-            email: donorInfo.email,
-            phone: donorInfo.phone,
-          },
-        },
-      });
-
-      if (error) {
-        onError(error.message || 'Payment failed. Please try again.');
-        setIsProcessing(false);
-        return;
-      }
-
-      if (paymentIntent?.status === 'succeeded') {
-        // Step 3: Confirm payment on backend (optional - webhooks are better)
+  const renderPayPalButtons = () => {
+    if (!window.paypal || !paypalRef.current) return;
+  
+    // Clear previous buttons
+    paypalRef.current.innerHTML = '';
+  
+    window.paypal.Buttons({
+      createOrder: async () => {
         try {
-          await confirmPayment(paymentIntent.id);
-        } catch (confirmError) {
-          // Payment succeeded with Stripe, but backend confirmation failed
-          // This is not critical as webhooks will handle it
-          console.warn('Backend confirmation failed:', confirmError);
+          setIsProcessing(true);
+          
+          
+          const paymentIntent = await createPaymentIntent();
+          
+          
+          setCurrentDonationId(paymentIntent.donationId);
+          // Store the order ID instead of payment ID
+          setCurrentPaymentId(paymentIntent.orderId); // This should now be the order ID from PayPal
+          
+          setIsProcessing(false);
+          
+          // Return the order ID directly
+          return paymentIntent.orderId;
+        } catch (error) {
+          console.error('PayPal createOrder error:', error);
+          onError(error.message || 'Failed to create payment intent');
+          setIsProcessing(false);
+          return Promise.reject(error);
         }
-
+      },
+      
+      onApprove: async (data) => {
+        try {
+          setIsProcessing(true);
+          
+          
+          // Execute the payment via your backend
+          // Use data.orderID which is the same as the order ID we returned from createOrder
+          const response = await apiService.post<IAPIResponse<ExecutePaymentResponse>>('Donations/capture-order', {
+            orderId: data.orderID // This is the PayPal order ID
+          });
+           
+          if (!response || !response.isSuccessful) {
+            throw new Error(response?.remark || 'Failed to capture payment');
+          }
+           
+          
+          setIsProcessing(false);
+          onSuccess();
+        } catch (error) {
+          console.error('Payment capture error:', error);
+          onError(error.message || 'Payment capture failed');
+          setIsProcessing(false);
+        }
+      },
+      
+      onError: (err) => {
+        console.error('PayPal error:', err);
+        onError('PayPal payment failed. Please try again.');
         setIsProcessing(false);
-        onSuccess();
-      } else {
-        onError('Payment was not successful. Please try again.');
+      },
+      
+      onCancel: () => {
+        
+        onError('Payment was cancelled');
         setIsProcessing(false);
       }
-    } catch (error) {
-      setIsProcessing(false);
-      onError(error instanceof Error ? error.message : 'Payment failed. Please try again.');
-    }
+    }).render(paypalRef.current);
   };
 
   return (
-    <div onSubmit={handleSubmit}>
-      {/* Card Element */}
+    <div className="space-y-4">
+      {/* PayPal Payment Section */}
       <div className="mb-6">
         <label className="block text-sm font-medium text-gray-700 mb-3">
           <CreditCard className="w-4 h-4 inline mr-2" />
           {t('common.paymentInformation')}
         </label>
-        <div className={`p-4 border-2 rounded-lg transition-colors ${
-          cardError ? 'border-red-300' : cardComplete ? 'border-green-300' : 'border-gray-200 focus-within:border-pink-500'
-        }`}>
-          <CardElement
-            options={CARD_ELEMENT_OPTIONS}
-            onChange={handleCardChange}
-          />
-        </div>
-        {cardError && (
-          <p className="mt-2 text-sm text-red-600 flex items-center">
-            <AlertCircle className="w-4 h-4 mr-1" />
-            {cardError}
-          </p>
-        )}
-      </div>
-
-      {/* Submit Button */}
-      <button
-        onClick={handleSubmit}
-        disabled={!stripe || !cardComplete || isProcessing}
-        className="w-full bg-gradient-to-r from-pink-500 to-violet-600 text-white font-semibold py-4 px-6 rounded-lg hover:shadow-lg transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
-      >
-        {isProcessing ? (
-          <div className="flex items-center justify-center">
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-            {t('common.processingPayment')}
+        
+        {isProcessing && (
+          <div className="flex items-center justify-center py-8">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+            <span className="ml-2">{t('common.processingPayment')}</span>
           </div>
-        ) : (
-          `${t('common.donate')} $${selectedAmount} ${donationType === 'monthly' ? t('common.monthly') : t('common.now')}`
         )}
-      </button>
+        
+        <div 
+          ref={paypalRef}
+          className={`min-h-[50px] ${isProcessing ? 'opacity-50 pointer-events-none' : ''}`}
+        ></div>
+        
+        {!paypalLoaded && (
+          <div className="text-center py-4">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-blue-600 mx-auto mb-2"></div>
+            <p className="text-gray-600">Loading PayPal...</p>
+          </div>
+        )}
+        
+        <div className="mt-4 flex items-center text-sm text-gray-600">
+          <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+          Your donation is secure and protected by PayPal
+        </div>
+      </div>
+    </div>
+  );
+};
+
+// Subscription Form Component for Monthly Donations
+interface SubscriptionFormProps {
+  onSuccess: () => void;
+  onError: (error: string) => void;
+  donorInfo: DonorInfo;
+  selectedAmount: number;
+}
+
+const SubscriptionForm: React.FC<SubscriptionFormProps> = ({
+  onSuccess,
+  onError,
+  donorInfo,
+  selectedAmount,
+}) => {
+  const { t } = useTranslation();
+  const [isProcessing, setIsProcessing] = useState(false);
+
+  const createSubscription = async () => {
+    try {
+      setIsProcessing(true);
+      
+      const response = await apiService.post<IAPIResponse<{ subscriptionId: string; approvalUrl: string; donationId: string }>>(
+        'Donations/create-subscription',
+        {
+          amount: selectedAmount,
+          currency: 'USD',
+          donorEmail: donorInfo.email,
+          donorName: donorInfo.name,
+          donorPhone: donorInfo.phone,
+        }
+      );
+
+      if (!response.isSuccessful || !response.payload) {
+        throw new Error(response.remark || 'Failed to create subscription');
+      }
+
+      // Redirect to PayPal approval URL
+      window.location.href = response.payload.approvalUrl;
+      
+    } catch (error: any) {
+      console.error('Subscription creation error:', error);
+      onError(error.message || 'Failed to create monthly donation subscription');
+      setIsProcessing(false);
+    }
+  };
+
+  return (
+    <div className="space-y-4">
+      <div className="mb-6">
+        <label className="block text-sm font-medium text-gray-700 mb-3">
+          <CreditCard className="w-4 h-4 inline mr-2" />
+          Monthly Subscription Setup
+        </label>
+        
+        <button
+          onClick={createSubscription}
+          disabled={isProcessing}
+          className={`w-full py-3 px-4 rounded-lg font-medium transition-all ${
+            isProcessing
+              ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+              : 'bg-blue-600 hover:bg-blue-700 text-white'
+          }`}
+        >
+          {isProcessing ? (
+            <div className="flex items-center justify-center">
+              <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
+              Setting up subscription...
+            </div>
+          ) : (
+            `Set up $${selectedAmount}/month donation`
+          )}
+        </button>
+        
+        <div className="mt-4 flex items-center text-sm text-gray-600">
+          <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+          Monthly donations can be cancelled at any time
+        </div>
+      </div>
     </div>
   );
 };
@@ -267,27 +350,6 @@ const DonationButton: React.FC = () => {
     }
   };
 
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {};
-    
-    if (!donorInfo.email) {
-      newErrors.email = 'Email is required';
-    } else if (!/\S+@\S+\.\S+/.test(donorInfo.email)) {
-      newErrors.email = 'Email is invalid';
-    }
-    
-    if (!donorInfo.name.trim()) {
-      newErrors.name = 'Name is required';
-    }
-    
-    if (selectedAmount <= 0) {
-      newErrors.amount = 'Please select a valid amount';
-    }
-    
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
-
   const handlePaymentSuccess = () => {
     setIsDonated(true);
     
@@ -317,12 +379,6 @@ const DonationButton: React.FC = () => {
     setIsModalOpen(false);
     setIsDonated(false);
     setErrors({});
-  };
-
-  const elementsOptions: StripeElementsOptions = {
-    appearance: {
-      theme: 'stripe',
-    },
   };
 
   return (
@@ -491,17 +547,26 @@ const DonationButton: React.FC = () => {
                     </div>
                   </div>
 
-                  {/* Stripe Payment Form - Only show when form is valid */}
+                  {/* Payment Form - Show appropriate form based on donation type */}
                   {isFormValid && (
-                    <Elements stripe={stripePromise} options={elementsOptions}>
-                      <DonationForm
-                        onSuccess={handlePaymentSuccess}
-                        onError={handlePaymentError}
-                        donorInfo={donorInfo}
-                        selectedAmount={selectedAmount}
-                        donationType={donationType}
-                      />
-                    </Elements>
+                    <>
+                      {donationType === 'one-time' ? (
+                        <DonationForm
+                          onSuccess={handlePaymentSuccess}
+                          onError={handlePaymentError}
+                          donorInfo={donorInfo}
+                          selectedAmount={selectedAmount}
+                          donationType={donationType}
+                        />
+                      ) : (
+                        <SubscriptionForm
+                          onSuccess={handlePaymentSuccess}
+                          onError={handlePaymentError}
+                          donorInfo={donorInfo}
+                          selectedAmount={selectedAmount}
+                        />
+                      )}
+                    </>
                   )}
 
                   {/* Trust Indicators */}
@@ -522,7 +587,7 @@ const DonationButton: React.FC = () => {
                 /* Success State */
                 <div className="text-center py-8">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Check className="w-8 h-8 text-green-600" />
+                    <Check className="w-8 w-8 text-green-600" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-900 mb-2">{t('common.thankYou')}</h3>
                   <p className="text-gray-600 mb-4">

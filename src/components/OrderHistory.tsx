@@ -322,7 +322,6 @@ const OrderHistory: React.FC = () => {
       // Simulate reorder process
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      console.log('Reordering items from order:', orderNumber);
       alert(`Items from order ${orderNumber} have been added to your cart!`);
     } catch (error) {
       console.error('Failed to reorder items:', error);

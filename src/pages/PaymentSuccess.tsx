@@ -35,7 +35,6 @@ const PaymentSuccess: React.FC = () => {
   useEffect(() => {
     const capturePayment = async () => {
       if (captureCalled.current) {
-        console.log('Capture already called, skipping...');
         return;
       }
       captureCalled.current = true; // 👈 Set lock
