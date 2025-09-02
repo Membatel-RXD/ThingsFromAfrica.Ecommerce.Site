@@ -358,7 +358,7 @@ const DonationButton: React.FC = () => {
       setIsDonated(false);
       setIsModalOpen(false);
       resetForm();
-    }, 3000);
+    }, 6000);
   };
 
   const handlePaymentError = (error: string) => {
