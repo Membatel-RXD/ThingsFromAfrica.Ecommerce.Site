@@ -245,7 +245,7 @@ const EmailVerificationInfo: React.FC = () => {
 
             {verificationStatus === 'pending' && (
               <Link
-                to="/register"
+                to="/signup"
                 className="block text-center text-sm text-gray-600 hover:text-black"
               >
                 Need to register again?
