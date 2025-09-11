@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { authService } from '../services/authService';
 import { useTranslation } from 'react-i18next';
-import { ChevronDown, Globe, Loader2, ArrowLeft } from 'lucide-react';
+import { ChevronDown, Globe, Loader2, ArrowLeft, Home } from 'lucide-react';
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState('');
@@ -128,6 +128,17 @@ const Login: React.FC = () => {
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8 relative">
+      {/* Home Button */}
+      <div className="absolute top-4 left-4">
+        <Link
+          to="/"
+          className="flex items-center space-x-2 px-3 py-2 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-black focus:border-black transition-colors"
+        >
+          <Home className="h-4 w-4 text-gray-600" />
+          <span className="text-sm text-gray-700">Home</span>
+        </Link>
+      </div>
+
       {/* Language Selector */}
       <div className="absolute top-4 right-4">
         <div className="relative">
