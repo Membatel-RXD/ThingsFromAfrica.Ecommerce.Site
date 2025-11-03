@@ -272,7 +272,7 @@ const Header: React.FC = () => {
             {/* <LocationWidget/> */}
 
             {/* Search Bar */}
-            <div className="flex-1 max-w-2xl mx-4">
+            <div className="hidden md:block flex-1 max-w-2xl mx-4">
               <div className="flex rounded-lg overflow-hidden shadow-lg hover:shadow-craft-hover transition-all duration-300 hover:-translate-y-0.5">
                 <div className="flex-1">
                   <input
@@ -447,7 +447,7 @@ const Header: React.FC = () => {
                         e.preventDefault();
                         handleCategoryClick(category);
                       }}
-                      className="block w-full text-left px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg"
+                      className="block w-full text-left px-4 py-3 text-sm text-craft-brown hover:bg-craft-tan/10 transition-colors duration-200 first:rounded-t-lg last:rounded-b-lg capitalize"
                     >
                       {category.categoryName}
                     </a>

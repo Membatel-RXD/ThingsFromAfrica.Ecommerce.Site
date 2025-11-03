@@ -164,11 +164,11 @@ if (!fetchedProducts.length) {
           </p>
         </div>
         
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-8">
+        <div className="flex flex-col gap-3 md:grid md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 lg:gap-8">
           {fetchedProducts.map((craft) => (
             <div 
               key={craft.productId} 
-              className="card bg-gradient-to-br from-white to-gray-50 shadow-2xl hover:shadow-3xl transition-all duration-300 border border-gray-200 group relative overflow-hidden"
+              className="card bg-gradient-to-br from-white to-gray-50 shadow-2xl hover:shadow-3xl transition-all duration-300 border border-gray-200 group relative overflow-hidden w-full"
               onMouseEnter={() => setHoveredCard(craft.productId)}
               onMouseLeave={() => setHoveredCard(null)}
             >
@@ -233,7 +233,7 @@ if (!fetchedProducts.length) {
                   <button 
                     className="btn btn-outline border-gray-300 text-black hover:bg-black hover:text-white w-full rounded-md transition-all duration-200"
                     onClick={() => navigate(`/crafts/${craft.productSlug}`)}
-                    >
+                  >
                     Learn More
                   </button>
                 </div>
@@ -241,7 +241,6 @@ if (!fetchedProducts.length) {
             </div>
           ))}
         </div>
-        
         <div className="text-center mt-10">
           <Link to="/crafts" className="btn btn-lg btn-outline border-black text-black hover:bg-black hover:text-white mb-10 px-8">
             View All Crafts

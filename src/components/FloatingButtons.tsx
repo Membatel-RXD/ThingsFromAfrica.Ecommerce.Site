@@ -1,6 +1,7 @@
 import React from 'react';
 import { ArrowUp, ShoppingCart, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import { WEBSITE_DETAILS } from '@/constants/website_details';
 
 const FloatingButtons: React.FC = () => {
   const scrollToTop = () => {
@@ -11,7 +12,7 @@ const FloatingButtons: React.FC = () => {
   };
 
   const openWhatsApp = () => {
-    window.open('https://wa.me/265888123456?text=Hello%20Things%20From%20Africa,%20I%20have%20a%20question%20about%20your%20products.', '_blank');
+    window.open(`https://wa.me/${WEBSITE_DETAILS.phone}?text=Hello%20Things%20From%20Africa,%20I%20have%20a%20question%20about%20your%20products.`, '_blank');
   };
 
   return (
