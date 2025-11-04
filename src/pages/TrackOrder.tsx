@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Package, Truck, CheckCircle, Clock, AlertCircle, Search, MapPin, Calendar, Phone, Mail, Globe, Shield, ArrowRight, Sparkles } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 import AppLayout from '@/components/AppLayout';
+import { WEBSITE_DETAILS } from '@/constants/website_details';
 
 interface ShipmentStatus {
   status: 'processing' | 'shipped' | 'in-transit' | 'delivered' | 'not-found';
@@ -373,18 +374,18 @@ const TrackOrderPage: React.FC = () => {
                 {t('pages.trackOrder.needHelpDesc')}
               </p>
               <div className="space-y-2">
-                <div className="flex items-center">
-                  <Mail className="h-4 w-4 text-gray-500 mr-2" />
-                  <a href="mailto:support@thingsfromafrica.com" className="text-blue-600 hover:underline text-sm">
-                    support@thingsfromafrica.com
-                  </a>
-                </div>
-                <div className="flex items-center">
-                  <Phone className="h-4 w-4 text-gray-500 mr-2" />
-                  <a href="tel:+265888123456" className="text-blue-600 hover:underline text-sm">
-                    +265 888 123 456
-                  </a>
-                </div>
+              <div className="flex items-center">
+                <Mail className="h-4 w-4 text-gray-500 mr-2" />
+                <a href={`mailto:${WEBSITE_DETAILS.email}`} className="text-blue-600 hover:underline text-sm">
+                  {WEBSITE_DETAILS.email}
+                </a>
+              </div>
+              <div className="flex items-center">
+                <Phone className="h-4 w-4 text-gray-500 mr-2" />
+                <a href={`tel:${WEBSITE_DETAILS.phone}`} className="text-blue-600 hover:underline text-sm">
+                  {WEBSITE_DETAILS.phone}
+                </a>
+              </div>
               </div>
             </div>
           </div>
